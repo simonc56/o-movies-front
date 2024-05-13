@@ -1,0 +1,12 @@
+@use '../../styles/variables' as v;
+
+.searchbar-form {
+  & input {
+    background-color: v.$color-links;
+    font-size: 1.3rem;
+    border: none;
+    padding: 0.3rem 1rem;
+    border-radius: 1.2rem;
+    color: v.$color-bg;
+  }
+}
