@@ -57,5 +57,6 @@ module.exports = {
           'Use typed hooks `useAppDispatch` and `useAppSelector` instead.',
       },
     ],
+    'react/no-unescaped-entities': 0,
   },
 };
