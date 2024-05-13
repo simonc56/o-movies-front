@@ -1,0 +1,45 @@
+@use '../../styles/variables' as v;
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 5rem;
+  padding: 1rem;
+
+  & .title {
+    margin-right: 1rem;
+    font-size: 1.5rem;
+    padding-bottom: 0.1rem;
+    display: flex;
+    gap: 0.7rem;
+    color: v.$color-primary;
+  }
+  background-color: v.$color-bg;
+
+  & nav {
+    width: 35rem;
+  }
+  & ul {
+    display: flex;
+    justify-content: space-between;
+  }
+  & img {
+    margin-left: 0.5rem;
+    height: 3.8rem;
+    margin: 0.2rem;
+  }
+}
+
+.links {
+  list-style: none;
+  font-size: 1.3rem;
+  display: flex;
+  gap: 1.6rem;
+  margin-inline: 0.5rem;
+  color: v.$color-links;
+  & a {
+    text-decoration: none;
+    color: inherit;
+  }
+}
