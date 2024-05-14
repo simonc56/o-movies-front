@@ -1,55 +1,85 @@
 @use '../../styles/variables' as v;
 
+
 .signup-section {
-  height: 100vh;
-  width: 150vh;
+  height: 70vh;
+  width: 75vh;
   margin: 0 auto;
   display: flex;
-  background-color: rgb(241, 237, 237);  
+  background-color: rgb(231, 225, 225);
   justify-content: center;
-  
+  border-radius: 3rem;
+  box-shadow: 0 0 5px rgb(192, 192, 192);
 }
 
 .form-title {
+  font-size: 4vh;
   align-items: center;
   text-align: center;
   color: v.$color-bg;
-  margin-top: 4rem;
-  display:flex 
+  margin-top: 2rem;
+  display: flex;
+  margin-bottom: 3rem;
 }
 
-input {
-    margin-bottom: 1rem; /* Espace en bas de chaque champ */
-    padding: 0.5rem; /* Espacement interne */
-    font-size: 1em;
-    border: 0.1em solid #ccc;
-    border-radius: 0.8rem;
-    color:black;
-    display:flex;   
-    justify-content: center;
-    width: 20rem;    
-  }
+.input-container {
+  margin-bottom: 0.5rem;
+  
+}
 
-  
-  
+.signup-input {
+  display: flex;
+  padding: 0.5rem; /*espace interne*/
+  font-size: 1em;
+  border: 0.1em solid #ccc;
+  border-radius: 0.8rem;
+  color: v.$color-bg;
+  display: flex;
+  justify-content: center;
+  width: 20rem;
+  margin: auto;
+  cursor: pointer;
+  &:focus {
+    background-color: v.$color-primary;
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.birthday-label {
+  display: flex;
+  justify-content: center;
+  color: v.$color-bg;
+}
+
 
 button {
-  padding: 10px; /* Espacement interne */
-  font-size: 1em; 
+  color: v.$color-bg;
+  padding: 10px;
   background-color: v.$color-primary;
-  border: none; 
-  border-radius: 0.8rem; 
+  border: none;
+  border-radius: 0.8rem;
   cursor: pointer;
-  margin-left: auto; /* Centre le bouton horizontalement */
-  margin-right: auto;
-  text-align: center;
-  align-items: center;
-}
-
-button:hover {
-    background-color: v.$color-primary;
-}
-
-#birthday {
-    width: 65%;
+  width: 10rem;
+  &:hover {
+    background-color: v.$color-bg;;
+    color: v.$color-primary;
   }
+}
+  
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem; 
+  font-size: 2vh;
+  font-weight: 500;
+}
+
+
+.error-message{
+  color: red;
+  text-align: center;
+  margin-top: 0.2rem;
+
+}
