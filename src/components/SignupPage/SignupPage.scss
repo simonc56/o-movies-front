@@ -1,0 +1,10 @@
+@use '../../styles/variables' as v;
+
+.form-title{       
+    text-align: center;   
+    color: v.$color-primary;
+}
+
+.onSubmit {
+    color:red
+}
