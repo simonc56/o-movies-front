@@ -1,4 +1,5 @@
 {
+  "tmdb_id": "19061",
   "original_title": "Dune 2",
   "year": 2024,
   "rating": 8.5,
@@ -17,7 +18,12 @@
     }
   ],
   "runtime": 125,
+  "tagline": "An adventure as big as life itself.",
   "poster_path": "https://media.themoviedb.org/t/p/w300_and_h450_bestv2/iRNbRAIGQQr5diGnjpwJFm0dgt4.jpg",
-  "overview": "Paul Atréides se rallie à Chani et aux Fremen tout en préparant sa revanche contre ceux qui ont détruit sa famille.",
-  "release_date": "2024-03-10"
+  "overview": "Paul Atréides se rallie à Chani et aux Fremen tout en préparant sa revanche contre ceux qui ont détruit sa famille. Alors qu'il doit faire un choix entre l'amour de sa vie et le destin de la galaxie, il devra néanmoins tout faire pour empêcher un terrible futur que lui seul peut prédire.",
+  "release_date": "2024-03-10",
+  "reviews": [
+    { "id": 1, "content": "Grandiose, j'ai adoré !" },
+    { "id": 2, "content": "Villeneuve a fait le film parfait. Du grand cinéma." }
+  ]
 }
