@@ -10,6 +10,7 @@ module.exports = {
     'airbnb/hooks',
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
+    'prettier',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -30,10 +31,7 @@ module.exports = {
   plugins: ['react', '@typescript-eslint'],
   rules: {
     'react/react-in-jsx-scope': 0,
-    'react/jsx-filename-extension': [
-      2,
-      { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
-    ],
+    'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
     'import/extensions': [
       'error',
       'ignorePackages',
@@ -53,8 +51,7 @@ module.exports = {
       {
         name: 'react-redux',
         importNames: ['useSelector', 'useDispatch'],
-        message:
-          'Use typed hooks `useAppDispatch` and `useAppSelector` instead.',
+        message: 'Use typed hooks `useAppDispatch` and `useAppSelector` instead.',
       },
     ],
     'react/no-unescaped-entities': 0,
