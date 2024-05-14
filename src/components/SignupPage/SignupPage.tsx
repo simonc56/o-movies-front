@@ -17,6 +17,7 @@ function SignupPage() {
   };
 
   return (
+    <section className="signup-section">
     <form onSubmit={handleSubmit}>
       <h1 className="form-title">FORMULAIRE D'INSCRIPTION A O'MOVIES</h1>
       <input
@@ -56,6 +57,7 @@ function SignupPage() {
       />
       <button type="submit">S'inscrire</button>
     </form>
+    </section>
   );
 };
 

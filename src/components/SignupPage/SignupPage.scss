@@ -1,10 +1,44 @@
 @use '../../styles/variables' as v;
 
-.form-title{       
-    text-align: center;   
-    color: v.$color-primary;
+.signup-section {
+  height: 100vh;
+  width: 150vh;
+  margin: 0 auto;
+  display: flex;
+  background-color: rgb(241, 237, 237);  
+  justify-content: center;
 }
 
-.onSubmit {
-    color:red
+.form-title {
+  align-items: center;
+  text-align: center;
+  color: v.$color-bg;
+  margin-top: 4rem;
+  display:flex 
+}
+
+input {
+  margin-bottom: 1rem; /* Espace en bas de chaque champ */
+  padding: 0.5rem; /* Espacement interne */
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 0.8rem;
+  color:black;
+  display:flex;   
+  justify-content: center;
+}
+
+
+button {
+  padding: 10px; /* Espacement interne */
+  font-size: 1em; /* Taille de la police */
+  background-color: v.$color-primary;
+  color: #000000; 
+  border: none; 
+  border-radius: 0.8rem; 
+  cursor: pointer; 
+}
+
+button:hover {
+    background-color: v.$color-primary;
 }
