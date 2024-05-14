@@ -7,10 +7,10 @@ import './Header.scss';
 function Header() {
   return (
     <header className="header">
-      <div className="title">
+      <NavLink to="/" className="title">
         <img src={logo} alt="logo o'movies" />
         <h1>O'movies</h1>
-      </div>
+      </NavLink>
       <nav>
         <ul className="header-links links">
           <li>
