@@ -1,0 +1,14 @@
+@use '../../styles/variables' as v;
+
+.footer {
+  color: v.$color-links;
+  background-color: v.$color-bg;
+  text-align: center;
+  & .footer-link {
+    text-decoration: none;
+    color: inherit;
+    &:hover {
+      color: v.$color-primary;
+    }
+  }
+}
