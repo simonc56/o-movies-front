@@ -8,5 +8,8 @@
     padding: 0.3rem 1rem;
     border-radius: 1.2rem;
     color: v.$color-bg;
+    &:focus {
+      background-color: v.$color-primary;
+    }
   }
 }
