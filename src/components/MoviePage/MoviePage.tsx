@@ -5,7 +5,7 @@ function MoviePage() {
       <span>2024</span>
       <p>
         Paul Atréides se rallie à Chani et aux Fremen tout en préparant sa revanche contre ceux qui ont détruit sa
-        famille.{' '}
+        famille.
       </p>
     </div>
   );
