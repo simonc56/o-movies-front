@@ -1,5 +1,6 @@
 type MovieType = {
   tmdb_id: number;
+  title: string;
   original_title: string;
   year: number;
   rating: number;
@@ -7,8 +8,8 @@ type MovieType = {
   runtime: number;
   tagline: string;
   poster_path: string;
-  release_date: string;
   overview: string;
+  release_date: string;
   reviews: Review[];
 };
 

@@ -31,11 +31,26 @@ function MoviePage() {
           ))}
         </div>
         <div className="extra-infos">
-          <div>Date de sortie: 12 mars 2024</div>
-          <div>Réalisateur: Denis Villeneuve</div>
-          <div>Pays d'origine: USA</div>
-          <div>Langue d'origine: anglais</div>
-          <div>Budget: 70m$</div>
+          <div className="extra-infos--item">
+            <div className="extra-infos--name">Date de sortie</div>
+            <span className="extra-infos--value">12 mars 2024</span>
+          </div>
+          <div className="extra-infos--item">
+            <span className="extra-infos--name">Réalisateur</span>
+            <span className="extra-infos--value">Denis Villeneuve</span>
+          </div>
+          <div className="extra-infos--item">
+            <span className="extra-infos--name">Pays d'origine</span>
+            <span className="extra-infos--value">USA</span>
+          </div>
+          <div className="extra-infos--item">
+            <span className="extra-infos--name">Langue d'origine</span>
+            <span className="extra-infos--value">anglais</span>
+          </div>
+          <div className="extra-infos--item">
+            <span className="extra-infos--name">Budget</span>
+            <span className="extra-infos--value">70m$</span>
+          </div>
         </div>
         <div className="reviews">
           <h3>Commentaires utilisateurs</h3>
