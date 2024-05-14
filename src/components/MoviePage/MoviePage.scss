@@ -1,0 +1,33 @@
+@use '../../styles/variables' as v;
+
+.movie-page {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0.5rem 0.5rem auto;
+  & .infos {
+    font-size: 1.2rem;
+    & .year {
+      font-weight: 600;
+      color: v.$color-bg;
+      margin-right: 1rem;
+    }
+    & .rating {
+      height: 0.2rem;
+      & svg {
+        display: inline;
+        height: 1rem;
+        color: v.$color-primary;
+      }
+    }
+  }
+  .categories {
+    margin-top: 1rem;
+    & .category {
+      margin-right: 0.7rem;
+      padding: 0 0.6rem 0.2rem;
+      border-radius: 0.8rem;
+      color: v.$color-links;
+      background-color: v.$color-bg;
+    }
+  }
+}

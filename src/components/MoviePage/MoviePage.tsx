@@ -1,12 +1,31 @@
+import { FaStar } from 'react-icons/fa';
+import movieData from '../../../fakeData/oneMovieData.json';
+import './MoviePage.scss';
+
 function MoviePage() {
+  const movie = movieData as MovieType;
   return (
-    <div>
-      <h1>Dune 2</h1>
-      <span>2024</span>
-      <p>
-        Paul Atréides se rallie à Chani et aux Fremen tout en préparant sa revanche contre ceux qui ont détruit sa
-        famille.
-      </p>
+    <div className="movie-page">
+      <div className="poster-panel">
+        <img src={movie.poster_path} alt="poster du film" />
+      </div>
+      <div className="data-panel">
+        <h1>{movie.original_title}</h1>
+        <div className="infos">
+          <span className="year">{movie.year}</span>
+          <span className="rating">
+            <FaStar /> {movie.rating}
+          </span>
+        </div>
+        <p>{movie.overview}</p>
+        <div className="categories">
+          {movie.genres.map((genre: Genre) => (
+            <span className="category" key={genre.id}>
+              {genre.name}
+            </span>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
