@@ -3,6 +3,7 @@ type MovieType = {
   year: number;
   rating: number;
   genres: Genre[];
+  runtime: number;
   poster_path: string;
   overview: string;
 };

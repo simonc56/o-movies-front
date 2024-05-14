@@ -1,9 +1,11 @@
 import { FaStar } from 'react-icons/fa';
 import movieData from '../../../fakeData/oneMovieData.json';
+import runtimeToString from '../../utils/utils';
 import './MoviePage.scss';
 
 function MoviePage() {
   const movie = movieData as MovieType;
+
   return (
     <div className="movie-page">
       <div className="poster-panel">
@@ -16,6 +18,7 @@ function MoviePage() {
           <span className="rating">
             <FaStar /> {movie.rating}
           </span>
+          <span>{runtimeToString(movie.runtime)}</span>
         </div>
         <p>{movie.overview}</p>
         <div className="categories">
