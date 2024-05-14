@@ -4,6 +4,10 @@
   "original_title": "Dune 2",
   "year": 2024,
   "rating": 8.5,
+  "director": "Denis Villeneuve",
+  "country": "United States of America",
+  "language": "English",
+  "budget": 165000000,
   "genres": [
     {
       "id": 1,

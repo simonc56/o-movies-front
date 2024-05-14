@@ -1,11 +1,14 @@
 import { FaCommentAlt, FaStar } from 'react-icons/fa';
 
 import movieData from '../../../fakeData/oneMovieData.json';
-import runtimeToString from '../../utils/utils';
+import MovieType, { Genre, Review } from '../../@types/MovieType';
+import { budgetToMillions, isoDateToFrench, runtimeToString } from '../../utils/utils';
 import './MoviePage.scss';
 
 function MoviePage() {
   const movie = movieData as MovieType;
+  const budget = budgetToMillions(movie.budget);
+  const frenchDate = isoDateToFrench(movie.release_date);
 
   return (
     <div className="movie-page">
@@ -33,23 +36,23 @@ function MoviePage() {
         <div className="extra-infos">
           <div className="extra-infos--item">
             <div className="extra-infos--name">Date de sortie</div>
-            <span className="extra-infos--value">12 mars 2024</span>
+            <span className="extra-infos--value">{frenchDate}</span>
           </div>
           <div className="extra-infos--item">
             <span className="extra-infos--name">Réalisateur</span>
-            <span className="extra-infos--value">Denis Villeneuve</span>
+            <span className="extra-infos--value">{movie.director}</span>
           </div>
           <div className="extra-infos--item">
             <span className="extra-infos--name">Pays d'origine</span>
-            <span className="extra-infos--value">USA</span>
+            <span className="extra-infos--value">{movie.country}</span>
           </div>
           <div className="extra-infos--item">
             <span className="extra-infos--name">Langue d'origine</span>
-            <span className="extra-infos--value">anglais</span>
+            <span className="extra-infos--value">{movie.language}</span>
           </div>
           <div className="extra-infos--item">
             <span className="extra-infos--name">Budget</span>
-            <span className="extra-infos--value">70m$</span>
+            <span className="extra-infos--value">{budget}</span>
           </div>
         </div>
         <div className="reviews">

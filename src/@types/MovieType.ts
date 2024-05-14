@@ -10,15 +10,21 @@ type MovieType = {
   poster_path: string;
   overview: string;
   release_date: string;
+  director: string;
+  country: string;
+  language: string;
+  budget: number;
   reviews: Review[];
 };
 
-type Genre = {
+export type Genre = {
   id: number;
-  name: String;
+  name: string;
 };
 
-type Review = {
+export type Review = {
   id: number;
   content: string;
 };
+
+export default MovieType;
