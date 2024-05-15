@@ -46,7 +46,7 @@ function ConnectionPage() {
         </Link>
       </div>
       <div>
-        <Link to="/reinitiate password" className="password-link">
+        <Link to="/reinitiate-password" className="password-link">
           éinitialiser le mot de passe.
         </Link>
       </div>
