@@ -10,53 +10,48 @@ function ConnectionPage() {
 
   const emailChange = (event: ChangeEvent<HTMLInputElement>) => {
     setEmailValue(event.target.value);
-  }
+  };
   const passwordChange = (event: ChangeEvent<HTMLInputElement>) => {
     setPasswordValue(event.target.value);
-  }
+  };
 
   const stayConnectedChange = (event: ChangeEvent<HTMLInputElement>) => {
     setStayConnected(event.target.checked);
-  }
+  };
 
-  return (<div>
-    <h1>Connection</h1>
-    <p>
-      Connectez-vous pour accéder à votre espace personnel.
-    </p>
-<form action="">
-    <div className="mail">
-      <input type="email" placeholder="marie@hotmail.com" value={emailValue} onChange={emailChange} />
-    </div>
-    <div className="mdp">
-      <input type="password" placeholder="Mot de passe" value={passwordValue} onChange={passwordChange} />
-    </div>
+  return (
     <div>
-      <input type="checkbox" id="checkbox" 
-      checked={stayConnected}
-        onChange={stayConnectedChange}/>
-      <label htmlFor="checkbox">Rester connecté </label>
-    </div>
-    </form>
-    <button className="boutton-connexion"
-    type="submit">
-    </button>
+      <h1>Connection</h1>
+      <p>Connectez-vous pour accéder à votre espace personnel.</p>
+      <form action="">
+        <div className="mail">
+          <input type="email" placeholder="marie@hotmail.com" value={emailValue} onChange={emailChange} />
+        </div>
+        <div className="mdp">
+          <input type="password" placeholder="Mot de passe" value={passwordValue} onChange={passwordChange} />
+        </div>
+        <div>
+          <input type="checkbox" id="checkbox" checked={stayConnected} onChange={stayConnectedChange} />
+          <label htmlFor="checkbox">Rester connecté </label>
+        </div>
+      </form>
+      <button className="boutton-connexion" type="submit">
+        Connection
+      </button>
 
       <div>
-      <p>Vous n'avez pas encore de compte?</p>
+        <p>Vous n'avez pas encore de compte?</p>
         <Link to="/sign-up" className="signup-link">
-           Créer un compte
+          Créer un compte
         </Link>
       </div>
       <div>
         <Link to="/reinitiate password" className="password-link">
-           Réinitialiser le mot de passe.
+          éinitialiser le mot de passe.
         </Link>
       </div>
     </div>
-  )
+  );
 }
 
-
 export default ConnectionPage;
-
