@@ -5,85 +5,113 @@
   max-width: 900px;
   flex-grow: 1;
   display: flex;
+  flex-direction: column;
   gap: 2rem;
   margin: 0 auto auto;
   padding: 3rem 4rem;
-  & h2 {
-    font-size: 2.5rem;
-    line-height: 2rem;
-    margin-bottom: 0.6rem;
-  }
-  & .tagline {
-    font-weight: 100;
-  }
-  & h3 {
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-  }
-  & .poster-panel {
-    flex-shrink: 1;
-    // width: 50%;
-  }
-  & .data-panel {
-    max-width: 400px;
-    flex-shrink: 0;
-    & .extra-infos {
-      color: #999;
+  & .section-movie-infos {
+    display: flex;
+    gap: 2rem;
+    & h2 {
+      font-size: 2.5rem;
+      line-height: 2rem;
+      margin-bottom: 0.6rem;
+    }
+    & .tagline {
       font-weight: 100;
-      & .extra-infos--name {
-        display: inline-block;
-        width: 140px;
-      }
-      & .extra-infos--value {
-        text-align: left;
-        color: #444;
-        font-weight: 500;
-      }
     }
-  }
-  & .infos {
-    font-size: 1.2rem;
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
-    & .year {
-      font-weight: 600;
-      color: v.$color-bg;
-      margin-right: 1rem;
+
+    & .poster-panel {
+      flex-shrink: 1;
+      // width: 50%;
     }
-    & .rating {
-      height: 0.2rem;
-      margin-right: 1rem;
-      & svg {
-        display: inline;
-        height: 1rem;
-        color: v.$color-primary;
+    & .data-panel {
+      max-width: 400px;
+      flex-shrink: 0;
+      & .extra-infos {
+        color: #666;
+        font-weight: 100;
+        & .extra-infos--name {
+          display: inline-block;
+          width: 140px;
+        }
+        & .extra-infos--value {
+          text-align: left;
+          color: #444;
+          font-weight: 500;
+        }
       }
     }
-  }
-  .categories {
-    margin-top: 2rem;
-    & .category {
-      margin-right: 0.7rem;
-      padding: 0 0.6rem 0.2rem;
-      border-radius: 0.8rem;
-      color: v.$color-links;
-      background-color: v.$color-bg;
+    & .infos {
+      font-size: 1.2rem;
+      margin-top: 1.5rem;
+      margin-bottom: 1.5rem;
+      & .year {
+        font-weight: 600;
+        color: v.$color-bg;
+        margin-right: 1rem;
+      }
+      & .rating {
+        height: 0.2rem;
+        margin-right: 1rem;
+        & svg {
+          display: inline;
+          height: 1rem;
+          color: v.$color-primary;
+        }
+      }
+    }
+    .categories {
+      margin-top: 2rem;
+      & .category {
+        margin-right: 0.7rem;
+        padding: 0 0.6rem 0.2rem;
+        border-radius: 0.8rem;
+        color: v.$color-links;
+        background-color: v.$color-bg;
+      }
+    }
+    & .extra-infos {
+      margin-top: 2rem;
     }
   }
-  & .extra-infos {
-    margin-top: 2rem;
-  }
-  & .reviews {
-    margin-top: 3rem;
-    & .review {
-      & svg {
-        display: inline;
-        position: relative;
-        top: 0.2rem;
-        margin-right: 0.5rem;
-        color: v.$color-primary;
+  & .section-additional-infos {
+    & .cast {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      & .actor {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        & img {
+          height: 8rem;
+          width: auto;
+          border-radius: 4rem;
+        }
+        & .actor--character {
+          color: #666;
+          font-style: italic;
+          font-weight: 100;
+        }
       }
+    }
+    & h3 {
+      font-size: 1.2rem;
       margin-bottom: 1rem;
+    }
+    & .reviews {
+      margin-top: 3rem;
+      & .review {
+        & svg {
+          display: inline;
+          position: relative;
+          top: 0.2rem;
+          margin-right: 0.5rem;
+          color: v.$color-primary;
+        }
+        margin-bottom: 1rem;
+      }
     }
   }
 }

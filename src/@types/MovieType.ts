@@ -15,6 +15,7 @@ type MovieType = {
   language: string;
   budget: number;
   reviews: Review[];
+  cast: Actor[];
 };
 
 export type Genre = {
@@ -25,6 +26,13 @@ export type Genre = {
 export type Review = {
   id: number;
   content: string;
+};
+
+export type Actor = {
+  id: number;
+  name: string;
+  character: string;
+  profile_path: string;
 };
 
 export default MovieType;
