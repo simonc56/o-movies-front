@@ -34,19 +34,19 @@ function ConnectionPage() {
           <input type="checkbox" id="checkbox" checked={stayConnected} onChange={stayConnectedChange} />
           <label htmlFor="checkbox">Rester connecté </label>
         </div>
-        <button className="boutton-connexion" type="submit">
+        <button className="button-connexion" type="submit">
           Connection
         </button>
       </form>
 
       <div>
         <p>Vous n'avez pas encore de compte?</p>
-        <Link to="/sign-up" className="signup-link">
+        <Link to="/inscription" className="signup-link">
           Créer un compte
         </Link>
       </div>
       <div>
-        <Link to="/reinitiate-password" className="password-link">
+        <Link to="/réinitialisation-mdp" className="password-link">
           éinitialiser le mot de passe.
         </Link>
       </div>
