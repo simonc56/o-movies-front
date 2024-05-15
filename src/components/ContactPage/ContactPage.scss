@@ -1,28 +1,26 @@
 @use '../../styles/variables' as v;
 
-
 .contact-section {
-    height: 70vh;
-    width: 75vh;
-    margin: 0 auto;
-    display: flex;
-    background-color: rgb(231, 225, 225);
-    justify-content: center;
-    border-radius: 3rem;
-    box-shadow: 0 0 5px rgb(192, 192, 192);
-  }
+  height: 70vh;
+  width: 75vh;
+  margin: 0 auto;
+  display: flex;
+  background-color: rgb(231, 225, 225);
+  justify-content: center;
+  border-radius: 3rem;
+  box-shadow: 0 0 5px rgb(192, 192, 192);
+}
 
-.contact-title{
+.contact-title {
   font-size: 4vh;
-  align-items: center;
-  text-align: center;
+  align-items: center;  
   color: v.$color-bg;
-  margin-top: 2rem;
   display: flex;
   margin-bottom: 3rem;
-}  
+  justify-content: center;
+}
 
-.form-group{
+.nom-contact, .email-contact, .message-contact{
   display: flex;
   padding: 0.5rem; /*espace interne*/
   font-size: 1em;
@@ -33,37 +31,54 @@
   justify-content: center;
   width: 20rem;
   margin: auto;
-  cursor: pointer;  
-}
-
-  
-  .birthday-label {
-    display: flex;
-    justify-content: center;
-    color: v.$color-bg;
-  }
-
-.ContactPage{
-    display:flex;
-    flex-direction: column;
-    color:red;
-    margin: auto;
-}
-
-
-.contact-button {
-    color: v.$color-bg;
-    padding: 10px;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+  &:focus {
     background-color: v.$color-primary;
-    border: none;
-    border-radius: 0.8rem;
-    cursor: pointer;
-    width: 10rem;
-    margin-top: 2rem; 
-    font-size: 2vh;
-    font-weight: 500;
-    &:hover {
-      background-color: v.$color-bg;;
-      color: v.$color-primary;
-    }
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   }
+}
+
+.message-contact{
+  resize: none; /* Autorise le redimensionnement vertical */
+  max-height: 250px;
+  min-height: 200px;
+}
+
+
+.ContactPage {
+  display: flex;
+  flex-direction: column;
+  color: red;
+  margin: auto;
+}
+
+.info-contact{
+  color:v.$color-bg;
+  font-weight: 450;
+  margin-top: 2rem;
+}
+
+button {
+  color: v.$color-bg;
+  padding: 10px;
+  background-color: v.$color-primary;
+  border: none;
+  border-radius: 0.8rem;
+  cursor: pointer;
+  width: 10rem;
+  &:hover {
+    background-color: v.$color-bg;;
+    color: v.$color-primary;
+  }
+}
+  
+
+.button-container-contact{
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem; 
+  font-size: 2vh;
+  font-weight: 500;
+}
