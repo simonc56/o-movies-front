@@ -1,0 +1,69 @@
+@use '../../styles/variables' as v;
+
+
+.contact-section {
+    height: 70vh;
+    width: 75vh;
+    margin: 0 auto;
+    display: flex;
+    background-color: rgb(231, 225, 225);
+    justify-content: center;
+    border-radius: 3rem;
+    box-shadow: 0 0 5px rgb(192, 192, 192);
+  }
+
+.contact-title{
+  font-size: 4vh;
+  align-items: center;
+  text-align: center;
+  color: v.$color-bg;
+  margin-top: 2rem;
+  display: flex;
+  margin-bottom: 3rem;
+}  
+
+.form-group{
+  display: flex;
+  padding: 0.5rem; /*espace interne*/
+  font-size: 1em;
+  border: 0.1em solid #ccc;
+  border-radius: 0.8rem;
+  color: v.$color-bg;
+  display: flex;
+  justify-content: center;
+  width: 20rem;
+  margin: auto;
+  cursor: pointer;  
+}
+
+  
+  .birthday-label {
+    display: flex;
+    justify-content: center;
+    color: v.$color-bg;
+  }
+
+.ContactPage{
+    display:flex;
+    flex-direction: column;
+    color:red;
+    margin: auto;
+}
+
+
+.contact-button {
+    color: v.$color-bg;
+    padding: 10px;
+    background-color: v.$color-primary;
+    border: none;
+    border-radius: 0.8rem;
+    cursor: pointer;
+    width: 10rem;
+    margin-top: 2rem; 
+    font-size: 2vh;
+    font-weight: 500;
+    &:hover {
+      background-color: v.$color-bg;;
+      color: v.$color-primary;
+    }
+  }
