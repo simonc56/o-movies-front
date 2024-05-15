@@ -25,7 +25,7 @@ function ConnectionPage() {
       <p>Connectez-vous pour accéder à votre espace personnel.</p>
       <form action="">
         <div className="mail">
-          <input type="email" placeholder="marie@hotmail.com" value={emailValue} onChange={emailChange} />
+          <input type="email" placeholder="marie@hotmail.com" value={emailValue} onChange={emailChange} required />
         </div>
         <div className="mdp">
           <input type="password" placeholder="Mot de passe" value={passwordValue} onChange={passwordChange} />
@@ -34,10 +34,10 @@ function ConnectionPage() {
           <input type="checkbox" id="checkbox" checked={stayConnected} onChange={stayConnectedChange} />
           <label htmlFor="checkbox">Rester connecté </label>
         </div>
+        <button className="boutton-connexion" type="submit">
+          Connection
+        </button>
       </form>
-      <button className="boutton-connexion" type="submit">
-        Connection
-      </button>
 
       <div>
         <p>Vous n'avez pas encore de compte?</p>
