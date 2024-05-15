@@ -8,9 +8,11 @@
   flex-direction: column;
   gap: 2rem;
   margin: 0 auto auto;
-  padding: 3rem 4rem;
+  padding: 3rem;
   & .section-movie-infos {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 2rem;
     & h2 {
       font-size: 2.5rem;
@@ -23,11 +25,9 @@
 
     & .poster-panel {
       flex-shrink: 1;
-      // width: 50%;
     }
     & .data-panel {
       max-width: 400px;
-      flex-shrink: 0;
       & .extra-infos {
         color: #666;
         font-weight: 100;
@@ -63,8 +63,11 @@
     }
     .categories {
       margin-top: 2rem;
+      display: flex;
+      flex-wrap: wrap;
       & .category {
         margin-right: 0.7rem;
+        margin-bottom: 0.7rem;
         padding: 0 0.6rem 0.2rem;
         border-radius: 0.8rem;
         color: v.$color-links;
@@ -79,6 +82,7 @@
     & .cast {
       display: flex;
       justify-content: center;
+      flex-wrap: wrap;
       gap: 2rem;
       & .actor {
         display: flex;
@@ -111,6 +115,21 @@
           color: v.$color-primary;
         }
         margin-bottom: 1rem;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 844px) {
+  .movie-page {
+    & .data-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      & p,
+      .extra-infos {
+        text-align: left;
       }
     }
   }

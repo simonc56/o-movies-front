@@ -20,6 +20,10 @@
     {
       "id": 3,
       "name": "Fantastique"
+    },
+    {
+      "id": 4,
+      "name": "Science-Fiction"
     }
   ],
   "cast": [
