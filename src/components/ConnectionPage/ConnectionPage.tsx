@@ -46,8 +46,8 @@ function ConnectionPage() {
         </Link>
       </div>
       <div>
-        <Link to="/réinitialisation-mdp" className="password-link">
-          éinitialiser le mot de passe.
+        <Link to="/réinitialisation-email" className="password-link">
+          Réinitialiser le mot de passe.
         </Link>
       </div>
     </div>
