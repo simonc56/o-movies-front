@@ -4,6 +4,7 @@ import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import SignupPage from '../SignupPage/SignupPage';
 import MoviePage from '../MoviePage/MoviePage';
+import ConfirmPasswordPage from '../ConfirmPasswordPage/ConfirmPasswordPage';
 
 import './App.scss';
 
@@ -16,6 +17,7 @@ function App() {
         <Route path='/connexion' element={<ConnectionPage />}/>
         <Route path='/inscription' element={<SignupPage />}/>
         <Route path="/films/:id" element={<MoviePage />} />
+        <Route path='/réinitialisation-mot-de-passe' element={<ConfirmPasswordPage />} /> 
       </Routes>
       <Footer />
     </div>
