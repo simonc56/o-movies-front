@@ -1,15 +1,13 @@
-@use '../../styles/variables' as v;
-
 .searchbar-form {
   & input {
-    background-color: v.$color-links;
+    background-color: var(--color-links);
     font-size: 1.3rem;
     border: none;
     padding: 0.3rem 1rem;
     border-radius: 1.2rem;
-    color: v.$color-bg;
+    color: var(--color-bg);
     &:focus {
-      background-color: v.$color-primary;
+      background-color: var(--color-primary);
     }
   }
 }
