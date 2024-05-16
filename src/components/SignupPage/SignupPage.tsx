@@ -1,11 +1,12 @@
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
 import './SignupPage.scss';
 
 function SignupPage() {
+  const [lastname, setLastname] = useState ('');
   const [username, setUsername] = useState('');
   const [birthday, setBirthday] = useState('');
-  const [country, setCountry] = useState('');
-  const [city, setCity] = useState('');
+// const [country, setCountry] = useState('');   Nous avons décidé de mettre ces données en suspens pour le moment
+// const [city, setCity] = useState('');         Nous avons décidé de mettre ces données en suspens pour le moment
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -29,8 +30,18 @@ function SignupPage() {
         <div className="input-container"> 
           <input
             type="text"
-            className="signup-input signup-username"
+            className="signup-input signup-lastname"
             placeholder="Votre nom"
+            value={lastname}
+            onChange={(e) => setLastname(e.target.value)}
+            required
+          />
+        </div>
+        <div className="input-container"> 
+          <input
+            type="text"
+            className="signup-input signup-username"
+            placeholder="Votre prénom"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
@@ -47,7 +58,7 @@ function SignupPage() {
             required
           />
         </div>
-        <div className="input-container">
+      {/* <div className="input-container">
           <input 
             type="text" 
             className="signup-input signup-country"
@@ -56,7 +67,7 @@ function SignupPage() {
             onChange={(e) => setCountry(e.target.value)} 
             required 
           />
-        </div>
+  </div> 
         <div className="input-container"> 
           <input 
             type="text" 
@@ -66,7 +77,7 @@ function SignupPage() {
             onChange={(e) => setCity(e.target.value)} 
             required 
           />
-        </div>
+  </div> */}
         <div className="input-container">
           <input
             type="email"
