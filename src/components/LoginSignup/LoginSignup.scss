@@ -1,0 +1,15 @@
+.header-connexion-links {
+  list-style: none;
+  font-size: var(--font-size-md);
+  display: flex;
+  gap: 1.6rem;
+  margin-inline: 0.5rem;
+  color: var(--color-links);
+  & a {
+    text-decoration: none;
+    color: inherit;
+    &:hover {
+      color: var(--color-primary);
+    }
+  }
+}

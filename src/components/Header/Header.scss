@@ -1,44 +1,42 @@
 .header {
-  height: 5rem;
-  margin-bottom: rem(120px);
+  height: 4.6rem;
+  padding-inline: 1rem;
   background-color: var(--color-bg);
   border-bottom: rem(1px) solid light-dark(var(--color-bg), var(--color-bg));
-  & h1 {
+  & .title {
     margin-right: 1rem;
-    text-decoration: none;
-    font-size: 1.5rem;
-    padding-bottom: 0.1rem;
-
+    font-size: var(--font-size-md);
+    padding-bottom: 0.3rem;
+    display: flex;
+    gap: 0.7rem;
     color: var(--color-primary);
   }
   & img {
     margin-left: 0.5rem;
-    height: 3.8rem;
+    height: 2.8rem;
     margin: 0.2rem;
   }
   & .inner {
-    height: rem(56px);
+    height: 4.6rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
-
-  & .link {
-    display: block;
-    line-height: 1;
-    padding: rem(8px) rem(12px);
-    border-radius: var(--mantine-radius-sm);
-    text-decoration: none;
-    color: light-dark(var(--color-links), var(--color-links));
-    font-size: var(--mantine-font-size-sm);
-    font-weight: 500;
-
-    @mixin hover {
-      background-color: light-dark(var(--color-primary), var(--color-primary));
+    & .mantine-Burger-root {
+      color: var(--color-primary);
     }
   }
 
-  & .linkLabel {
-    margin-right: rem(5px);
+  & .link {
+    line-height: 1;
+    // padding: 0.8rem 0.4rem;
+    text-decoration: none;
+    margin-right: 1.5rem;
+    color: var(--color-links);
+    font-size: var(--font-size-md);
+    font-weight: 500;
+    text-decoration: none;
+    &:hover {
+      color: var(--color-primary);
+    }
   }
 }
