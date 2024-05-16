@@ -28,3 +28,13 @@ export function isoDateToFrench(isoDate: string) {
   const date = new Date(isoDate);
   return `${date.getDate()} ${date.toLocaleDateString('fr-FR', { month: 'long' })} ${date.getFullYear()}`;
 }
+
+/**
+ *
+ * @param isoDate format : "2021-08-04"
+ * @returns string (format : 2021)
+ */
+export function isoDateToYear(isoDate: string) {
+  const date = new Date(isoDate);
+  return date.getFullYear();
+}
