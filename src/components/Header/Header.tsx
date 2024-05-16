@@ -1,4 +1,4 @@
-import { Box, Burger, Group } from '@mantine/core';
+import { Box, Burger, Button, Divider, Drawer, Group } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { NavLink } from 'react-router-dom';
 import logo from '../../assets/logo-pop-corn.png';
@@ -24,6 +24,14 @@ function Header() {
     );
   });
 
+  const drawerItems = links.map((link) => {
+    return (
+      <NavLink key={link.label} to={link.link} className="drawerLink" onClick={(event) => event.preventDefault()}>
+        {link.label}
+      </NavLink>
+    );
+  });
+
   return (
     <Box size="md">
       <header className="header">
@@ -42,6 +50,27 @@ function Header() {
           <Burger opened={drawerOpened} onClick={toggleDrawer} size="md" hiddenFrom="md" color="yellow" />
         </Group>
       </header>
+
+      <Drawer
+        opened={drawerOpened}
+        onClose={closeDrawer}
+        size="80%"
+        padding="md"
+        title="Menu"
+        hiddenFrom="md"
+        zIndex={1000000}
+      >
+        <Divider my="md" />
+
+        {drawerItems}
+
+        <Divider my="xl" />
+
+        <Group justify="center" grow pb="xl" px="md">
+          <Button variant="default">Connexion</Button>
+          <Button color="yellow">Inscription</Button>
+        </Group>
+      </Drawer>
     </Box>
   );
 }
