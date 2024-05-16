@@ -1,10 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './ConfirmPasswordPage.scss';
 
 function ConfirmPasswordPage() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [userProfilePic, setUserProfilePic] = useState(''); 
+  const [userName, setUserName] = useState(''); 
+
+  
+  const getUserProfileInfo = () => {
+    // API Photo d'utilisateur et son nom. ( userName )
+  };
+
+  
+  useEffect(() => {
+    getUserProfileInfo();
+  }, []);
+
 
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
