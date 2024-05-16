@@ -13,6 +13,12 @@ $mantine-breakpoint-xl: '88em';
   --color-primary: #fbda8d;
   --color-bg: #293159;
   --color-links: #e5e6ff;
+
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 1rem;
+  --font-size-md: 1.1rem;
+  --font-size-lg: 1.3rem;
+  --font-size-xl: 1.5rem;
 }
 
 @function rem($value) {

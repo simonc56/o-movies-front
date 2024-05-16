@@ -1,9 +1,11 @@
 .searchbar-form {
   & input {
     background-color: var(--color-links);
-    font-size: 1.3rem;
+    font-size: var(--font-size-md);
     border: none;
-    padding: 0.3rem 1rem;
+    padding: 0 1rem 0.2rem;
+    margin-right: 2rem;
+    max-width: 180px;
     border-radius: 1.2rem;
     color: var(--color-bg);
     &:focus {
