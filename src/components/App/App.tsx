@@ -6,11 +6,12 @@ import Header from '../Header/Header';
 import MoviePage from '../MoviePage/MoviePage';
 import SignupPage from '../SignupPage/SignupPage';
 
+import theme from '../../styles/theme';
 import './App.scss';
 
 function App() {
   return (
-    <MantineProvider>
+    <MantineProvider theme={theme}>
       <div className="App" data-mantine-color-scheme="light">
         <Header />
         <Routes>
