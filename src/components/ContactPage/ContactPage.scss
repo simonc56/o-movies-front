@@ -13,14 +13,16 @@
 
 .contact-title {
   font-size: 4vh;
-  align-items: center;  
+  align-items: center;
   color: v.$color-bg;
   display: flex;
   margin-bottom: 3rem;
   justify-content: center;
 }
 
-.nom-contact, .email-contact, .message-contact{
+.nom-contact,
+.email-contact,
+.message-contact {
   display: flex;
   padding: 0.5rem; /*espace interne*/
   font-size: 1em;
@@ -40,12 +42,11 @@
   }
 }
 
-.message-contact{
+.message-contact {
   resize: none; /* Autorise le redimensionnement vertical */
   max-height: 250px;
   min-height: 200px;
 }
-
 
 .ContactPage {
   display: flex;
@@ -54,8 +55,8 @@
   margin: auto;
 }
 
-.info-contact{
-  color:v.$color-bg;
+.info-contact {
+  color: v.$color-bg;
   font-weight: 450;
   margin-top: 2rem;
 }
@@ -69,16 +70,49 @@ button {
   cursor: pointer;
   width: 10rem;
   &:hover {
-    background-color: v.$color-bg;;
+    background-color: v.$color-bg;
     color: v.$color-primary;
   }
 }
-  
 
-.button-container-contact{
+.button-container-contact {
   display: flex;
   justify-content: center;
-  margin-top: 2rem; 
+  margin-top: 2rem;
   font-size: 2vh;
   font-weight: 500;
+}
+
+@media screen and (max-width: 768px) {
+  .nom-contact,
+  .email-contact,
+  .message-contact,
+  .info-contact {
+    width: 40vw;
+  }
+  .message-contact {
+    max-height: 150px; /* Réduire la hauteur pour les petits écrans */
+    min-height: 100px; /* Réduire la hauteur minimale pour les petits écrans */
+  }
+
+  .contact-title {
+    font-size: 2.5vh;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .nom-contact,
+  .email-contact,
+  .message-contact,
+  .info-contact {
+    width: 30vw;
+  }
+  .message-contact {
+    max-height: 150px; /* Réduire la hauteur pour les petits écrans */
+    min-height: 100px; /* Réduire la hauteur minimale pour les petits écrans */
+  }
+  .contact-section {
+    height: 30vh;
+    width: 35vh;
+  }
 }
