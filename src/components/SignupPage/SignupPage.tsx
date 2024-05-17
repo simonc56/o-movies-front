@@ -2,23 +2,42 @@ import { useState } from 'react';
 import './SignupPage.scss';
 
 function SignupPage() {
-  const [lastname, setLastname] = useState ('');
+  const [lastname, setLastname] = useState('');
   const [username, setUsername] = useState('');
   const [birthday, setBirthday] = useState('');
-// const [country, setCountry] = useState('');   Nous avons décidé de mettre ces données en suspens pour le moment
-// const [city, setCity] = useState('');         Nous avons décidé de mettre ces données en suspens pour le moment
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordsMatch, setPasswordsMatch] = useState(true);
+  const [apiError, setApiError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    // API , Base de donnée ??!!
+
     if (password === confirmPassword) {
-      // API
+      setPasswordsMatch(true);
+      setApiError('');
+      setSuccessMessage('');
+
+      try {
+        const credentials = {
+          firstname: username, 
+          lastname,
+          birthdate: birthday,  
+          email,
+          password,
+        };
+
+        const response = await signup(credentials);
+
+        // response of API
+        setSuccessMessage('Inscription réussie !');
+      } catch (error) {
+        // error of API
+        setApiError('Erreur lors de l\'inscription. Veuillez réessayer.');
+      }
     } else {
-      // Erreur 
       setPasswordsMatch(false);
     }
   };
@@ -27,7 +46,7 @@ function SignupPage() {
     <section className="signup-section">
       <form onSubmit={handleSubmit}>
         <h1 className="form-title">INSCRIPTION A O'MOVIES</h1>
-        <div className="input-container"> 
+        <div className="input-container">
           <input
             type="text"
             className="signup-input signup-lastname"
@@ -37,7 +56,7 @@ function SignupPage() {
             required
           />
         </div>
-        <div className="input-container"> 
+        <div className="input-container">
           <input
             type="text"
             className="signup-input signup-username"
@@ -57,8 +76,10 @@ function SignupPage() {
             onChange={(e) => setBirthday(e.target.value)}
             required
           />
-        </div>
-      {/* <div className="input-container">
+          
+        </div>        
+      {/* Mis de coter pour le moment 
+      <div className="input-container">
           <input 
             type="text" 
             className="signup-input signup-country"
@@ -78,7 +99,7 @@ function SignupPage() {
             required 
           />
   </div> */}
-        <div className="input-container">
+         <div className="input-container">
           <input
             type="email"
             className="signup-input signup-email"
@@ -107,11 +128,13 @@ function SignupPage() {
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
-          {!passwordsMatch && <p className="error-message" >Les mots de passe ne correspondent pas</p>}
+          {!passwordsMatch && <p className="error-message">Les mots de passe ne correspondent pas</p>}
         </div>
-        <div className="button-container"> 
+        <div className="button-container">
           <button type="submit">S'inscrire</button>
         </div>
+        {apiError && <p className="error-message">{apiError}</p>}
+        {successMessage && <p className="success-message">{successMessage}</p>}
       </form>
     </section>
   );
