@@ -1,49 +1,57 @@
-@use '../../styles/variables' as v;
-
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 5rem;
-  padding: 1rem;
-
+  height: 4.6rem;
+  padding-inline: 1rem;
+  background-color: var(--color-bg);
+  border-bottom: rem(1px) solid light-dark(var(--color-bg), var(--color-bg));
   & .title {
     margin-right: 1rem;
-    text-decoration: none;
-    font-size: 1.5rem;
-    padding-bottom: 0.1rem;
+    font-size: var(--font-size-md);
+    padding-bottom: 0.3rem;
     display: flex;
     gap: 0.7rem;
-    color: v.$color-primary;
-  }
-  background-color: v.$color-bg;
-
-  & nav {
-    width: 35rem;
-  }
-  & ul {
-    display: flex;
-    justify-content: space-between;
+    color: var(--color-primary);
   }
   & img {
     margin-left: 0.5rem;
-    height: 3.8rem;
+    height: 2.8rem;
     margin: 0.2rem;
+  }
+  & .inner {
+    height: 4.6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    & .mantine-Burger-root {
+      color: var(--color-primary);
+    }
+  }
+
+  & .link {
+    line-height: 1;
+    // padding: 0.8rem 0.4rem;
+    text-decoration: none;
+    margin-right: 1.5rem;
+    color: var(--color-links);
+    font-size: var(--font-size-md);
+    font-weight: 500;
+    text-decoration: none;
+    &:hover {
+      color: var(--color-primary);
+    }
   }
 }
 
-.links {
-  list-style: none;
-  font-size: 1.3rem;
-  display: flex;
-  gap: 1.6rem;
-  margin-inline: 0.5rem;
-  color: v.$color-links;
-  & a {
-    text-decoration: none;
-    color: inherit;
-    &:hover {
-      color: v.$color-primary;
-    }
+.drawerLink {
+  line-height: 1;
+  display: block;
+  text-align: center;
+  padding: 0.8rem 0.4rem;
+  text-decoration: none;
+  color: var(--color-bg);
+  font-size: var(--font-size-md);
+  font-weight: 500;
+  text-decoration: none;
+  &:hover {
+    color: var(--color-primary);
   }
 }

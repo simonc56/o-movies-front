@@ -2,7 +2,7 @@ import { FaCommentAlt, FaStar } from 'react-icons/fa';
 
 import movieData from '../../../fakeData/oneMovieData.json';
 import MovieType, { Genre, Review } from '../../@types/MovieType';
-import { budgetToMillions, isoDateToFrench, runtimeToString } from '../../utils/utils';
+import { budgetToMillions, isoDateToFrench, isoDateToYear, runtimeToString } from '../../utils/utils';
 import './MoviePage.scss';
 
 function MoviePage() {
@@ -10,6 +10,7 @@ function MoviePage() {
   const movie = movieData as MovieType;
   const budget = budgetToMillions(movie.budget);
   const frenchDate = isoDateToFrench(movie.release_date);
+  const year = isoDateToYear(movie.release_date);
 
   return (
     <main className="movie-page">
@@ -21,7 +22,7 @@ function MoviePage() {
           <h2>{movie.original_title}</h2>
           <span className="tagline">{movie.tagline}</span>
           <div className="infos">
-            <span className="year">{movie.year}</span>
+            <span className="year">{year}</span>
             <span className="rating">
               <FaStar /> {movie.rating}
             </span>
