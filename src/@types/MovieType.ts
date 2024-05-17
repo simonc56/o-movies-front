@@ -1,6 +1,6 @@
 type MovieType = {
   tmdb_id: number;
-  title: string;
+  title_fr: string;
   original_title: string;
   rating: number;
   genres: Genre[];
