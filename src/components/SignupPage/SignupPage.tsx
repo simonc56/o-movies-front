@@ -3,11 +3,9 @@ import SimpleButton from '../SimpleButton/SimpleButton';
 import './SignupPage.scss';
 
 function SignupPage() {
-  const [lastname, setLastname] = useState ('');
+  const [lastname, setLastname] = useState('');
   const [username, setUsername] = useState('');
   const [birthday, setBirthday] = useState('');
-// const [country, setCountry] = useState('');   Nous avons décidé de mettre ces données en suspens pour le moment
-// const [city, setCity] = useState('');         Nous avons décidé de mettre ces données en suspens pour le moment
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -19,27 +17,7 @@ function SignupPage() {
     event.preventDefault();
 
     if (password === confirmPassword) {
-      setPasswordsMatch(true);
-      setApiError('');
-      setSuccessMessage('');
-
-      try {
-        const credentials = {
-          firstname: username, 
-          lastname,
-          birthdate: birthday,  
-          email,
-          password,
-        };
-
-        const response = await 
-
-        // response of API
-        setSuccessMessage('Inscription réussie !');
-      } catch (error) {
-        // error of API
-        setApiError('Erreur lors de l\'inscription. Veuillez réessayer.');
-      }
+      // API
     } else {
       setPasswordsMatch(false);
     }
