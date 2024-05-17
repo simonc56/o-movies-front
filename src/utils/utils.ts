@@ -30,11 +30,20 @@ export function isoDateToFrench(isoDate: string) {
 }
 
 /**
- *
+ * Transform iso date to french readable date
  * @param isoDate format : "2021-08-04"
  * @returns string (format : 2021)
  */
 export function isoDateToYear(isoDate: string) {
   const date = new Date(isoDate);
   return date.getFullYear();
+}
+
+/**
+ * Check if a string contains a number
+ * @param id string
+ * @returns boolean
+ */
+export function isNumber(id: string): boolean {
+  return !Number.isNaN(Number(id));
 }

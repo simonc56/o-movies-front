@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { FaCommentAlt, FaStar } from 'react-icons/fa';
+import { useParams } from 'react-router-dom';
 import { Genre, Review } from '../../@types/MovieType';
 import { actionFetchOneMovie } from '../../features/moviesSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
@@ -7,14 +8,15 @@ import { runtimeToString } from '../../utils/utils';
 import './MoviePage.scss';
 
 function MoviePage() {
-  // dans un premier temps, on utilise les données de fakeData/oneMovieData.json
-  // const movie = movieData as MovieType;
+  const { id } = useParams<{ id: string }>();
   const dispatch = useAppDispatch();
   const movie = useAppSelector((state) => state.movies.currentMovie);
 
   useEffect(() => {
-    dispatch(actionFetchOneMovie());
-  }, []);
+    if (id) {
+      dispatch(actionFetchOneMovie(id));
+    }
+  }, [id, dispatch]);
 
   return (
     movie && (

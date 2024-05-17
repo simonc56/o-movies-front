@@ -2,19 +2,26 @@ import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { MoviesState, SuccessOneMovieResponse } from '../@types/MoviesState';
 import * as api from '../api';
 // import type { RootState } from '../store/store';
-import { budgetToMillions, isoDateToFrench, isoDateToYear } from '../utils/utils';
+import { budgetToMillions, isNumber, isoDateToFrench, isoDateToYear } from '../utils/utils';
 
 const moviesState: MoviesState = {
   currentMovie: null,
   movieList: [],
 };
 
-export const actionFetchOneMovie = createAsyncThunk('movies/fetchOneMovie', async (_, thunkAPI) => {
-  // const state = thunkAPI.getState() as RootState;
-  const id = 157336;
-  const response = await api.getMovieById(id);
-  return response.data;
-});
+export const actionFetchOneMovie = createAsyncThunk<SuccessOneMovieResponse, string>(
+  'movies/fetchOneMovie',
+  async (id, thunkAPI) => {
+    if (id === undefined) {
+      return thunkAPI.rejectWithValue('No id provided');
+    }
+    if (!isNumber(id as string)) {
+      return thunkAPI.rejectWithValue('Invalid id');
+    }
+    const response = await api.getMovieById(id as string);
+    return response.data;
+  }
+);
 
 const moviesSlice = createSlice({
   name: 'settings',
