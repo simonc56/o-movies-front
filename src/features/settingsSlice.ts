@@ -66,7 +66,7 @@ const settingsSlice = createSlice({
         state.user.firstname = response.firstname;
         state.user.lastname = response.lastname;
         state.user.token = response.token;
-        state.user.logged = response.logged;
+        state.user.logged = true;
         api.addTokenJWTToAxiosInstance(response.token);
       })
       .addCase(actionLogin.rejected, (_, action) => {
