@@ -1,15 +1,17 @@
 import { NavLink } from 'react-router-dom';
 
+import './LoginSignup.scss';
+
 function LoginSignup() {
   return (
-    <ul className="header-connexion-links links">
-      <li>
-        <NavLink to="/inscription">Inscription</NavLink>
-      </li>
-      <li>
-        <NavLink to="/connexion">Connexion</NavLink>
-      </li>
-    </ul>
+    <>
+      <NavLink to="/inscription" className="link">
+        Inscription
+      </NavLink>
+      <NavLink to="/connexion" className="link">
+        Connexion
+      </NavLink>
+    </>
   );
 }
 
