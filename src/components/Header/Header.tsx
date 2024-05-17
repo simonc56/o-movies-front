@@ -1,35 +1,77 @@
+import { Box, Burger, Button, Divider, Drawer, Group } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
 import { NavLink } from 'react-router-dom';
-import logo from '../../assets/logo-pop-corn-only.png';
+import logo from '../../assets/logo-pop-corn.png';
 import LoginSignup from '../LoginSignup/LoginSignup';
 import Searchbar from '../Searchbar/Searchbar';
 import './Header.scss';
 
+const links = [
+  { link: '/actuellement', label: "A l'affiche" },
+  { link: '/prochainement', label: 'Prochainement' },
+  { link: '/films', label: 'Films' },
+  // { link: '/playlists', label: 'Mes playlists' },
+];
+
 function Header() {
-  return (
-    <header className="header">
-      <NavLink to="/" className="title">
-        <img src={logo} alt="logo o'movies" />
-        <h1>O'movies</h1>
+  const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
+
+  const items = links.map((link) => {
+    return (
+      <NavLink key={link.label} to={link.link} className="link" onClick={(event) => event.preventDefault()}>
+        {link.label}
       </NavLink>
-      <nav>
-        <ul className="header-links links">
-          <li>
-            <NavLink to="/actuellement">A l'affiche</NavLink>
-          </li>
-          <li>
-            <NavLink to="/prochainement">Prochainement</NavLink>
-          </li>
-          <li>
-            <NavLink to="/films">Films</NavLink>
-          </li>
-          <li>
-            <NavLink to="/playlists">Mes playlists</NavLink>
-          </li>
-        </ul>
-      </nav>
-      <Searchbar />
-      <LoginSignup />
-    </header>
+    );
+  });
+
+  const drawerItems = links.map((link) => {
+    return (
+      <NavLink key={link.label} to={link.link} className="drawerLink" onClick={(event) => event.preventDefault()}>
+        {link.label}
+      </NavLink>
+    );
+  });
+
+  return (
+    <Box size="md">
+      <header className="header">
+        <Group justify="space-between" h="100%">
+          <div className="title">
+            <img src={logo} alt="logo o'movies" />
+            <h1>O'movies</h1>
+          </div>
+          <Group gap={0} visibleFrom="md">
+            {items}
+          </Group>
+          <Group gap={0} visibleFrom="md">
+            <Searchbar />
+            <LoginSignup />
+          </Group>
+          <Burger opened={drawerOpened} onClick={toggleDrawer} size="md" hiddenFrom="md" color="yellow" />
+        </Group>
+      </header>
+
+      <Drawer
+        opened={drawerOpened}
+        onClose={closeDrawer}
+        size="80%"
+        padding="md"
+        title="Menu"
+        hiddenFrom="md"
+        zIndex={1000000}
+      >
+        <Divider my="md" />
+
+        {drawerItems}
+
+        <Divider my="xl" />
+
+        <Group justify="center" grow pb="xl" px="md">
+          <Button variant="default">Connexion</Button>
+          <Button color="yellow">Inscription</Button>
+        </Group>
+      </Drawer>
+    </Box>
   );
 }
 

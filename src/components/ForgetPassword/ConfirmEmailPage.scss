@@ -1,0 +1,59 @@
+@use '../../styles/variables' as v;
+
+.forget-email-section {
+  height: 70vh;
+  width: 75vh;
+  margin: 0 auto;
+  display: flex;
+  background-color: rgb(231, 225, 225);
+  justify-content: center;
+  border-radius: 3rem;
+  box-shadow: 0 0 5px rgb(192, 192, 192);
+  text-align: center;
+}
+
+.forget-email-title {
+  font-size: 4vh;
+  align-items: center;
+  text-align: center;
+  color: v.$color-bg;
+  margin-top: 10rem;
+  display: flex;
+  margin-bottom: 3rem;
+  justify-content: center;
+}
+
+.email-text {
+  text-align: center;
+  color: v.$color-bg;
+  margin-top: 3rem;
+}
+
+.email-psw-forget {
+  display: flex;
+  padding: 0.5rem; /*espace interne*/
+  font-size: 1em;
+  border: 0.1em solid #ccc;
+  border-radius: 0.8rem;
+  color: v.$color-bg;
+  display: flex;
+  justify-content: center;
+  width: 20rem;
+  margin: auto;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+  margin-top: 2rem;
+  &:focus {
+    background-color: v.$color-primary;
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.button-container-psw {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+  font-size: 2vh;
+  font-weight: 500;
+}

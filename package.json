@@ -11,10 +11,12 @@
     "lint:fix": "eslint src/**/*.{js,jsx,ts,tsx} --fix"
   },
   "dependencies": {
+    "@mantine/core": "^7.9.1",
+    "@mantine/hooks": "^7.9.1",
     "@vitejs/plugin-react": "^3.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-modal": "^3.16.1",
+    "react-icons": "^5.2.1",
     "react-router-dom": "^6.23.1",
     "vite": "^4.2.0"
   },
