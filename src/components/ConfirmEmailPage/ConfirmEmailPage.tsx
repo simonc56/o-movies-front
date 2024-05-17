@@ -1,4 +1,5 @@
-import { useState, ChangeEvent, FormEvent } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
+import SimpleButton from '../SimpleButton/SimpleButton';
 import './ConfirmEmailPage.scss';
 
 function ConfirmEmailPage() {
@@ -19,7 +20,11 @@ function ConfirmEmailPage() {
     <section className="forget-email-section">
       <div className="confirm-email-container">
         <h1 className="forget-email-title"> Mot de passe oublié ?</h1>
-        <p className="email-text"> Veuillez entrer votre adresse e-mail. <br /> Nous vous enverrons ensuite un e-mail contenant un lien de réinitialisation.</p>
+        <p className="email-text">
+          {' '}
+          Veuillez entrer votre adresse e-mail. <br /> Nous vous enverrons ensuite un e-mail contenant un lien de
+          réinitialisation.
+        </p>
         <form onSubmit={handleSubmit}>
           <div className="email-input">
             <input
@@ -31,9 +36,7 @@ function ConfirmEmailPage() {
               required
             />
           </div>
-          <div className="button-container-psw"> 
-          <button type="submit">Envoyer</button>
-        </div>
+          <SimpleButton label="Envoyer" />
         </form>
       </div>
     </section>

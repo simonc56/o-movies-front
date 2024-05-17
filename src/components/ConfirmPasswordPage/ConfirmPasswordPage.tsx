@@ -1,23 +1,21 @@
 import React, { useEffect, useState } from 'react';
+import SimpleButton from '../SimpleButton/SimpleButton';
 import './ConfirmPasswordPage.scss';
 
 function ConfirmPasswordPage() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [userProfilePic, setUserProfilePic] = useState(''); 
-  const [userName, setUserName] = useState(''); 
+  const [userProfilePic, setUserProfilePic] = useState('');
+  const [userName, setUserName] = useState('');
 
-  
   const getUserProfileInfo = () => {
     // API Photo d'utilisateur et son nom. ( userName )
   };
 
-  
   useEffect(() => {
     getUserProfileInfo();
   }, []);
-
 
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
@@ -43,30 +41,28 @@ function ConfirmPasswordPage() {
         {errorMessage && <p className="error-message-psw">{errorMessage}</p>}
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <input 
-              type="password" 
-              id="password" 
-              className="psw-forget" 
+            <input
+              type="password"
+              id="password"
+              className="psw-forget"
               placeholder="Nouveau mot de passe"
-              value={password} 
-              onChange={handlePasswordChange} 
-              required 
+              value={password}
+              onChange={handlePasswordChange}
+              required
             />
           </div>
           <div className="form-group">
-            <input 
-              type="password" 
-              className="pswConfirm-forget" 
-              id="confirmPassword" 
+            <input
+              type="password"
+              className="pswConfirm-forget"
+              id="confirmPassword"
               placeholder="Confirmez le nouveau mot de passe"
-              value={confirmPassword} 
-              onChange={handleConfirmPasswordChange} 
-              required 
+              value={confirmPassword}
+              onChange={handleConfirmPasswordChange}
+              required
             />
           </div>
-          <div className="button-container-password"> 
-            <button type="submit">Envoyer</button> 
-          </div>
+          <SimpleButton label="Envoyer" />
         </form>
       </div>
     </section>
