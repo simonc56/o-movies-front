@@ -8,17 +8,26 @@ $mantine-breakpoint-md: '62em';
 $mantine-breakpoint-lg: '75em';
 $mantine-breakpoint-xl: '88em';
 
+// ci-dessous les couleurs utilisées par le css vanilla
+// le theme mantine utilise les mêmes couleurs redéclarées dans theme.ts
+// je n'ai pas réussi à factoriser les couleurs dans un fichier unique
 :root {
-  --color: #fff;
+  --color-white: #fff;
   --color-primary: #fbda8d;
   --color-bg: #293159;
   --color-links: #e5e6ff;
 
-  --font-size-xs: 0.75rem;
-  --font-size-sm: 1rem;
-  --font-size-md: 1.1rem;
+  --font-size-xs: 0.5rem;
+  --font-size-sm: 0.75rem;
+  --font-size-md: 1rem;
   --font-size-lg: 1.3rem;
   --font-size-xl: 1.5rem;
+
+  --line-height-xs: 1.2;
+  --line-height-sm: 1.3;
+  --line-height-md: 1.4;
+  --line-height-lg: 1.5;
+  --line-height-xl: 1.6;
 }
 
 @function rem($value) {
