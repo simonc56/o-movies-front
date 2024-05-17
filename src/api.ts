@@ -2,7 +2,7 @@ import axios from 'axios';
 import { LoginCredentials, SignupCredentials } from './@types/Credentials';
 
 const instanceAxios = axios.create({
-  baseURL: import.meta.env.VITE_API_LOGIN_URL,
+  baseURL: import.meta.env.VITE_API_BASE_URL,
 });
 
 export async function login(credentials: LoginCredentials) {
@@ -16,4 +16,9 @@ export async function signup(credentials: SignupCredentials) {
 
 export function addTokenJWTToAxiosInstance(token: string) {
   instanceAxios.defaults.headers.common.Authorization = `Bearer ${token}`;
+}
+
+export async function getMovieById(id: number) {
+  const response = await instanceAxios.get(`/movie/${id}`);
+  return response;
 }
