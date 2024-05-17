@@ -4,15 +4,15 @@ import { useState } from 'react';
 type SimpleButtonProps = {
   label: string;
   // eslint-disable-next-line react/require-default-props
-  handleClick?: () => void;
+  onClick?: () => void;
 };
 
-function SimpleButton({ label, handleClick }: SimpleButtonProps) {
+function SimpleButton({ label, onClick }: SimpleButtonProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <Button
-      onClick={handleClick}
+      onClick={onClick}
       color={isHovered ? 'bg' : 'primary'}
       autoContrast={!isHovered}
       onMouseOver={() => setIsHovered(true)}
