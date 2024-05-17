@@ -28,7 +28,7 @@ export type Genre = {
 };
 
 export type Review = {
-  id: number;
+  review_id: number;
   content: string;
 };
 

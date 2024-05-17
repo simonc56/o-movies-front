@@ -78,7 +78,7 @@ function MoviePage() {
           <div className="reviews">
             <h3>Commentaires utilisateurs</h3>
             {movie.reviews.map((review: Review) => (
-              <div className="review" key={review.id}>
+              <div className="review" key={review.review_id}>
                 <span>
                   <FaCommentAlt />
                 </span>
