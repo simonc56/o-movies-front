@@ -1,0 +1,21 @@
+.cast {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  & .actor {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    & img {
+      height: 8rem;
+      width: auto;
+      border-radius: 4rem;
+    }
+    & .actor--character {
+      color: #666;
+      font-style: italic;
+      font-weight: 100;
+    }
+  }
+}
