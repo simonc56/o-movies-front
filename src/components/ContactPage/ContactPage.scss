@@ -1,0 +1,116 @@
+.contact-section {
+  height: 70vh;
+  width: 75vh;
+  margin: 0 auto;
+  display: flex;
+  background-color: rgb(231, 225, 225);
+  justify-content: center;
+  border-radius: 3rem;
+  box-shadow: 0 0 5px rgb(192, 192, 192);
+}
+
+.contact-title {
+  font-size: 4vh;
+  align-items: center;
+  color: var(--color-bg);
+  display: flex;
+  margin-bottom: 3rem;
+  justify-content: center;
+}
+
+.nom-contact,
+.email-contact,
+.message-contact {
+  display: flex;
+  padding: 0.5rem; /*espace interne*/
+  font-size: 1em;
+  border: 0.1em solid #ccc;
+  border-radius: 0.8rem;
+  color: var(--color-bg);
+  display: flex;
+  justify-content: center;
+  width: 20rem;
+  margin: auto;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+  &:focus {
+    background-color: var(--color-primary);
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+}
+
+.message-contact {
+  resize: none; /* Autorise le redimensionnement vertical */
+  max-height: 250px;
+  min-height: 200px;
+}
+
+.ContactPage {
+  display: flex;
+  flex-direction: column;
+  color: red;
+  margin: auto;
+}
+
+.info-contact {
+  color: var(--color-bg);
+  font-weight: 450;
+  margin-top: 2rem;
+}
+
+button {
+  color: var(--color-bg);
+  padding: 10px;
+  background-color: var(--color-primary);
+  border: none;
+  border-radius: 0.8rem;
+  cursor: pointer;
+  width: 10rem;
+  &:hover {
+    background-color: var(--color-bg);
+    color: var(--color-primary);
+  }
+}
+
+.button-container-contact {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  font-size: 2vh;
+  font-weight: 500;
+}
+
+@media screen and (max-width: 768px) {
+  .nom-contact,
+  .email-contact,
+  .message-contact,
+  .info-contact {
+    width: 40vw;
+  }
+  .message-contact {
+    max-height: 150px; /* Réduire la hauteur pour les petits écrans */
+    min-height: 100px; /* Réduire la hauteur minimale pour les petits écrans */
+  }
+
+  .contact-title {
+    font-size: 2.5vh;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .nom-contact,
+  .email-contact,
+  .message-contact,
+  .info-contact {
+    width: 30vw;
+  }
+  .message-contact {
+    max-height: 150px; /* Réduire la hauteur pour les petits écrans */
+    min-height: 100px; /* Réduire la hauteur minimale pour les petits écrans */
+  }
+  .contact-section {
+    height: 30vh;
+    width: 35vh;
+  }
+}

@@ -1,8 +1,7 @@
 type MovieType = {
   tmdb_id: number;
-  title: string;
+  title_fr: string;
   original_title: string;
-  year: number;
   rating: number;
   genres: Genre[];
   runtime: number;
@@ -12,10 +11,15 @@ type MovieType = {
   release_date: string;
   director: string;
   country: string;
-  language: string;
+  original_language: string;
+  status: string;
   budget: number;
   reviews: Review[];
   cast: Actor[];
+  budgetInMillions?: string;
+  frenchDate?: string;
+  year?: number;
+  crew: { name: string }[];
 };
 
 export type Genre = {
@@ -24,7 +28,7 @@ export type Genre = {
 };
 
 export type Review = {
-  id: number;
+  review_id: number;
   content: string;
 };
 

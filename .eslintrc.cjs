@@ -24,7 +24,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['src/**/reducers/*.ts'],
+      files: ['src/**/features/*.ts'],
       rules: { 'no-param-reassign': ['error', { props: false }] },
     },
   ],

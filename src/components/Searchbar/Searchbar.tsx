@@ -10,7 +10,7 @@ function Searchbar() {
 
   return (
     <form className="searchbar-form">
-      <input type="text" placeholder="Chercher un film..." value={inputValue} onChange={handleChange} />
+      <input type="text" placeholder="Rechercher..." value={inputValue} onChange={handleChange} />
     </form>
   );
 }

@@ -1,4 +1,5 @@
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
+import SimpleButton from '../SimpleButton/SimpleButton';
 import './SignupPage.scss';
 
 function SignupPage() {
@@ -17,7 +18,7 @@ function SignupPage() {
     if (password === confirmPassword) {
       // API
     } else {
-      // Erreur 
+      // Erreur
       setPasswordsMatch(false);
     }
   };
@@ -26,81 +27,67 @@ function SignupPage() {
     <section className="signup-section">
       <form onSubmit={handleSubmit}>
         <h1 className="form-title">INSCRIPTION A O'MOVIES</h1>
-        <div className="input-container"> 
-          <input
-            type="text"
-            className="signup-input signup-username"
-            placeholder="Votre nom"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </div>
-        <div className="input-container">
-          <label htmlFor="birthday" className="birthday-label">Date de naissance:</label>
-          <input
-            id="birthday"
-            className="signup-input signup-birthday"
-            type="date"
-            value={birthday}
-            onChange={(e) => setBirthday(e.target.value)}
-            required
-          />
-        </div>
-        <div className="input-container">
-          <input 
-            type="text" 
-            className="signup-input signup-country"
-            placeholder="Pays" 
-            value={country} 
-            onChange={(e) => setCountry(e.target.value)} 
-            required 
-          />
-        </div>
-        <div className="input-container"> 
-          <input 
-            type="text" 
-            className="signup-input signup-city"
-            placeholder="Ville" 
-            value={city} 
-            onChange={(e) => setCity(e.target.value)} 
-            required 
-          />
-        </div>
-        <div className="input-container">
-          <input
-            type="email"
-            className="signup-input signup-email"
-            placeholder="E-mail"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div className="input-container">
-          <input
-            type="password"
-            className="signup-input signup-password"
-            placeholder="Mot de passe"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <div className="input-container">
-          <input
-            type="password"
-            className="signup-input signup-confirm-password"
-            placeholder="Confirmer votre mot de passe"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-          {!passwordsMatch && <p className="error-message" >Les mots de passe ne correspondent pas</p>}
-        </div>
-        <div className="button-container"> 
-          <button type="submit">S'inscrire</button>
-        </div>
+        <input
+          type="text"
+          className="signup-input signup-username"
+          placeholder="Votre nom"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
+        <label htmlFor="birthday" className="birthday-label">
+          Date de naissance:
+        </label>
+        <input
+          id="birthday"
+          className="signup-input signup-birthday"
+          type="date"
+          value={birthday}
+          onChange={(e) => setBirthday(e.target.value)}
+          required
+        />
+        <input
+          type="text"
+          className="signup-input signup-country"
+          placeholder="Pays"
+          value={country}
+          onChange={(e) => setCountry(e.target.value)}
+          required
+        />
+        <input
+          type="text"
+          className="signup-input signup-city"
+          placeholder="Ville"
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+          required
+        />
+        <input
+          type="email"
+          className="signup-input signup-email"
+          placeholder="E-mail"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          className="signup-input signup-password"
+          placeholder="Mot de passe"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          className="signup-input signup-confirm-password"
+          placeholder="Confirmer votre mot de passe"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          required
+        />
+        {!passwordsMatch && <p className="error-message">Les mots de passe ne correspondent pas</p>}
+        <SimpleButton label="S'inscrire" />
       </form>
     </section>
   );

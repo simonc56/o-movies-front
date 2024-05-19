@@ -1,5 +1,6 @@
 import { ChangeEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
+import SimpleButton from '../SimpleButton/SimpleButton';
 import './ConnectionPage.scss';
 
 function ConnectionPage() {
@@ -34,9 +35,7 @@ function ConnectionPage() {
           <input type="checkbox" id="checkbox" checked={stayConnected} onChange={stayConnectedChange} />
           <label htmlFor="checkbox">Rester connecté </label>
         </div>
-        <button className="button-connexion" type="submit">
-          Connection
-        </button>
+        <SimpleButton label="Connection" />
       </form>
 
       <div>
