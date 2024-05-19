@@ -32,26 +32,26 @@ function MovieInfos({ movie }: MovieInfosProps) {
             </span>
           ))}
         </div>
-        <div className="extra-infos">
-          <div className="extra-infos--item">
-            <div className="extra-infos--name">Date de sortie</div>
-            <span className="extra-infos--value">{movie.frenchDate}</span>
+        <div className="detail-infos">
+          <div className="detail-infos--item">
+            <div className="detail-infos--name">Date de sortie</div>
+            <span className="detail-infos--value">{movie.frenchDate}</span>
           </div>
-          <div className="extra-infos--item">
-            <span className="extra-infos--name">Réalisateur</span>
-            <span className="extra-infos--value">{movie.crew[0].name}</span>
+          <div className="detail-infos--item">
+            <span className="detail-infos--name">Réalisateur</span>
+            <span className="detail-infos--value">{movie.crew[0].name}</span>
           </div>
-          <div className="extra-infos--item">
-            <span className="extra-infos--name">Pays d'origine</span>
-            <span className="extra-infos--value">{movie.country}</span>
+          <div className="detail-infos--item">
+            <span className="detail-infos--name">Pays d'origine</span>
+            <span className="detail-infos--value">{movie.country}</span>
           </div>
-          <div className="extra-infos--item">
-            <span className="extra-infos--name">Langue d'origine</span>
-            <span className="extra-infos--value">{movie.original_language}</span>
+          <div className="detail-infos--item">
+            <span className="detail-infos--name">Langue d'origine</span>
+            <span className="detail-infos--value">{movie.original_language}</span>
           </div>
-          <div className="extra-infos--item">
-            <span className="extra-infos--name">Budget</span>
-            <span className="extra-infos--value">{movie.budgetInMillions}</span>
+          <div className="detail-infos--item">
+            <span className="detail-infos--name">Budget</span>
+            <span className="detail-infos--value">{movie.budgetInMillions}</span>
           </div>
         </div>
       </div>

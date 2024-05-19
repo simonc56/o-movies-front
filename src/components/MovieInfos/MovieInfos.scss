@@ -17,14 +17,14 @@
   }
   & .data-panel {
     max-width: 400px;
-    & .extra-infos {
+    & .detail-infos {
       color: #666;
       font-weight: 100;
-      & .extra-infos--name {
+      & .detail-infos--name {
         display: inline-block;
         width: 140px;
       }
-      & .extra-infos--value {
+      & .detail-infos--value {
         text-align: left;
         color: #444;
         font-weight: 500;
