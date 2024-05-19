@@ -1,7 +1,7 @@
 import { Box, Burger, Button, Divider, Drawer, Group } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { NavLink } from 'react-router-dom';
-import logo from '../../assets/logo-pop-corn.png';
+import logo from '../../assets/logo-pop-corn.webp';
 import LoginSignup from '../LoginSignup/LoginSignup';
 import Searchbar from '../Searchbar/Searchbar';
 import './Header.scss';
