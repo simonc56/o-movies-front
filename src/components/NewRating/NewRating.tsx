@@ -14,7 +14,7 @@ function NewRating() {
     <div className="user-rating-input">
       <span className="label">Donnez une note à ce film</span>
       <div>
-        <Rating defaultValue={rating} value={rating} onChange={handleChange} size="lg" />
+        <Rating value={rating} onChange={handleChange} size="lg" fractions={2} />
         <span>{rating}/5</span>
       </div>
     </div>
