@@ -2,6 +2,7 @@ import MovieType from '../../@types/MovieType';
 import { useAppSelector } from '../../store/hooks';
 import MovieCast from '../MovieCast/MovieCast';
 import MovieReviews from '../MovieReviews/MovieReviews';
+import NewRating from '../NewRating/NewRating';
 import NewReview from '../NewReview/NewReview';
 
 type MovieExtraInfosProps = {
@@ -14,7 +15,12 @@ function MovieExtraInfos({ movie }: MovieExtraInfosProps) {
     <section className="section-extra-infos">
       <MovieCast cast={movie.cast} />
       <MovieReviews reviews={movie.reviews} />
-      {isLogged && <NewReview />}
+      {isLogged && (
+        <>
+          <NewRating />
+          <NewReview />
+        </>
+      )}
     </section>
   );
 }

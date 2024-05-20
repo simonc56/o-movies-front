@@ -1,0 +1,13 @@
+.user-rating-input {
+  margin-top: 1rem;
+  & .label {
+    font-size: var(--font-size-sm);
+  }
+  & > div {
+    display: flex;
+    gap: 0.5rem;
+    & span {
+      color: var(--mantine-color-gray-5);
+    }
+  }
+}
