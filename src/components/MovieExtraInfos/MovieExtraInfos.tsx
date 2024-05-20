@@ -15,11 +15,13 @@ function MovieExtraInfos({ movie }: MovieExtraInfosProps) {
     <section className="section-extra-infos">
       <MovieCast cast={movie.cast} />
       <MovieReviews reviews={movie.reviews} />
-      {isLogged && (
+      {isLogged ? (
         <>
           <NewRating />
           <NewReview />
         </>
+      ) : (
+        <p>Connectez-vous pour pouvoir noter et commenter ce film.</p>
       )}
     </section>
   );
