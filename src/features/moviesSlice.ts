@@ -58,6 +58,10 @@ const moviesSlice = createSlice({
       .addCase(actionFetchOneMovie.rejected, (_, action) => {
         // eslint-disable-next-line no-console
         console.log(action.error.message);
+      })
+      .addCase(actionPostReview.fulfilled, (state, action) => {
+        const response = action.payload as SuccessReviewResponse;
+        // state.currentMovie?.reviews.push(response.data.review);
       });
   },
 });
