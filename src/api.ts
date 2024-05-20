@@ -22,3 +22,8 @@ export async function getMovieById(id: string) {
   const response = await instanceAxios.get(`/movie/${id}`);
   return response;
 }
+
+export async function postReview(review: string, tmdb_id: number) {
+  const response = await instanceAxios.post(`/review/${tmdb_id}`, { content: review });
+  return response;
+}

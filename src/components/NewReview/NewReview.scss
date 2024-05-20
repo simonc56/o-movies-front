@@ -1,0 +1,10 @@
+.form-review {
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  & .textarea-review {
+    flex-grow: 1;
+    margin-right: 0.5rem;
+  }
+}
