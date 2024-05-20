@@ -32,12 +32,12 @@ function NewReview() {
     <form onSubmit={handleSubmit} className="form-review">
       <Textarea
         className="textarea-review"
-        label="Donnez votre avis sur ce film"
+        label="Mon commentaire"
         placeholder="Tapez votre commentaire ici..."
         value={review}
         onChange={handleChange}
       />
-      <SimpleButton type="submit" label="Envoyer" />
+      <SimpleButton type="submit" label="Commenter" disabled={!review} />
     </form>
   );
 }
