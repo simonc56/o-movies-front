@@ -91,7 +91,7 @@ function MoviePage() {
       </section>
     </main>
   ) : (
-    <Loader />
+    <Loader label="Chargement du film..." />
   );
 }
 
