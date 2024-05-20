@@ -47,7 +47,7 @@ function Header() {
             <Searchbar />
             <LoginSignup />
           </Group>
-          <Burger opened={drawerOpened} onClick={toggleDrawer} size="md" hiddenFrom="md" color="yellow" />
+          <Burger opened={drawerOpened} onClick={toggleDrawer} size="md" hiddenFrom="md" color="primary" />
         </Group>
       </header>
 
