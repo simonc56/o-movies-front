@@ -7,7 +7,7 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    & span {
+    & .rating-text {
       color: var(--mantine-color-gray-5);
     }
   }
