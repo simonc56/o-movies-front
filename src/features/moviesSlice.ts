@@ -1,5 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { MoviesState, SuccessOneMovieResponse } from '../@types/MoviesState';
+import { MoviesState, SuccessOneMovieResponse, SuccessReviewResponse } from '../@types/MoviesState';
 import * as api from '../api';
 // import type { RootState } from '../store/store';
 import { budgetToMillions, isNumber, isoDateToFrench, isoDateToYear } from '../utils/utils';
@@ -23,8 +23,23 @@ export const actionFetchOneMovie = createAsyncThunk<SuccessOneMovieResponse, str
   }
 );
 
+export const actionPostReview = createAsyncThunk<SuccessReviewResponse, { review: string; tmdbId: number }>(
+  'movie/postReview',
+  async (payload, thunkAPI) => {
+    const { review, tmdbId } = payload;
+    if (review === undefined) {
+      return thunkAPI.rejectWithValue('No review provided');
+    }
+    if (tmdbId === undefined || Number.isNaN(tmdbId)) {
+      return thunkAPI.rejectWithValue('No tmdbId provided');
+    }
+    const response = await api.postReview(review, tmdbId);
+    return response.data;
+  }
+);
+
 const moviesSlice = createSlice({
-  name: 'settings',
+  name: 'movies',
   initialState: moviesState,
   reducers: {
     editMovieList: (state, action: PayloadAction<string>) => {
@@ -47,6 +62,10 @@ const moviesSlice = createSlice({
           // eslint-disable-next-line no-console
           console.log('Error :', action.payload);
         }
+      })
+      .addCase(actionPostReview.fulfilled, (state, action) => {
+        const response = action.payload as SuccessReviewResponse;
+        // state.currentMovie?.reviews.push(response.data.review);
       });
   },
 });

@@ -8,3 +8,7 @@ export type MoviesState = {
 export type SuccessOneMovieResponse = {
   data: MovieType;
 };
+
+export type SuccessReviewResponse = {
+  data: string;
+};
