@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { actionFetchOneMovie } from '../../features/moviesSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-
+import Loader from '../Loader/Loader';
 import MovieExtraInfos from '../MovieExtraInfos/MovieExtraInfos';
 import MovieInfos from '../MovieInfos/MovieInfos';
 import './MoviePage.scss';
@@ -18,13 +18,13 @@ function MoviePage() {
     }
   }, [id, dispatch]);
 
-  return (
-    movie && (
-      <main className="movie-page">
-        <MovieInfos movie={movie} />
-        <MovieExtraInfos movie={movie} />
-      </main>
-    )
+  return movie ? (
+    <main className="movie-page">
+      <MovieInfos movie={movie} />
+      <MovieExtraInfos movie={movie} />
+    </main>
+  ) : (
+    <Loader label="Chargement du film..." />
   );
 }
 
