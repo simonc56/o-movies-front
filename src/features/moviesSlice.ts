@@ -1,5 +1,10 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { MoviesState, SuccessOneMovieResponse, SuccessReviewResponse } from '../@types/MoviesState';
+import {
+  MoviesState,
+  SuccessOneMovieResponse,
+  SuccessRatingResponse,
+  SuccessReviewResponse,
+} from '../@types/MoviesState';
 import * as api from '../api';
 // import type { RootState } from '../store/store';
 import { budgetToMillions, isNumber, isoDateToFrench, isoDateToYear } from '../utils/utils';
@@ -9,6 +14,7 @@ const moviesState: MoviesState = {
   movieList: [],
 };
 
+// thunk types: createAsyncThunk<returned object type, received arg type>
 export const actionFetchOneMovie = createAsyncThunk<SuccessOneMovieResponse, string>(
   'movies/fetchOneMovie',
   async (id, thunkAPI) => {
@@ -23,11 +29,11 @@ export const actionFetchOneMovie = createAsyncThunk<SuccessOneMovieResponse, str
   }
 );
 
-export const actionPostReview = createAsyncThunk<SuccessReviewResponse, { review: string; tmdbId: number }>(
+export const actionPostReview = createAsyncThunk<[SuccessReviewResponse, string], { review: string; tmdbId: number }>(
   'movie/postReview',
   async (payload, thunkAPI) => {
     const { review, tmdbId } = payload;
-    // utiliser Jest ici pour validation de données
+    // use Jest here for data validation
     if (review === undefined) {
       return thunkAPI.rejectWithValue('No review provided');
     }
@@ -35,15 +41,16 @@ export const actionPostReview = createAsyncThunk<SuccessReviewResponse, { review
       return thunkAPI.rejectWithValue('No tmdbId provided');
     }
     const response = await api.postReview(review, tmdbId);
-    return response.data;
+    // send both api response and review content because content is not provided by api
+    return [response.data, review];
   }
 );
 
-export const actionPostRating = createAsyncThunk<SuccessReviewResponse, { rating: number; tmdbId: number }>(
-  'movie/postReview',
+export const actionPostRating = createAsyncThunk<[SuccessRatingResponse, number], { rating: number; tmdbId: number }>(
+  'movie/postRating',
   async (payload, thunkAPI) => {
     const { rating, tmdbId } = payload;
-    // utiliser Jest ici pour validation de données
+    // use Jest here for data validation
     const allowedRatings = [1, 2, 3, 4, 5];
     if (rating === undefined || Number.isNaN(rating) || !allowedRatings.includes(rating)) {
       return thunkAPI.rejectWithValue('No rating provided');
@@ -52,7 +59,8 @@ export const actionPostRating = createAsyncThunk<SuccessReviewResponse, { rating
       return thunkAPI.rejectWithValue('No tmdbId provided');
     }
     const response = await api.postRating(rating, tmdbId);
-    return response.data;
+    // send both api response and rating value because value is not provided by api
+    return [response.data, rating];
   }
 );
 
@@ -82,8 +90,21 @@ const moviesSlice = createSlice({
         }
       })
       .addCase(actionPostReview.fulfilled, (state, action) => {
-        const response = action.payload as SuccessReviewResponse;
-        // state.currentMovie?.reviews.push(response.data.review);
+        const [response, review] = action.payload;
+        if (response.data.status === 'success') {
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          const { review_id } = response.data.data;
+          state.currentMovie?.reviews.push({ review_id, content: review });
+        }
+      })
+      .addCase(actionPostRating.fulfilled, (state, action) => {
+        const [response, rating] = action.payload;
+        if (response.data.status === 'success') {
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          const { rating_id } = response.data.data;
+          // what to do here ?
+          // recalculate average rating ?
+        }
       });
   },
 });
