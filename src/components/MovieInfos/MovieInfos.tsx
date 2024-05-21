@@ -20,7 +20,7 @@ function MovieInfos({ movie }: MovieInfosProps) {
         <div className="infos">
           <span className="year">{movie.year}</span>
           <span className="rating">
-            <FaStar /> {movie.rating}
+            <FaStar /> {movie.rating.toFixed(1)}
           </span>
           <span>{runtimeToString(movie.runtime)}</span>
         </div>
