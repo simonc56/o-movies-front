@@ -7,8 +7,10 @@ export default createTheme({
   // je n'ai pas réussi à factoriser les couleurs dans un fichier unique
   colors: {
     // 10 nuances pour chaque couleur
+    // n°7 : couleur principale
+    // n°8 : couleur utilisée quand hover button
     'white': ['', '', '', '', '', '', '#fff', '', '', ''],
-    'primary': ['', '', '', '', '', '', '#fbda8d', '', '', ''],
+    'primary': ['', '', '', '', '', '', '#fbda8d', '#ffe697', '', ''],
     'bg': ['', '', '', '', '', '', '#293159', '', '', ''],
     'links': ['', '', '', '', '', '', '#e5e6ff', '', '', ''],
     // exemple avec ocean blue
