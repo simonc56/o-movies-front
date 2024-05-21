@@ -23,7 +23,7 @@ function NewRating() {
       console.error('No tmdbId or id provided, impossible to post rating');
       return;
     }
-    dispatch(actionPostRating({ rating, tmdbId, id }));
+    dispatch(actionPostRating({ rating, tmdbId }));
   };
 
   return (

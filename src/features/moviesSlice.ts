@@ -23,38 +23,38 @@ export const actionFetchOneMovie = createAsyncThunk<SuccessOneMovieResponse, str
   }
 );
 
-export const actionPostReview = createAsyncThunk<
-  SuccessReviewResponse,
-  { review: string; tmdbId: number; id: number | null }
->('movie/postReview', async (payload, thunkAPI) => {
-  const { review, tmdbId, id } = payload;
-  // utiliser Jest ici pour validation de données
-  if (review === undefined) {
-    return thunkAPI.rejectWithValue('No review provided');
+export const actionPostReview = createAsyncThunk<SuccessReviewResponse, { review: string; tmdbId: number }>(
+  'movie/postReview',
+  async (payload, thunkAPI) => {
+    const { review, tmdbId } = payload;
+    // utiliser Jest ici pour validation de données
+    if (review === undefined) {
+      return thunkAPI.rejectWithValue('No review provided');
+    }
+    if (tmdbId === undefined || Number.isNaN(tmdbId)) {
+      return thunkAPI.rejectWithValue('No tmdbId provided');
+    }
+    const response = await api.postReview(review, tmdbId);
+    return response.data;
   }
-  if (tmdbId === undefined || Number.isNaN(tmdbId)) {
-    return thunkAPI.rejectWithValue('No tmdbId provided');
-  }
-  const response = await api.postReview(review, tmdbId, id);
-  return response.data;
-});
+);
 
-export const actionPostRating = createAsyncThunk<
-  SuccessReviewResponse,
-  { rating: number; tmdbId: number; id: number | null }
->('movie/postReview', async (payload, thunkAPI) => {
-  const { rating, tmdbId, id } = payload;
-  // utiliser Jest ici pour validation de données
-  const allowedRatings = [1, 2, 3, 4, 5];
-  if (rating === undefined || Number.isNaN(rating) || !allowedRatings.includes(rating)) {
-    return thunkAPI.rejectWithValue('No rating provided');
+export const actionPostRating = createAsyncThunk<SuccessReviewResponse, { rating: number; tmdbId: number }>(
+  'movie/postReview',
+  async (payload, thunkAPI) => {
+    const { rating, tmdbId } = payload;
+    // utiliser Jest ici pour validation de données
+    const allowedRatings = [1, 2, 3, 4, 5];
+    if (rating === undefined || Number.isNaN(rating) || !allowedRatings.includes(rating)) {
+      return thunkAPI.rejectWithValue('No rating provided');
+    }
+    if (tmdbId === undefined || Number.isNaN(tmdbId)) {
+      return thunkAPI.rejectWithValue('No tmdbId provided');
+    }
+    const response = await api.postRating(rating, tmdbId);
+    return response.data;
   }
-  if (tmdbId === undefined || Number.isNaN(tmdbId)) {
-    return thunkAPI.rejectWithValue('No tmdbId provided');
-  }
-  const response = await api.postRating(rating, tmdbId, id);
-  return response.data;
-});
+);
 
 const moviesSlice = createSlice({
   name: 'movies',

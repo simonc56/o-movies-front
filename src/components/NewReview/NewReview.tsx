@@ -9,7 +9,6 @@ import './NewReview.scss';
 function NewReview() {
   const [review, setReview] = useState('');
   const tmdbId = useAppSelector((state) => state.movies.currentMovie?.tmdb_id) || 0;
-  const id = useAppSelector((state) => state.movies.currentMovie?.id) || null;
   const dispatch = useAppDispatch();
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -20,12 +19,12 @@ function NewReview() {
     event.preventDefault();
     // eslint-disable-next-line no-console
     console.log(review);
-    if (!tmdbId && !id) {
+    if (!tmdbId) {
       // eslint-disable-next-line no-console
-      console.error('No tmdbId or id provided, impossible to post review');
+      console.error('No tmdbId provided, impossible to post review');
       return;
     }
-    dispatch(actionPostReview({ review, tmdbId, id }));
+    dispatch(actionPostReview({ review, tmdbId }));
     setReview('');
   };
 
