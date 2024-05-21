@@ -13,8 +13,4 @@ function Loader({ label }: LoaderProps) {
   );
 }
 
-Loader.defaultProps = {
-  label: 'cd',
-};
-
 export default Loader;
