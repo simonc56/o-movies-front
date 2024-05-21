@@ -55,5 +55,6 @@ module.exports = {
       },
     ],
     'react/no-unescaped-entities': 0,
+    'react/require-default-props': 0,
   },
 };

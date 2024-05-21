@@ -19,7 +19,7 @@ function MovieReviews({ reviews }: MovieReviewsProps) {
           <span>{review.content}</span>
         </div>
       ))}
-      {reviews.length === 0 && <p>Aucun commentaire pour le moment</p>}
+      {reviews.length === 0 && <p>Aucun commentaire pour le moment.</p>}
     </div>
   );
 }
