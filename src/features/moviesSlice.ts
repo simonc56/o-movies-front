@@ -57,7 +57,11 @@ const moviesSlice = createSlice({
       })
       .addCase(actionFetchOneMovie.rejected, (_, action) => {
         // eslint-disable-next-line no-console
-        console.log(action.error.message);
+        console.log('Error :', action.error.message);
+        if (action.payload) {
+          // eslint-disable-next-line no-console
+          console.log('Error :', action.payload);
+        }
       })
       .addCase(actionPostReview.fulfilled, (state, action) => {
         const response = action.payload as SuccessReviewResponse;
