@@ -28,7 +28,7 @@ export async function postReview(review: string, tmdb_id: number) {
   return response;
 }
 
-export async function postRating(rating: number, tmdb_id: number) {
-  const response = await instanceAxios.post(`/rating/${tmdb_id}`, { value: rating });
+export async function postRating(rating: number, tmdb_id: number, id: number) {
+  const response = await instanceAxios.post(`/rating`, { tmdb_id, id, value: rating });
   return response;
 }
