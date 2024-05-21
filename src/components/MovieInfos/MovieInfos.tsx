@@ -15,7 +15,7 @@ function MovieInfos({ movie }: MovieInfosProps) {
         <img src={movie.poster_path} alt="poster du film" />
       </div>
       <div className="data-panel">
-        <h2>{movie.original_title}</h2>
+        <h2>{movie.title_fr}</h2>
         <span className="tagline">{movie.tagline}</span>
         <div className="infos">
           <span className="year">{movie.year}</span>
