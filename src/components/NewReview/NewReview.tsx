@@ -9,6 +9,7 @@ import './NewReview.scss';
 function NewReview() {
   const [review, setReview] = useState('');
   const tmdbId = useAppSelector((state) => state.movies.currentMovie?.tmdb_id);
+  const id = useAppSelector((state) => state.movies.currentMovie?.id);
   const dispatch = useAppDispatch();
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -24,7 +25,7 @@ function NewReview() {
       console.error('No tmdbId provided, impossible to post review');
       return;
     }
-    dispatch(actionPostReview({ review, tmdbId }));
+    dispatch(actionPostReview({ review, tmdbId, id }));
     setReview('');
   };
 
