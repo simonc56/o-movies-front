@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { FaCommentAlt, FaStar } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
 import { Genre, Review } from '../../@types/MovieType';
+import avatar from '../../assets/avatar.webp';
 import { actionFetchOneMovie } from '../../features/moviesSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { runtimeToString } from '../../utils/utils';
@@ -71,7 +72,11 @@ function MoviePage() {
           <div className="cast">
             {movie.cast.map((actor) => (
               <div className="actor" key={actor.id}>
-                <img className="actor--picture" src={actor.profile_path} alt={actor.name} />
+                <img
+                  className="actor--picture"
+                  src={actor.profile_path ? actor.profile_path : avatar}
+                  alt={actor.name}
+                />
                 <span className="actor--name">{actor.name}</span>
                 <span className="actor--character">{actor.character}</span>
               </div>

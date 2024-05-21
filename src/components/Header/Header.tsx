@@ -1,7 +1,7 @@
 import { Box, Burger, Button, Divider, Drawer, Group } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { NavLink } from 'react-router-dom';
-import logo from '../../assets/logo-pop-corn.png';
+import logo from '../../assets/logo-pop-corn.webp';
 import LoginSignup from '../LoginSignup/LoginSignup';
 import Searchbar from '../Searchbar/Searchbar';
 import './Header.scss';
@@ -16,21 +16,17 @@ const links = [
 function Header() {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
 
-  const items = links.map((link) => {
-    return (
-      <NavLink key={link.label} to={link.link} className="link" onClick={(event) => event.preventDefault()}>
-        {link.label}
-      </NavLink>
-    );
-  });
+  const items = links.map((link) => (
+    <NavLink key={link.label} to={link.link} className="link" onClick={(event) => event.preventDefault()}>
+      {link.label}
+    </NavLink>
+  ));
 
-  const drawerItems = links.map((link) => {
-    return (
-      <NavLink key={link.label} to={link.link} className="drawerLink" onClick={(event) => event.preventDefault()}>
-        {link.label}
-      </NavLink>
-    );
-  });
+  const drawerItems = links.map((link) => (
+    <NavLink key={link.label} to={link.link} className="drawerLink" onClick={(event) => event.preventDefault()}>
+      {link.label}
+    </NavLink>
+  ));
 
   return (
     <Box size="md">
