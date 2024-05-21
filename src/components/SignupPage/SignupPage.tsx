@@ -17,7 +17,27 @@ function SignupPage() {
     event.preventDefault();
 
     if (password === confirmPassword) {
-      // API
+      setPasswordsMatch(true);
+      setApiError('');
+      setSuccessMessage('');
+
+      try {
+        const credentials = {
+          firstname: username, 
+          lastname,
+          birthdate: birthday,  
+          email,
+          password,
+        };
+
+        const response = await signup(credentials);
+
+        // response of API
+        setSuccessMessage('Inscription réussie !');
+      } catch (error) {
+        // error of API
+        setApiError('Erreur lors de l\'inscription. Veuillez réessayer.');
+      }
     } else {
       setPasswordsMatch(false);
     }
