@@ -29,7 +29,7 @@ function SignupPage() {
           password,
         };
 
-        const response = await signup(credentials);
+        const response = await 
 
         // response of API
         setSuccessMessage('Inscription réussie !');
