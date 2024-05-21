@@ -1,4 +1,5 @@
 type MovieType = {
+  id: number;
   tmdb_id: number;
   title_fr: string;
   original_title: string;

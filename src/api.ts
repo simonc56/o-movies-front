@@ -23,12 +23,22 @@ export async function getMovieById(id: string) {
   return response;
 }
 
-export async function postReview(review: string, tmdb_id: number) {
-  const response = await instanceAxios.post(`/review/${tmdb_id}`, { content: review });
+export async function postReview(review: string, tmdb_id: number, id: number) {
+  const response = await instanceAxios.post(`/review`, { tmdb_id, id, content: review });
   return response;
 }
 
 export async function postRating(rating: number, tmdb_id: number, id: number) {
   const response = await instanceAxios.post(`/rating`, { tmdb_id, id, value: rating });
+  return response;
+}
+
+export async function patchReview(review: string, id: number) {
+  const response = await instanceAxios.patch(`/review`, { id, content: review });
+  return response;
+}
+
+export async function patchRating(rating: number, id: number) {
+  const response = await instanceAxios.patch(`/rating`, { id, value: rating });
   return response;
 }
