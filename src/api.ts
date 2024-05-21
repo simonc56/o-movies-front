@@ -42,3 +42,13 @@ export async function patchRating(rating: number, id: number) {
   const response = await instanceAxios.patch(`/rating`, { id, value: rating });
   return response;
 }
+
+export async function deleteReview(id: number) {
+  const response = await instanceAxios.delete(`/review/${id}`);
+  return response;
+}
+
+export async function deleteRating(id: number) {
+  const response = await instanceAxios.delete(`/rating/${id}`);
+  return response;
+}
