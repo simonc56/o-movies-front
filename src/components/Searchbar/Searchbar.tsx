@@ -1,4 +1,6 @@
+import { TextInput } from '@mantine/core';
 import { ChangeEvent, useState } from 'react';
+import { IoIosSearch } from 'react-icons/io';
 import './Searchbar.scss';
 
 function Searchbar() {
@@ -10,7 +12,14 @@ function Searchbar() {
 
   return (
     <form className="searchbar-form">
-      <input type="text" placeholder="Rechercher..." value={inputValue} onChange={handleChange} />
+      <TextInput
+        radius="xl"
+        size="sm"
+        placeholder="Rechercher..."
+        leftSection={<IoIosSearch />}
+        value={inputValue}
+        onChange={handleChange}
+      />
     </form>
   );
 }

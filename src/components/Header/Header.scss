@@ -39,6 +39,15 @@
       color: var(--color-primary);
     }
   }
+  & .searchbar-form {
+    margin-right: 2rem;
+    & input {
+      background-color: var(--color-links);
+      &:focus {
+        background-color: var(--color-primary);
+      }
+    }
+  }
 }
 
 .drawerLink {
@@ -52,6 +61,6 @@
   font-weight: 500;
   text-decoration: none;
   &:hover {
-    color: var(--color-primary);
+    text-decoration: underline;
   }
 }

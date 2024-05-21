@@ -1,7 +1,7 @@
 import { Box, Burger, Button, Divider, Drawer, Group } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { NavLink } from 'react-router-dom';
-import logo from '../../assets/logo-pop-corn.png';
+import { Link, NavLink } from 'react-router-dom';
+import logo from '../../assets/logo-pop-corn.webp';
 import LoginSignup from '../LoginSignup/LoginSignup';
 import Searchbar from '../Searchbar/Searchbar';
 import './Header.scss';
@@ -16,21 +16,17 @@ const links = [
 function Header() {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
 
-  const items = links.map((link) => {
-    return (
-      <NavLink key={link.label} to={link.link} className="link" onClick={(event) => event.preventDefault()}>
-        {link.label}
-      </NavLink>
-    );
-  });
+  const items = links.map((link) => (
+    <NavLink key={link.label} to={link.link} className="link" onClick={(event) => event.preventDefault()}>
+      {link.label}
+    </NavLink>
+  ));
 
-  const drawerItems = links.map((link) => {
-    return (
-      <NavLink key={link.label} to={link.link} className="drawerLink" onClick={(event) => event.preventDefault()}>
-        {link.label}
-      </NavLink>
-    );
-  });
+  const drawerItems = links.map((link) => (
+    <NavLink key={link.label} to={link.link} className="drawerLink" onClick={(event) => event.preventDefault()}>
+      {link.label}
+    </NavLink>
+  ));
 
   return (
     <Box size="md">
@@ -47,7 +43,7 @@ function Header() {
             <Searchbar />
             <LoginSignup />
           </Group>
-          <Burger opened={drawerOpened} onClick={toggleDrawer} size="md" hiddenFrom="md" color="yellow" />
+          <Burger opened={drawerOpened} onClick={toggleDrawer} size="md" hiddenFrom="md" color="primary" />
         </Group>
       </header>
 
@@ -61,14 +57,18 @@ function Header() {
         zIndex={1000000}
       >
         <Divider my="md" />
-
         {drawerItems}
-
+        <br />
+        <Searchbar />
         <Divider my="xl" />
 
         <Group justify="center" grow pb="xl" px="md">
-          <Button variant="default">Connexion</Button>
-          <Button color="yellow">Inscription</Button>
+          <Button variant="default" component={Link} to="/connexion">
+            Connexion
+          </Button>
+          <Button color="primary" autoContrast component={Link} to="/inscription">
+            Inscription
+          </Button>
         </Group>
       </Drawer>
     </Box>
