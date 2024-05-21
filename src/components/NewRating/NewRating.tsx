@@ -8,8 +8,8 @@ import './NewRating.scss';
 
 function NewRating() {
   const [rating, setRating] = useState(0);
-  const tmdbId = useAppSelector((state) => state.movies.currentMovie?.tmdb_id);
-  const id = useAppSelector((state) => state.movies.currentMovie?.id);
+  const tmdbId = useAppSelector((state) => state.movies.currentMovie?.tmdb_id) || 0;
+  const id = useAppSelector((state) => state.movies.currentMovie?.id) || null;
   const dispatch = useAppDispatch();
 
   const handleChange = (newRating: number) => {
@@ -18,9 +18,9 @@ function NewRating() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!tmdbId || !id) {
+    if (!tmdbId && !id) {
       // eslint-disable-next-line no-console
-      console.error('No tmdbId or id provided, impossible to post review');
+      console.error('No tmdbId or id provided, impossible to post rating');
       return;
     }
     dispatch(actionPostRating({ rating, tmdbId, id }));
