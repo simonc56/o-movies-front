@@ -26,6 +26,7 @@ function SignupPage() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+
     if (form.password === form.confirmPassword) {
       setPasswordsMatch(true);
       setApiError('');
