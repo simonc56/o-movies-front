@@ -34,6 +34,7 @@ function NewReview() {
         placeholder="Tapez votre commentaire ici..."
         value={review}
         onChange={handleChange}
+        maxLength={1000}
       />
       <SimpleButton type="submit" label="Commenter" disabled={!review} />
     </form>
