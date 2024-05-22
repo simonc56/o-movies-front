@@ -8,50 +8,50 @@ import './ConnectionPage.scss';
 
 interface LoginResponse {
   message: string;
-// Ajoutez d'autres propriétés de réponse si nécessaire
+// If necessary, add other answer property
 }
 
 function ConnectionPage() {
-// État pour stocker les valeurs des champs de formulaire
+// State to store form field values
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const [stayConnected, setStayConnected] = useState(false);
-  // État pour gérer le statut de chargement, les erreurs et les messages de réponse
+  // Status to manage loading status, errors and response messages
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [responseMessage, setResponseMessage] = useState<string | null>(null);
 
-// Gestionnaire de changement pour le champ email
+// Change manager for the email field
   const emailChange = (event: ChangeEvent<HTMLInputElement>) => {
     setEmailValue(event.target.value);
   };
-// Gestionnaire de changement pour le champ mot de passe
+// Change manager for password field
   const passwordChange = (event: ChangeEvent<HTMLInputElement>) => {
     setPasswordValue(event.target.value);
   };
-// Gestionnaire de changement pour la case à cocher "Rester connecté"
+// Change manager for the "Stay connected" checkbox
   const stayConnectedChange = (event: ChangeEvent<HTMLInputElement>) => {
     setStayConnected(event.target.checked);
   };
-// Fonction pour gérer la soumission du formulaire de connexion
+// Function to manage the submission of the login form
   const onLogin = async () => {
     setLoading(true);
     setError(null);
     setResponseMessage(null);
 
-// Créer un objet contenant les informations d'identification de l'utilisateur
+// Create an object with user credentials
     const loginCredentials: LoginCredentials = {
       email: emailValue,
       password: passwordValue,
     };
 
     try {
-// Appel API pour tenter de se connecter
+// API call to try to connect
       const response: AxiosResponse<LoginResponse> = await login(loginCredentials);
-// Mise à jour du message de réponse en cas de succès
+// In case of success, uptade the response message
       setResponseMessage(response.data.message);
     } catch (err) {
-// Mise à jour de l'erreur en cas d'échec de la connexion
+// Error update in case of connection failure
       setError("Impossible de vous connecter. Veuillez vérifier vos informations d'identification.");
     } finally {
       setLoading(false);
