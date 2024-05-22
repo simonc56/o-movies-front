@@ -8,8 +8,7 @@ import './NewReview.scss';
 
 function NewReview() {
   const [review, setReview] = useState('');
-  const tmdbId = useAppSelector((state) => state.movies.currentMovie?.tmdb_id);
-  const id = useAppSelector((state) => state.movies.currentMovie?.id);
+  const tmdbId = useAppSelector((state) => state.movies.currentMovie?.tmdb_id) || 0;
   const dispatch = useAppDispatch();
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -18,14 +17,12 @@ function NewReview() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    // eslint-disable-next-line no-console
-    console.log(review);
     if (!tmdbId) {
       // eslint-disable-next-line no-console
       console.error('No tmdbId provided, impossible to post review');
       return;
     }
-    dispatch(actionPostReview({ review, tmdbId, id }));
+    dispatch(actionPostReview({ review, tmdbId }));
     setReview('');
   };
 
@@ -37,6 +34,7 @@ function NewReview() {
         placeholder="Tapez votre commentaire ici..."
         value={review}
         onChange={handleChange}
+        maxLength={1000}
       />
       <SimpleButton type="submit" label="Commenter" disabled={!review} />
     </form>
