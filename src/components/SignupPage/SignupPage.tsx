@@ -1,42 +1,55 @@
+import axios from 'axios';
 import { useState } from 'react';
+import { register } from '../../api';
 import SimpleButton from '../SimpleButton/SimpleButton';
+import PasswordWithToggle from '../PasswordWithToggle/PasswordWithToggle';
 import './SignupPage.scss';
 
 function SignupPage() {
-  const [lastname, setLastname] = useState('');
-  const [username, setUsername] = useState('');
-  const [birthday, setBirthday] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [form, setForm] = useState({
+    lastname: '',
+    username: '',
+    birthday: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  });
   const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [apiError, setApiError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (password === confirmPassword) {
+    if (form.password === form.confirmPassword) {
       setPasswordsMatch(true);
       setApiError('');
       setSuccessMessage('');
 
       try {
+        const { username, lastname, birthday, email, password } = form;
         const credentials = {
-          firstname: username, 
+          firstname: username,
           lastname,
-          birthdate: birthday,  
+          birthdate: birthday,
           email,
           password,
         };
 
-        const response = await signup(credentials);
-
-        // response of API
+        const response = await register(credentials);
+        console.log(response.data);
         setSuccessMessage('Inscription réussie !');
       } catch (error) {
-        // error of API
-        setApiError('Erreur lors de l\'inscription. Veuillez réessayer.');
+        if (axios.isAxiosError(error)) {
+          setApiError(`Erreur: ${error.response?.data.error || 'Inscription échouée'}`);
+        } else {
+          setApiError('Erreur lors de l\'inscription. Veuillez réessayer.');
+        }
       }
     } else {
       setPasswordsMatch(false);
@@ -51,20 +64,22 @@ function SignupPage() {
         <div className="input-container">
           <input
             type="text"
+            name="lastname"
             className="signup-input signup-lastname"
             placeholder="Votre nom"
-            value={lastname}
-            onChange={(e) => setLastname(e.target.value)}
+            value={form.lastname}
+            onChange={handleChange}
             required
           />
         </div>
         <div className="input-container">
           <input
             type="text"
+            name="username"
             className="signup-input signup-username"
             placeholder="Votre prénom"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={form.username}
+            onChange={handleChange}
             required
           />
         </div>
@@ -72,14 +87,14 @@ function SignupPage() {
           <label htmlFor="birthday" className="birthday-label">Date de naissance:</label>
           <input
             id="birthday"
+            name="birthday"
             className="signup-input signup-birthday"
             type="date"
-            value={birthday}
-            onChange={(e) => setBirthday(e.target.value)}
+            value={form.birthday}
+            onChange={handleChange}
             required
           />
-          
-        </div>        
+        </div>     
       {/* Mis de coter pour le moment 
       <div className="input-container">
           <input 
@@ -101,39 +116,40 @@ function SignupPage() {
             required 
           />
   </div> */}
-         <div className="input-container">
+          <div className="input-container">
           <input
             type="email"
+            name="email"
             className="signup-input signup-email"
             placeholder="E-mail"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={form.email}
+            onChange={handleChange}
             required
           />
         </div>
         <div className="input-container">
-          <input
-            type="password"
-            className="signup-input signup-password"
+          <PasswordWithToggle
+            name="password"
             placeholder="Mot de passe"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            className="signup-password"
+            value={form.password}
+            onChange={handleChange}
             required
           />
         </div>
         <div className="input-container">
-          <input
-            type="password"
-            className="signup-input signup-confirm-password"
+          <PasswordWithToggle
+            name="confirmPassword"
             placeholder="Confirmer votre mot de passe"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            className="signup-confirm-password"
+            value={form.confirmPassword}
+            onChange={handleChange}
             required
           />
           {!passwordsMatch && <p className="error-message">Les mots de passe ne correspondent pas</p>}
         </div>
         <div className="button-container">
-          <button type="submit">S'inscrire</button>
+        <SimpleButton type="submit" label="S'inscrire" />
         </div>
         {apiError && <p className="error-message">{apiError}</p>}
         {successMessage && <p className="success-message">{successMessage}</p>}

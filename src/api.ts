@@ -9,8 +9,8 @@ export async function login(credentials: LoginCredentials) {
   const response = await instanceAxios.post('/auth/login', credentials);
   return response;
 }
-export async function signup(credentials: SignupCredentials) {
-  const response = await instanceAxios.post('/auth/signup', credentials);
+export async function register(credentials: SignupCredentials) {
+  const response = await instanceAxios.post('/auth/register', credentials);
   return response;
 }
 
