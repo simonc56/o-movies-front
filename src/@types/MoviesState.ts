@@ -24,9 +24,9 @@ export type FailResponse = {
 };
 
 export type SuccessReviewResponse = {
-  data: SuccessResponse<{ review_id: number }>;
+  data: SuccessResponse<{ reviewId: number }>;
 };
 
 export type SuccessRatingResponse = {
-  data: SuccessResponse<{ rating_id: number }>;
+  data: SuccessResponse<{ ratingId: number }>;
 };

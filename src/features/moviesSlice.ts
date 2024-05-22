@@ -92,16 +92,14 @@ const moviesSlice = createSlice({
       .addCase(actionPostReview.fulfilled, (state, action) => {
         const [response, review] = action.payload;
         if (response.data.status === 'success') {
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          const { review_id } = response.data.data;
-          state.currentMovie?.reviews.push({ review_id, content: review });
+          const { reviewId } = response.data.data;
+          state.currentMovie?.reviews.push({ review_id: reviewId, content: review });
         }
       })
       .addCase(actionPostRating.fulfilled, (state, action) => {
         const [response, rating] = action.payload;
         if (response.data.status === 'success') {
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          const { rating_id } = response.data.data;
+          const { ratingId } = response.data.data;
           // what to do here ?
           // recalculate average rating ?
         }
