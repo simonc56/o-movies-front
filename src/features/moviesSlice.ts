@@ -91,15 +91,15 @@ const moviesSlice = createSlice({
       })
       .addCase(actionPostReview.fulfilled, (state, action) => {
         const [response, review] = action.payload;
-        if (response.data.status === 'success') {
-          const { reviewId } = response.data.data;
+        if (response.status === 'success') {
+          const { reviewId } = response.data;
           state.currentMovie?.reviews.push({ review_id: reviewId, content: review });
         }
       })
       .addCase(actionPostRating.fulfilled, (state, action) => {
         const [response, rating] = action.payload;
-        if (response.data.status === 'success') {
-          const { ratingId } = response.data.data;
+        if (response.status === 'success') {
+          const { ratingId } = response.data;
           // what to do here ?
           // recalculate average rating ?
         }

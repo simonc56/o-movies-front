@@ -23,10 +23,6 @@ export type FailResponse = {
   };
 };
 
-export type SuccessReviewResponse = {
-  data: SuccessResponse<{ reviewId: number }>;
-};
+export type SuccessReviewResponse = SuccessResponse<{ reviewId: number }>;
 
-export type SuccessRatingResponse = {
-  data: SuccessResponse<{ ratingId: number }>;
-};
+export type SuccessRatingResponse = SuccessResponse<{ ratingId: number }>;
