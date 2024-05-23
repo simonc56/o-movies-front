@@ -32,10 +32,10 @@ function Header() {
     <Box size="md">
       <header className="header">
         <Group justify="space-between" h="100%">
-          <div className="title">
+          <Link to="/" className="title">
             <img src={logo} alt="logo o'movies" />
             <h1>O'movies</h1>
-          </div>
+          </Link>
           <Group gap={0} visibleFrom="md">
             {items}
           </Group>
