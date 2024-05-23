@@ -1,8 +1,7 @@
-import { Textarea } from '@mantine/core';
+import { Button, Textarea } from '@mantine/core';
 import { useState } from 'react';
 import { actionPostReview } from '../../features/moviesSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import SimpleButton from '../SimpleButton/SimpleButton';
 
 import './NewReview.scss';
 
@@ -36,7 +35,9 @@ function NewReview() {
         onChange={handleChange}
         maxLength={1000}
       />
-      <SimpleButton type="submit" label="Commenter" disabled={!review} />
+      <Button type="submit" autoContrast disabled={!review}>
+        Commenter
+      </Button>
     </form>
   );
 }

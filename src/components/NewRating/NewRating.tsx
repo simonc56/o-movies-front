@@ -1,8 +1,7 @@
-import { Rating } from '@mantine/core';
+import { Button, Rating } from '@mantine/core';
 import { useState } from 'react';
 import { actionPostRating } from '../../features/moviesSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import SimpleButton from '../SimpleButton/SimpleButton';
 
 import './NewRating.scss';
 
@@ -31,7 +30,9 @@ function NewRating() {
       <div>
         <Rating value={rating} onChange={handleChange} size="lg" color="primary" fractions={2} aria-required />
         <span className="rating-text">{rating}/5</span>
-        <SimpleButton label="Noter" type="submit" disabled={!rating} />
+        <Button type="submit" autoContrast disabled={!rating}>
+          Noter
+        </Button>
       </div>
     </form>
   );

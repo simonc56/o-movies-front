@@ -1,7 +1,7 @@
+import { Button } from '@mantine/core';
 import axios from 'axios';
 import { useState } from 'react';
 import { register } from '../../api';
-import SimpleButton from '../SimpleButton/SimpleButton';
 import PasswordWithToggle from '../PasswordWithToggle/PasswordWithToggle';
 import './SignupPage.scss';
 
@@ -12,7 +12,7 @@ function SignupPage() {
     birthday: '',
     email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
   });
   const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [apiError, setApiError] = useState('');
@@ -25,7 +25,6 @@ function SignupPage() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
 
     if (form.password === form.confirmPassword) {
       setPasswordsMatch(true);
@@ -49,14 +48,13 @@ function SignupPage() {
         if (axios.isAxiosError(error)) {
           setApiError(`Erreur: ${error.response?.data.error || 'Inscription échouée'}`);
         } else {
-          setApiError('Erreur lors de l\'inscription. Veuillez réessayer.');
+          setApiError("Erreur lors de l'inscription. Veuillez réessayer.");
         }
       }
     } else {
       setPasswordsMatch(false);
     }
   };
-
 
   return (
     <section className="signup-section">
@@ -85,7 +83,9 @@ function SignupPage() {
           />
         </div>
         <div className="input-container">
-          <label htmlFor="birthday" className="birthday-label">Date de naissance:</label>
+          <label htmlFor="birthday" className="birthday-label">
+            Date de naissance:
+          </label>
           <input
             id="birthday"
             name="birthday"
@@ -95,8 +95,8 @@ function SignupPage() {
             onChange={handleChange}
             required
           />
-        </div>     
-      {/* Mis de coter pour le moment 
+        </div>
+        {/* Mis de coter pour le moment 
       <div className="input-container">
           <input 
             type="text" 
@@ -117,7 +117,7 @@ function SignupPage() {
             required 
           />
   </div> */}
-          <div className="input-container">
+        <div className="input-container">
           <input
             type="email"
             name="email"
@@ -150,7 +150,9 @@ function SignupPage() {
           {!passwordsMatch && <p className="error-message">Les mots de passe ne correspondent pas</p>}
         </div>
         <div className="button-container">
-        <SimpleButton type="submit" label="S'inscrire" />
+          <Button autoContrast type="submit">
+            S'inscrire
+          </Button>
         </div>
         {apiError && <p className="error-message">{apiError}</p>}
         {successMessage && <p className="success-message">{successMessage}</p>}
