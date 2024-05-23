@@ -23,7 +23,14 @@ function Header() {
   ));
 
   const drawerItems = links.map((link) => (
-    <NavLink key={link.label} to={link.link} className="drawerLink" onClick={(event) => event.preventDefault()}>
+    <NavLink
+      key={link.label}
+      to={link.link}
+      className="drawerLink"
+      onClick={() => {
+        closeDrawer();
+      }}
+    >
       {link.label}
     </NavLink>
   ));
@@ -63,10 +70,25 @@ function Header() {
         <Divider my="xl" />
 
         <Group justify="center" grow pb="xl" px="md">
-          <Button variant="default" component={Link} to="/connexion">
+          <Button
+            variant="default"
+            component={Link}
+            to="/connexion"
+            onClick={() => {
+              closeDrawer();
+            }}
+          >
             Connexion
           </Button>
-          <Button color="primary" autoContrast component={Link} to="/inscription">
+          <Button
+            color="primary"
+            autoContrast
+            component={Link}
+            to="/inscription"
+            onClick={() => {
+              closeDrawer();
+            }}
+          >
             Inscription
           </Button>
         </Group>
