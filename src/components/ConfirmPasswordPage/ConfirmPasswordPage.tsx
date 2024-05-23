@@ -1,5 +1,5 @@
+import { Button } from '@mantine/core';
 import React, { useEffect, useState } from 'react';
-import SimpleButton from '../SimpleButton/SimpleButton';
 import './ConfirmPasswordPage.scss';
 
 function ConfirmPasswordPage() {
@@ -62,7 +62,7 @@ function ConfirmPasswordPage() {
               required
             />
           </div>
-          <SimpleButton label="Envoyer" />
+          <Button autoContrast>Envoyer</Button>
         </form>
       </div>
     </section>
