@@ -95,15 +95,13 @@ function ConnectionPage() {
           <Checkbox label="Rester connecté" checked={stayConnected} onChange={stayConnectedChange} mt="md" />
           {error && <p className="error-message">{error}</p>}
           {responseMessage && <p className="response-message">{responseMessage}</p>}
-          <Button type="button" onClick={onLogin} disabled={loading} fullWidth mt="md">
+          <Button type="button" onClick={onLogin} disabled={loading} fullWidth mt="md" style={{ color: '#fbda8d', backgroundColor: '#293159' }}>
             {loading ? 'Loading...' : 'Connexion'}
           </Button>
         </form>
         <Group mt="md">
           <div className="link-container">
-            <Anchor
-              href="#"
-              onClick={(event) => event.preventDefault()}
+            <Anchor href="#" onClick={(event) => event.preventDefault()} style={{ color: 'blue' }} 
               pt={2}
               fw={500}
               fz="sm"
@@ -111,7 +109,7 @@ function ConnectionPage() {
             >
               Mot de passe oublié?
             </Anchor>
-            <Anchor component={Link} to="/inscription" pt={2} fw={500} fz="sm" className="link-signUp">
+            <Anchor component={Link} to="/inscription" pt={2} fw={500} fz="sm" className="link-signUp" style={{ color: 'blue' }}>
               Créer un compte
             </Anchor>
           </div>
