@@ -1,3 +1,4 @@
+import { FaStar } from 'react-icons/fa';
 import MovieType from '../../@types/MovieType';
 import { useAppSelector } from '../../store/hooks';
 import MovieCast from '../MovieCast/MovieCast';
@@ -14,6 +15,14 @@ function MovieExtraInfos({ movie }: MovieExtraInfosProps) {
   return (
     <section className="section-extra-infos">
       <MovieCast cast={movie.cast} />
+      {movie.average_rating && (
+        <div className="users-ratings">
+          <h3>Note utilisateurs</h3>
+          <span className="average-rating">
+            <FaStar /> {movie.average_rating.toFixed(1)}
+          </span>
+        </div>
+      )}
       <MovieReviews reviews={movie.reviews} />
       {isLogged ? (
         <>
