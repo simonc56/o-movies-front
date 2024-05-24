@@ -32,6 +32,11 @@ function ConnectionPage() {
   };
 
   const onLogin = async () => {
+    if (!emailValue || !passwordValue || !/\S+@\S+\.\S+/.test(emailValue)) {
+      setError("Veuillez entrer une adresse email valide et un mot de passe.");
+      return;
+    }
+    
     setLoading(true);
     setError(null);
     setResponseMessage(null);
@@ -70,7 +75,7 @@ function ConnectionPage() {
     <section className="connection-section">
       <div className="card">
         <h1 className="connection-title">Connexion</h1>
-        <p>Connectez-vous pour accéder à votre espace personnel.</p>
+        <p className="connection-description">Connectez-vous pour accéder à votre espace personnel.</p>
         <form className="connection-form">
           <TextInput
             label="Email"
@@ -101,15 +106,10 @@ function ConnectionPage() {
         </form>
         <Group mt="md">
           <div className="link-container">
-            <Anchor href="#" onClick={(event) => event.preventDefault()} style={{ color: 'blue' }} 
-              pt={2}
-              fw={500}
-              fz="sm"
-              className="link-reinitiate"
-            >
+            <Anchor href="#" onClick={(event) => event.preventDefault()} pt={2} fw={500} fz="sm" className="link-reinitiate" style={{ color: 'blue', marginRight: '1rem', marginLeft: '1rem' }}>
               Mot de passe oublié?
             </Anchor>
-            <Anchor component={Link} to="/inscription" pt={2} fw={500} fz="sm" className="link-signUp" style={{ color: 'blue' }}>
+            <Anchor component={Link} to="/inscription" pt={2} fw={500} fz="sm" className="link-signUp" style={{ color: 'blue',marginLeft: '1rem', marginRight: '1rem' }}>
               Créer un compte
             </Anchor>
           </div>
