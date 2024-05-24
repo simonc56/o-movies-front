@@ -82,6 +82,19 @@ function Header() {
           </Button>
           <Button
             color="primary"
+            darkHidden
+            autoContrast
+            component={Link}
+            to="/inscription"
+            onClick={() => {
+              closeDrawer();
+            }}
+          >
+            Inscription
+          </Button>
+          <Button
+            color="bg"
+            lightHidden
             autoContrast
             component={Link}
             to="/inscription"
