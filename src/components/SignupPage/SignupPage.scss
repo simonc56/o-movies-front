@@ -1,59 +1,125 @@
-/*.signup-section {
-  margin: 0 auto;
+.signup-section {
+  margin: auto;
   display: flex;
   background-color: rgb(231, 225, 225);
   justify-content: center;
   border-radius: 3rem;
   box-shadow: 0 0 5px rgb(192, 192, 192);
-  & form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 3rem 6rem;
-  }
+  padding: 2rem;
+  width: 80vh;
+  flex-direction: column;
 }
 
 .form-title {
   font-size: 4vh;
-  align-items: center;
+  color: var(--color-bg);
   text-align: center;
-  color: var(--color-bg);
+  margin-bottom: 2rem;
+}
+
+.form-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.left-column,
+.right-column {
+  display: flex;
+  flex-direction: column;
+  width: 45%;
+}
+
+.input-container {
+  margin-bottom: 1rem;
+}
+
+.strength-meter {
+  margin-top: -1rem;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
   margin-top: 2rem;
-  display: flex;
-  margin-bottom: 3rem;
-}
-
-.signup-input {
-  display: flex;
-  padding: 0.5rem; /*espace interne*/
- /* font-size: 1em;
-  border: 0.1em solid #ccc;
-  border-radius: 0.8rem;
-  color: var(--color-bg);
-  display: flex;
-  justify-content: center;
-  width: 20rem;
-  margin: auto;
-  &:focus {
-    background-color: var(--color-primary);
-    outline: none;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  }
-  &:last-of-type {
-    margin-bottom: 2rem;
-  }
-}
-
-.birthday-label {
-  display: flex;
-  justify-content: center;
-  color: var(--color-bg);
 }
 
 .error-message {
   color: red;
   text-align: center;
-  margin-top: 0.2rem;
+  margin-top: 1rem;
 }
-*/
+
+.success-message {
+  color: green;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.custom-date-input {
+  /* Styles pour l'input du date picker */
+  border-color: #4CAF50; /* Changer la couleur de la bordure */
+  background-color: #f0f0f0; /* Changer la couleur de fond */
+  color: #333; /* Changer la couleur du texte */
+}
+
+.custom-date-dropdown {
+  /* Styles pour le dropdown du date picker */
+  border: 1px solid #4CAF50; /* Changer la couleur de la bordure */
+  background-color: #fff; /* Changer la couleur de fond */
+  max-width: 300px; /* Réduire la taille du calendrier */
+}
+
+.custom-date-dropdown .mantine-Calendar-header {
+  /* Changer la couleur de l'en-tête du calendrier */
+  background-color: #4CAF50;
+  color: white;
+}
+
+.custom-date-day {
+  /* Changer la couleur des jours */
+  color: #333;
+}
+
+.custom-date-day-selected {
+  /* Changer la couleur du jour sélectionné */
+  background-color: #4CAF50;
+  color: white;
+}
+
+.custom-date-day-outside {
+  /* Changer la couleur des jours en dehors du mois courant */
+  color: #ccc;
+}
+
+@media (max-width: 844px) {
+  .signup-section {
+    width: 40vh;
+  }
+
+  .form-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .left-column,
+  .right-column {
+    width: 100%;
+    margin: 0;
+  }
+
+  .input-container {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .strength-meter {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .button-container {
+    width: 100%;
+    max-width: 300px;
+  }
+}
