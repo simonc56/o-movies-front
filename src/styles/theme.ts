@@ -10,7 +10,7 @@ export default createTheme({
     // n°7 : couleur principale
     // n°8 : couleur utilisée quand hover button
     'white': ['', '', '', '', '', '', '#fff', '', '', ''],
-    'primary': ['', '', '', '', '', '', '#fbda8d', '#ffe697', '', ''],
+    'primary': ['', '', '', '', '', '', '#fbda8d', '#ffe697', '#fbda8d', '#ffe697'],
     'bg': ['', '', '', '', '', '', '#293159', '#373967', '#293159', '#373967'],
     'links': ['', '', '', '', '', '', '#e5e6ff', '', '', ''],
     // exemple avec ocean blue
