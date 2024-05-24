@@ -46,6 +46,23 @@ export const actionPostReview = createAsyncThunk<[SuccessReviewResponse, string]
   }
 );
 
+export const actionUpdateReview = createAsyncThunk<
+  [SuccessReviewResponse, string, number],
+  { review: string; id: number }
+>('movie/updateReview', async (payload, thunkAPI) => {
+  const { review, id } = payload;
+  // use Jest here for data validation
+  if (review === undefined) {
+    return thunkAPI.rejectWithValue('No review provided');
+  }
+  if (id === undefined || Number.isNaN(id)) {
+    return thunkAPI.rejectWithValue('No review id provided');
+  }
+  const response = await api.patchReview(review, id);
+  // send both api response and review content because content is not provided by api
+  return [response.data, review, id];
+});
+
 export const actionPostRating = createAsyncThunk<[SuccessRatingResponse, number], { rating: number; tmdbId: number }>(
   'movie/postRating',
   async (payload, thunkAPI) => {
@@ -93,7 +110,22 @@ const moviesSlice = createSlice({
         const [response, review] = action.payload;
         if (response.status === 'success') {
           const { reviewId } = response.data;
+          // add review in reviews list of current movie object
           state.currentMovie?.reviews.push({ review_id: reviewId, content: review });
+        }
+      })
+      .addCase(actionUpdateReview.fulfilled, (state, action) => {
+        const [response, review, id] = action.payload;
+        if (response.status === 'success') {
+          // add review in reviews list of current movie object
+          if (state.currentMovie?.reviews) {
+            state.currentMovie.reviews = state.currentMovie.reviews.map((item) => {
+              if (item.review_id === id) {
+                return { review_id: id, content: review };
+              }
+              return item;
+            });
+          }
         }
       })
       .addCase(actionPostRating.fulfilled, (state, action) => {
