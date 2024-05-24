@@ -5,83 +5,72 @@
   justify-content: center;
   border-radius: 3rem;
   box-shadow: 0 0 5px rgb(192, 192, 192);
-  & form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 3rem 6rem;
-    & input {
-      margin-bottom: 0.5rem;
-    }
-  }
+  padding: 3rem; /* Ajout de padding pour un espacement interne */
+  min-height: 200px; /* Ajustez cette valeur selon vos besoins */
+  position: relative; /* Ajout pour positionner le message d'erreur */
+}
+
+.card {
+  margin-top: -4rem;
+  margin-bottom: 3rem;
+}
+
+
+.connection-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%; /* Ajout pour assurer que le formulaire prend toute la largeur du conteneur */
 }
 
 .connection-title {
   font-size: 4vh;
-  align-items: center;
   text-align: center;
   color: var(--color-bg);
-  margin-top: 2rem;
-  display: flex;
-  margin-bottom: 3rem;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
 }
 
-.mail {
-  display: flex;
-  padding: 0.5rem; /*espace interne*/
-  font-size: 1em;
-  border: 0.1em solid #ccc;
-  border-radius: 0.8rem;
-  color: var(--color-bg);
-  display: flex;
-  justify-content: center;
+.connection-input {
   width: 20rem;
-  margin: auto;
-  &:focus {
-    background-color: var(--color-primary);
-    outline: none;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  }
-  &:last-of-type {
-    margin-bottom: 2rem;
-  }
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
-.mdp {
+.link-container {
   display: flex;
-  padding: 0.5rem; /*espace interne*/
-  font-size: 1em;
-  border: 0.1em solid #ccc;
-  border-radius: 0.8rem;
-  color: var(--color-bg);
-  display: flex;
-  justify-content: center;
-  width: 20rem;
-  margin: auto;
-  &:focus {
-    background-color: var(--color-primary);
-    outline: none;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  }
-  &:last-of-type {
-    margin-bottom: 2rem;
-  }
-}
-.link-signUp {
-  display: flex;
-  justify-content: center;
-  color: var(--color-bg);
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
 }
 
+.link-signUp,
 .link-reinitiate {
-  display: flex;
-  justify-content: center;
   color: var(--color-bg);
+  font-size: 1rem;
+  font-weight: normal;
+  text-decoration: underline !important;
+margin-bottom: 1rem;
 }
+
+
+
 
 .error-message {
   color: red;
   text-align: center;
   margin-top: 0.2rem;
+  position: absolute; /* Positionnement absolu par rapport à .connection-section */
+  bottom: 0; /* Alignement en bas */
+  left: 50%; /* Centrage horizontal */
+  transform: translateX(-50%); /* Centrage horizontal */
+  width: 100%; /* Utilisation de la largeur complète de .connection-section */
+  margin-bottom: 1rem;
 }
+
+.response-message {
+  color: green;
+  text-align: center;
+  margin-top: 0.2rem;
+}
+
