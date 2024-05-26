@@ -56,11 +56,11 @@
   text-align: center;
   padding: 0.8rem 0.4rem;
   text-decoration: none;
-  color: var(--color-bg);
+  color: light-dark(var(--color-bg), var(--color-white));
   font-size: var(--font-size-md);
   font-weight: 500;
   text-decoration: none;
   &:hover {
-    text-decoration: underline;
+    font-weight: 700;
   }
 }
