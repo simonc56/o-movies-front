@@ -125,6 +125,7 @@ const moviesSlice = createSlice({
               }
               return item;
             });
+            state.currentMovie.userData.review.content = review;
           }
         }
       })
