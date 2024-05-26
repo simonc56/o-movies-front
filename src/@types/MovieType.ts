@@ -22,6 +22,7 @@ type MovieType = {
   year?: number;
   average_rating?: string;
   crew: { name: string }[];
+  userData: MovieUserData;
 };
 
 export type Genre = {
@@ -29,9 +30,15 @@ export type Genre = {
   name: string;
 };
 
+export type Rating = {
+  rating_id: number;
+  value: string;
+};
+
 export type Review = {
   review_id: number;
   content: string;
+  user_firstname?: string;
 };
 
 export type Actor = {
@@ -39,6 +46,12 @@ export type Actor = {
   name: string;
   character: string;
   profile_path: string;
+};
+
+export type MovieUserData = {
+  userId: number;
+  rating: Rating;
+  review: Review;
 };
 
 export default MovieType;
