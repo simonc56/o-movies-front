@@ -13,10 +13,6 @@ type MovieExtraInfosProps = {
 };
 
 function MovieExtraInfos({ movie }: MovieExtraInfosProps) {
-  let averageRating = 0;
-  if (movie.average_rating) {
-    averageRating = parseFloat(movie.average_rating.slice(0, 3));
-  }
   const isLogged = useAppSelector((state) => state.settings.user.logged);
   return (
     <section className="section-extra-infos">
@@ -25,8 +21,8 @@ function MovieExtraInfos({ movie }: MovieExtraInfosProps) {
         <div>
           <h3>Note utilisateurs</h3>
           <div className="users-ratings">
-            <Rating value={averageRating} size="lg" color="primary" readOnly fractions={10} aria-required />
-            <span className="rating-text">{averageRating}/5</span>
+            <Rating value={movie.average_rating} size="lg" color="primary" readOnly fractions={10} aria-required />
+            <span className="rating-text">{movie.average_rating}/5</span>
           </div>
         </div>
       )}

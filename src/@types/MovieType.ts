@@ -20,7 +20,7 @@ type MovieType = {
   budgetInMillions?: string;
   frenchDate?: string;
   year?: number;
-  average_rating?: string;
+  average_rating: number | null;
   crew: { name: string }[];
   userData: MovieUserData;
 };
