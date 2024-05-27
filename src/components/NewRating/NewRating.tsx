@@ -54,7 +54,7 @@ function NewRating() {
           aria-required
           readOnly={alreadyRated && !newRating}
         />
-        <span className="rating-text">{newRating}/5</span>
+        <span className="rating-text">{alreadyRated && !ratingIsUpdated ? alreadyRated.value : newRating}/5</span>
         <Button
           type="submit"
           autoContrast
