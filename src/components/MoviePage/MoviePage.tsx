@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { actionFetchOneMovie } from '../../features/moviesSlice';
+import { actionFetchOneMovie, actionResetCurrentMovie } from '../../features/moviesSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import Loader from '../Loader/Loader';
 import MovieExtraInfos from '../MovieExtraInfos/MovieExtraInfos';
@@ -14,6 +14,7 @@ function MoviePage() {
 
   useEffect(() => {
     if (id) {
+      dispatch(actionResetCurrentMovie());
       dispatch(actionFetchOneMovie(id));
     }
   }, [id, dispatch]);

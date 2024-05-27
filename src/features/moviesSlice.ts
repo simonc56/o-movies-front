@@ -68,6 +68,9 @@ const moviesSlice = createSlice({
   name: 'movies',
   initialState: moviesState,
   reducers: {
+    actionResetCurrentMovie: (state) => {
+      state.currentMovie = null;
+    },
     editMovieList: (state, action: PayloadAction<string>) => {
       state.movieList = [];
     },
@@ -109,4 +112,4 @@ const moviesSlice = createSlice({
 
 export default moviesSlice.reducer;
 
-export const { editMovieList } = moviesSlice.actions;
+export const { actionResetCurrentMovie, editMovieList } = moviesSlice.actions;
