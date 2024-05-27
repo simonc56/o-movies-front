@@ -11,10 +11,10 @@
     "lint:fix": "eslint src/**/*.{js,jsx,ts,tsx} --fix"
   },
   "dependencies": {
-    "@mantine/core": "^7.9.1",
+    "@mantine/core": "^7.9.2",
     "@mantine/dates": "^7.10.0",
     "@mantine/form": "^7.10.0",
-    "@mantine/hooks": "^7.9.1",
+    "@mantine/hooks": "^7.9.2",
     "@reduxjs/toolkit": "^2.2.5",
     "@tabler/icons-react": "^3.4.0",
     "@vitejs/plugin-react": "^3.1.0",

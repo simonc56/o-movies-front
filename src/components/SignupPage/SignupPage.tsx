@@ -1,13 +1,12 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { PasswordInput, Group, Center, TextInput, Progress } from '@mantine/core';
+import { PasswordInput, Group, Center, TextInput, Progress, Button } from '@mantine/core';
 import { IconCheck, IconX } from '@tabler/icons-react';
 import { DateInput } from '@mantine/dates';
 import dayjs from 'dayjs';
 import 'dayjs/locale/fr';
 import { useNavigate } from 'react-router-dom';
 import { register } from '../../api';
-import SimpleButton from '../SimpleButton/SimpleButton';
 import './SignupPage.scss';
 
 // to use French locale for birthdate calendars
@@ -86,7 +85,7 @@ function SignupPage() {
       setForm((prevForm) => ({ ...prevForm, [name]: value }));
     }
   };
-  // reset form to initial state after succes
+  // reset form to initial state after success
   const resetForm = () => {
     setForm({
       firstName: '',
@@ -164,7 +163,7 @@ function SignupPage() {
       color = 'red';
     }
 
-    return <Progress value={value} color={color} key={barKey} size={4} />;
+    return <Progress value={value} color={color} key={barKey} size={4}/>;
   });
 
   return (
@@ -179,10 +178,9 @@ function SignupPage() {
                 placeholder="Alice"
                 name="firstName"
                 value={form.firstName}
-                onChange={validateLetters} 
+                onChange={validateLetters}
                 required
-                withAsterisk={false}
-                style={{ width: '100%', maxWidth: '300px' }}
+                withAsterisk={false}                
               />
             </div>
             <div className="input-container">
@@ -191,10 +189,9 @@ function SignupPage() {
                 placeholder="Wonderland"
                 name="lastName"
                 value={form.lastName}
-                onChange={validateLetters} 
+                onChange={validateLetters}
                 required
-                withAsterisk={false}
-                style={{ width: '100%', maxWidth: '300px' }}
+                withAsterisk={false}                
               />
             </div>
             <div className="input-container">
@@ -206,8 +203,7 @@ function SignupPage() {
                 required
                 locale="fr"
                 valueFormat="DD/MM/YYYY"
-                withAsterisk={false}
-                style={{ width: '100%', maxWidth: '300px' }}
+                withAsterisk={false}                
               />
             </div>
             <div className="input-container">
@@ -219,8 +215,7 @@ function SignupPage() {
                 value={form.email}
                 onChange={handleChange}
                 required
-                withAsterisk={false}
-                style={{ width: '100%', maxWidth: '300px' }}
+                withAsterisk={false}                
               />
             </div>
           </div>
@@ -233,8 +228,7 @@ function SignupPage() {
                 value={form.password}
                 onChange={handleChange}
                 required
-                withAsterisk={false}
-                style={{ width: '100%', maxWidth: '300px' }}
+                withAsterisk={false}                
               />
             </div>
             <div className="input-container">
@@ -245,8 +239,7 @@ function SignupPage() {
                 value={form.confirmPassword}
                 onChange={handleChange}
                 required
-                withAsterisk={false}
-                style={{ width: '100%', maxWidth: '300px' }}
+                withAsterisk={false}                
               />
               {!passwordsMatch && (
                 <p className="error-message" style={{ color: 'red' }}>
@@ -271,7 +264,9 @@ function SignupPage() {
           </p>
         )}
         <div className="button-container">
-          <SimpleButton type="submit" label="S'inscrire" />
+          <Button type="submit" color="bg" autoContrast>
+            S'inscrire
+          </Button>
         </div>
       </form>
     </section>
