@@ -84,7 +84,7 @@ export const actionPostRating = createAsyncThunk<[SuccessRatingResponse, number]
 export const actionUpdateRating = createAsyncThunk<
   [SuccessRatingResponse, number, number],
   { rating: number; id: number }
->('movie/updateReview', async (payload, thunkAPI) => {
+>('movie/updateRating', async (payload, thunkAPI) => {
   const { rating, id } = payload;
   // use Jest here for data validation
   if (rating === undefined) {
