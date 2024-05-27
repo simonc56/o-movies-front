@@ -26,7 +26,7 @@ export const actionLogin = createAsyncThunk('settings/login', async (_, thunkAPI
 export const actionSignup = createAsyncThunk('settings/signup', async (_, thunkAPI) => {
   const state = thunkAPI.getState() as RootState;
   const { email, password, firstname, lastname, birthdate } = state.settings.user;
-  const response = await api.signup({ email, password, firstname, lastname, birthdate });
+  const response = await api.register({ email, password, firstname, lastname, birthdate });
   return response.data;
 });
 

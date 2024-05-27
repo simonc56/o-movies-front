@@ -1,4 +1,4 @@
-import axios from 'axios';
+Import axios from 'axios';
 import { useState } from 'react';
 import { PasswordInput, Group, Center, TextInput, Progress, Button } from '@mantine/core';
 import { IconCheck, IconX } from '@tabler/icons-react';
@@ -99,7 +99,7 @@ function SignupPage() {
   // form submission
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+    
     // Check if passwords match
     if (form.password === form.confirmPassword) {
       setPasswordsMatch(true);
@@ -274,3 +274,4 @@ function SignupPage() {
 }
 
 export default SignupPage;
+

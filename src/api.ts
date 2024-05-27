@@ -23,22 +23,32 @@ export async function getMovieById(id: string) {
   return response;
 }
 
-export async function postReview(review: string, tmdb_id: number, id: number) {
-  const response = await instanceAxios.post(`/review`, { tmdb_id, id, content: review });
+export async function postReview(review: string, tmdb_id: number) {
+  const response = await instanceAxios.post(`/review`, { tmdb_id, content: review });
   return response;
 }
 
-export async function postRating(rating: number, tmdb_id: number, id: number) {
-  const response = await instanceAxios.post(`/rating`, { tmdb_id, id, value: rating });
+export async function postRating(rating: number, tmdb_id: number) {
+  const response = await instanceAxios.post(`/rating`, { tmdb_id, value: rating });
   return response;
 }
 
 export async function patchReview(review: string, id: number) {
-  const response = await instanceAxios.patch(`/review`, { id, content: review });
+  const response = await instanceAxios.patch(`/review/${id}`, { review });
   return response;
 }
 
 export async function patchRating(rating: number, id: number) {
-  const response = await instanceAxios.patch(`/rating`, { id, value: rating });
+  const response = await instanceAxios.patch(`/rating/${id}`, { rating });
+  return response;
+}
+
+export async function deleteReview(id: number) {
+  const response = await instanceAxios.delete(`/review/${id}`);
+  return response;
+}
+
+export async function deleteRating(id: number) {
+  const response = await instanceAxios.delete(`/rating/${id}`);
   return response;
 }

@@ -1,15 +1,13 @@
-import { Rating } from '@mantine/core';
+import { Button, Rating } from '@mantine/core';
 import { useState } from 'react';
 import { actionPostRating } from '../../features/moviesSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import SimpleButton from '../SimpleButton/SimpleButton';
 
 import './NewRating.scss';
 
 function NewRating() {
   const [rating, setRating] = useState(0);
-  const tmdbId = useAppSelector((state) => state.movies.currentMovie?.tmdb_id);
-  const id = useAppSelector((state) => state.movies.currentMovie?.id);
+  const tmdbId = useAppSelector((state) => state.movies.currentMovie?.tmdb_id) || 0;
   const dispatch = useAppDispatch();
 
   const handleChange = (newRating: number) => {
@@ -18,12 +16,12 @@ function NewRating() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!tmdbId || !id) {
+    if (!tmdbId) {
       // eslint-disable-next-line no-console
-      console.error('No tmdbId or id provided, impossible to post review');
+      console.error('No tmdbId provided, impossible to post rating');
       return;
     }
-    dispatch(actionPostRating({ rating, tmdbId, id }));
+    dispatch(actionPostRating({ rating, tmdbId }));
   };
 
   return (
@@ -32,7 +30,9 @@ function NewRating() {
       <div>
         <Rating value={rating} onChange={handleChange} size="lg" color="primary" fractions={2} aria-required />
         <span className="rating-text">{rating}/5</span>
-        <SimpleButton label="Noter" type="submit" disabled={!rating} />
+        <Button type="submit" autoContrast disabled={!rating}>
+          Noter
+        </Button>
       </div>
     </form>
   );
