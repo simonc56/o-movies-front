@@ -81,6 +81,23 @@ export const actionPostRating = createAsyncThunk<[SuccessRatingResponse, number]
   }
 );
 
+export const actionUpdateRating = createAsyncThunk<
+  [SuccessRatingResponse, number, number],
+  { rating: number; id: number }
+>('movie/updateReview', async (payload, thunkAPI) => {
+  const { rating, id } = payload;
+  // use Jest here for data validation
+  if (rating === undefined) {
+    return thunkAPI.rejectWithValue('No rating provided');
+  }
+  if (id === undefined || Number.isNaN(id)) {
+    return thunkAPI.rejectWithValue('No rating id provided');
+  }
+  const response = await api.patchRating(rating, id);
+  // send both api response and review content because content is not provided by api
+  return [response.data, rating, id];
+});
+
 const moviesSlice = createSlice({
   name: 'movies',
   initialState: moviesState,

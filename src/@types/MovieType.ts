@@ -32,7 +32,7 @@ export type Genre = {
 
 export type Rating = {
   rating_id: number;
-  value: string;
+  value: number;
 };
 
 export type Review = {
