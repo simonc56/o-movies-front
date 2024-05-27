@@ -6,6 +6,7 @@ import ConnectionPage from '../ConnectionPage/ConnectionPage';
 import ContactPage from '../ContactPage/ContactPage';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
+import Homepage from '../Homepage/Homepage';
 import MoviePage from '../MoviePage/MoviePage';
 import SignupPage from '../SignupPage/SignupPage';
 
@@ -18,7 +19,7 @@ function App() {
       <div className="App" data-mantine-color-scheme="light">
         <Header />
         <Routes>
-          <Route path="/" />
+          <Route path="/" element={<Homepage />} />
           <Route path="/connexion" element={<ConnectionPage />} />
           <Route path="/inscription" element={<SignupPage />} />
           <Route path="/films/:id" element={<MoviePage />} />
