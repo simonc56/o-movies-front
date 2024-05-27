@@ -153,6 +153,15 @@ const moviesSlice = createSlice({
           // what to do here ?
           // recalculate average rating ?
         }
+      })
+      .addCase(actionUpdateRating.fulfilled, (state, action) => {
+        const [response, rating, id] = action.payload;
+        if (response.status === 'success') {
+          if (state.currentMovie?.average_rating) {
+            // recalculate average rating ?
+            state.currentMovie.userData.rating.value = rating;
+          }
+        }
       });
   },
 });

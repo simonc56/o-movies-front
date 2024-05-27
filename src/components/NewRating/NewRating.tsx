@@ -14,6 +14,9 @@ function NewRating() {
 
   const handleChange = (rating: number) => {
     setNewRating(rating);
+    if (alreadyRated && !ratingIsUpdated) {
+      setRatingIsUpdated(true);
+    }
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
