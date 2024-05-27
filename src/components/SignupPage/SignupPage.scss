@@ -1,58 +1,90 @@
 .signup-section {
-  margin: 0 auto;
+  margin: auto;
   display: flex;
-  background-color: rgb(231, 225, 225);
-  justify-content: center;
-  border-radius: 3rem;
+  background-color: var(--mantine-color-gray-3);
+  justify-content: center;  
+  border-radius: 1rem;
   box-shadow: 0 0 5px rgb(192, 192, 192);
-  & form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 3rem 6rem;
-  }
+  padding: 2rem;
+  width: 80vh;  
+  flex-direction: column;    
 }
 
 .form-title {
   font-size: 4vh;
-  align-items: center;
+  color: var(--color-bg);
   text-align: center;
-  color: var(--color-bg);
+  margin-bottom: 2rem;
+}
+
+.form-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.left-column,
+.right-column {
+  display: flex;
+  flex-direction: column;
+  width: 45%;
+}
+
+.input-container {
+  margin-bottom: 1rem;   
+  width: 100%;  
+}
+
+.strength-meter {
+  margin-top: -1rem;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
   margin-top: 2rem;
-  display: flex;
-  margin-bottom: 3rem;
-}
-
-.signup-input {
-  display: flex;
-  padding: 0.5rem; /*espace interne*/
-  font-size: 1em;
-  border: 0.1em solid #ccc;
-  border-radius: 0.8rem;
-  color: var(--color-bg);
-  display: flex;
-  justify-content: center;
-  width: 20rem;
-  margin: auto;
-  &:focus {
-    background-color: var(--color-primary);
-    outline: none;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  }
-  &:last-of-type {
-    margin-bottom: 2rem;
-  }
-}
-
-.birthday-label {
-  display: flex;
-  justify-content: center;
-  color: var(--color-bg);
 }
 
 .error-message {
   color: red;
   text-align: center;
-  margin-top: 0.2rem;
+  margin-top: 1rem;
+}
+
+.success-message {
+  color: green;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+@media (max-width: 844px) {
+  .signup-section {
+    width: 40vh;
+  }
+
+  .form-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .left-column,
+  .right-column {
+    width: 100%;
+    margin: 0;
+  }
+
+  .input-container {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .strength-meter {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .button-container {
+    width: 100%;
+    max-width: 300px;
+  }
 }
