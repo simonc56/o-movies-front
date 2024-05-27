@@ -1,4 +1,4 @@
-Import axios from 'axios';
+import axios from 'axios';
 import { useState } from 'react';
 import { PasswordInput, Group, Center, TextInput, Progress, Button } from '@mantine/core';
 import { IconCheck, IconX } from '@tabler/icons-react';
