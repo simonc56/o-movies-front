@@ -2,8 +2,8 @@
   margin: 0 auto;
   display: flex;
   justify-content: center;
-  background-color: rgb(231, 225, 225);
-  border-radius: 3rem;
+  background-color: var(--mantine-color-gray-3);
+  border-radius: 1rem;
   box-shadow: 0 0 5px rgb(192, 192, 192);
   padding:  3rem;
   min-height: 200px;
@@ -68,6 +68,12 @@
   color: green;
   text-align: center;
   margin-top: 0.2rem;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 /* Media Queries for mobile view */

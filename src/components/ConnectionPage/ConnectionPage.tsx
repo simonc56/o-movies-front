@@ -12,6 +12,7 @@ interface LoginResponse {
 }
 
 function ConnectionPage() {
+// State variables to manage form input values, loading state, error and response messages
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const [stayConnected, setStayConnected] = useState(false);
@@ -19,6 +20,7 @@ function ConnectionPage() {
   const [error, setError] = useState<string | null>(null);
   const [responseMessage, setResponseMessage] = useState<string | null>(null);
 
+// Handlers for input changes
   const emailChange = (event: ChangeEvent<HTMLInputElement>) => {
     setEmailValue(event.target.value);
   };
@@ -31,12 +33,14 @@ function ConnectionPage() {
     setStayConnected(event.target.checked);
   };
 
+// Function to handle form submission
   const onLogin = async () => {
     if (!emailValue || !passwordValue || !/\S+@\S+\.\S+/.test(emailValue)) {
       setError("Veuillez entrer une adresse email valide et un mot de passe.");
       return;
     }
     
+// Set loading state and clear previous error/response messages
     setLoading(true);
     setError(null);
     setResponseMessage(null);
@@ -47,6 +51,7 @@ function ConnectionPage() {
     };
 
     try {
+// Attempt to login with the provided credentials
       const response: AxiosResponse<LoginResponse> = await login(loginCredentials);
       setResponseMessage(response.data.message);
     } catch (err) {
@@ -56,9 +61,10 @@ function ConnectionPage() {
     }
   };
 
+// Tooltip component to show additional information
   const rightSection = (
     <Tooltip
-      label="We store your data securely"
+      label="Nous stockons vos données en toute sécurité"
       position="top-end"
       withArrow
       transitionProps={{ transition: 'pop-bottom-right' }}
@@ -76,7 +82,7 @@ function ConnectionPage() {
       <div className="card">
         <h1 className="connection-title">Connexion</h1>
         <p className="connection-description">Connectez-vous pour accéder à votre espace personnel.</p>
-        <form className="connection-form">
+        <form className="connection-form" onSubmit={onLogin}>
           <TextInput
             label="Email"
             placeholder="exemple@domaine.com"
@@ -100,9 +106,11 @@ function ConnectionPage() {
           <Checkbox label="Rester connecté" checked={stayConnected} onChange={stayConnectedChange} mt="md" />
           {error && <p className="error-message">{error}</p>}
           {responseMessage && <p className="response-message">{responseMessage}</p>}
-          <Button type="button" onClick={onLogin} disabled={loading} fullWidth mt="md" style={{ color: '#fbda8d', backgroundColor: '#293159' }}>
-            {loading ? 'Loading...' : 'Connexion'}
+          <div className="button-container">
+          <Button type="submit" color="bg" autoContrast loading={loading} mt="md">
+            Se connecter
           </Button>
+          </div>
         </form>
         <Group mt="md">
           <div className="link-container">
