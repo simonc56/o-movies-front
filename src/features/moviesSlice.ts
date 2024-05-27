@@ -1,6 +1,8 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {
   MoviesState,
+  ParamsType,
+  SuccessMoviesResponse,
   SuccessOneMovieResponse,
   SuccessRatingResponse,
   SuccessReviewResponse,
@@ -25,6 +27,17 @@ export const actionFetchOneMovie = createAsyncThunk<SuccessOneMovieResponse, str
       return thunkAPI.rejectWithValue('Invalid id');
     }
     const response = await api.getMovieById(id as string);
+    return response.data;
+  }
+);
+
+export const actionFetchMovies = createAsyncThunk<SuccessMoviesResponse, ParamsType>(
+  'movies/fetchMovies',
+  async (params, thunkAPI) => {
+    if (params === undefined) {
+      return thunkAPI.rejectWithValue('No params provided');
+    }
+    const response = await api.getMoviesByParams(params);
     return response.data;
   }
 );
@@ -91,6 +104,10 @@ const moviesSlice = createSlice({
           // eslint-disable-next-line no-console
           console.log('Error :', action.payload);
         }
+      })
+      .addCase(actionFetchMovies.fulfilled, (state, action) => {
+        const response = action.payload as SuccessMoviesResponse;
+        state.movieList = response.data;
       })
       .addCase(actionPostReview.fulfilled, (state, action) => {
         const [response, review] = action.payload;
