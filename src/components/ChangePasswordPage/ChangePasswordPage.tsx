@@ -182,7 +182,7 @@ function ChangePasswordPage() {
             <p className="success-messagePsw">
               {successMessage}
               <br />
-              Redirection vers la page d'accueil dans 7 secondes...
+              Redirection vers votre profil dans 7 secondes...
             </p>
           )}
           <div className="button-containerPsw">
