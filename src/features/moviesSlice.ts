@@ -169,7 +169,7 @@ const moviesSlice = createSlice({
       .addCase(actionPostRating.fulfilled, (state, action) => {
         const [response, rating] = action.payload;
         if (response.status === 'success') {
-          const { ratingId } = response.data;
+          const { rating_id } = response.data;
           // what to do here ?
           // recalculate average rating ?
         }
