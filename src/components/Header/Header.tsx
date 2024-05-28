@@ -99,6 +99,18 @@ function Header() {
               >
                 Mon profil
               </Button>
+              <Button
+                color="bg"
+                lightHidden
+                autoContrast
+                component={Link}
+                to="/profil"
+                onClick={() => {
+                  closeDrawer();
+                }}
+              >
+                Mon profil
+              </Button>
             </Group>
           </>
         ) : (
