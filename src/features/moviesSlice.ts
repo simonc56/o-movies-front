@@ -1,7 +1,7 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {
+  MoviesFilter,
   MoviesState,
-  ParamsType,
   SuccessMoviesResponse,
   SuccessOneMovieResponse,
   SuccessRatingResponse,
@@ -31,13 +31,14 @@ export const actionFetchOneMovie = createAsyncThunk<SuccessOneMovieResponse, str
   }
 );
 
-export const actionFetchMovies = createAsyncThunk<SuccessMoviesResponse, ParamsType>(
+// fetch a list of movies based on a predefined filter such as 'nowplaying', 'popular', 'upcoming', 'toprated'
+export const actionFetchMovies = createAsyncThunk<SuccessMoviesResponse, MoviesFilter>(
   'movies/fetchMovies',
-  async (params, thunkAPI) => {
-    if (params === undefined) {
-      return thunkAPI.rejectWithValue('No params provided');
+  async (filter, thunkAPI) => {
+    if (filter === undefined) {
+      return thunkAPI.rejectWithValue('No filter provided');
     }
-    const response = await api.getMoviesByParams(params);
+    const response = await api.getMoviesByFilter(filter);
     return response.data;
   }
 );
