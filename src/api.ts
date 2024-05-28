@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { LoginCredentials, SignupCredentials } from './@types/Credentials';
+import { ParamsType } from './@types/MoviesState';
 
 const instanceAxios = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -20,6 +21,11 @@ export function addTokenJWTToAxiosInstance(token: string) {
 
 export async function getMovieById(id: string) {
   const response = await instanceAxios.get(`/movie/${id}`);
+  return response;
+}
+
+export async function getMoviesByParams(params: ParamsType) {
+  const response = await instanceAxios.get(`/movie`, { params });
   return response;
 }
 

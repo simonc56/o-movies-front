@@ -5,8 +5,18 @@ export type MoviesState = {
   movieList: MovieType[];
 };
 
+export type ParamsType = {
+  page: number;
+  sort_by: string;
+  with_release_type: string;
+};
+
 export type SuccessOneMovieResponse = {
   data: MovieType;
+};
+
+export type SuccessMoviesResponse = {
+  data: MovieType[];
 };
 
 // here I create a generic type for 'success' API responses (no export)

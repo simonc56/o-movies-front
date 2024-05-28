@@ -1,6 +1,8 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {
   MoviesState,
+  ParamsType,
+  SuccessMoviesResponse,
   SuccessOneMovieResponse,
   SuccessRatingResponse,
   SuccessReviewResponse,
@@ -25,6 +27,17 @@ export const actionFetchOneMovie = createAsyncThunk<SuccessOneMovieResponse, str
       return thunkAPI.rejectWithValue('Invalid id');
     }
     const response = await api.getMovieById(id as string);
+    return response.data;
+  }
+);
+
+export const actionFetchMovies = createAsyncThunk<SuccessMoviesResponse, ParamsType>(
+  'movies/fetchMovies',
+  async (params, thunkAPI) => {
+    if (params === undefined) {
+      return thunkAPI.rejectWithValue('No params provided');
+    }
+    const response = await api.getMoviesByParams(params);
     return response.data;
   }
 );
@@ -68,6 +81,9 @@ const moviesSlice = createSlice({
   name: 'movies',
   initialState: moviesState,
   reducers: {
+    actionResetCurrentMovie: (state) => {
+      state.currentMovie = null;
+    },
     editMovieList: (state, action: PayloadAction<string>) => {
       state.movieList = [];
     },
@@ -89,6 +105,10 @@ const moviesSlice = createSlice({
           console.log('Error :', action.payload);
         }
       })
+      .addCase(actionFetchMovies.fulfilled, (state, action) => {
+        const response = action.payload as SuccessMoviesResponse;
+        state.movieList = response.data;
+      })
       .addCase(actionPostReview.fulfilled, (state, action) => {
         const [response, review] = action.payload;
         if (response.status === 'success') {
@@ -109,4 +129,4 @@ const moviesSlice = createSlice({
 
 export default moviesSlice.reducer;
 
-export const { editMovieList } = moviesSlice.actions;
+export const { actionResetCurrentMovie, editMovieList } = moviesSlice.actions;
