@@ -1,0 +1,13 @@
+.userMenu {
+  height: 100%;
+  &:hover p,
+  &:hover svg {
+    color: var(--color-primary) !important;
+  }
+  & .avatar {
+    border: rem(2px) solid var(--mantine-color-body);
+  }
+  & svg.tabler-icon-chevron-down {
+    color: var(--color-links);
+  }
+}
