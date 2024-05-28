@@ -1,3 +1,7 @@
+.App:has(> .movie-page) {
+  background-color: var(--mantine-color-gray-2);
+}
+
 .movie-page {
   background-color: #fff;
   max-width: 900px;
