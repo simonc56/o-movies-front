@@ -5,6 +5,7 @@ import logo from '../../assets/logo-pop-corn.webp';
 import { useAppSelector } from '../../store/hooks';
 import LoginSignup from '../LoginSignup/LoginSignup';
 import Searchbar from '../Searchbar/Searchbar';
+import AvatarName from '../UserMenu/AvatarName';
 import UserMenu from '../UserMenu/UserMenu';
 import './Header.scss';
 
@@ -71,43 +72,73 @@ function Header() {
         <br />
         <Searchbar />
         <Divider my="xl" />
-
-        <Group justify="center" grow pb="xl" px="md">
-          <Button
-            variant="default"
-            component={Link}
-            to="/connexion"
-            onClick={() => {
-              closeDrawer();
-            }}
-          >
-            Connexion
-          </Button>
-          <Button
-            color="primary"
-            darkHidden
-            autoContrast
-            component={Link}
-            to="/inscription"
-            onClick={() => {
-              closeDrawer();
-            }}
-          >
-            Inscription
-          </Button>
-          <Button
-            color="bg"
-            lightHidden
-            autoContrast
-            component={Link}
-            to="/inscription"
-            onClick={() => {
-              closeDrawer();
-            }}
-          >
-            Inscription
-          </Button>
-        </Group>
+        {user.logged ? (
+          <>
+            <AvatarName color="bg" chevron={false} />
+            <br />
+            <Group justify="center" grow pb="xl" px="md">
+              <Button
+                variant="default"
+                component={Link}
+                to="/logout"
+                onClick={() => {
+                  closeDrawer();
+                }}
+              >
+                Déconnexion
+              </Button>
+              <Button
+                color="primary"
+                darkHidden
+                autoContrast
+                component={Link}
+                to="/profil"
+                onClick={() => {
+                  closeDrawer();
+                }}
+              >
+                Mon profil
+              </Button>
+            </Group>
+          </>
+        ) : (
+          <Group justify="center" grow pb="xl" px="md">
+            <Button
+              variant="default"
+              component={Link}
+              to="/connexion"
+              onClick={() => {
+                closeDrawer();
+              }}
+            >
+              Connexion
+            </Button>
+            <Button
+              color="primary"
+              darkHidden
+              autoContrast
+              component={Link}
+              to="/inscription"
+              onClick={() => {
+                closeDrawer();
+              }}
+            >
+              Inscription
+            </Button>
+            <Button
+              color="bg"
+              lightHidden
+              autoContrast
+              component={Link}
+              to="/inscription"
+              onClick={() => {
+                closeDrawer();
+              }}
+            >
+              Inscription
+            </Button>
+          </Group>
+        )}
       </Drawer>
     </Box>
   );
