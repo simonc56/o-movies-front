@@ -40,7 +40,7 @@ export async function postRating(rating: number, tmdb_id: number) {
 }
 
 export async function patchReview(review: string, id: number) {
-  const response = await instanceAxios.patch(`/review/${id}`, { review });
+  const response = await instanceAxios.patch(`/review/${id}`, { content: review });
   return response;
 }
 

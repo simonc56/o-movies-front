@@ -6,6 +6,9 @@
   & .textarea-review {
     flex-grow: 1;
     margin-right: 0.5rem;
+    & textarea:disabled {
+      cursor: default;
+    }
   }
 }
 
