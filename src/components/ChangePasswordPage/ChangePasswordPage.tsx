@@ -131,56 +131,55 @@ function ChangePasswordPage() {
     return <Progress value={value} color={color} key={barKey} size={4} />;
   });
 
-  return (    
+  return (
+    <div className="change-password-page">
       <section className="change-password-section">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="form-containerPsw">
           <h1 className="form-titlePsw">Changer de mot de passe</h1>
-          <div className="form-containerPsw">
-            <div className="input-containerPsw">
-              <PasswordInput
-                label="Mot de passe actuel"
-                placeholder="Mot de passe actuel"
-                name="currentPassword"
-                value={form.currentPassword}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="input-containerPsw">
-              <PasswordInput
-                label="Nouveau mot de passe"
-                placeholder="Nouveau mot de passe"
-                name="newPassword"
-                value={form.newPassword}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="input-container">
-              <PasswordInput
-                label="Confirmer le nouveau mot de passe"
-                placeholder="Confirmer le nouveau mot de passe"
-                name="confirmPassword"
-                value={form.confirmPassword}
-                onChange={handleChange}
-                required
-              />
-              {!passwordsMatch && (
-                <p className="error-messagePsw" style={{ color: 'red' }}>
-                  Les mots de passe ne correspondent pas
-                </p>
-              )}
-            </div>
-            <div className="strength-meterPsw">
-              <Group gap={5} grow mt="xs" mb="md">
-                {bars}
-              </Group>
-              {checks}
-            </div>
+          <div className="input-containerPsw">
+            <PasswordInput
+              label="Mot de passe actuel"
+              placeholder="Mot de passe actuel"
+              name="currentPassword"
+              value={form.currentPassword}
+              onChange={handleChange}
+              required
+            />
           </div>
-          {apiError && <p className="error-message">{apiError}</p>}
+          <div className="input-containerPsw">
+            <PasswordInput
+              label="Nouveau mot de passe"
+              placeholder="Nouveau mot de passe"
+              name="newPassword"
+              value={form.newPassword}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="input-containerPsw">
+            <PasswordInput
+              label="Confirmer le nouveau mot de passe"
+              placeholder="Confirmer le nouveau mot de passe"
+              name="confirmPassword"
+              value={form.confirmPassword}
+              onChange={handleChange}
+              required
+            />
+            {!passwordsMatch && (
+              <p className="error-messagePsw" style={{ color: 'red' }}>
+                Les mots de passe ne correspondent pas
+              </p>
+            )}
+          </div>
+          <div className="strength-meterPsw">
+            <Group gap={5} grow mt="xs" mb="md">
+              {bars}
+            </Group>
+            {checks}
+          </div>
+          {apiError && <p className="error-messagePsw">{apiError}</p>}
           {successMessage && (
-            <p className="success-message">
+            <p className="success-messagePsw">
               {successMessage}
               <br />
               Redirection vers la page d'accueil dans 7 secondes...
@@ -192,7 +191,9 @@ function ChangePasswordPage() {
             </Button>
           </div>
         </form>
-      </section>    
+      </section>
+    </div>
   );
-}
+};
+
 export default ChangePasswordPage;
