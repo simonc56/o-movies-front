@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useState, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { TextInput, PasswordInput, Tooltip, Center, Text, Group, Anchor, Checkbox, Button, rem } from '@mantine/core';
 import { IconInfoCircle } from '@tabler/icons-react';
@@ -34,12 +34,9 @@ function ConnectionPage() {
   };
 
 // Function to handle form submission
-  const onLogin = async () => {
-    if (!emailValue || !passwordValue || !/\S+@\S+\.\S+/.test(emailValue)) {
-      setError("Veuillez entrer une adresse email valide et un mot de passe.");
-      return;
-    }
-    
+const onLogin = async (event: FormEvent<HTMLFormElement>) => {
+  event.preventDefault();
+
 // Set loading state and clear previous error/response messages
     setLoading(true);
     setError(null);
@@ -85,6 +82,7 @@ function ConnectionPage() {
         <form className="connection-form" onSubmit={onLogin}>
           <TextInput
             label="Email"
+            type="email"
             placeholder="exemple@domaine.com"
             value={emailValue}
             onChange={emailChange}
