@@ -39,6 +39,6 @@ export type FailResponse = {
   };
 };
 
-export type SuccessReviewResponse = SuccessResponse<{ reviewId: number }>;
+export type SuccessReviewResponse = SuccessResponse<{ review_id: number }>;
 
 export type SuccessRatingResponse = SuccessResponse<RatingResponse>;
