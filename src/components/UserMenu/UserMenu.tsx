@@ -2,11 +2,13 @@ import { Menu, UnstyledButton } from '@mantine/core';
 import { IconLogout, IconUser } from '@tabler/icons-react';
 
 import { Link } from 'react-router-dom';
+import { useAppSelector } from '../../store/hooks';
 import AvatarName from './AvatarName';
 import './UserMenu.scss';
 
 function UserMenu() {
   // const [userMenuOpened, setUserMenuOpened] = useState(false);
+  const user = useAppSelector((state) => state.settings.user);
 
   return (
     <Menu
@@ -19,7 +21,7 @@ function UserMenu() {
     >
       <Menu.Target>
         <UnstyledButton className="userMenu">
-          <AvatarName color="links" />
+          <AvatarName user={user} color="links" />
         </UnstyledButton>
       </Menu.Target>
       <Menu.Dropdown>

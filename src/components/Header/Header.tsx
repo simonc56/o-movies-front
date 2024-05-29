@@ -74,7 +74,7 @@ function Header() {
         <Divider my="xl" />
         {user.logged ? (
           <>
-            <AvatarName color="bg" chevron={false} />
+            <AvatarName user={user} color="bg" chevron={false} />
             <br />
             <Group justify="center" pb="xl" px="md">
               <Button
