@@ -84,6 +84,8 @@ const settingsSlice = createSlice({
   },
 });
 
+export const selectUser = (state: RootState) => state.settings.user;
+
 export default settingsSlice.reducer;
 
-export const { logout, editEmail, editPassword } = settingsSlice.actions;
+export const { logout, editEmail, editPassword, editFirstname, editLastName, editBirthdate } = settingsSlice.actions;

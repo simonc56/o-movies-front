@@ -1,3 +1,16 @@
-.carousel-homepage {
-  margin-top: 1rem;
+.homepage {
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  flex-grow: 1;
+  background-color: var(--mantine-color-gray-1);
+  & .intro {
+    max-width: 40rem;
+    margin-inline: 1rem;
+    & h3 {
+      color: var(--color-bg);
+    }
+  }
 }
