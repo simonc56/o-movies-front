@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { LoginCredentials, SignupCredentials } from './@types/Credentials';
-import { ParamsType } from './@types/MoviesState';
+import { MoviesFilter, ParamsType } from './@types/MoviesState';
 
 const instanceAxios = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -25,7 +25,12 @@ export async function getMovieById(id: string) {
 }
 
 export async function getMoviesByParams(params: ParamsType) {
-  const response = await instanceAxios.get(`/movie`, { params });
+  const response = await instanceAxios.get('/movie', { params });
+  return response;
+}
+
+export async function getMoviesByFilter(filter: MoviesFilter) {
+  const response = await instanceAxios.get(`/movie/${filter}`);
   return response;
 }
 

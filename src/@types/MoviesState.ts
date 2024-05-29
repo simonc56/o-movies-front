@@ -11,6 +11,8 @@ export type ParamsType = {
   with_release_type: string;
 };
 
+export type MoviesFilter = 'nowplaying' | 'popular' | 'upcoming' | 'toprated';
+
 export type SuccessOneMovieResponse = {
   data: MovieType;
 };
