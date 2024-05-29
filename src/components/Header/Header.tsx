@@ -2,8 +2,11 @@ import { Box, Burger, Button, Divider, Drawer, Group } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { Link, NavLink } from 'react-router-dom';
 import logo from '../../assets/logo-pop-corn.webp';
+import { useAppSelector } from '../../store/hooks';
 import LoginSignup from '../LoginSignup/LoginSignup';
 import Searchbar from '../Searchbar/Searchbar';
+import AvatarName from '../UserMenu/AvatarName';
+import UserMenu from '../UserMenu/UserMenu';
 import './Header.scss';
 
 const links = [
@@ -15,6 +18,7 @@ const links = [
 
 function Header() {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
+  const user = useAppSelector((state) => state.settings.user);
 
   const items = links.map((link) => (
     <NavLink key={link.label} to={link.link} className="link" onClick={(event) => event.preventDefault()}>
@@ -48,7 +52,7 @@ function Header() {
           </Group>
           <Group gap={0} visibleFrom="md">
             <Searchbar />
-            <LoginSignup />
+            {user.logged ? <UserMenu /> : <LoginSignup />}
           </Group>
           <Burger opened={drawerOpened} onClick={toggleDrawer} size="md" hiddenFrom="md" color="primary" />
         </Group>
@@ -68,43 +72,85 @@ function Header() {
         <br />
         <Searchbar />
         <Divider my="xl" />
-
-        <Group justify="center" pb="xl" px="md">
-          <Button
-            variant="default"
-            component={Link}
-            to="/connexion"
-            onClick={() => {
-              closeDrawer();
-            }}
-          >
-            Connexion
-          </Button>
-          <Button
-            color="primary"
-            darkHidden
-            autoContrast
-            component={Link}
-            to="/inscription"
-            onClick={() => {
-              closeDrawer();
-            }}
-          >
-            Inscription
-          </Button>
-          <Button
-            color="bg"
-            lightHidden
-            autoContrast
-            component={Link}
-            to="/inscription"
-            onClick={() => {
-              closeDrawer();
-            }}
-          >
-            Inscription
-          </Button>
-        </Group>
+        {user.logged ? (
+          <>
+            <AvatarName user={user} color="bg" chevron={false} />
+            <br />
+            <Group justify="center" pb="xl" px="md">
+              <Button
+                variant="default"
+                component={Link}
+                to="/logout"
+                onClick={() => {
+                  closeDrawer();
+                }}
+              >
+                Déconnexion
+              </Button>
+              <Button
+                color="primary"
+                darkHidden
+                autoContrast
+                component={Link}
+                to="/profil"
+                onClick={() => {
+                  closeDrawer();
+                }}
+              >
+                Mon profil
+              </Button>
+              <Button
+                color="bg"
+                lightHidden
+                autoContrast
+                component={Link}
+                to="/profil"
+                onClick={() => {
+                  closeDrawer();
+                }}
+              >
+                Mon profil
+              </Button>
+            </Group>
+          </>
+        ) : (
+          <Group justify="center" pb="xl" px="md">
+            <Button
+              variant="default"
+              component={Link}
+              to="/connexion"
+              onClick={() => {
+                closeDrawer();
+              }}
+            >
+              Connexion
+            </Button>
+            <Button
+              color="primary"
+              darkHidden
+              autoContrast
+              component={Link}
+              to="/inscription"
+              onClick={() => {
+                closeDrawer();
+              }}
+            >
+              Inscription
+            </Button>
+            <Button
+              color="bg"
+              lightHidden
+              autoContrast
+              component={Link}
+              to="/inscription"
+              onClick={() => {
+                closeDrawer();
+              }}
+            >
+              Inscription
+            </Button>
+          </Group>
+        )}
       </Drawer>
     </Box>
   );
