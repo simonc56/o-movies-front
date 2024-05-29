@@ -12,6 +12,7 @@ interface LoginResponse {
 }
 
 function ConnectionPage() {
+// Interface for the login response message
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const [stayConnected, setStayConnected] = useState(false);
@@ -21,6 +22,7 @@ function ConnectionPage() {
 
   const navigate = useNavigate();
 
+// Handlers for input changes
   const emailChange = (event: ChangeEvent<HTMLInputElement>) => {
     setEmailValue(event.target.value);
   };
@@ -33,6 +35,7 @@ function ConnectionPage() {
     setStayConnected(event.target.checked);
   };
 
+// Handler for form submission
   const onLogin = async (event: React.FormEvent) => {
     event.preventDefault();
     setLoading(true);
@@ -45,9 +48,10 @@ function ConnectionPage() {
     };
 
     try {
+// Create login credentials object
       const response: AxiosResponse<LoginResponse> = await login(loginCredentials);
       setResponseMessage(response.data.message);
-      navigate('/'); // Redirection vers la page d'accueil après une connexion réussie
+      navigate('/'); // Redirect to the home page after successful login
     } catch (err) {
       setError("Impossible de vous connecter. Veuillez vérifier vos informations d'identification.");
     } finally {
@@ -55,6 +59,7 @@ function ConnectionPage() {
     }
   };
 
+// Tooltip for additional information
   const rightSection = (
     <Tooltip
       label="Nous stockons vos données en toute sécurité"
