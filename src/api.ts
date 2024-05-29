@@ -45,7 +45,7 @@ export async function patchReview(review: string, id: number) {
 }
 
 export async function patchRating(rating: number, id: number) {
-  const response = await instanceAxios.patch(`/rating/${id}`, { rating });
+  const response = await instanceAxios.patch(`/rating/${id}`, { value: rating });
   return response;
 }
 
