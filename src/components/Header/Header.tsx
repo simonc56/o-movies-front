@@ -114,7 +114,7 @@ function Header() {
             </Group>
           </>
         ) : (
-          <Group justify="center" grow pb="xl" px="md">
+          <Group justify="center" pb="xl" px="md">
             <Button
               variant="default"
               component={Link}

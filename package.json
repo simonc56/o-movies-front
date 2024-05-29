@@ -11,6 +11,7 @@
     "lint:fix": "eslint src/**/*.{js,jsx,ts,tsx} --fix"
   },
   "dependencies": {
+    "@mantine/carousel": "^7.10.0",
     "@mantine/core": "^7.9.2",
     "@mantine/dates": "^7.10.0",
     "@mantine/form": "^7.10.0",

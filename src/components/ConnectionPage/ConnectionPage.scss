@@ -1,87 +1,108 @@
 .connection-section {
   margin: 0 auto;
   display: flex;
-  background-color: rgb(231, 225, 225);
   justify-content: center;
-  border-radius: 3rem;
+  background-color: var(--mantine-color-gray-3);
+  border-radius: 1rem;
   box-shadow: 0 0 5px rgb(192, 192, 192);
-  & form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 3rem 6rem;
-    & input {
-      margin-bottom: 0.5rem;
-    }
-  }
+  padding:  3rem;
+  min-height: 200px;
+  position: relative;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .connection-title {
   font-size: 4vh;
-  align-items: center;
   text-align: center;
   color: var(--color-bg);
-  margin-top: 2rem;
-  display: flex;
-  margin-bottom: 3rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
-.mail {
-  display: flex;
-  padding: 0.5rem; /*espace interne*/
-  font-size: 1em;
-  border: 0.1em solid #ccc;
-  border-radius: 0.8rem;
-  color: var(--color-bg);
-  display: flex;
-  justify-content: center;
+.connection-description {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.connection-input {
   width: 20rem;
-  margin: auto;
-  &:focus {
-    background-color: var(--color-primary);
-    outline: none;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  }
-  &:last-of-type {
-    margin-bottom: 2rem;
-  }
+  margin-bottom: 1rem;
 }
 
-.mdp {
+.link-container {
   display: flex;
-  padding: 0.5rem; /*espace interne*/
-  font-size: 1em;
-  border: 0.1em solid #ccc;
-  border-radius: 0.8rem;
-  color: var(--color-bg);
-  display: flex;
-  justify-content: center;
-  width: 20rem;
-  margin: auto;
-  &:focus {
-    background-color: var(--color-primary);
-    outline: none;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  }
-  &:last-of-type {
-    margin-bottom: 2rem;
-  }
-}
-.link-signUp {
-  display: flex;
-  justify-content: center;
-  color: var(--color-bg);
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 2rem;
+  padding-bottom: 1rem;
 }
 
+.link-signUp,
 .link-reinitiate {
-  display: flex;
-  justify-content: center;
   color: var(--color-bg);
+  font-size: 1rem;
+  font-weight: normal;
+  text-decoration: underline;
+  bottom: 1rem;
 }
 
 .error-message {
   color: red;
   text-align: center;
   margin-top: 0.2rem;
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+}
+
+.response-message {
+  color: green;
+  text-align: center;
+  margin-top: 0.2rem;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Media Queries for mobile view */
+@media (max-width: 768px) {
+  .connection-section {
+    padding: 2rem;
+  }
+
+  .card {
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .connection-input {
+    width: 100%;
+  }
+
+  .link-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .link-signUp,
+  .link-reinitiate {
+    margin-top: 0.5rem;
+  }
+
+  .connection-description {
+    font-size: 1rem;
+    padding: 0 1rem;
+  }
 }

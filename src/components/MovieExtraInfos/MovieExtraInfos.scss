@@ -1,0 +1,14 @@
+.section-extra-infos {
+  & h3 {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  & .users-ratings {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    & .rating-text {
+      color: var(--mantine-color-gray-5);
+    }
+  }
+}
