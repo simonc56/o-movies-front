@@ -84,6 +84,7 @@ function ConnectionPage() {
           <TextInput
             label="Email"
             placeholder="exemple@domaine.com"
+            type="email"
             value={emailValue}
             onChange={emailChange}
             rightSection={rightSection}
