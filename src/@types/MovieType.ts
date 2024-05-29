@@ -22,7 +22,7 @@ type MovieType = {
   year?: number;
   average_rating: number | null;
   crew: { name: string }[];
-  userData: MovieUserData;
+  user_data: MovieUserData;
 };
 
 export type Genre = {

@@ -150,7 +150,7 @@ const moviesSlice = createSlice({
           // add review in reviews list of current movie object
           if (state.currentMovie) {
             state.currentMovie.reviews.push({ review_id, content: review });
-            state.currentMovie.userData.review = { review_id, content: review };
+            state.currentMovie.user_data.review = { review_id, content: review };
           }
         }
       })
@@ -165,7 +165,7 @@ const moviesSlice = createSlice({
               }
               return item;
             });
-            state.currentMovie.userData.review.content = review;
+            state.currentMovie.user_data.review.content = review;
           }
         }
       })
@@ -175,7 +175,7 @@ const moviesSlice = createSlice({
           const { rating_id, movie_average_rating } = response.data;
           if (state.currentMovie && rating_id) {
             state.currentMovie.average_rating = movie_average_rating;
-            state.currentMovie.userData.rating = { rating_id, value: rating };
+            state.currentMovie.user_data.rating = { rating_id, value: rating };
           }
         }
       })
@@ -185,7 +185,7 @@ const moviesSlice = createSlice({
           const { movie_average_rating } = response.data;
           if (state.currentMovie) {
             state.currentMovie.average_rating = movie_average_rating;
-            state.currentMovie.userData.rating.value = rating;
+            state.currentMovie.user_data.rating.value = rating;
           }
         }
       });
