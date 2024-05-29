@@ -242,7 +242,7 @@ function SignupPage() {
                 withAsterisk={false}                
               />
               {!passwordsMatch && (
-                <p className="error-message" style={{ color: 'red' }}>
+                <p className="error-messageSignup" style={{ color: 'red' }}>
                   Les mots de passe ne correspondent pas
                 </p>
               )}
@@ -255,7 +255,7 @@ function SignupPage() {
             </div>
           </div>
         </div>
-        {apiError && <p className="error-message">{apiError}</p>}
+        {apiError && <p className="error-messageAPI">{apiError}</p>}
         {successMessage && (
           <p className="success-message">
             {successMessage}
