@@ -10,4 +10,6 @@ export type UserType = {
   birthdate: string;
   logged: boolean;
   token: string;
+  commentCount?: number;
+  ratingCount?: number;
 };
