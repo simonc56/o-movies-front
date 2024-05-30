@@ -44,6 +44,7 @@ const settingsSlice = createSlice({
       state.user.birthdate = '';
       state.user.logged = false;
       state.user.token = '';
+      api.removeTokenJWTToAxiosInstance();
     },
     editFirstname: (state, action: PayloadAction<string>) => {
       state.user.firstname = action.payload;
