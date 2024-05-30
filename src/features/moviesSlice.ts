@@ -95,22 +95,22 @@ export const actionPostRating = createAsyncThunk<[SuccessRatingResponse, number]
   }
 );
 
-export const actionUpdateRating = createAsyncThunk<
-  [SuccessRatingResponse, number, number],
-  { rating: number; id: number }
->('movie/updateRating', async (payload, thunkAPI) => {
-  const { rating, id } = payload;
-  // use Jest here for data validation
-  if (rating === undefined) {
-    return thunkAPI.rejectWithValue('No rating provided');
+export const actionUpdateRating = createAsyncThunk<[SuccessRatingResponse, number], { rating: number; id: number }>(
+  'movie/updateRating',
+  async (payload, thunkAPI) => {
+    const { rating, id } = payload;
+    // use Jest here for data validation
+    if (rating === undefined) {
+      return thunkAPI.rejectWithValue('No rating provided');
+    }
+    if (id === undefined || Number.isNaN(id)) {
+      return thunkAPI.rejectWithValue('No rating id provided');
+    }
+    const response = await api.patchRating(rating, id);
+    // send both api response and rating value because content is not provided by api
+    return [response.data, rating];
   }
-  if (id === undefined || Number.isNaN(id)) {
-    return thunkAPI.rejectWithValue('No rating id provided');
-  }
-  const response = await api.patchRating(rating, id);
-  // send both api response and review content because content is not provided by api
-  return [response.data, rating, id];
-});
+);
 
 const moviesSlice = createSlice({
   name: 'movies',
@@ -147,40 +147,46 @@ const moviesSlice = createSlice({
       .addCase(actionPostReview.fulfilled, (state, action) => {
         const [response, review] = action.payload;
         if (response.status === 'success') {
-          const { reviewId } = response.data;
+          const { review_id } = response.data;
           // add review in reviews list of current movie object
-          state.currentMovie?.reviews.push({ review_id: reviewId, content: review });
+          if (state.currentMovie) {
+            state.currentMovie.reviews.push({ review_id, content: review });
+            state.currentMovie.user_data.review = { review_id, content: review };
+          }
         }
       })
       .addCase(actionUpdateReview.fulfilled, (state, action) => {
         const [response, review, id] = action.payload;
         if (response.status === 'success') {
           // add review in reviews list of current movie object
-          if (state.currentMovie?.reviews) {
+          if (state.currentMovie) {
             state.currentMovie.reviews = state.currentMovie.reviews.map((item) => {
               if (item.review_id === id) {
                 return { review_id: id, content: review };
               }
               return item;
             });
-            state.currentMovie.userData.review.content = review;
+            state.currentMovie.user_data.review.content = review;
           }
         }
       })
       .addCase(actionPostRating.fulfilled, (state, action) => {
         const [response, rating] = action.payload;
         if (response.status === 'success') {
-          const { ratingId } = response.data;
-          // what to do here ?
-          // recalculate average rating ?
+          const { rating_id, movie_average_rating } = response.data;
+          if (state.currentMovie && rating_id) {
+            state.currentMovie.average_rating = movie_average_rating;
+            state.currentMovie.user_data.rating = { rating_id, value: rating };
+          }
         }
       })
       .addCase(actionUpdateRating.fulfilled, (state, action) => {
-        const [response, rating, id] = action.payload;
+        const [response, rating] = action.payload;
         if (response.status === 'success') {
-          if (state.currentMovie?.average_rating) {
-            // recalculate average rating ?
-            state.currentMovie.userData.rating.value = rating;
+          const { movie_average_rating } = response.data;
+          if (state.currentMovie) {
+            state.currentMovie.average_rating = movie_average_rating;
+            state.currentMovie.user_data.rating.value = rating;
           }
         }
       });

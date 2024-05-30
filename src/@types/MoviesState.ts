@@ -28,6 +28,12 @@ type SuccessResponse<T> = {
   data: T;
 };
 
+type RatingResponse = {
+  rating_id?: number; // only returned with a POST request
+  media_id: number;
+  movie_average_rating: number; // recalculated each time a rating is added/updated
+};
+
 export type FailResponse = {
   data: {
     status: 'fail';
@@ -35,6 +41,6 @@ export type FailResponse = {
   };
 };
 
-export type SuccessReviewResponse = SuccessResponse<{ reviewId: number }>;
+export type SuccessReviewResponse = SuccessResponse<{ review_id: number }>;
 
-export type SuccessRatingResponse = SuccessResponse<{ ratingId: number }>;
+export type SuccessRatingResponse = SuccessResponse<RatingResponse>;

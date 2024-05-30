@@ -30,6 +30,13 @@ module.exports = {
   ],
   plugins: ['react', '@typescript-eslint'],
   rules: {
+    '@typescript-eslint/naming-convention': [
+      'warning',
+      {
+        selector: 'variable',
+        format: ['camelCase', 'snake_case'],
+      },
+    ],
     'react/react-in-jsx-scope': 0,
     'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
     'import/extensions': [

@@ -8,7 +8,7 @@ import './NewRating.scss';
 function NewRating() {
   const [newRating, setNewRating] = useState(0);
   const tmdbId = useAppSelector((state) => state.movies.currentMovie?.tmdb_id) || 0;
-  const alreadyRated = useAppSelector((state) => state.movies.currentMovie?.userData.rating);
+  const alreadyRated = useAppSelector((state) => state.movies.currentMovie?.user_data.rating);
   const [ratingIsUpdated, setRatingIsUpdated] = useState(false);
   const dispatch = useAppDispatch();
 
