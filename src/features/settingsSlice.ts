@@ -64,16 +64,18 @@ const settingsSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(actionLogin.fulfilled, (state, action) => {
-        const response = action.payload as SuccessLoginResponse;
+        const response = action.payload.data as SuccessLoginResponse;
         state.user.firstname = response.firstname;
         state.user.lastname = response.lastname;
         state.user.token = response.token;
         state.user.logged = true;
         api.addTokenJWTToAxiosInstance(response.token);
+        state.successMessage = 'Vous êtes connecté';
       })
-      .addCase(actionLogin.rejected, (_, action) => {
+      .addCase(actionLogin.rejected, (state, action) => {
         // eslint-disable-next-line no-console
         console.log(action.error.message);
+        state.errorMessage = "Impossible de vous connecter. Veuillez vérifier vos informations d'identification.";
       })
       .addCase(actionSignup.fulfilled, (state, action) => {
         const response = action.payload as SuccessLoginResponse;
