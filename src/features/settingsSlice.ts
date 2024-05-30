@@ -70,7 +70,7 @@ const settingsSlice = createSlice({
         state.user.token = response.token;
         state.user.logged = true;
         api.addTokenJWTToAxiosInstance(response.token);
-        state.successMessage = 'Vous êtes connecté';
+        state.successMessage = "Vous êtes connecté. Redirection vers la page d'accueil...";
       })
       .addCase(actionLogin.rejected, (state, action) => {
         // eslint-disable-next-line no-console
