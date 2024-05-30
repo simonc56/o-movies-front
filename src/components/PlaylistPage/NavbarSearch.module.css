@@ -1,0 +1,61 @@
+.navbar1 {
+    padding: 1.5rem;
+    background-color: var(--mantine-color-gray-3);
+    width: 25rem;
+    height: 35rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 5px rgb(192, 192, 192);
+    display: flex;
+    flex-direction: column;  
+    margin-left: 1em;     
+  }
+  
+  .section1 {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow: hidden; 
+  }
+  
+  .collectionLink {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    text-decoration: none;
+    color: var(--color-bg);    
+    transition: background-color 0.2s;
+    font-size: 1.125rem;
+    justify-content: space-between; 
+  }
+  
+  .collectionLink:hover {
+    background-color: #b5bdc5;
+  }
+  
+  .collectionsHeader {
+    margin-bottom: 1rem;
+  }
+  
+  .collections {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; 
+    max-height: 50vh;
+  }
+  
+  .searchCode {
+    display: inline-block;
+    padding: 0 0.5rem;
+    background-color: #e9ecef;
+    border-radius: 3px;
+  }
+
+/* Responsive pas terminer. 
+Attente de la finalisation  */
+
+  @media (min-width: 844px) {
+    .collections {
+      max-height: 50vh;
+    }
+  }
+  

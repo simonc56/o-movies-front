@@ -11,6 +11,7 @@ import MoviePage from '../MoviePage/MoviePage';
 import SignupPage from '../SignupPage/SignupPage';
 import UserProfilePage from '../ProfilUserPage/ProfilUserPage';
 import ChangePasswordPage from '../ChangePasswordPage/ChangePasswordPage';
+import PlaylistPage from '../PlaylistPage/PlaylistPage'
 
 import theme from '../../styles/theme';
 import './App.scss';
@@ -31,6 +32,7 @@ function App() {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/profil" element={<UserProfilePage />} />
           <Route path="/changer-mot-de-passe" element={<ChangePasswordPage />} />
+          <Route path="/playlist" element={<PlaylistPage />} />
         </Routes>
         <Footer />
       </div>
