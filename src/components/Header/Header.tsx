@@ -1,8 +1,9 @@
 import { Box, Burger, Button, Divider, Drawer, Group } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo-pop-corn.webp';
-import { useAppSelector } from '../../store/hooks';
+import { logout } from '../../features/settingsSlice';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import LoginSignup from '../LoginSignup/LoginSignup';
 import Searchbar from '../Searchbar/Searchbar';
 import AvatarName from '../UserMenu/AvatarName';
@@ -19,6 +20,8 @@ const links = [
 function Header() {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
   const user = useAppSelector((state) => state.settings.user);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const items = links.map((link) => (
     <NavLink key={link.label} to={link.link} className="link" onClick={(event) => event.preventDefault()}>
@@ -38,6 +41,12 @@ function Header() {
       {link.label}
     </NavLink>
   ));
+
+  const handleLogout = () => {
+    closeDrawer();
+    dispatch(logout());
+    navigate('/');
+  };
 
   return (
     <Box size="md">
@@ -77,14 +86,7 @@ function Header() {
             <AvatarName user={user} color="bg" chevron={false} />
             <br />
             <Group justify="center" pb="xl" px="md">
-              <Button
-                variant="default"
-                component={Link}
-                to="/logout"
-                onClick={() => {
-                  closeDrawer();
-                }}
-              >
+              <Button variant="default" onClick={handleLogout}>
                 Déconnexion
               </Button>
               <Button
