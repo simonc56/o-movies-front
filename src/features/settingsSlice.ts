@@ -14,6 +14,8 @@ const settingsState: SettingsState = {
     logged: false,
     token: '',
   },
+  successMessage: null,
+  errorMessage: null,
 };
 
 export const actionLogin = createAsyncThunk('settings/login', async (_, thunkAPI) => {
