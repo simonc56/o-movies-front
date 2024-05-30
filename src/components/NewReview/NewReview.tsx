@@ -8,7 +8,7 @@ import './NewReview.scss';
 function NewReview() {
   const [newReview, setNewReview] = useState('');
   const tmdbId = useAppSelector((state) => state.movies.currentMovie?.tmdb_id) || 0;
-  const alreadyReviewed = useAppSelector((state) => state.movies.currentMovie?.user_data.review);
+  const alreadyReviewed = useAppSelector((state) => state.movies.currentMovie?.user_data?.review) || undefined;
   const [reviewIsUpdated, setReviewIsUpdated] = useState(false);
   const dispatch = useAppDispatch();
 
