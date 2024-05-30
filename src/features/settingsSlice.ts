@@ -70,12 +70,16 @@ const settingsSlice = createSlice({
         state.user.token = response.token;
         state.user.logged = true;
         api.addTokenJWTToAxiosInstance(response.token);
+        state.errorMessage = null;
         state.successMessage = "Vous êtes connecté. Redirection vers la page d'accueil...";
       })
       .addCase(actionLogin.rejected, (state, action) => {
-        // eslint-disable-next-line no-console
-        console.log(action.error.message);
-        state.errorMessage = "Impossible de vous connecter. Veuillez vérifier vos informations d'identification.";
+        state.successMessage = null;
+        if (action.error.code === 'ERR_NETWORK') {
+          state.errorMessage = 'Impossible de se connecter. Veuillez vérifier votre connexion Internet.';
+          return;
+        }
+        state.errorMessage = "Impossible de se connecter. Veuillez vérifier vos informations d'identification.";
       })
       .addCase(actionSignup.fulfilled, (state, action) => {
         const response = action.payload as SuccessLoginResponse;
