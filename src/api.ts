@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { LoginCredentials, SignupCredentials } from './@types/Credentials';
-import { MoviesFilter, ParamsType } from './@types/MoviesState';
+import { MoviesFilter, ParamsType } from './@types/MovieState';
 
 const instanceAxios = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,

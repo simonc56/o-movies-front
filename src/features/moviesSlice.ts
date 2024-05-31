@@ -1,17 +1,17 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {
+  MovieState,
   MoviesFilter,
-  MoviesState,
   SuccessMoviesResponse,
   SuccessOneMovieResponse,
   SuccessRatingResponse,
   SuccessReviewResponse,
-} from '../@types/MoviesState';
+} from '../@types/MovieState';
 import * as api from '../api';
 // import type { RootState } from '../store/store';
 import { budgetToMillions, isNumber, isoDateToFrench, isoDateToYear } from '../utils/utils';
 
-const moviesState: MoviesState = {
+const movieState: MovieState = {
   currentMovie: null,
   movieList: [],
 };
@@ -109,7 +109,7 @@ export const actionUpdateRating = createAsyncThunk<[SuccessRatingResponse, numbe
 
 const moviesSlice = createSlice({
   name: 'movies',
-  initialState: moviesState,
+  initialState: movieState,
   reducers: {
     actionResetCurrentMovie: (state) => {
       state.currentMovie = null;
