@@ -3,6 +3,7 @@ import { SuccessLoginResponse } from '../@types/Credentials';
 import { SettingsState } from '../@types/SettingsState';
 import * as api from '../api';
 import type { RootState } from '../store/store';
+import { getStoreUser, removeStoreUser, setStoreUser } from '../utils/utils';
 
 const settingsState: SettingsState = {
   user: {
@@ -36,6 +37,12 @@ const settingsSlice = createSlice({
   name: 'settings',
   initialState: settingsState,
   reducers: {
+    loadStoreUser: (state) => {
+      const user = getStoreUser();
+      if (user) {
+        state.user = user;
+      }
+    },
     logout: (state) => {
       state.user.firstname = '';
       state.user.lastname = '';
@@ -45,6 +52,7 @@ const settingsSlice = createSlice({
       state.user.logged = false;
       state.user.token = '';
       api.removeTokenJWTToAxiosInstance();
+      removeStoreUser();
     },
     editFirstname: (state, action: PayloadAction<string>) => {
       state.user.firstname = action.payload;
@@ -71,6 +79,7 @@ const settingsSlice = createSlice({
         state.user.token = response.token;
         state.user.logged = true;
         api.addTokenJWTToAxiosInstance(response.token);
+        setStoreUser(state.user);
         state.errorMessage = null;
         state.successMessage = "Vous êtes connecté. Redirection vers la page d'accueil...";
       })
@@ -97,4 +106,5 @@ export const selectUser = (state: RootState) => state.settings.user;
 
 export default settingsSlice.reducer;
 
-export const { logout, editEmail, editPassword, editFirstname, editLastName, editBirthdate } = settingsSlice.actions;
+export const { loadStoreUser, logout, editEmail, editPassword, editFirstname, editLastName, editBirthdate } =
+  settingsSlice.actions;
