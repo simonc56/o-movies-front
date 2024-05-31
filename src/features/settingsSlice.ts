@@ -17,6 +17,7 @@ const settingsState: SettingsState = {
   },
   successMessage: null,
   errorMessage: null,
+  isLocalStorageRead: false,
 };
 
 export const actionLogin = createAsyncThunk('settings/login', async (_, thunkAPI) => {
@@ -41,6 +42,8 @@ const settingsSlice = createSlice({
       const user = getStoreUser();
       if (user) {
         state.user = user;
+        api.addTokenJWTToAxiosInstance(user.token);
+        state.isLocalStorageRead = true;
       }
     },
     logout: (state) => {
