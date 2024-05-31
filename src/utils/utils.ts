@@ -1,3 +1,5 @@
+import { UserType } from '../@types/SettingsState';
+
 /**
  *
  * @param runtime integer - runtime of media in minutes
@@ -46,4 +48,28 @@ export function isoDateToYear(isoDate: string) {
  */
 export function isNumber(id: string): boolean {
   return !Number.isNaN(Number(id));
+}
+
+/**
+ * Store the current logged user in localStorage
+ * @param user UserType
+ */
+export function setStoreUser(user: UserType) {
+  localStorage.setItem('user', JSON.stringify(user));
+}
+
+/**
+ * Read and return the user stored in localStorage
+ * @returns user UserType
+ */
+export function getStoreUser() {
+  const user = localStorage.getItem('user');
+  return user ? JSON.parse(user) : null;
+}
+
+/**
+ * Remove the user stored in localStorage
+ */
+export function removeStoreUser() {
+  localStorage.removeItem('user');
 }

@@ -3,6 +3,7 @@ import { SuccessLoginResponse } from '../@types/Credentials';
 import { SettingsState } from '../@types/SettingsState';
 import * as api from '../api';
 import type { RootState } from '../store/store';
+import { getStoreUser, removeStoreUser, setStoreUser } from '../utils/utils';
 
 const settingsState: SettingsState = {
   user: {
@@ -14,6 +15,8 @@ const settingsState: SettingsState = {
     logged: false,
     token: '',
   },
+  successMessage: null,
+  errorMessage: null,
 };
 
 export const actionLogin = createAsyncThunk('settings/login', async (_, thunkAPI) => {
@@ -34,6 +37,12 @@ const settingsSlice = createSlice({
   name: 'settings',
   initialState: settingsState,
   reducers: {
+    loadStoreUser: (state) => {
+      const user = getStoreUser();
+      if (user) {
+        state.user = user;
+      }
+    },
     logout: (state) => {
       state.user.firstname = '';
       state.user.lastname = '';
@@ -42,6 +51,8 @@ const settingsSlice = createSlice({
       state.user.birthdate = '';
       state.user.logged = false;
       state.user.token = '';
+      api.removeTokenJWTToAxiosInstance();
+      removeStoreUser();
     },
     editFirstname: (state, action: PayloadAction<string>) => {
       state.user.firstname = action.payload;
@@ -62,16 +73,25 @@ const settingsSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(actionLogin.fulfilled, (state, action) => {
-        const response = action.payload as SuccessLoginResponse;
+        const response = action.payload.data as SuccessLoginResponse;
         state.user.firstname = response.firstname;
         state.user.lastname = response.lastname;
+        state.user.birthdate = response.birthdate;
         state.user.token = response.token;
         state.user.logged = true;
+        state.user.password = '';
         api.addTokenJWTToAxiosInstance(response.token);
+        setStoreUser(state.user);
+        state.errorMessage = null;
+        state.successMessage = "Vous êtes connecté. Redirection vers la page d'accueil...";
       })
-      .addCase(actionLogin.rejected, (_, action) => {
-        // eslint-disable-next-line no-console
-        console.log(action.error.message);
+      .addCase(actionLogin.rejected, (state, action) => {
+        state.successMessage = null;
+        if (action.error.code === 'ERR_NETWORK') {
+          state.errorMessage = 'Impossible de se connecter. Veuillez vérifier votre connexion Internet.';
+          return;
+        }
+        state.errorMessage = "Impossible de se connecter. Veuillez vérifier vos informations d'identification.";
       })
       .addCase(actionSignup.fulfilled, (state, action) => {
         const response = action.payload as SuccessLoginResponse;
@@ -88,4 +108,5 @@ export const selectUser = (state: RootState) => state.settings.user;
 
 export default settingsSlice.reducer;
 
-export const { logout, editEmail, editPassword, editFirstname, editLastName, editBirthdate } = settingsSlice.actions;
+export const { loadStoreUser, logout, editEmail, editPassword, editFirstname, editLastName, editBirthdate } =
+  settingsSlice.actions;

@@ -50,8 +50,8 @@ export type Actor = {
 
 export type MovieUserData = {
   userId: number;
-  rating: Rating;
-  review: Review;
+  rating: Rating | null;
+  review: Review | null;
 };
 
 export default MovieType;

@@ -1,5 +1,6 @@
 import { MantineProvider } from '@mantine/core';
 import { Route, Routes } from 'react-router-dom';
+import ChangePasswordPage from '../ChangePasswordPage/ChangePasswordPage';
 import ConfirmEmailPage from '../ConfirmEmailPage/ConfirmEmailPage';
 import ConfirmPasswordPage from '../ConfirmPasswordPage/ConfirmPasswordPage';
 import ConnectionPage from '../ConnectionPage/ConnectionPage';
@@ -8,15 +9,22 @@ import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Homepage from '../Homepage/Homepage';
 import MoviePage from '../MoviePage/MoviePage';
-import SignupPage from '../SignupPage/SignupPage';
 import UserProfilePage from '../ProfilUserPage/ProfilUserPage';
-import ChangePasswordPage from '../ChangePasswordPage/ChangePasswordPage';
+import SignupPage from '../SignupPage/SignupPage';
 
+import { useEffect } from 'react';
+import { loadStoreUser } from '../../features/settingsSlice';
+import { useAppDispatch } from '../../store/hooks';
 import theme from '../../styles/theme';
 import './App.scss';
 
-
 function App() {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(loadStoreUser());
+  }, [dispatch]);
+
   return (
     <MantineProvider theme={theme}>
       <div className="App" data-mantine-color-scheme="light">

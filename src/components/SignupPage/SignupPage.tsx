@@ -122,10 +122,10 @@ function SignupPage() {
         setSuccessMessage('Inscription réussie !');
         resetForm();
 
-        // redirect to home page after 7 seconds
+        // redirect to login page after 3 seconds
         setTimeout(() => {
-          navigate('/');
-        }, 7000); // in ms (7000=7s)
+          navigate('/connexion');
+        }, 3000); // in ms (3000=3s)
       } catch (error) {
         if (axios.isAxiosError(error)) {
           setApiError(`Erreur: ${error.response?.data.error || 'Inscription échouée'}`);
@@ -260,7 +260,7 @@ function SignupPage() {
           <p className="success-message">
             {successMessage}
             <br />
-            Redirection vers la page d'accueil dans 7 secondes...
+            Redirection vers la page de connexion...
           </p>
         )}
         <div className="button-container">

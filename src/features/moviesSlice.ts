@@ -82,7 +82,7 @@ export const actionPostRating = createAsyncThunk<[SuccessRatingResponse, number]
   async (payload, thunkAPI) => {
     const { rating, tmdbId } = payload;
     // use Jest here for data validation
-    const allowedRatings = [1, 2, 3, 4, 5];
+    const allowedRatings = [0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5];
     if (rating === undefined || Number.isNaN(rating) || !allowedRatings.includes(rating)) {
       return thunkAPI.rejectWithValue('No rating provided');
     }
@@ -151,7 +151,11 @@ const moviesSlice = createSlice({
           // add review in reviews list of current movie object
           if (state.currentMovie) {
             state.currentMovie.reviews.push({ review_id, content: review });
-            state.currentMovie.user_data.review = { review_id, content: review };
+            if (state.currentMovie.user_data) {
+              state.currentMovie.user_data.review = { review_id, content: review };
+            } else {
+              state.currentMovie.user_data = { userId: 0, rating: null, review: { review_id, content: review } };
+            }
           }
         }
       })
@@ -166,7 +170,7 @@ const moviesSlice = createSlice({
               }
               return item;
             });
-            state.currentMovie.user_data.review.content = review;
+            state.currentMovie.user_data.review!.content = review;
           }
         }
       })
@@ -176,7 +180,11 @@ const moviesSlice = createSlice({
           const { rating_id, movie_average_rating } = response.data;
           if (state.currentMovie && rating_id) {
             state.currentMovie.average_rating = movie_average_rating;
-            state.currentMovie.user_data.rating = { rating_id, value: rating };
+            if (state.currentMovie.user_data) {
+              state.currentMovie.user_data.rating = { rating_id, value: rating };
+            } else {
+              state.currentMovie.user_data = { userId: 0, rating: { rating_id, value: rating }, review: null };
+            }
           }
         }
       })
@@ -186,7 +194,7 @@ const moviesSlice = createSlice({
           const { movie_average_rating } = response.data;
           if (state.currentMovie) {
             state.currentMovie.average_rating = movie_average_rating;
-            state.currentMovie.user_data.rating.value = rating;
+            state.currentMovie.user_data.rating!.value = rating;
           }
         }
       });

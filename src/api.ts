@@ -19,6 +19,10 @@ export function addTokenJWTToAxiosInstance(token: string) {
   instanceAxios.defaults.headers.common.Authorization = `Bearer ${token}`;
 }
 
+export function removeTokenJWTToAxiosInstance() {
+  instanceAxios.defaults.headers.common.Authorization = null;
+}
+
 export async function getMovieById(id: string) {
   const response = await instanceAxios.get(`/movie/${id}`);
   return response;
