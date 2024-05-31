@@ -6,6 +6,7 @@ import MovieReviews from '../MovieReviews/MovieReviews';
 import NewRating from '../NewRating/NewRating';
 import NewReview from '../NewReview/NewReview';
 
+import { cleanRating } from '../../utils/utils';
 import './MovieExtraInfos.scss';
 
 type MovieExtraInfosProps = {
@@ -14,6 +15,7 @@ type MovieExtraInfosProps = {
 
 function MovieExtraInfos({ movie }: MovieExtraInfosProps) {
   const isLogged = useAppSelector((state) => state.settings.user.logged);
+
   return (
     <section className="section-extra-infos">
       <MovieCast cast={movie.cast} />
@@ -22,7 +24,7 @@ function MovieExtraInfos({ movie }: MovieExtraInfosProps) {
           <h3>Note utilisateurs</h3>
           <div className="users-ratings">
             <Rating value={movie.average_rating} size="lg" color="primary" readOnly fractions={10} aria-required />
-            <span className="rating-text">{movie.average_rating}/5</span>
+            <span className="rating-text">{cleanRating(movie.average_rating)}/5</span>
           </div>
         </div>
       )}

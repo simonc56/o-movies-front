@@ -51,6 +51,18 @@ export function isNumber(id: string): boolean {
 }
 
 /**
+ * Prevent rating to have more than 1 decimal
+ * @param rating number
+ * @returns
+ */
+export function cleanRating(rating: number) {
+  if (Number.isInteger(rating)) {
+    return rating.toFixed(0);
+  }
+  return rating.toFixed(1);
+}
+
+/**
  * Store the current logged user in localStorage
  * @param user UserType
  */
