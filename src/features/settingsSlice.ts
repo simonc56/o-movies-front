@@ -41,6 +41,7 @@ const settingsSlice = createSlice({
       const user = getStoreUser();
       if (user) {
         state.user = user;
+        api.addTokenJWTToAxiosInstance(user.token);
       }
     },
     logout: (state) => {
