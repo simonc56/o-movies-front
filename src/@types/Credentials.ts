@@ -15,5 +15,6 @@ export type SuccessLoginResponse = {
   firstname: string;
   lastname: string;
   email: string;
+  birthdate: string;
   token: string;
 };

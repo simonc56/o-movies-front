@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
-import { useAppSelector } from '../../store/hooks';
 import { selectUser } from '../../features/settingsSlice';
+import { useAppSelector } from '../../store/hooks';
 
+import { isoDateToFrench } from '../../utils/utils';
 import './ProfilUserPage.scss';
 
 function UserProfilePage() {
@@ -34,7 +35,7 @@ function UserProfilePage() {
               <span className="bold-text">Prénom:</span> {displayUser.firstname}
             </p>
             <p className="profileDetail">
-              <span className="bold-text">Date de naissance:</span> {displayUser.birthdate}
+              <span className="bold-text">Date de naissance:</span> {isoDateToFrench(displayUser.birthdate)}
             </p>
             <br />
             <p className="profileDetail">

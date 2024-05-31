@@ -76,6 +76,7 @@ const settingsSlice = createSlice({
         const response = action.payload.data as SuccessLoginResponse;
         state.user.firstname = response.firstname;
         state.user.lastname = response.lastname;
+        state.user.birthdate = response.birthdate;
         state.user.token = response.token;
         state.user.logged = true;
         state.user.password = '';
