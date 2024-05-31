@@ -1,32 +1,73 @@
 import React, { useState } from 'react';
-import { TextInput, Code, ActionIcon, Tooltip, Text, Group, rem, Button, Modal } from '@mantine/core';
-import { IconSearch, IconPlus, IconTrash, IconEdit, IconX } from '@tabler/icons-react';
+import { TextInput, Text, Group, Button, Modal } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import { openConfirmModal, ModalsProvider } from '@mantine/modals';
+import { IconX } from '@tabler/icons-react';
 import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
-import classes from './NavbarSearch.module.css';
+import NavbarSearch from './NavbarSearch';
 import './PlaylistPage.scss';
 
+interface Movie {
+  title: string;
+  year: number;
+  imageUrl: string;
+}
 
 interface Playlist {
   emoji: string;
   label: string;
+  movies?: Movie[];
 }
 
-const initialPlaylists: Playlist[] = [  
+const initialPlaylists: Playlist[] = [
   { emoji: '👌', label: 'Déjà regardé ' },
   { emoji: '🎥', label: 'A voir' },
   { emoji: '💖', label: 'Coup de coeur' },
-  { emoji: '🍆', label: 'hmm' },
+  {
+    emoji: '🍆', label: 'hmm', movies: [
+      { title: 'Moi moche et méchant 4', year: 2024, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
+      { title: 'Exemple de Film 2', year: 2023, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
+      { title: 'Exemple de Film 3', year: 2022, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
+      { title: 'Moi moche et méchant', year: 2024, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
+      { title: 'Exemple de Film 1', year: 2023, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
+      { title: 'Exemple de Film 31', year: 2022, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
+      { title: 'Exemple de Film 2', year: 2023, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
+      { title: 'Exemple de Film 3', year: 2022, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
+      { title: 'Moi moche et méchant', year: 2024, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
+      { title: 'Exemple de Film 1', year: 2023, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
+      { title: 'Exemple de Film 31', year: 2022, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
+      { title: 'Exemple de Film 2', year: 2023, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
+      { title: 'Exemple de Film 3', year: 2022, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
+      { title: 'Moi moche et méchant', year: 2024, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
+      { title: 'Exemple de Film 1', year: 2023, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
+      { title: 'Exemple de Film 31', year: 2022, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
+      { title: 'Exemple de Film 3', year: 2022, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
+      { title: 'Moi moche et méchant', year: 2024, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
+      { title: 'Exemple de Film 1', year: 2023, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
+      { title: 'Exemple de Film 31', year: 2022, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
+      { title: 'Exemple de Film 2', year: 2023, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
+      { title: 'Exemple de Film 3', year: 2022, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
+      { title: 'Moi moche et méchant', year: 2024, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
+      { title: 'Exemple de Film 1', year: 2023, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
+      { title: 'Exemple de Film 31', year: 2022, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
+      { title: 'Exemple de Film 2', year: 2023, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
+      { title: 'Exemple de Film 3', year: 2022, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
+      { title: 'Moi moche et méchant', year: 2024, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
+      { title: 'Exemple de Film 1', year: 2023, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
+      { title: 'Exemple de Film 31', year: 2022, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
+    ]
+  },
 ];
 
-export function NavbarSearch() {
+const PlaylistPage: React.FC = () => {
   const [playlists, setPlaylists] = useState<Playlist[]>(initialPlaylists);
   const [opened, setOpened] = useState(false);
   const [newLabel, setNewLabel] = useState('');
   const [newEmoji, setNewEmoji] = useState('🆕');
   const [editingLabel, setEditingLabel] = useState<null | string>(null);
   const [emojiPickerOpened, setEmojiPickerOpened] = useState(false);
+  const [modalWidth, setModalWidth] = useState('600px');
+  const [selectedPlaylist, setSelectedPlaylist] = useState<null | Playlist>(null);
 
   const openAddModal = () => {
     setNewLabel('');
@@ -44,6 +85,7 @@ export function NavbarSearch() {
   const handleClose = () => {
     setOpened(false);
     setEditingLabel(null);
+    setModalWidth('600px'); 
   };
 
   const handleSave = (event: React.FormEvent) => {
@@ -99,35 +141,43 @@ export function NavbarSearch() {
   const onEmojiClick = (emojiData: EmojiClickData) => {
     setNewEmoji(emojiData.emoji);
     setEmojiPickerOpened(false);
+    setModalWidth('600px'); 
   };
 
-  const playlistLinks = playlists.map((playlist) => (
-    <div key={playlist.label} className={classes.collectionLink}>
-      <span style={{ marginRight: rem(5), fontSize: rem(16) }}>{playlist.emoji}</span>
-      <span>{playlist.label}</span>
-      <div className={classes.collectionLinkIcons}>
-        <ActionIcon className="icon" onClick={() => openEditModal(playlist.label, playlist.emoji)} style={{ backgroundColor: 'lightblue', borderRadius: '50%' }}>
-          <IconEdit style={{ width: rem(16), height: rem(16), color: 'blue' }} stroke={1.5} />
-        </ActionIcon>
-        <ActionIcon className="icon" onClick={() => confirmRemovePlaylist(playlist.label)} style={{ backgroundColor: 'lightcoral', borderRadius: '50%' }}>
-          <IconTrash style={{ width: rem(16), height: rem(16), color: 'red' }} stroke={1.5} />
-        </ActionIcon>
-      </div>
-    </div>
-  ));
+  const handleEmojiPickerToggle = () => {
+    setEmojiPickerOpened(!emojiPickerOpened);
+    setModalWidth(emojiPickerOpened ? '600px' : '800px');
+  };
+
+  const openSidebar = (playlist: Playlist) => {
+    setSelectedPlaylist(playlist);
+  };
+
+  const closeSidebar = () => {
+    setSelectedPlaylist(null);
+  };
 
   return (
     <ModalsProvider>
+      <NavbarSearch
+        playlists={playlists}
+        openAddModal={openAddModal}
+        openEditModal={openEditModal}
+        confirmRemovePlaylist={confirmRemovePlaylist}
+        openSidebar={openSidebar}
+      />
+
       <Modal
         opened={opened}
         onClose={handleClose}
         title={editingLabel ? 'Modifier la Playlist' : 'Nouvelle Playlist'}
+        style={{ width: modalWidth, maxWidth: '90vw' }}
       >
         <form onSubmit={handleSave}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
             <div
               style={{ cursor: 'pointer' }}
-              onClick={() => setEmojiPickerOpened(!emojiPickerOpened)}
+              onClick={handleEmojiPickerToggle}
             >
               {newEmoji}
             </div>
@@ -147,32 +197,28 @@ export function NavbarSearch() {
           </Group>
         </form>
       </Modal>
-      <nav className={classes.navbar1}>
-        <div className={classes.section1}>
-          <Group className={classes.collectionsHeader} justify="space-between">
-            <Text size="lg" fw={700} color="var(--color-bg)" style={{ fontSize: rem(24) }}>
-              Mes Playlists
-            </Text>
-            <Tooltip label="Créer une playlist" withArrow position="right">
-              <ActionIcon variant="default" size={24} onClick={openAddModal}>
-                <IconPlus style={{ width: rem(14), height: rem(14) }} stroke={1.5} />
-              </ActionIcon>
-            </Tooltip>
-          </Group>
-          <TextInput
-            placeholder="Rechercher..."
-            size="sm"
-            leftSection={<IconSearch style={{ width: rem(12), height: rem(12) }} stroke={1.5} />}
-            rightSectionWidth={70}
-            rightSection={<Code className={classes.searchCode}>Ctrl + K</Code>}
-            styles={{ section: { pointerEvents: 'none' } }}
-            mb="sm"
-          />
-          <div className={classes.collections}>{playlistLinks}</div>
+
+      {selectedPlaylist && (
+        <div className="sidebar">
+          <div className="sidebar-header">
+            <Text size="xl">{selectedPlaylist.emoji} {selectedPlaylist.label}</Text>
+            <Button type="submit" color="bg" autoContrast onClick={closeSidebar}>Fermer</Button>
+            </div>
+          <div className="sidebar-content">
+            {selectedPlaylist.movies && selectedPlaylist.movies.map((movie, index) => (
+              <div className="movie" key={index}>
+                <img src={movie.imageUrl} alt={`Image de ${movie.title}`} />
+                <div className="movie-info">
+                  <Text size="sm">{movie.title}</Text>
+                  <Text size="sm">Année de production : {movie.year}</Text>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-      </nav>
+      )}
     </ModalsProvider>
   );
-}
+};
 
-export default NavbarSearch;
+export default PlaylistPage;
