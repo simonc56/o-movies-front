@@ -43,11 +43,10 @@ export const actionFetchMovies = createAsyncThunk<SuccessMoviesResponse, MoviesF
   }
 );
 
-export const actionPostReview = createAsyncThunk<[SuccessReviewResponse, string], { review: string; tmdbId: number }>(
+export const actionPostReview = createAsyncThunk<[SuccessReviewResponse], { review: string; tmdbId: number }>(
   'movie/postReview',
   async (payload, thunkAPI) => {
     const { review, tmdbId } = payload;
-    // use Jest here for data validation
     if (review === undefined) {
       return thunkAPI.rejectWithValue('No review provided');
     }
@@ -55,33 +54,30 @@ export const actionPostReview = createAsyncThunk<[SuccessReviewResponse, string]
       return thunkAPI.rejectWithValue('No tmdbId provided');
     }
     const response = await api.postReview(review, tmdbId);
-    // send both api response and review content because content is not provided by api
-    return [response.data, review];
+    return [response.data];
   }
 );
 
-export const actionUpdateReview = createAsyncThunk<
-  [SuccessReviewResponse, string, number],
-  { review: string; id: number }
->('movie/updateReview', async (payload, thunkAPI) => {
-  const { review, id } = payload;
-  // use Jest here for data validation
-  if (review === undefined) {
-    return thunkAPI.rejectWithValue('No review provided');
+export const actionUpdateReview = createAsyncThunk<[SuccessReviewResponse, number], { review: string; id: number }>(
+  'movie/updateReview',
+  async (payload, thunkAPI) => {
+    const { review, id } = payload;
+    if (review === undefined) {
+      return thunkAPI.rejectWithValue('No review provided');
+    }
+    if (id === undefined || Number.isNaN(id)) {
+      return thunkAPI.rejectWithValue('No review id provided');
+    }
+    const response = await api.patchReview(review, id);
+    // send both api response and review id
+    return [response.data, id];
   }
-  if (id === undefined || Number.isNaN(id)) {
-    return thunkAPI.rejectWithValue('No review id provided');
-  }
-  const response = await api.patchReview(review, id);
-  // send both api response and review content because content is not provided by api
-  return [response.data, review, id];
-});
+);
 
 export const actionPostRating = createAsyncThunk<[SuccessRatingResponse, number], { rating: number; tmdbId: number }>(
   'movie/postRating',
   async (payload, thunkAPI) => {
     const { rating, tmdbId } = payload;
-    // use Jest here for data validation
     const allowedRatings = [0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5];
     if (rating === undefined || Number.isNaN(rating) || !allowedRatings.includes(rating)) {
       return thunkAPI.rejectWithValue('No rating provided');
@@ -99,7 +95,6 @@ export const actionUpdateRating = createAsyncThunk<[SuccessRatingResponse, numbe
   'movie/updateRating',
   async (payload, thunkAPI) => {
     const { rating, id } = payload;
-    // use Jest here for data validation
     if (rating === undefined) {
       return thunkAPI.rejectWithValue('No rating provided');
     }
@@ -107,7 +102,7 @@ export const actionUpdateRating = createAsyncThunk<[SuccessRatingResponse, numbe
       return thunkAPI.rejectWithValue('No rating id provided');
     }
     const response = await api.patchRating(rating, id);
-    // send both api response and rating value because content is not provided by api
+    // send both api response and rating value because value is not provided by api
     return [response.data, rating];
   }
 );
@@ -145,32 +140,33 @@ const moviesSlice = createSlice({
         state.movieList = response.data;
       })
       .addCase(actionPostReview.fulfilled, (state, action) => {
-        const [response, review] = action.payload;
+        const [response] = action.payload;
         if (response.status === 'success') {
-          const { review_id } = response.data;
+          const { review_id, content } = response.data;
           // add review in reviews list of current movie object
-          if (state.currentMovie) {
-            state.currentMovie.reviews.push({ review_id, content: review });
+          if (state.currentMovie && review_id) {
+            state.currentMovie.reviews.push({ review_id, content });
             if (state.currentMovie.user_data) {
-              state.currentMovie.user_data.review = { review_id, content: review };
+              state.currentMovie.user_data.review = { review_id, content };
             } else {
-              state.currentMovie.user_data = { userId: 0, rating: null, review: { review_id, content: review } };
+              state.currentMovie.user_data = { userId: 0, rating: null, review: { review_id, content } };
             }
           }
         }
       })
       .addCase(actionUpdateReview.fulfilled, (state, action) => {
-        const [response, review, id] = action.payload;
+        const [response, id] = action.payload;
         if (response.status === 'success') {
           // add review in reviews list of current movie object
+          console.log(response.data);
           if (state.currentMovie) {
             state.currentMovie.reviews = state.currentMovie.reviews.map((item) => {
               if (item.review_id === id) {
-                return { review_id: id, content: review };
+                return { review_id: id, content: response.data.content };
               }
               return item;
             });
-            state.currentMovie.user_data.review!.content = review;
+            state.currentMovie.user_data.review!.content = response.data.content;
           }
         }
       })

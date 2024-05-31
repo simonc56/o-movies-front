@@ -34,6 +34,11 @@ type RatingResponse = {
   movie_average_rating: number; // recalculated each time a rating is added/updated
 };
 
+type ReviewResponse = {
+  review_id?: number; // only returned with a POST request
+  content: string;
+};
+
 export type FailResponse = {
   data: {
     status: 'fail';
@@ -41,6 +46,6 @@ export type FailResponse = {
   };
 };
 
-export type SuccessReviewResponse = SuccessResponse<{ review_id: number }>;
+export type SuccessReviewResponse = SuccessResponse<ReviewResponse>;
 
 export type SuccessRatingResponse = SuccessResponse<RatingResponse>;
