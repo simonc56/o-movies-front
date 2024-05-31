@@ -6,6 +6,8 @@ const instanceAxios = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
 });
 
+//#region ==========     User      ==========
+
 export async function login(credentials: LoginCredentials) {
   const response = await instanceAxios.post('/auth/login', credentials);
   return response;
@@ -26,6 +28,9 @@ export function addTokenJWTToAxiosInstance(token: string) {
 export function removeTokenJWTToAxiosInstance() {
   instanceAxios.defaults.headers.common.Authorization = null;
 }
+//#endregion
+
+//#region ==========     Movie     ==========
 
 export async function getMovieById(id: string) {
   const response = await instanceAxios.get(`/movie/${id}`);
@@ -41,6 +46,9 @@ export async function getMoviesByFilter(filter: MoviesFilter) {
   const response = await instanceAxios.get(`/movie/${filter}`);
   return response;
 }
+//#endregion
+
+//#region ========== Rating/review ==========
 
 export async function postReview(review: string, tmdb_id: number) {
   const response = await instanceAxios.post(`/review`, { tmdb_id, content: review });
@@ -71,3 +79,42 @@ export async function deleteRating(id: number) {
   const response = await instanceAxios.delete(`/rating/${id}`);
   return response;
 }
+//#endregion
+
+//#region ==========    Playlist   ==========
+
+export async function createPlaylist(name: string) {
+  const response = await instanceAxios.post('/playlist', { name });
+  return response;
+}
+
+export async function renamePLaylist(id: number, name: string) {
+  const response = await instanceAxios.patch(`/playlist/${id}`, { name });
+  return response;
+}
+
+export async function deletePlaylist(id: number) {
+  const response = await instanceAxios.delete(`/playlist/${id}`);
+  return response;
+}
+
+export async function getPlaylist(id: number) {
+  const response = await instanceAxios.get(`/playlist/${id}`);
+  return response;
+}
+
+export async function getUserPlaylists() {
+  const response = await instanceAxios.get('/playlist');
+  return response;
+}
+
+export async function addMovieToPlaylist(id: number, tmdb_id: number) {
+  const response = await instanceAxios.post(`/playlist/${id}/addmovie`, { tmdb_id });
+  return response;
+}
+
+export async function removeMovieFromPlaylist(id: number, tmdb_id: number) {
+  const response = await instanceAxios.delete(`/playlist/${id}/removemovie/${tmdb_id}`);
+  return response;
+}
+//#endregion
