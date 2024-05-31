@@ -78,6 +78,7 @@ const settingsSlice = createSlice({
         state.user.lastname = response.lastname;
         state.user.token = response.token;
         state.user.logged = true;
+        state.user.password = '';
         api.addTokenJWTToAxiosInstance(response.token);
         setStoreUser(state.user);
         state.errorMessage = null;
