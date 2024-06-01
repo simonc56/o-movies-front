@@ -88,7 +88,7 @@ export async function createPlaylist(name: string) {
   return response;
 }
 
-export async function renamePLaylist(id: number, name: string) {
+export async function renamePlaylist(id: number, name: string) {
   const response = await instanceAxios.patch(`/playlist/${id}`, { name });
   return response;
 }
@@ -108,12 +108,12 @@ export async function getUserPlaylists() {
   return response;
 }
 
-export async function addMovieToPlaylist(id: number, tmdb_id: number) {
+export async function addMediaToPlaylist(id: number, tmdb_id: number) {
   const response = await instanceAxios.post(`/playlist/${id}/addmovie`, { tmdb_id });
   return response;
 }
 
-export async function deleteMovieFromPlaylist(id: number, tmdb_id: number) {
+export async function deleteMediaFromPlaylist(id: number, tmdb_id: number) {
   const response = await instanceAxios.delete(`/playlist/${id}/deletemovie/${tmdb_id}`);
   return response;
 }
