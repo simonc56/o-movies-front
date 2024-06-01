@@ -14,12 +14,13 @@ import SignupPage from '../SignupPage/SignupPage';
 
 import { useEffect } from 'react';
 import { loadStoreUser } from '../../features/settingsSlice';
-import { useAppDispatch } from '../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import theme from '../../styles/theme';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import './App.scss';
 
 function App() {
+  const user = useAppSelector((state) => state.settings.user);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -38,7 +39,7 @@ function App() {
           <Route path="/réinitialisation-email" element={<ConfirmEmailPage />} />
           <Route path="/réinitialisation-mot-de-passe" element={<ConfirmPasswordPage />} />
           <Route path="/contact" element={<ContactPage />} />
-          <Route path="/profil" element={<UserProfilePage />} />
+          {user.token && <Route path="/profil" element={<UserProfilePage />} />}
           <Route path="/changer-mot-de-passe" element={<ChangePasswordPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
