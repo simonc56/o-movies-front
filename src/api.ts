@@ -113,8 +113,8 @@ export async function addMovieToPlaylist(id: number, tmdb_id: number) {
   return response;
 }
 
-export async function removeMovieFromPlaylist(id: number, tmdb_id: number) {
-  const response = await instanceAxios.delete(`/playlist/${id}/removemovie/${tmdb_id}`);
+export async function deleteMovieFromPlaylist(id: number, tmdb_id: number) {
+  const response = await instanceAxios.delete(`/playlist/${id}/deletemovie/${tmdb_id}`);
   return response;
 }
 //#endregion
