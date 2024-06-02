@@ -3,6 +3,7 @@ import {
   MovieState,
   MoviesFilter,
   SuccessMoviesResponse,
+  SuccessMoviesSearchResponse,
   SuccessOneMovieResponse,
   SuccessRatingResponse,
   SuccessReviewResponse,
@@ -14,6 +15,7 @@ import { budgetToMillions, isNumber, isoDateToFrench, isoDateToYear } from '../u
 const movieState: MovieState = {
   currentMovie: null,
   movieList: [],
+  movieResultList: [],
 };
 
 // thunk types: createAsyncThunk<returned object type, received arg type>
@@ -39,6 +41,18 @@ export const actionFetchMovies = createAsyncThunk<SuccessMoviesResponse, MoviesF
       return thunkAPI.rejectWithValue('No filter provided');
     }
     const response = await api.getMoviesByFilter(filter);
+    return response.data;
+  }
+);
+
+// fetch a list of movies with title_fr corresponding to the search query
+export const actionSearchMovies = createAsyncThunk<SuccessMoviesSearchResponse, string>(
+  'movies/searchMovies',
+  async (query, thunkAPI) => {
+    if (query === undefined) {
+      return thunkAPI.rejectWithValue('No query provided');
+    }
+    const response = await api.searchMovies(query);
     return response.data;
   }
 );
@@ -147,6 +161,10 @@ const moviesSlice = createSlice({
       .addCase(actionFetchMovies.fulfilled, (state, action) => {
         const response = action.payload as SuccessMoviesResponse;
         state.movieList = response.data;
+      })
+      .addCase(actionSearchMovies.fulfilled, (state, action) => {
+        const response = action.payload as SuccessMoviesSearchResponse;
+        state.movieResultList = response.data;
       })
       .addCase(actionPostReview.fulfilled, (state, action) => {
         const [response] = action.payload;
