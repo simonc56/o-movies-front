@@ -1,7 +1,12 @@
-.searchbar-form {
-  max-width: 180px;
+.searchbar {
+  width: 210px;
   margin-inline: auto;
   & input {
     padding-bottom: 0.1rem;
   }
 }
+
+// div.mantine-Autocomplete-dropdown {
+//   // to be over the drawer
+//   z-index: 1000001 !important;
+// }

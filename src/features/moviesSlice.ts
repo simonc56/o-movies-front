@@ -1,4 +1,4 @@
-import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {
   MovieState,
   MoviesFilter,
@@ -128,6 +128,9 @@ const moviesSlice = createSlice({
     actionResetCurrentMovie: (state) => {
       state.currentMovie = null;
     },
+    resetMovieResultList: (state) => {
+      state.movieResultList = [];
+    },
     addedInPlaylist: (state, action: PayloadAction<number>) => {
       if (state.currentMovie?.user_data) {
         state.currentMovie.user_data.in_playlists.push(action.payload);
@@ -236,4 +239,4 @@ const moviesSlice = createSlice({
 
 export default moviesSlice.reducer;
 
-export const { actionResetCurrentMovie, addedInPlaylist } = moviesSlice.actions;
+export const { actionResetCurrentMovie, resetMovieResultList, addedInPlaylist } = moviesSlice.actions;
