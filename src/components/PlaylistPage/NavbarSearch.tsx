@@ -1,11 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { TextInput, Code, ActionIcon, Tooltip, Text, Group, rem } from '@mantine/core';
 import { IconSearch, IconPlus, IconTrash, IconEdit } from '@tabler/icons-react';
 import classes from './NavbarSearch.module.css';
 
+interface Movie {
+  title: string;
+  year: number;
+  imageUrl: string;
+}
+
 interface Playlist {
   emoji: string;
   label: string;
+  movies?: Movie[];
 }
 
 interface NavbarSearchProps {
@@ -23,10 +30,15 @@ const NavbarSearch: React.FC<NavbarSearchProps> = ({
   confirmRemovePlaylist,
   openSidebar,
 }) => {
+  const maxLength = 17;
   const playlistLinks = playlists.map((playlist) => (
     <div key={playlist.label} className={classes.collectionLink} onClick={() => openSidebar(playlist)}>
       <span style={{ marginRight: rem(5), fontSize: rem(16) }}>{playlist.emoji}</span>
-      <span>{playlist.label}</span>
+      <span>
+        {playlist.label.length > maxLength
+          ? `${playlist.label.slice(0, maxLength)}...`
+          : playlist.label}
+      </span>
       <div className={classes.collectionLinkIcons}>
         <ActionIcon
           className="icon"
@@ -66,7 +78,7 @@ const NavbarSearch: React.FC<NavbarSearchProps> = ({
           </Tooltip>
         </Group>
         <TextInput
-          placeholder="Rechercher..."
+          placeholder="Rechercher une playlist"
           size="sm"
           leftSection={<IconSearch style={{ width: rem(12), height: rem(12) }} stroke={1.5} />}
           rightSectionWidth={70}

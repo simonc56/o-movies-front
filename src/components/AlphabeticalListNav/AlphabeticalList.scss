@@ -1,0 +1,27 @@
+.alphabet-nav-vertical {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  right: 3rem;
+  top: 53%;
+  transform: translateY(-50%);  
+  padding: 0.5rem; 
+  z-index: 1000; 
+  font-weight: 500;
+}
+
+.alphabet-link {
+  margin: 0 0.5rem;
+  text-decoration: none;
+  color: var(--color-bg);
+}
+
+.alphabet-link.active {
+  color: red; 
+  font-weight: bold;
+}
+
+.alphabet-link:hover {
+  text-decoration: underline;
+  color: rgb(238, 97, 116)
+}
