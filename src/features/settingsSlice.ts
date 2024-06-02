@@ -1,24 +1,8 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { SuccessLoginResponse } from '../@types/Credentials';
-import { SettingsState } from '../@types/SettingsState';
 import * as api from '../api';
 import type { RootState } from '../store/store';
-import { getStoreUser, removeStoreUser, setStoreUser } from '../utils/utils';
-
-const settingsState: SettingsState = {
-  user: {
-    firstname: '',
-    lastname: '',
-    email: '',
-    password: '',
-    birthdate: '',
-    logged: false,
-    token: '',
-  },
-  successMessage: null,
-  errorMessage: null,
-  isLocalStorageRead: false,
-};
+import { getInitialSettingsState, removeStoreUser, setStoreUser } from '../utils/localStorage';
 
 export const actionLogin = createAsyncThunk('settings/login', async (_, thunkAPI) => {
   const state = thunkAPI.getState() as RootState;
@@ -36,16 +20,8 @@ export const actionSignup = createAsyncThunk('settings/signup', async (_, thunkA
 
 const settingsSlice = createSlice({
   name: 'settings',
-  initialState: settingsState,
+  initialState: getInitialSettingsState,
   reducers: {
-    loadStoreUser: (state) => {
-      const user = getStoreUser();
-      if (user) {
-        state.user = user;
-        api.addTokenJWTToAxiosInstance(user.token);
-        state.isLocalStorageRead = true;
-      }
-    },
     logout: (state) => {
       state.user.firstname = '';
       state.user.lastname = '';
@@ -111,5 +87,4 @@ export const selectUser = (state: RootState) => state.settings.user;
 
 export default settingsSlice.reducer;
 
-export const { loadStoreUser, logout, editEmail, editPassword, editFirstname, editLastName, editBirthdate } =
-  settingsSlice.actions;
+export const { logout, editEmail, editPassword, editFirstname, editLastName, editBirthdate } = settingsSlice.actions;

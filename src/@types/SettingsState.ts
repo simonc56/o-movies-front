@@ -2,7 +2,6 @@ export type SettingsState = {
   user: UserType;
   successMessage: string | null;
   errorMessage: string | null;
-  isLocalStorageRead: boolean;
 };
 
 export type UserType = {

@@ -12,19 +12,10 @@ import MoviePage from '../MoviePage/MoviePage';
 import UserProfilePage from '../ProfilUserPage/ProfilUserPage';
 import SignupPage from '../SignupPage/SignupPage';
 
-import { useEffect } from 'react';
-import { loadStoreUser } from '../../features/settingsSlice';
-import { useAppDispatch } from '../../store/hooks';
 import theme from '../../styles/theme';
 import './App.scss';
 
 function App() {
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(loadStoreUser());
-  }, [dispatch]);
-
   return (
     <MantineProvider theme={theme}>
       <div className="App" data-mantine-color-scheme="light">
