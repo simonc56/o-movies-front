@@ -3,7 +3,9 @@ export interface Movie {
     year: number;
     imageUrl: string;
   }
-  //fake movies for test
+  // .!!! fake movies for test  !!!
+  //the function sortMoviesAlphabetically in the PlayListPage
+  // will take care of sorting the films in alphabetical order
   const moviesData: Movie[] = [
     { title: 'Aventure dans l\'inconnu', year: 2024, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
     { title: 'Bataille des étoiles', year: 2025, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },

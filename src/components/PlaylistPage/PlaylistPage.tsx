@@ -13,7 +13,7 @@ interface Playlist {
   label: string;
   movies?: Movie[];
 }
-
+//example playlist
 const initialPlaylists: Playlist[] = [
   { emoji: '👌', label: 'Déjà regardé', movies: moviesData },
   { emoji: '🎥', label: 'A voir' },
@@ -34,8 +34,12 @@ const PlaylistPage: React.FC = () => {
 
   const observer = useRef<IntersectionObserver | null>(null);
 
+  //function to normalize special character letters in the alphabeticalList (é à etc)
   const normalizeString = (str: string) => {
-    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase();
+    return str
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toUpperCase();
   };
 
   const openAddModal = () => {
@@ -102,7 +106,7 @@ const PlaylistPage: React.FC = () => {
     setEmojiPickerOpened(false);
     setModalWidth('600px');
   };
-
+  //for open or close emojiPicker
   const handleEmojiPickerToggle = () => {
     setEmojiPickerOpened(!emojiPickerOpened);
     setModalWidth(emojiPickerOpened ? '600px' : '800px');
@@ -117,20 +121,36 @@ const PlaylistPage: React.FC = () => {
     setSortedMovies([]);
   };
 
+  //to sort movies alphabetic in the database
   const sortMoviesAlphabetically = (movies: Movie[]) => {
     return movies.slice().sort((a, b) => normalizeString(a.title).localeCompare(normalizeString(b.title)));
   };
 
+  //Function to group movies by first letter
+  const groupMoviesByFirstLetter = (movies: Movie[]) => {
+    const groupedMovies: { [key: string]: Movie[] } = {};
+    movies.forEach((movie) => {
+      const firstLetter = normalizeString(movie.title.charAt(0));
+      if (!groupedMovies[firstLetter]) {
+        groupedMovies[firstLetter] = [];
+      }
+      groupedMovies[firstLetter].push(movie);
+    });
+    return groupedMovies;
+  };
+
   useEffect(() => {
     if (selectedPlaylist?.movies) {
-      setSortedMovies(sortMoviesAlphabetically(selectedPlaylist.movies));
+      const sorted = sortMoviesAlphabetically(selectedPlaylist.movies);
+      setSortedMovies(sorted);
     } else {
       setSortedMovies([]);
     }
   }, [selectedPlaylist]);
 
+  // Effect to observe letter sections and update the active letter
   useEffect(() => {
-    const sections = document.querySelectorAll('.movie');
+    const sections = document.querySelectorAll('.letter-section');
 
     if (observer.current) {
       observer.current.disconnect();
@@ -157,11 +177,13 @@ const PlaylistPage: React.FC = () => {
     };
   }, [sortedMovies]);
 
+  //block characters at 33 to add punctuation for the title movies
   const maxLength = 33;
 
+  //plural or singular for the number of films in a playlist
   const getMoviesLabel = (count: number) => {
     if (count === 0) {
-      return 'film';
+      return 'aucun film';
     } else if (count === 1) {
       return 'film';
     } else {
@@ -187,10 +209,7 @@ const PlaylistPage: React.FC = () => {
       >
         <form onSubmit={handleSave}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <div
-              style={{ cursor: 'pointer' }}
-              onClick={handleEmojiPickerToggle}
-            >
+            <div style={{ cursor: 'pointer' }} onClick={handleEmojiPickerToggle}>
               {newEmoji}
             </div>
             {emojiPickerOpened && <EmojiPicker onEmojiClick={onEmojiClick} />}
@@ -211,36 +230,57 @@ const PlaylistPage: React.FC = () => {
       </Modal>
 
       {selectedPlaylist && (
-        <div className="sidebarPlaylist">
-          <div className="sidebar-headerPlaylist" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Text size="lg">{selectedPlaylist.emoji} {selectedPlaylist.label}</Text>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <Text size="sm" style={{ marginRight: '1rem' }}>
-                Vous avez {selectedPlaylist.movies?.length || 0} {getMoviesLabel(selectedPlaylist.movies?.length || 0)} dans cette playlist
+        <>
+          <div className="sidebarPlaylist">
+            <div
+              className="sidebar-headerPlaylist"
+              style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+            >
+              <Text size="lg">
+                {selectedPlaylist.emoji} {selectedPlaylist.label}
               </Text>
-              <Button type="submit" color="bg" autoContrast onClick={closeSidebar}>Fermer &#10060;</Button>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                {selectedPlaylist.movies?.length === 0 ? (
+                  <Text size="sm" style={{ marginRight: '1rem' }}>
+                    Vous n'avez aucun film dans cette playlist
+                  </Text>
+                ) : (
+                  <Text size="sm" style={{ marginRight: '1rem' }}>
+                    Vous avez {selectedPlaylist.movies ? selectedPlaylist.movies.length : 0}{' '}
+                    {getMoviesLabel(selectedPlaylist.movies ? selectedPlaylist.movies.length : 0)} dans cette playlist
+                  </Text>
+                )}
+                <Button type="submit" color="bg" autoContrast onClick={closeSidebar}>
+                  Fermer &#10060;
+                </Button>
+              </div>
             </div>
-          </div>
-          <div className="sidebar-content-wrapperPL">
-            <div className="sidebar-content">
-              {sortedMovies.map((movie, index) => (
-                <div key={index} id={normalizeString(movie.title[0])} className="movie">
-                  <img src={movie.imageUrl} alt={`Image de ${movie.title}`} />
-                  <div className="movie-infoPL">
-                    <Text size="md">
-                      {movie.title.length > maxLength
-                        ? `${movie.title.slice(0, maxLength)}...`
-                        : movie.title}
-                    </Text>
-                    <Text size="sm">{/* Production: (On ne sait pas encore si on garde ce mot)*/}{movie.year}</Text>
+            <div className="sidebar-content-wrapperPL">
+              <div className="sidebar-content">
+                {Object.entries(groupMoviesByFirstLetter(sortedMovies)).map(([letter, movies]) => (
+                  <div key={letter} id={letter} className="letter-section">
+                    <h2>{letter}</h2>
+                    <div className="movie-row">
+                      {movies.map((movie, index) => (
+                        <div key={index} className="movie">
+                          <img src={movie.imageUrl} alt={`Image de ${movie.title}`} />
+                          <div className="movie-infoPL">
+                            <Text size="md">
+                              {movie.title.length > maxLength ? `${movie.title.slice(0, maxLength)}...` : movie.title}
+                            </Text>
+                            <Text size="sm">{movie.year}</Text>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
-        </div>
+          <AlphabeticalList activeLetter={activeLetter} />
+        </>
       )}
-      <AlphabeticalList activeLetter={activeLetter} />
     </ModalsProvider>
   );
 };

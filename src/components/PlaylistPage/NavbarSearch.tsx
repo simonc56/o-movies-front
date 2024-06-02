@@ -31,6 +31,7 @@ const NavbarSearch: React.FC<NavbarSearchProps> = ({
   openSidebar,
 }) => {
   const maxLength = 17;
+  
   const playlistLinks = playlists.map((playlist) => (
     <div key={playlist.label} className={classes.collectionLink} onClick={() => openSidebar(playlist)}>
       <span style={{ marginRight: rem(5), fontSize: rem(16) }}>{playlist.emoji}</span>
@@ -78,13 +79,10 @@ const NavbarSearch: React.FC<NavbarSearchProps> = ({
           </Tooltip>
         </Group>
         <TextInput
-          placeholder="Rechercher une playlist"
-          size="sm"
-          leftSection={<IconSearch style={{ width: rem(12), height: rem(12) }} stroke={1.5} />}
-          rightSectionWidth={70}
-          rightSection={<Code className={classes.searchCodePlaylist}>Ctrl + K</Code>}
-          styles={{ section: { pointerEvents: 'none' } }}
-          mb="sm"
+           placeholder="Rechercher une playlist"
+           size="sm"
+           leftSection={<IconSearch style={{ width: rem(12), height: rem(12) }} stroke={1.5} />}
+           mb="sm"
         />
         <div className={classes.collectionsPlayList}>{playlistLinks}</div>
       </div>

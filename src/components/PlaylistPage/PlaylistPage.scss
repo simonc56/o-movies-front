@@ -24,7 +24,7 @@
 
 .sidebar-content-wrapperPL {
   flex: 1;
-  overflow-y: auto; /* Rendre le conteneur des films défilant */
+  overflow-y: auto; 
 }
 
 .sidebar-content {
@@ -47,4 +47,14 @@
 
 .movie-infoPL {
   text-align: left;
+}
+
+.movie-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;  
+}
+
+.movie {
+  margin-right: 10px;
 }
