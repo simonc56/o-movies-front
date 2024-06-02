@@ -11,11 +11,15 @@ import Homepage from '../Homepage/Homepage';
 import MoviePage from '../MoviePage/MoviePage';
 import UserProfilePage from '../ProfilUserPage/ProfilUserPage';
 import SignupPage from '../SignupPage/SignupPage';
-
+import { useAppSelector } from '../../store/hooks';
 import theme from '../../styles/theme';
+import NotFoundPage from '../NotFoundPage/NotFoundPage';
+
 import './App.scss';
 
 function App() {
+  const user = useAppSelector((state) => state.settings.user);
+
   return (
     <MantineProvider theme={theme}>
       <div className="App" data-mantine-color-scheme="light">
@@ -28,8 +32,9 @@ function App() {
           <Route path="/réinitialisation-email" element={<ConfirmEmailPage />} />
           <Route path="/réinitialisation-mot-de-passe" element={<ConfirmPasswordPage />} />
           <Route path="/contact" element={<ContactPage />} />
-          <Route path="/profil" element={<UserProfilePage />} />
+          {user.token && <Route path="/profil" element={<UserProfilePage />} />}
           <Route path="/changer-mot-de-passe" element={<ChangePasswordPage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
         <Footer />
       </div>
