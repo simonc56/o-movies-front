@@ -1,5 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { SuccessLoginResponse } from '../@types/Credentials';
+import { SuccessLoginResponse, SuccessProfilResponse } from '../@types/Credentials';
+import { SettingsState } from '../@types/SettingsState';
 import * as api from '../api';
 import type { RootState } from '../store/store';
 import { getInitialSettingsState, removeStoreUser, setStoreUser } from '../utils/localStorage';
@@ -15,6 +16,11 @@ export const actionSignup = createAsyncThunk('settings/signup', async (_, thunkA
   const state = thunkAPI.getState() as RootState;
   const { email, password, firstname, lastname, birthdate } = state.settings.user;
   const response = await api.register({ email, password, firstname, lastname, birthdate });
+  return response.data;
+});
+
+export const actionGetProfil = createAsyncThunk('settings/getProfil', async () => {
+  const response = await api.getProfil();
   return response.data;
 });
 
@@ -77,6 +83,18 @@ const settingsSlice = createSlice({
         // renvoyer un message de confirmation
       })
       .addCase(actionSignup.rejected, (_, action) => {
+        // eslint-disable-next-line no-console
+        console.log(action.error.message);
+      })
+      .addCase(actionGetProfil.fulfilled, (state, action) => {
+        const response = action.payload.data as SuccessProfilResponse;
+        // fill missing user data
+        state.user.birthdate = response.birthdate;
+        state.user.subscriptionDate = response.created_at;
+        state.user.commentCount = response.count_review;
+        state.user.ratingCount = response.count_rating;
+      })
+      .addCase(actionGetProfil.rejected, (_, action) => {
         // eslint-disable-next-line no-console
         console.log(action.error.message);
       });
