@@ -1,12 +1,18 @@
 import { Link } from 'react-router-dom';
-import { selectUser } from '../../features/settingsSlice';
-import { useAppSelector } from '../../store/hooks';
+import { actionGetProfil, selectUser } from '../../features/settingsSlice';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 
+import { useEffect } from 'react';
 import { isoDateToFrench } from '../../utils/utils';
 import './ProfilUserPage.scss';
 
 function UserProfilePage() {
   const user = useAppSelector(selectUser);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(actionGetProfil());
+  }, [dispatch]);
 
   // fake information for tested if no logged
   const fakeUser = {
@@ -15,6 +21,7 @@ function UserProfilePage() {
     firstname: 'Alice',
     birthdate: '20/02/2000',
     email: 'alice.wonderland@lapinblanc.com',
+    subscriptionDate: '11/12/2023',
     commentCount: 42,
     ratingCount: 103,
   };
@@ -36,6 +43,10 @@ function UserProfilePage() {
             </p>
             <p className="profileDetail">
               <span className="bold-text">Date de naissance:</span> {isoDateToFrench(displayUser.birthdate)}
+            </p>
+            <p className="profileDetail">
+              <span className="bold-text">Date d'inscription:</span>{' '}
+              {displayUser.subscriptionDate && isoDateToFrench(displayUser.subscriptionDate)}
             </p>
             <br />
             <p className="profileDetail">

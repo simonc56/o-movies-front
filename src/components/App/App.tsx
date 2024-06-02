@@ -11,21 +11,14 @@ import Homepage from '../Homepage/Homepage';
 import MoviePage from '../MoviePage/MoviePage';
 import UserProfilePage from '../ProfilUserPage/ProfilUserPage';
 import SignupPage from '../SignupPage/SignupPage';
-
-import { useEffect } from 'react';
-import { loadStoreUser } from '../../features/settingsSlice';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { useAppSelector } from '../../store/hooks';
 import theme from '../../styles/theme';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
+
 import './App.scss';
 
 function App() {
   const user = useAppSelector((state) => state.settings.user);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(loadStoreUser());
-  }, [dispatch]);
 
   return (
     <MantineProvider theme={theme}>

@@ -18,3 +18,14 @@ export type SuccessLoginResponse = {
   birthdate: string;
   token: string;
 };
+export type SuccessProfilResponse = {
+  id: number;
+  firstname: string;
+  lastname: string;
+  email: string;
+  birthdate: string;
+  created_at: string;
+  updated_at: string;
+  count_review: number;
+  count_rating: number;
+};

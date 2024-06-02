@@ -14,6 +14,10 @@ export async function register(credentials: SignupCredentials) {
   const response = await instanceAxios.post('/auth/register', credentials);
   return response;
 }
+export async function getProfil() {
+  const response = await instanceAxios.get('/profil');
+  return response;
+}
 
 export function addTokenJWTToAxiosInstance(token: string) {
   instanceAxios.defaults.headers.common.Authorization = `Bearer ${token}`;
