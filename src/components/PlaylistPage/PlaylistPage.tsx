@@ -106,6 +106,7 @@ const PlaylistPage: React.FC = () => {
     setEmojiPickerOpened(false);
     setModalWidth('600px');
   };
+  
   //for open or close emojiPicker
   const handleEmojiPickerToggle = () => {
     setEmojiPickerOpened(!emojiPickerOpened);
@@ -121,7 +122,7 @@ const PlaylistPage: React.FC = () => {
     setSortedMovies([]);
   };
 
-  //to sort movies alphabetic in the database
+  //to sort movies alphabetic in database
   const sortMoviesAlphabetically = (movies: Movie[]) => {
     return movies.slice().sort((a, b) => normalizeString(a.title).localeCompare(normalizeString(b.title)));
   };
