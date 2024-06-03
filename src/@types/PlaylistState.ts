@@ -1,6 +1,6 @@
 export type PlaylistState = {
   currentPlaylist: string[];
-  userPlaylists: string[];
+  userPlaylists: PlaylistIdentityType[];
   hasFetchUserPlaylists: boolean;
 };
 

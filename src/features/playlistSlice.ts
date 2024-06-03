@@ -6,7 +6,7 @@ import {
   SuccessPlaylistsResponse,
 } from '../@types/PlaylistState';
 import * as api from '../api';
-// import type { RootState } from '../store/store';
+import type { RootState } from '../store/store';
 
 const playlistState: PlaylistState = {
   currentPlaylist: [],
@@ -45,8 +45,19 @@ export const actionFetchUserPlaylists = createAsyncThunk<SuccessPlaylistsRespons
 );
 export const actionAddMediaToPlaylist = createAsyncThunk<SuccessEmptyResponse, { id: number; tmdb_id: number }>(
   'playlist/addMediaToPlaylist',
-  async ({ id, tmdb_id }) => {
+  async ({ id, tmdb_id }, thunkAPI) => {
     const response = await api.addMediaToPlaylist(id, tmdb_id);
+    const state = thunkAPI.getState() as RootState;
+    if (state.movies.currentMovie?.user_data) {
+      state.movies.currentMovie.user_data.in_playlists.push(id);
+    } else {
+      state.movies.currentMovie!.user_data = {
+        userId: 0,
+        rating: null,
+        review: null,
+        in_playlists: [id],
+      };
+    }
     return response.data;
   }
 );
@@ -71,6 +82,7 @@ const playlistSlice = createSlice({
       .addCase(actionFetchUserPlaylists.fulfilled, (state, action) => {
         const response = action.payload as any;
         state.userPlaylists = response.data;
+        state.hasFetchUserPlaylists = true;
       })
       .addCase(actionFetchUserPlaylists.rejected, (_, action) => {
         // eslint-disable-next-line no-console

@@ -52,6 +52,7 @@ export type MovieUserData = {
   userId: number;
   rating: Rating | null;
   review: Review | null;
+  in_playlists: number[];
 };
 
 export default MovieType;
