@@ -23,6 +23,11 @@ interface NavbarSearchProps {
   openSidebar: (playlist: Playlist) => void;
 }
 
+// Function to normalize strings by removing accents and converting to lowercase
+const normalizeString = (str: string) => {
+  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+};
+
 const NavbarSearch: React.FC<NavbarSearchProps> = ({
   playlists,
   openAddModal,
@@ -37,7 +42,7 @@ const NavbarSearch: React.FC<NavbarSearchProps> = ({
   };
 
   const filteredPlaylists = playlists.filter((playlist) =>
-    playlist.label.toLowerCase().includes(searchTerm.toLowerCase())
+    normalizeString(playlist.label).includes(normalizeString(searchTerm))
   );
 
   const maxLength = 17;

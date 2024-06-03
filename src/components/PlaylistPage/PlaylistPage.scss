@@ -47,7 +47,7 @@
 
 .movie-infoPL {
   text-align: left;  
-  width: 95%;
+  width: 95%;    
 }
 
 .movie-row {
@@ -69,7 +69,7 @@
   margin: 1rem;
   border-radius: 8px;
   overflow: hidden;
-
+  
   img {
     border-radius: 8px;
   }
@@ -141,6 +141,15 @@
     }
   }
 }
+
+
+//add for test link movie localhost
+.movie-link{
+  text-decoration: none;
+  color:black;
+}
+
+
 
 @media (max-width: 1560px) {
   .sidebarPlaylist {

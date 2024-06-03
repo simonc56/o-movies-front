@@ -20,13 +20,13 @@ const initialPlaylists: Playlist[] = [
   { emoji: '👌', label: 'Déjà regardé', movies: moviesData },
   { emoji: '🎥', label: 'À voir' },
   { emoji: '💖', label: 'Coup de cœur' },
-  { emoji: '😂', label: 'Comédies', movies: moviesData.slice(0, 10) }, // assuming moviesData has enough movies
-  { emoji: '🎬', label: 'Classiques', movies: moviesData.slice(10, 20) },
-  { emoji: '🕵️‍♂️', label: 'Policiers', movies: moviesData.slice(20, 30) },
-  { emoji: '👽', label: 'Science-fiction', movies: moviesData.slice(30, 40) },
-  { emoji: '🧙‍♂️', label: 'Fantastiques', movies: moviesData.slice(40, 50) },
-  { emoji: '💼', label: 'Documentaires', movies: moviesData.slice(50, 60) },
-  { emoji: '👶', label: 'Animation', movies: moviesData.slice(60, 70) }
+  { emoji: '😂', label: 'Comédies' },
+  { emoji: '🎬', label: 'Classiques' },
+  { emoji: '🕵️‍♂️', label: 'Policiers' },
+  { emoji: '👽', label: 'Science-fiction' },
+  { emoji: '🧙‍♂️', label: 'Fantastiques' },
+  { emoji: '💼', label: 'Documentaires' },
+  { emoji: '👶', label: 'Animation' }
 ];
 
 const PlaylistPage: React.FC = () => {
@@ -290,37 +290,49 @@ const PlaylistPage: React.FC = () => {
                     <h2>{letter}</h2>
                     <div className="movie-row">
                       {movies.map((movie, index) => (
-                        <div key={index} className="movie">
-                          <img src={movie.imageUrl} alt={`Image de ${movie.title}`} />
-                          <ActionIcon
-                            onClick={() => setMovieToDelete(movie.title)}
-                            className="remove-button"
-                          >
-                            <IconTrash />
-                          </ActionIcon>
-                          {movieToDelete === movie.title && (
-                            <div className="confirm-delete">
-                              <ActionIcon
-                                onClick={() => removeMovieFromPlaylist(movie.title)}
-                                className="confirm-button"
-                              >
-                                <IconCheck />
-                              </ActionIcon>
-                              <ActionIcon
-                                onClick={() => setMovieToDelete(null)}
-                                className="cancel-button"
-                              >
-                                <IconX />
-                              </ActionIcon>
+                        // attention en localhost, à modifier pour le serveur Simon. Movie en .id
+                        <a key={index} href={`http://localhost:5173/films/${movie.id}`} className="movie-link">
+                          <div className="movie">
+                            <img src={movie.imageUrl} alt={`Image de ${movie.title}`} />
+                            <ActionIcon
+                              onClick={(e) => {
+                                e.preventDefault();
+                                setMovieToDelete(movie.title);
+                              }}
+                              className="remove-button"
+                            >
+                              <IconTrash />
+                            </ActionIcon>
+                            {movieToDelete === movie.title && (
+                              <div className="confirm-delete">
+                                <ActionIcon
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    removeMovieFromPlaylist(movie.title);
+                                  }}
+                                  className="confirm-button"
+                                >
+                                  <IconCheck />
+                                </ActionIcon>
+                                <ActionIcon
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    setMovieToDelete(null);
+                                  }}
+                                  className="cancel-button"
+                                >
+                                  <IconX />
+                                </ActionIcon>
+                              </div>
+                            )}
+                            <div className="movie-infoPL">
+                              <Text size="md">
+                                {movie.title.length > maxLength ? `${movie.title.slice(0, maxLength)}...` : movie.title}
+                              </Text>
+                              <Text size="sm">{movie.year}</Text>
                             </div>
-                          )}
-                          <div className="movie-infoPL">
-                            <Text size="md">
-                              {movie.title.length > maxLength ? `${movie.title.slice(0, maxLength)}...` : movie.title}
-                            </Text>
-                            <Text size="sm">{movie.year}</Text>
                           </div>
-                        </div>
+                        </a>
                       ))}
                     </div>
                   </div>
