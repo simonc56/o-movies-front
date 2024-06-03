@@ -4,6 +4,7 @@ import { IconSearch, IconPlus, IconTrash, IconEdit } from '@tabler/icons-react';
 import classes from './NavbarSearch.module.css';
 
 interface Movie {
+  id: string;
   title: string;
   year: number;
   imageUrl: string;
