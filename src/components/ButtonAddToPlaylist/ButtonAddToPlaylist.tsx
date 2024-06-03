@@ -1,4 +1,5 @@
 import { Button, Menu, Text } from '@mantine/core';
+import { notifications } from '@mantine/notifications';
 import { IconCheck, IconChevronDown } from '@tabler/icons-react';
 import { useEffect } from 'react';
 import { addedInPlaylist } from '../../features/moviesSlice';
@@ -24,6 +25,17 @@ function ButtonAddToPlaylist({ tmdbId, inPlaylists }: { tmdbId: number; inPlayli
       // send request to api and then update the state
       dispatch(actionAddMediaToPlaylist({ id: playlist_id, tmdb_id: tmdbId })).then(() => {
         dispatch(addedInPlaylist(playlist_id));
+        const listName = userPlaylists.find((playlist) => playlist.id === playlist_id)?.name;
+        notifications.show({
+          id: 'login-success',
+          withCloseButton: true,
+          autoClose: 5000,
+          // title: 'Vous êtes connecté',
+          message: `Film ajouté à la liste ${listName} !`,
+          color: 'green',
+          icon: <IconCheck />,
+          loading: false,
+        });
       });
     }
   };
