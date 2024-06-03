@@ -1,5 +1,5 @@
-import React from 'react';
-import { TextInput, Code, ActionIcon, Tooltip, Text, Group, rem } from '@mantine/core';
+import React, { useState } from 'react';
+import { TextInput, ActionIcon, Tooltip, Text, Group, rem } from '@mantine/core';
 import { IconSearch, IconPlus, IconTrash, IconEdit } from '@tabler/icons-react';
 import classes from './NavbarSearch.module.css';
 
@@ -30,9 +30,19 @@ const NavbarSearch: React.FC<NavbarSearchProps> = ({
   confirmRemovePlaylist,
   openSidebar,
 }) => {
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.currentTarget.value);
+  };
+
+  const filteredPlaylists = playlists.filter((playlist) =>
+    playlist.label.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   const maxLength = 17;
-  
-  const playlistLinks = playlists.map((playlist) => (
+
+  const playlistLinks = filteredPlaylists.map((playlist) => (
     <div key={playlist.label} className={classes.collectionLink} onClick={() => openSidebar(playlist)}>
       <span style={{ marginRight: rem(5), fontSize: rem(16) }}>{playlist.emoji}</span>
       <span>
@@ -79,10 +89,12 @@ const NavbarSearch: React.FC<NavbarSearchProps> = ({
           </Tooltip>
         </Group>
         <TextInput
-           placeholder="Rechercher une playlist"
-           size="sm"
-           leftSection={<IconSearch style={{ width: rem(12), height: rem(12) }} stroke={1.5} />}
-           mb="sm"
+          placeholder="Rechercher une playlist"
+          size="sm"
+          value={searchTerm}
+          onChange={handleSearchChange}
+          leftSection={<IconSearch style={{ width: rem(12), height: rem(12) }} stroke={1.5} />}
+          mb="sm"
         />
         <div className={classes.collectionsPlayList}>{playlistLinks}</div>
       </div>

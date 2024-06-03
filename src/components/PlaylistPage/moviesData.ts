@@ -2916,7 +2916,7 @@ export interface Movie {
     { title: 'Zodiaque', year: 2024, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
     { title: 'Aventure dans l\'inconnu', year: 2024, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
   { title: 'Aube nouvelle', year: 2024, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
-  { title: 'Atlantide perdue', year: 2024, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
+  { title: 'Atlantide perdue le nouveau bateau pirate', year: 2024, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
   { title: 'Bataille des étoiles', year: 2024, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
   { title: 'Brume mystique', year: 2024, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },
   { title: 'Boulevard des rêves', year: 2024, imageUrl: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2//vFbafXs0OYPGW1Vj2VGAHFKpAsW.jpg' },

@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { TextInput, Text, Group, Button, Modal } from '@mantine/core';
+import { TextInput, Text, Group, Button, Modal, ActionIcon } from '@mantine/core';
 import { showNotification } from '@mantine/notifications';
 import { openConfirmModal, ModalsProvider } from '@mantine/modals';
+import { IconTrash, IconCheck, IconX } from '@tabler/icons-react';
 import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
 import NavbarSearch from './NavbarSearch';
 import AlphabeticalList from '../AlphabeticalListNav/AlphabeticalList';
@@ -13,11 +14,19 @@ interface Playlist {
   label: string;
   movies?: Movie[];
 }
-//example playlist
+
+// Example playlist
 const initialPlaylists: Playlist[] = [
   { emoji: '👌', label: 'Déjà regardé', movies: moviesData },
-  { emoji: '🎥', label: 'A voir' },
-  { emoji: '💖', label: 'Coup de coeur' },
+  { emoji: '🎥', label: 'À voir' },
+  { emoji: '💖', label: 'Coup de cœur' },
+  { emoji: '😂', label: 'Comédies', movies: moviesData.slice(0, 10) }, // assuming moviesData has enough movies
+  { emoji: '🎬', label: 'Classiques', movies: moviesData.slice(10, 20) },
+  { emoji: '🕵️‍♂️', label: 'Policiers', movies: moviesData.slice(20, 30) },
+  { emoji: '👽', label: 'Science-fiction', movies: moviesData.slice(30, 40) },
+  { emoji: '🧙‍♂️', label: 'Fantastiques', movies: moviesData.slice(40, 50) },
+  { emoji: '💼', label: 'Documentaires', movies: moviesData.slice(50, 60) },
+  { emoji: '👶', label: 'Animation', movies: moviesData.slice(60, 70) }
 ];
 
 const PlaylistPage: React.FC = () => {
@@ -31,10 +40,11 @@ const PlaylistPage: React.FC = () => {
   const [selectedPlaylist, setSelectedPlaylist] = useState<null | Playlist>(null);
   const [sortedMovies, setSortedMovies] = useState<Movie[]>([]);
   const [activeLetter, setActiveLetter] = useState<string>('A');
+  const [movieToDelete, setMovieToDelete] = useState<string | null>(null); // new state for movie deletion confirmation
 
   const observer = useRef<IntersectionObserver | null>(null);
 
-  //function to normalize special character letters in the alphabeticalList (é à etc)
+  // Function to normalize special character letters in the alphabeticalList (é à etc)
   const normalizeString = (str: string) => {
     return str
       .normalize('NFD')
@@ -106,8 +116,8 @@ const PlaylistPage: React.FC = () => {
     setEmojiPickerOpened(false);
     setModalWidth('600px');
   };
-  
-  //for open or close emojiPicker
+
+  // For open or close emojiPicker
   const handleEmojiPickerToggle = () => {
     setEmojiPickerOpened(!emojiPickerOpened);
     setModalWidth(emojiPickerOpened ? '600px' : '800px');
@@ -122,12 +132,12 @@ const PlaylistPage: React.FC = () => {
     setSortedMovies([]);
   };
 
-  //to sort movies alphabetic in database
+  // To sort movies alphabetically in database
   const sortMoviesAlphabetically = (movies: Movie[]) => {
     return movies.slice().sort((a, b) => normalizeString(a.title).localeCompare(normalizeString(b.title)));
   };
 
-  //Function to group movies by first letter
+  // Function to group movies by first letter
   const groupMoviesByFirstLetter = (movies: Movie[]) => {
     const groupedMovies: { [key: string]: Movie[] } = {};
     movies.forEach((movie) => {
@@ -178,17 +188,35 @@ const PlaylistPage: React.FC = () => {
     };
   }, [sortedMovies]);
 
-  //block characters at 33 to add punctuation for the title movies
+  // Block characters at 33 to add punctuation for the title movies
   const maxLength = 33;
 
-  //plural or singular for the number of films in a playlist
+  // Plural or singular for the number of films in a playlist
   const getMoviesLabel = (count: number) => {
     if (count === 0) {
-      return 'aucun film';
-    } else if (count === 1) {
       return 'film';
     } else {
       return 'films';
+    }
+  };
+
+  // Function to remove a movie from the selected playlist
+  const removeMovieFromPlaylist = (movieTitle: string) => {
+    if (selectedPlaylist) {
+      const updatedMovies = selectedPlaylist.movies?.filter((movie) => movie.title !== movieTitle);
+      const updatedPlaylist = { ...selectedPlaylist, movies: updatedMovies };
+      setPlaylists((prevPlaylists) =>
+        prevPlaylists.map((playlist) =>
+          playlist.label === selectedPlaylist.label ? updatedPlaylist : playlist
+        )
+      );
+      setSelectedPlaylist(updatedPlaylist);
+      showNotification({
+        title: 'Film supprimé',
+        message: `Le film "${movieTitle}" a été supprimé de la playlist "${selectedPlaylist.label}".`,
+        color: 'red',
+      });
+      setMovieToDelete(null);
     }
   };
 
@@ -241,14 +269,13 @@ const PlaylistPage: React.FC = () => {
                 {selectedPlaylist.emoji} {selectedPlaylist.label}
               </Text>
               <div style={{ display: 'flex', alignItems: 'center' }}>
-                {selectedPlaylist.movies?.length === 0 ? (
+                {selectedPlaylist.movies && selectedPlaylist.movies.length === 0 ? (
                   <Text size="sm" style={{ marginRight: '1rem' }}>
                     Vous n'avez aucun film dans cette playlist
                   </Text>
                 ) : (
                   <Text size="sm" style={{ marginRight: '1rem' }}>
-                    Vous avez {selectedPlaylist.movies ? selectedPlaylist.movies.length : 0}{' '}
-                    {getMoviesLabel(selectedPlaylist.movies ? selectedPlaylist.movies.length : 0)} dans cette playlist
+                    Vous avez {selectedPlaylist.movies ? selectedPlaylist.movies.length : 0} {getMoviesLabel(selectedPlaylist.movies ? selectedPlaylist.movies.length : 0)} dans cette playlist
                   </Text>
                 )}
                 <Button type="submit" color="bg" autoContrast onClick={closeSidebar}>
@@ -265,6 +292,28 @@ const PlaylistPage: React.FC = () => {
                       {movies.map((movie, index) => (
                         <div key={index} className="movie">
                           <img src={movie.imageUrl} alt={`Image de ${movie.title}`} />
+                          <ActionIcon
+                            onClick={() => setMovieToDelete(movie.title)}
+                            className="remove-button"
+                          >
+                            <IconTrash />
+                          </ActionIcon>
+                          {movieToDelete === movie.title && (
+                            <div className="confirm-delete">
+                              <ActionIcon
+                                onClick={() => removeMovieFromPlaylist(movie.title)}
+                                className="confirm-button"
+                              >
+                                <IconCheck />
+                              </ActionIcon>
+                              <ActionIcon
+                                onClick={() => setMovieToDelete(null)}
+                                className="cancel-button"
+                              >
+                                <IconX />
+                              </ActionIcon>
+                            </div>
+                          )}
                           <div className="movie-infoPL">
                             <Text size="md">
                               {movie.title.length > maxLength ? `${movie.title.slice(0, maxLength)}...` : movie.title}

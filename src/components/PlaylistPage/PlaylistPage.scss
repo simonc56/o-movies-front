@@ -46,7 +46,8 @@
 }
 
 .movie-infoPL {
-  text-align: left;
+  text-align: left;  
+  width: 95%;
 }
 
 .movie-row {
@@ -57,8 +58,89 @@
 
 .movie {
   margin-right: 10px;
+  
 }
 
+.movie {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+
+  img {
+    border-radius: 8px;
+  }
+
+  .remove-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: lightcoral;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+
+    &:hover {
+      background-color: red;
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+      color: white;
+    }
+  }
+
+  .confirm-delete {
+    position: absolute;
+    top: 50px; // Adjust this value as needed
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 8px;
+    padding: 5px;
+
+    .confirm-button,
+    .cancel-button {
+      background-color: lightgreen;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      margin: 5px 0;
+
+      &:hover {
+        background-color: green;
+      }
+
+      svg {
+        width: 16px;
+        height: 16px;
+        color: white;
+      }
+    }
+
+    .cancel-button {
+      background-color: lightcoral;
+
+      &:hover {
+        background-color: red;
+      }
+    }
+  }
+}
 
 @media (max-width: 1560px) {
   .sidebarPlaylist {
