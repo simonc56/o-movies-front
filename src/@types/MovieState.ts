@@ -1,6 +1,6 @@
 import MovieType from './MovieType';
 
-export type MoviesState = {
+export type MovieState = {
   currentMovie: MovieType | null;
   movieList: MovieType[];
 };

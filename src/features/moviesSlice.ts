@@ -1,17 +1,17 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {
+  MovieState,
   MoviesFilter,
-  MoviesState,
   SuccessMoviesResponse,
   SuccessOneMovieResponse,
   SuccessRatingResponse,
   SuccessReviewResponse,
-} from '../@types/MoviesState';
+} from '../@types/MovieState';
 import * as api from '../api';
 // import type { RootState } from '../store/store';
 import { budgetToMillions, isNumber, isoDateToFrench, isoDateToYear } from '../utils/utils';
 
-const moviesState: MoviesState = {
+const movieState: MovieState = {
   currentMovie: null,
   movieList: [],
 };
@@ -109,13 +109,22 @@ export const actionUpdateRating = createAsyncThunk<[SuccessRatingResponse, numbe
 
 const moviesSlice = createSlice({
   name: 'movies',
-  initialState: moviesState,
+  initialState: movieState,
   reducers: {
     actionResetCurrentMovie: (state) => {
       state.currentMovie = null;
     },
-    editMovieList: (state, action: PayloadAction<string>) => {
-      state.movieList = [];
+    addedInPlaylist: (state, action: PayloadAction<number>) => {
+      if (state.currentMovie?.user_data) {
+        state.currentMovie.user_data.in_playlists.push(action.payload);
+      } else {
+        state.currentMovie!.user_data = {
+          userId: 0,
+          rating: null,
+          review: null,
+          in_playlists: [action.payload],
+        };
+      }
     },
   },
   extraReducers(builder) {
@@ -149,7 +158,12 @@ const moviesSlice = createSlice({
             if (state.currentMovie.user_data) {
               state.currentMovie.user_data.review = { review_id, content };
             } else {
-              state.currentMovie.user_data = { userId: 0, rating: null, review: { review_id, content } };
+              state.currentMovie.user_data = {
+                userId: 0,
+                rating: null,
+                review: { review_id, content },
+                in_playlists: [],
+              };
             }
           }
         }
@@ -179,7 +193,12 @@ const moviesSlice = createSlice({
             if (state.currentMovie.user_data) {
               state.currentMovie.user_data.rating = { rating_id, value: rating };
             } else {
-              state.currentMovie.user_data = { userId: 0, rating: { rating_id, value: rating }, review: null };
+              state.currentMovie.user_data = {
+                userId: 0,
+                rating: { rating_id, value: rating },
+                review: null,
+                in_playlists: [],
+              };
             }
           }
         }
@@ -199,4 +218,4 @@ const moviesSlice = createSlice({
 
 export default moviesSlice.reducer;
 
-export const { actionResetCurrentMovie, editMovieList } = moviesSlice.actions;
+export const { actionResetCurrentMovie, addedInPlaylist } = moviesSlice.actions;
