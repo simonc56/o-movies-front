@@ -3,12 +3,14 @@ import { TextInput, ActionIcon, Tooltip, Text, Group, rem } from '@mantine/core'
 import { IconSearch, IconPlus, IconTrash, IconEdit } from '@tabler/icons-react';
 import classes from './NavbarSearch.module.css';
 
+//attention! this interface Movie is duplicated with moviedata.ts
 interface Movie {
   id: string;
   title: string;
   year: number;
   imageUrl: string;
 }
+
 
 interface Playlist {
   emoji: string;
