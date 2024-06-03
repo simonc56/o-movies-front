@@ -1,6 +1,5 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { SuccessLoginResponse, SuccessProfilResponse } from '../@types/Credentials';
-import { SettingsState } from '../@types/SettingsState';
 import * as api from '../api';
 import type { RootState } from '../store/store';
 import { getInitialSettingsState, removeStoreUser, setStoreUser } from '../utils/localStorage';
@@ -54,6 +53,10 @@ const settingsSlice = createSlice({
     editBirthdate: (state, action: PayloadAction<string>) => {
       state.user.birthdate = action.payload;
     },
+    resetMessages: (state) => {
+      state.successMessage = null;
+      state.errorMessage = null;
+    },
   },
   extraReducers(builder) {
     builder
@@ -73,10 +76,10 @@ const settingsSlice = createSlice({
       .addCase(actionLogin.rejected, (state, action) => {
         state.successMessage = null;
         if (action.error.code === 'ERR_NETWORK') {
-          state.errorMessage = 'Impossible de se connecter. Veuillez vérifier votre connexion Internet.';
+          state.errorMessage = 'Veuillez vérifier votre connexion Internet.';
           return;
         }
-        state.errorMessage = "Impossible de se connecter. Veuillez vérifier vos informations d'identification.";
+        state.errorMessage = "Veuillez vérifier vos informations d'identification.";
       })
       .addCase(actionSignup.fulfilled, (state, action) => {
         const response = action.payload as SuccessLoginResponse;
@@ -105,4 +108,5 @@ export const selectUser = (state: RootState) => state.settings.user;
 
 export default settingsSlice.reducer;
 
-export const { logout, editEmail, editPassword, editFirstname, editLastName, editBirthdate } = settingsSlice.actions;
+export const { logout, resetMessages, editEmail, editPassword, editFirstname, editLastName, editBirthdate } =
+  settingsSlice.actions;

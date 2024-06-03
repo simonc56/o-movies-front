@@ -1,8 +1,9 @@
 import { Anchor, Button, Center, Checkbox, Group, PasswordInput, Text, TextInput, Tooltip, rem } from '@mantine/core';
-import { IconInfoCircle } from '@tabler/icons-react';
+import { notifications } from '@mantine/notifications';
+import { IconCheck, IconInfoCircle, IconX } from '@tabler/icons-react';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { actionLogin, editEmail, editPassword } from '../../features/settingsSlice';
+import { actionLogin, editEmail, editPassword, resetMessages } from '../../features/settingsSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import './ConnectionPage.scss';
 
@@ -13,6 +14,7 @@ interface LoginResponse {
 function ConnectionPage() {
   const dispatch = useAppDispatch();
   const emailValue = useAppSelector((state) => state.settings.user.email);
+  const firstname = useAppSelector((state) => state.settings.user.firstname);
   const passwordValue = useAppSelector((state) => state.settings.user.password);
   const successMessage = useAppSelector((state) => state.settings.successMessage);
   const errorMessage = useAppSelector((state) => state.settings.errorMessage);
@@ -24,11 +26,33 @@ function ConnectionPage() {
   useEffect(() => {
     if (successMessage) {
       setLoading(false);
-      setTimeout(() => {
-        navigate('/'); // Redirect to the home page after successful login
-      }, 3000);
+      notifications.show({
+        id: 'login-success',
+        withCloseButton: true,
+        autoClose: 5000,
+        title: 'Vous êtes connecté',
+        message: `Bienvenue ${firstname}, vous êtes chez vous !`,
+        color: 'green',
+        icon: <IconCheck />,
+        loading: false,
+      });
+      dispatch(resetMessages());
+      navigate('/'); // Redirect to the home page after successful login
     }
-    if (errorMessage) setLoading(false);
+    if (errorMessage) {
+      notifications.show({
+        id: 'login-error',
+        withCloseButton: true,
+        autoClose: 5000,
+        title: 'Impossible de se connecter',
+        message: errorMessage,
+        color: 'red',
+        icon: <IconX />,
+        loading: false,
+      });
+      dispatch(resetMessages());
+      setLoading(false);
+    }
   }, [successMessage, errorMessage, navigate]);
 
   const emailChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -94,8 +118,6 @@ function ConnectionPage() {
           />
 
           <Checkbox label="Rester connecté" checked={stayConnected} onChange={stayConnectedChange} mt="md" />
-          {errorMessage && <p className="error-message">{errorMessage}</p>}
-          {successMessage && <p className="response-message">{successMessage}</p>}
           <div className="button-container">
             <Button type="submit" color="bg" autoContrast loading={loading} mt="md">
               Se connecter

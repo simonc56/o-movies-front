@@ -1,5 +1,8 @@
 import { MantineProvider } from '@mantine/core';
+import { Notifications } from '@mantine/notifications';
 import { Route, Routes } from 'react-router-dom';
+import { useAppSelector } from '../../store/hooks';
+import theme from '../../styles/theme';
 import ChangePasswordPage from '../ChangePasswordPage/ChangePasswordPage';
 import ConfirmEmailPage from '../ConfirmEmailPage/ConfirmEmailPage';
 import ConfirmPasswordPage from '../ConfirmPasswordPage/ConfirmPasswordPage';
@@ -9,11 +12,9 @@ import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Homepage from '../Homepage/Homepage';
 import MoviePage from '../MoviePage/MoviePage';
+import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import UserProfilePage from '../ProfilUserPage/ProfilUserPage';
 import SignupPage from '../SignupPage/SignupPage';
-import { useAppSelector } from '../../store/hooks';
-import theme from '../../styles/theme';
-import NotFoundPage from '../NotFoundPage/NotFoundPage';
 
 import './App.scss';
 
@@ -38,6 +39,7 @@ function App() {
         </Routes>
         <Footer />
       </div>
+      <Notifications position="top-right" />
     </MantineProvider>
   );
 }
