@@ -26,6 +26,7 @@ const PlaylistPage: React.FC = () => {
   const hasFetchUserPlaylists = useAppSelector((state) => state.playlist.hasFetchUserPlaylists);
   const [opened, setOpened] = useState(false);
   const [newLabel, setNewLabel] = useState('');
+  const [playlistId, setPlaylistId] = useState<number | null>(null);
   const [newEmoji, setNewEmoji] = useState('🆕');
   const [editingLabel, setEditingLabel] = useState<null | string>(null);
   const [emojiPickerOpened, setEmojiPickerOpened] = useState(false);
@@ -58,6 +59,7 @@ const PlaylistPage: React.FC = () => {
   const openEditModal = (playlist: PlaylistIdentityType) => {
     setEditingLabel(playlist.name);
     setNewLabel(playlist.name);
+    setPlaylistId(playlist.id);
     setOpened(true);
   };
 
@@ -72,7 +74,7 @@ const PlaylistPage: React.FC = () => {
 
     if (editingLabel) {
       // rename playlist
-      dispatch(actionRenamePlaylist({ id: 0, name: newLabel }));
+      dispatch(actionRenamePlaylist({ id: playlistId || 0, name: newLabel }));
     } else {
       // create new playlist
       dispatch(actionCreatePlaylist(newLabel));
