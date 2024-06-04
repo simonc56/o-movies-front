@@ -32,7 +32,7 @@ function App() {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/profil" element={<UserProfilePage />} />
           <Route path="/changer-mot-de-passe" element={<ChangePasswordPage />} />
-          <Route path="/playlist" element={<PlaylistPage />} />
+          {logged && <Route path="/playlist" element={<PlaylistPage />} />}
         </Routes>
         <Footer />
       </div>
