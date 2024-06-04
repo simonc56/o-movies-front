@@ -1,14 +1,23 @@
 import { Menu, UnstyledButton } from '@mantine/core';
 import { IconLogout, IconUser } from '@tabler/icons-react';
 
-import { Link } from 'react-router-dom';
-import { useAppSelector } from '../../store/hooks';
+import { Link, useNavigate } from 'react-router-dom';
+import { logout } from '../../features/settingsSlice';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import AvatarName from './AvatarName';
 import './UserMenu.scss';
 
 function UserMenu() {
   // const [userMenuOpened, setUserMenuOpened] = useState(false);
   const user = useAppSelector((state) => state.settings.user);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    // setUserMenuOpened(false);
+    navigate('/');
+  };
 
   return (
     <Menu
@@ -28,7 +37,7 @@ function UserMenu() {
         <Menu.Item leftSection={<IconUser stroke={1.5} />} component={Link} to="/profil">
           Mon profil
         </Menu.Item>
-        <Menu.Item leftSection={<IconLogout stroke={1.5} />} component={Link} to="/logout">
+        <Menu.Item leftSection={<IconLogout stroke={1.5} />} onClick={handleLogout}>
           Déconnexion
         </Menu.Item>
       </Menu.Dropdown>

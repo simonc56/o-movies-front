@@ -1,0 +1,10 @@
+.notFoundPage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  & .errorIcon {
+    font-size: 100px;
+    color: var(--mantine-color-red-6);
+  }
+}

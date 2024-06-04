@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import Loader from '../Loader/Loader';
 import MovieExtraInfos from '../MovieExtraInfos/MovieExtraInfos';
 import MovieInfos from '../MovieInfos/MovieInfos';
+
 import './MoviePage.scss';
 
 function MoviePage() {
