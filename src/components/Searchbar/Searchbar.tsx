@@ -44,12 +44,12 @@ function Searchbar({ onFound }: { onFound?: () => void }) {
     setInputValue(value);
     clearTimeout(myTimeout);
     if (value.length < 2) return;
-    // no more than 1 request every 500ms
+    // 300ms debounce
     setLoading(true);
     setMyTimeout(
       setTimeout(() => {
         dispatch(actionSearchMovies(value)).then(() => setLoading(false));
-      }, 500)
+      }, 300)
     );
   };
 
