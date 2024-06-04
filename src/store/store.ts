@@ -1,9 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import moviesReducer from '../features/moviesSlice';
+import playlistReducer from '../features/playlistSlice';
 import settingsReducer from '../features/settingsSlice';
 
-const store = configureStore({ reducer: { settings: settingsReducer, movies: moviesReducer } });
+const store = configureStore({
+  reducer: { settings: settingsReducer, movies: moviesReducer, playlist: playlistReducer },
+});
 
 export default store;
 

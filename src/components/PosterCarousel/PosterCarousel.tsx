@@ -16,7 +16,7 @@ function PosterCarousel() {
     dispatch(actionFetchMovies('upcoming'));
   }, [dispatch]);
   return movieList.length > 0 ? (
-    <Carousel withIndicators slideSize={230} slideGap="10" height={350} loop className="poster-carousel">
+    <Carousel slideSize={230} slideGap="10" height={350} loop controlSize={38} className="poster-carousel">
       {movieList.map((movie) => (
         <Carousel.Slide key={movie.tmdb_id}>
           <Link to={`/films/${movie.tmdb_id}`}>

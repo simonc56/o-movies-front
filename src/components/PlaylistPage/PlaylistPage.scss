@@ -1,0 +1,281 @@
+.sidebarPlaylist {
+  position: fixed;
+  top: 4.6rem;
+  right: 0;
+  width: 97.9rem;
+  height: calc(100vh - 4.6rem - 3rem);
+  background-color: rgb(228, 236, 252);
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;  
+  gap: 1rem;
+}
+
+.sidebar-headerPlaylist {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  background-color: var(--color-bg);
+  color: var(--color-primary);
+}
+
+.sidebar-content-wrapperPL {
+  flex: 1;
+  overflow-y: auto; 
+}
+
+.sidebar-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px; 
+}
+
+.sidebar-content .movie {
+  box-sizing: border-box;
+  margin: 0.5rem;
+  width: 10rem;  
+}
+
+.sidebar-content img {
+  border-radius: 0.5rem;
+  width: 100%;
+  display: block;
+}
+
+.movie-infoPL {
+  text-align: left;  
+  width: 95%;    
+}
+
+.movie-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;  
+}
+
+.movie {
+  margin-right: 10px;
+  
+}
+
+.movie {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+  
+  img {
+    border-radius: 8px;
+  }
+
+  .remove-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: lightcoral;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+
+    &:hover {
+      background-color: red;
+    }
+
+    svg {
+      width: 16px;
+      height: 16px;
+      color: white;
+    }
+  }
+
+  .confirm-delete {
+    position: absolute;
+    top: 50px; // Adjust this value as needed
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 8px;
+    padding: 5px;
+
+    .confirm-button,
+    .cancel-button {
+      background-color: lightgreen;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      margin: 5px 0;
+
+      &:hover {
+        background-color: green;
+      }
+
+      svg {
+        width: 16px;
+        height: 16px;
+        color: white;
+      }
+    }
+
+    .cancel-button {
+      background-color: lightcoral;
+
+      &:hover {
+        background-color: red;
+      }
+    }
+  }
+}
+
+
+//add for test link movie localhost
+.movie-link{
+  text-decoration: none;
+  color:black;
+}
+
+
+
+@media (max-width: 1560px) {
+  .sidebarPlaylist {
+    width: calc(100% - 20rem);
+    padding: 1.3rem;
+  }
+
+  .movie {
+    width: calc(100% / 4 - 10px);
+  }
+
+  .sidebar-headerTitle {
+    font-size: 1.2rem;
+  }
+
+  .movie-infoPL {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 1200px) {
+  .sidebarPlaylist {
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .movie {
+    width: calc(100% / 3 - 10px);
+  }
+}
+
+@media (max-width: 985px) {
+  .sidebarPlaylist {
+    padding: 0.8rem;
+  }
+
+  .movie {
+    width: calc(100% / 3 - 10px);
+  }
+
+  .movie-infoPL {
+    font-size: 1rem;
+  }
+
+  .sidebar-headerTitle {
+    font-size: 1.2rem; 
+  }
+}
+
+@media (max-width: 844px) {
+  .sidebarPlaylist {
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .movie {
+    width: calc(100% / 2 - 10px);
+  }
+
+  .sidebar-headerTitle {
+    font-size: 1.1rem; 
+  }
+}
+
+@media (max-width: 470px) {
+  .sidebarPlaylist {
+    padding: 0.5rem;
+  }
+
+  .movie {
+    width: calc(100% / 2 - 5px);
+  }
+
+  .movie-infoPL {
+    font-size: 0.9rem;
+  }
+
+  .sidebar-headerTitle {
+    font-size: 1rem; 
+  }
+}
+
+@media (max-width: 400px) {
+  .sidebarPlaylist {
+    padding: 0.5rem;
+  }
+
+  .movie {
+    width: 100%;
+    margin: 2px 0;
+  }
+
+  .movie img {
+    width: 90%;
+    height: auto;
+  }
+
+  .movie-infoPL {
+    font-size: 0.75rem; 
+  }
+
+  .sidebar-headerTitle {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .sidebarPlaylist {
+    padding: 0.3rem;
+  }
+
+  .movie {
+    width: 100%;
+    margin: 1px 0;
+  }
+
+  .movie img {
+    width: 85%;
+    height: auto;
+  }
+
+  .movie-infoPL {
+    font-size: 0.65rem;
+  }
+
+  .sidebar-headerTitle {
+    font-size: 0.8rem; 
+  }
+}

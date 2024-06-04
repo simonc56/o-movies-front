@@ -1,12 +1,14 @@
-import axios from 'axios';
-import { useState } from 'react';
-import { PasswordInput, Group, Center, TextInput, Progress, Button } from '@mantine/core';
-import { IconCheck, IconX } from '@tabler/icons-react';
+import { Button, Center, Group, PasswordInput, Progress, TextInput } from '@mantine/core';
 import { DateInput } from '@mantine/dates';
+import { notifications } from '@mantine/notifications';
+import { IconCheck, IconX } from '@tabler/icons-react';
+import axios from 'axios';
 import dayjs from 'dayjs';
 import 'dayjs/locale/fr';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { register } from '../../api';
+import { useAppDispatch } from '../../store/hooks';
 import './SignupPage.scss';
 
 // to use French locale for birthdate calendars
@@ -66,6 +68,7 @@ function SignupPage() {
   const [apiError, setApiError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -99,7 +102,7 @@ function SignupPage() {
   // form submission
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    
+
     // Check if passwords match
     if (form.password === form.confirmPassword) {
       setPasswordsMatch(true);
@@ -118,20 +121,42 @@ function SignupPage() {
         };
         // register user with api
         const response = await register(credentials);
-        console.log(response.data);
-        setSuccessMessage('Inscription réussie !');
-        resetForm();
+        notifications.show({
+          id: 'signup-success',
+          withCloseButton: true,
+          autoClose: 5000,
+          title: 'Inscription réussie',
+          message: 'Vous pouvez maintenant vous connecter.',
+          color: 'green',
+          icon: <IconCheck />,
+          loading: false,
+        });
 
-        // redirect to home page after 7 seconds
+        // redirect to login page after 1 second
         setTimeout(() => {
-          navigate('/');
-        }, 7000); // in ms (7000=7s)
+          resetForm();
+          navigate('/connexion');
+        }, 1000); // in ms (1000=1s)
       } catch (error) {
         if (axios.isAxiosError(error)) {
-          setApiError(`Erreur: ${error.response?.data.error || 'Inscription échouée'}`);
+          if (error.code === 'ERR_NETWORK') {
+            setApiError('Veuillez vérifier votre connexion Internet.');
+          } else {
+            setApiError(`Erreur: ${error.message}`);
+          }
         } else {
-          setApiError("Erreur lors de l'inscription. Veuillez réessayer.");
+          setApiError('Erreur. Veuillez réessayer.');
         }
+        notifications.show({
+          id: 'login-error',
+          withCloseButton: true,
+          autoClose: 5000,
+          title: 'Inscription échouée',
+          message: apiError,
+          color: 'red',
+          icon: <IconX />,
+          loading: false,
+        });
       }
     } else {
       setPasswordsMatch(false);
@@ -163,7 +188,7 @@ function SignupPage() {
       color = 'red';
     }
 
-    return <Progress value={value} color={color} key={barKey} size={4}/>;
+    return <Progress value={value} color={color} key={barKey} size={4} />;
   });
 
   return (
@@ -180,7 +205,7 @@ function SignupPage() {
                 value={form.firstName}
                 onChange={validateLetters}
                 required
-                withAsterisk={false}                
+                withAsterisk={false}
               />
             </div>
             <div className="input-container">
@@ -191,7 +216,7 @@ function SignupPage() {
                 value={form.lastName}
                 onChange={validateLetters}
                 required
-                withAsterisk={false}                
+                withAsterisk={false}
               />
             </div>
             <div className="input-container">
@@ -203,7 +228,7 @@ function SignupPage() {
                 required
                 locale="fr"
                 valueFormat="DD/MM/YYYY"
-                withAsterisk={false}                
+                withAsterisk={false}
               />
             </div>
             <div className="input-container">
@@ -215,7 +240,7 @@ function SignupPage() {
                 value={form.email}
                 onChange={handleChange}
                 required
-                withAsterisk={false}                
+                withAsterisk={false}
               />
             </div>
           </div>
@@ -228,7 +253,7 @@ function SignupPage() {
                 value={form.password}
                 onChange={handleChange}
                 required
-                withAsterisk={false}                
+                withAsterisk={false}
               />
             </div>
             <div className="input-container">
@@ -239,7 +264,7 @@ function SignupPage() {
                 value={form.confirmPassword}
                 onChange={handleChange}
                 required
-                withAsterisk={false}                
+                withAsterisk={false}
               />
               {!passwordsMatch && (
                 <p className="error-messageSignup" style={{ color: 'red' }}>
@@ -255,14 +280,6 @@ function SignupPage() {
             </div>
           </div>
         </div>
-        {apiError && <p className="error-messageAPI">{apiError}</p>}
-        {successMessage && (
-          <p className="success-message">
-            {successMessage}
-            <br />
-            Redirection vers la page d'accueil dans 7 secondes...
-          </p>
-        )}
         <div className="button-container">
           <Button type="submit" color="bg" autoContrast>
             S'inscrire
@@ -274,4 +291,3 @@ function SignupPage() {
 }
 
 export default SignupPage;
-

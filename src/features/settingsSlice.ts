@@ -1,20 +1,8 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { SuccessLoginResponse } from '../@types/Credentials';
-import { SettingsState } from '../@types/SettingsState';
+import { SuccessLoginResponse, SuccessProfilResponse } from '../@types/Credentials';
 import * as api from '../api';
 import type { RootState } from '../store/store';
-
-const settingsState: SettingsState = {
-  user: {
-    firstname: '',
-    lastname: '',
-    email: '',
-    password: '',
-    birthdate: '',
-    logged: false,
-    token: '',
-  },
-};
+import { getInitialSettingsState, removeStoreUser, setStoreUser } from '../utils/localStorage';
 
 export const actionLogin = createAsyncThunk('settings/login', async (_, thunkAPI) => {
   const state = thunkAPI.getState() as RootState;
@@ -30,9 +18,14 @@ export const actionSignup = createAsyncThunk('settings/signup', async (_, thunkA
   return response.data;
 });
 
+export const actionGetProfil = createAsyncThunk('settings/getProfil', async () => {
+  const response = await api.getProfil();
+  return response.data;
+});
+
 const settingsSlice = createSlice({
   name: 'settings',
-  initialState: settingsState,
+  initialState: getInitialSettingsState,
   reducers: {
     logout: (state) => {
       state.user.firstname = '';
@@ -42,6 +35,8 @@ const settingsSlice = createSlice({
       state.user.birthdate = '';
       state.user.logged = false;
       state.user.token = '';
+      api.removeTokenJWTToAxiosInstance();
+      removeStoreUser();
     },
     editFirstname: (state, action: PayloadAction<string>) => {
       state.user.firstname = action.payload;
@@ -58,26 +53,51 @@ const settingsSlice = createSlice({
     editBirthdate: (state, action: PayloadAction<string>) => {
       state.user.birthdate = action.payload;
     },
+    resetMessages: (state) => {
+      state.successMessage = null;
+      state.errorMessage = null;
+    },
   },
   extraReducers(builder) {
     builder
       .addCase(actionLogin.fulfilled, (state, action) => {
-        const response = action.payload as SuccessLoginResponse;
+        const response = action.payload.data as SuccessLoginResponse;
         state.user.firstname = response.firstname;
         state.user.lastname = response.lastname;
+        state.user.birthdate = response.birthdate;
         state.user.token = response.token;
         state.user.logged = true;
+        state.user.password = '';
         api.addTokenJWTToAxiosInstance(response.token);
+        setStoreUser(state.user);
+        state.errorMessage = null;
+        state.successMessage = "Vous êtes connecté. Redirection vers la page d'accueil...";
       })
-      .addCase(actionLogin.rejected, (_, action) => {
-        // eslint-disable-next-line no-console
-        console.log(action.error.message);
+      .addCase(actionLogin.rejected, (state, action) => {
+        state.successMessage = null;
+        if (action.error.code === 'ERR_NETWORK') {
+          state.errorMessage = 'Veuillez vérifier votre connexion Internet.';
+          return;
+        }
+        state.errorMessage = "Veuillez vérifier vos informations d'identification.";
       })
       .addCase(actionSignup.fulfilled, (state, action) => {
         const response = action.payload as SuccessLoginResponse;
         // renvoyer un message de confirmation
       })
       .addCase(actionSignup.rejected, (_, action) => {
+        // eslint-disable-next-line no-console
+        console.log(action.error.message);
+      })
+      .addCase(actionGetProfil.fulfilled, (state, action) => {
+        const response = action.payload.data as SuccessProfilResponse;
+        // fill missing user data
+        state.user.birthdate = response.birthdate;
+        state.user.subscriptionDate = response.created_at;
+        state.user.commentCount = response.count_review;
+        state.user.ratingCount = response.count_rating;
+      })
+      .addCase(actionGetProfil.rejected, (_, action) => {
         // eslint-disable-next-line no-console
         console.log(action.error.message);
       });
@@ -88,4 +108,5 @@ export const selectUser = (state: RootState) => state.settings.user;
 
 export default settingsSlice.reducer;
 
-export const { logout, editEmail, editPassword, editFirstname, editLastName, editBirthdate } = settingsSlice.actions;
+export const { logout, resetMessages, editEmail, editPassword, editFirstname, editLastName, editBirthdate } =
+  settingsSlice.actions;

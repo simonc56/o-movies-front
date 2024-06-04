@@ -47,3 +47,15 @@ export function isoDateToYear(isoDate: string) {
 export function isNumber(id: string): boolean {
   return !Number.isNaN(Number(id));
 }
+
+/**
+ * Prevent rating to have more than 1 decimal
+ * @param rating number
+ * @returns
+ */
+export function cleanRating(rating: number) {
+  if (Number.isInteger(rating)) {
+    return rating.toFixed(0);
+  }
+  return rating.toFixed(1);
+}

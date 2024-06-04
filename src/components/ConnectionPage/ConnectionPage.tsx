@@ -1,10 +1,10 @@
-import { ChangeEvent, useState } from 'react';
+import { Anchor, Button, Center, Checkbox, Group, PasswordInput, Text, TextInput, Tooltip, rem } from '@mantine/core';
+import { notifications } from '@mantine/notifications';
+import { IconCheck, IconInfoCircle, IconX } from '@tabler/icons-react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { TextInput, PasswordInput, Tooltip, Center, Text, Group, Anchor, Checkbox, Button, rem } from '@mantine/core';
-import { IconInfoCircle } from '@tabler/icons-react';
-import { AxiosResponse } from 'axios';
-import { LoginCredentials } from '../../@types/Credentials';
-import { login } from '../../api';
+import { actionLogin, editEmail, editPassword, resetMessages } from '../../features/settingsSlice';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import './ConnectionPage.scss';
 
 interface LoginResponse {
@@ -12,54 +12,69 @@ interface LoginResponse {
 }
 
 function ConnectionPage() {
-// Interface for the login response message
-  const [emailValue, setEmailValue] = useState('');
-  const [passwordValue, setPasswordValue] = useState('');
+  const dispatch = useAppDispatch();
+  const emailValue = useAppSelector((state) => state.settings.user.email);
+  const firstname = useAppSelector((state) => state.settings.user.firstname);
+  const passwordValue = useAppSelector((state) => state.settings.user.password);
+  const successMessage = useAppSelector((state) => state.settings.successMessage);
+  const errorMessage = useAppSelector((state) => state.settings.errorMessage);
   const [stayConnected, setStayConnected] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [responseMessage, setResponseMessage] = useState<string | null>(null);
 
   const navigate = useNavigate();
 
-// Handlers for input changes
+  useEffect(() => {
+    if (successMessage) {
+      setLoading(false);
+      notifications.show({
+        id: 'login-success',
+        withCloseButton: true,
+        autoClose: 5000,
+        title: 'Vous êtes connecté',
+        message: `Bienvenue ${firstname}, vous êtes chez vous !`,
+        color: 'green',
+        icon: <IconCheck />,
+        loading: false,
+      });
+      dispatch(resetMessages());
+      navigate('/'); // Redirect to the home page after successful login
+    }
+    if (errorMessage) {
+      notifications.show({
+        id: 'login-error',
+        withCloseButton: true,
+        autoClose: 5000,
+        title: 'Impossible de se connecter',
+        message: errorMessage,
+        color: 'red',
+        icon: <IconX />,
+        loading: false,
+      });
+      dispatch(resetMessages());
+      setLoading(false);
+    }
+  }, [successMessage, errorMessage, navigate]);
+
   const emailChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setEmailValue(event.target.value);
+    dispatch(editEmail(event.target.value));
   };
 
   const passwordChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setPasswordValue(event.target.value);
+    dispatch(editPassword(event.target.value));
   };
 
   const stayConnectedChange = (event: ChangeEvent<HTMLInputElement>) => {
     setStayConnected(event.target.checked);
   };
 
-// Handler for form submission
-  const onLogin = async (event: React.FormEvent) => {
+  // Handler for form submission
+  const onSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setLoading(true);
-    setError(null);
-    setResponseMessage(null);
-
-    const loginCredentials: LoginCredentials = {
-      email: emailValue,
-      password: passwordValue,
-    };
-
-    try {
-// Create login credentials object
-      const response: AxiosResponse<LoginResponse> = await login(loginCredentials);
-      setResponseMessage(response.data.message);
-      navigate('/'); // Redirect to the home page after successful login
-    } catch (err) {
-      setError("Impossible de vous connecter. Veuillez vérifier vos informations d'identification.");
-    } finally {
-      setLoading(false);
-    }
+    dispatch(actionLogin());
   };
 
-// Tooltip for additional information
+  // Tooltip for additional information
   const rightSection = (
     <Tooltip
       label="Nous stockons vos données en toute sécurité"
@@ -80,7 +95,7 @@ function ConnectionPage() {
       <div className="card">
         <h1 className="connection-title">Connexion</h1>
         <p className="connection-description">Connectez-vous pour accéder à votre espace personnel.</p>
-        <form className="connection-form" onSubmit={onLogin}>
+        <form className="connection-form" onSubmit={onSubmit}>
           <TextInput
             label="Email"
             placeholder="exemple@domaine.com"
@@ -103,8 +118,6 @@ function ConnectionPage() {
           />
 
           <Checkbox label="Rester connecté" checked={stayConnected} onChange={stayConnectedChange} mt="md" />
-          {error && <p className="error-message">{error}</p>}
-          {responseMessage && <p className="response-message">{responseMessage}</p>}
           <div className="button-container">
             <Button type="submit" color="bg" autoContrast loading={loading} mt="md">
               Se connecter
@@ -113,9 +126,27 @@ function ConnectionPage() {
         </form>
         <Group mt="md">
           <div className="link-container">
-          <Anchor component={Link} to="/réinitialisation-email" pt={2} fw={500} fz="sm" className="link-reinitiate" style={{ color: 'blue', marginRight: '1rem', marginLeft: '1rem' }}>              Mot de passe oublié?
+            <Anchor
+              component={Link}
+              to="/réinitialisation-email"
+              pt={2}
+              fw={500}
+              fz="sm"
+              className="link-reinitiate"
+              style={{ color: 'blue', marginRight: '1rem', marginLeft: '1rem' }}
+            >
+              {' '}
+              Mot de passe oublié?
             </Anchor>
-            <Anchor component={Link} to="/inscription" pt={2} fw={500} fz="sm" className="link-signUp" style={{ color: 'blue', marginLeft: '1rem', marginRight: '1rem' }}>
+            <Anchor
+              component={Link}
+              to="/inscription"
+              pt={2}
+              fw={500}
+              fz="sm"
+              className="link-signUp"
+              style={{ color: 'blue', marginLeft: '1rem', marginRight: '1rem' }}
+            >
               Créer un compte
             </Anchor>
           </div>

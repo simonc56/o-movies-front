@@ -1,5 +1,7 @@
 export type SettingsState = {
   user: UserType;
+  successMessage: string | null;
+  errorMessage: string | null;
 };
 
 export type UserType = {
@@ -10,6 +12,7 @@ export type UserType = {
   birthdate: string;
   logged: boolean;
   token: string;
+  subscriptionDate?: string;
   commentCount?: number;
   ratingCount?: number;
 };
