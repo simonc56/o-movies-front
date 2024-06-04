@@ -17,12 +17,12 @@ export function MovieList() {
       try {
         const params: ParamsType = {
           page: 1,
-          sort_by: 'release_date.desc',
-          with_release_type: '3'
+          sort_by: 'popularity.desc',
+          with_genres: '10749'
         };
         const response = await getMoviesByParams(params);
-        const movies = response.data;
-        setMovies(movies);
+        console.log(response.data)
+        setMovies(response.data.data);
         setLoading(false);
       } catch (error) {
         console.error('Erreur lors de la récupération des films:', error);
@@ -52,7 +52,7 @@ export function MovieList() {
           className={classes.card}
           radius="md"
           component="a"
-          href={`/${movie.id}`}
+          href={`/films/${movie.tmdb_id}`}
           target="_blank"
         >
           <div
