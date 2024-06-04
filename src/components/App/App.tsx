@@ -14,9 +14,9 @@ import Homepage from '../Homepage/Homepage';
 import MoviePage from '../MoviePage/MoviePage';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import UserProfilePage from '../ProfilUserPage/ProfilUserPage';
-import ChangePasswordPage from '../ChangePasswordPage/ChangePasswordPage';
 import PlaylistPage from '../PlaylistPage/PlaylistPage'
 import SignupPage from '../SignupPage/SignupPage';
+import UnderConstruction from '../UnderConstructionPage/UnderConstructionPage';
 
 
 import './App.scss';
@@ -37,6 +37,8 @@ function App() {
           <Route path="/réinitialisation-mot-de-passe" element={<ConfirmPasswordPage />} />
           <Route path="/contact" element={<ContactPage />} />         
           <Route path="/changer-mot-de-passe" element={<ChangePasswordPage />} />
+          <Route path="/actuellement" element={<UnderConstruction />} /> 
+          <Route path="/prochainement" element={<UnderConstruction />} /> 
           {logged && <Route path="/playlist" element={<PlaylistPage />} />}
           {logged && <Route path="/profil" element={<UserProfilePage />} />}
           {logged && <Route path="/changer-mot-de-passe" element={<ChangePasswordPage />} />}

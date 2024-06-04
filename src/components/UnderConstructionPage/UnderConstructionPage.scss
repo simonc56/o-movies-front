@@ -1,0 +1,12 @@
+.underConstructionPage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;  
+    text-align: center;   
+    & .errorIcon2 {
+      font-size: 100px;
+      color: var(--mantine-color-red-6);
+    }
+  }
+  
