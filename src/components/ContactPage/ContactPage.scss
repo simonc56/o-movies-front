@@ -1,11 +1,11 @@
 .contact-section {
-  height: 70vh;
-  width: 75vh;
+  height: 55vh;
+  width: 55vh;
   margin: 0 auto;
   display: flex;
-  background-color: rgb(231, 225, 225);
+  background-color: var(--mantine-color-gray-3);
   justify-content: center;
-  border-radius: 3rem;
+  border-radius: 1rem;
   box-shadow: 0 0 5px rgb(192, 192, 192);
 }
 
@@ -14,7 +14,7 @@
   align-items: center;
   color: var(--color-bg);
   display: flex;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
   justify-content: center;
 }
 
@@ -25,7 +25,7 @@
   padding: 0.5rem; /*espace interne*/
   font-size: 1em;
   border: 0.1em solid #ccc;
-  border-radius: 0.8rem;
+  border-radius: 0.2rem;
   color: var(--color-bg);
   display: flex;
   justify-content: center;
@@ -41,7 +41,7 @@
 }
 
 .message-contact {
-  resize: none; /* Autorise le redimensionnement vertical */
+  resize: none; 
   max-height: 250px;
   min-height: 200px;
 }
@@ -59,19 +59,13 @@
   margin-top: 2rem;
 }
 
-.button-container-contact button {
-  color: var(--color-bg);
-  padding: 10px;
-  background-color: var(--color-primary);
+.button-container-contact button { 
+  padding: 10px;  
   border: none;
   border-radius: 0.8rem;
   cursor: pointer;
   width: 10rem;
-  &:hover {
-    background-color: var(--color-bg);
-    color: var(--color-primary);
   }
-}
 
 .button-container-contact {
   display: flex;
@@ -81,36 +75,58 @@
   font-weight: 500;
 }
 
-@media screen and (max-width: 768px) {
-  .nom-contact,
-  .email-contact,
-  .message-contact,
-  .info-contact {
-    width: 40vw;
-  }
-  .message-contact {
-    max-height: 150px; /* Réduire la hauteur pour les petits écrans */
-    min-height: 100px; /* Réduire la hauteur minimale pour les petits écrans */
+.notification-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;  
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+
+@media (max-width: 844px) {
+  .contact-section {
+    width: 90%;
+    height: auto;
+    padding: 1rem;
+    flex-direction: column;
   }
 
   .contact-title {
-    font-size: 2.5vh;
+    font-size: 3vh;
   }
-}
 
-@media screen and (max-width: 430px) {
   .nom-contact,
   .email-contact,
-  .message-contact,
-  .info-contact {
-    width: 30vw;
-  }
   .message-contact {
-    max-height: 150px; /* Réduire la hauteur pour les petits écrans */
-    min-height: 100px; /* Réduire la hauteur minimale pour les petits écrans */
+    width: 100%;
   }
-  .contact-section {
-    height: 30vh;
-    width: 35vh;
+
+  .message-contact {
+    max-height: 200px;
+    min-height: 150px;
+  }
+
+  .button-container-contact button {
+    width: 100%;
+  }
+
+  .info-contact {
+    text-align: center;
+    margin-top: 1rem;
+  }
+
+  .button-container-contact {
+    margin-top: 1rem;
   }
 }
