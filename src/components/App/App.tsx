@@ -19,7 +19,7 @@ import SignupPage from '../SignupPage/SignupPage';
 import './App.scss';
 
 function App() {
-  const user = useAppSelector((state) => state.settings.user);
+  const logged = useAppSelector((state) => state.settings.user.logged);
 
   return (
     <MantineProvider theme={theme}>
@@ -33,8 +33,8 @@ function App() {
           <Route path="/réinitialisation-email" element={<ConfirmEmailPage />} />
           <Route path="/réinitialisation-mot-de-passe" element={<ConfirmPasswordPage />} />
           <Route path="/contact" element={<ContactPage />} />
-          {user.token && <Route path="/profil" element={<UserProfilePage />} />}
-          <Route path="/changer-mot-de-passe" element={<ChangePasswordPage />} />
+          {logged && <Route path="/profil" element={<UserProfilePage />} />}
+          {logged && <Route path="/changer-mot-de-passe" element={<ChangePasswordPage />} />}
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
         <Footer />
