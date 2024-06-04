@@ -203,7 +203,7 @@ const PlaylistPage: React.FC = () => {
       showNotification({
         title: 'Film supprimé',
         message: `Le film "${movie.title_fr}" a été supprimé de la playlist "${selectedPlaylist.name}".`,
-        color: 'red',
+        color: 'green',
       });
       setMovieToDelete(null);
     }

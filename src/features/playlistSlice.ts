@@ -74,11 +74,11 @@ export const actionAddMediaToPlaylist = createAsyncThunk<SuccessEmptyResponse, {
     return response.data;
   }
 );
-export const actionDeleteMediaFromPlaylist = createAsyncThunk<SuccessEmptyResponse, { id: number; tmdb_id: number }>(
+export const actionDeleteMediaFromPlaylist = createAsyncThunk<number, { id: number; tmdb_id: number }>(
   'playlist/deleteMediaFromPlaylist',
   async ({ id, tmdb_id }) => {
-    const response = await api.deleteMediaFromPlaylist(id, tmdb_id);
-    return response.data;
+    await api.deleteMediaFromPlaylist(id, tmdb_id);
+    return tmdb_id;
   }
 );
 
@@ -94,7 +94,6 @@ const playlistSlice = createSlice({
     builder
       .addCase(actionFetchPlaylist.fulfilled, (state, action) => {
         const response = action.payload;
-        console.log(response.data);
         state.currentPlaylist = response.data as Playlist;
       })
       .addCase(actionCreatePlaylist.fulfilled, (state, action) => {
@@ -104,6 +103,10 @@ const playlistSlice = createSlice({
       .addCase(actionDeletePlaylist.fulfilled, (state, action) => {
         const id = action.payload;
         state.userPlaylists.filter((playlist) => playlist.id !== id);
+      })
+      .addCase(actionDeleteMediaFromPlaylist.fulfilled, (state, action) => {
+        const id = action.payload;
+        state.currentPlaylist.medias = state.currentPlaylist.medias.filter((movie) => movie.tmdb_id !== id);
       })
       .addCase(actionRenamePlaylist.fulfilled, (state, action) => {
         const [name, id] = action.payload;
