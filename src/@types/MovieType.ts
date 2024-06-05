@@ -25,6 +25,14 @@ type MovieType = {
   user_data: MovieUserData;
 };
 
+export type MovieIdentityType = {
+  id: number;
+  tmdb_id: number;
+  title_fr: string;
+  poster_path: string;
+  release_date: string;
+};
+
 export type MovieResultType = {
   tmdb_id: number;
   title_fr: string;
