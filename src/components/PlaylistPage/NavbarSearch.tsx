@@ -11,6 +11,7 @@ interface NavbarSearchProps {
   openEditModal: (playlist: PlaylistIdentityType) => void;
   confirmRemovePlaylist: (playlist: PlaylistIdentityType) => void;
   openSidebar: (playlist: PlaylistIdentityType) => void;
+  loading: boolean;
 }
 
 // Function to normalize strings by removing accents and converting to lowercase
@@ -27,6 +28,7 @@ const NavbarSearch: React.FC<NavbarSearchProps> = ({
   openEditModal,
   confirmRemovePlaylist,
   openSidebar,
+  loading,
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -94,7 +96,7 @@ const NavbarSearch: React.FC<NavbarSearchProps> = ({
           leftSection={<IconSearch style={{ width: rem(12), height: rem(12) }} stroke={1.5} />}
           mb="sm"
         />
-        {playlistLinks.length > 0 ? <div className={classes.collectionsPlayList}>{playlistLinks}</div> : <Loader />}
+        {!loading ? <div className={classes.collectionsPlayList}>{playlistLinks}</div> : <Loader />}
       </div>
     </nav>
   );

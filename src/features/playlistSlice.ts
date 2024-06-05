@@ -110,6 +110,7 @@ const playlistSlice = createSlice({
       })
       .addCase(actionRenamePlaylist.fulfilled, (state, action) => {
         const [name, id] = action.payload;
+        state.currentPlaylist.name = name;
         state.userPlaylists.map((playlist) => {
           if (playlist.id === id) {
             playlist.name = name;

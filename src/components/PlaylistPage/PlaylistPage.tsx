@@ -2,7 +2,6 @@ import { ActionIcon, Button, Group, Modal, Text, TextInput } from '@mantine/core
 import { ModalsProvider, openConfirmModal } from '@mantine/modals';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck, IconTrash, IconX } from '@tabler/icons-react';
-import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { MovieIdentityType } from '../../@types/MovieType';
 import { PlaylistIdentityType } from '../../@types/PlaylistState';
@@ -26,11 +25,10 @@ const PlaylistPage: React.FC = () => {
   const playlists = useAppSelector((state) => state.playlist.userPlaylists);
   const hasFetchUserPlaylists = useAppSelector((state) => state.playlist.hasFetchUserPlaylists);
   const [opened, setOpened] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [newLabel, setNewLabel] = useState('');
   const [playlistId, setPlaylistId] = useState<number | null>(null);
-  const [newEmoji, setNewEmoji] = useState('🆕');
   const [editingLabel, setEditingLabel] = useState<null | string>(null);
-  const [emojiPickerOpened, setEmojiPickerOpened] = useState(false);
   const [modalWidth, setModalWidth] = useState('600px');
   const selectedPlaylist = useAppSelector((state) => state.playlist.currentPlaylist);
   const [sortedMovies, setSortedMovies] = useState<MovieIdentityType[]>([]);
@@ -40,7 +38,7 @@ const PlaylistPage: React.FC = () => {
   const observer = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
-    if (!hasFetchUserPlaylists) dispatch(actionFetchUserPlaylists());
+    if (!hasFetchUserPlaylists) dispatch(actionFetchUserPlaylists()).then(() => setLoading(false));
   }, [dispatch, hasFetchUserPlaylists]);
 
   // Function to normalize special character letters in the alphabeticalList (é à etc)
@@ -53,7 +51,6 @@ const PlaylistPage: React.FC = () => {
 
   const openAddModal = () => {
     setNewLabel('');
-    setNewEmoji('🆕');
     setOpened(true);
   };
 
@@ -101,23 +98,12 @@ const PlaylistPage: React.FC = () => {
 
   const removePlaylist = (playlist: PlaylistIdentityType) => {
     dispatch(actionDeletePlaylist(playlist.id));
+    closeSidebar();
     showNotification({
       title: 'Playlist supprimée',
       message: `La playlist "${playlist.name}" a été supprimée.`,
       color: 'red',
     });
-  };
-
-  const onEmojiClick = (emojiData: EmojiClickData) => {
-    setNewEmoji(emojiData.emoji);
-    setEmojiPickerOpened(false);
-    setModalWidth('600px');
-  };
-
-  // For open or close emojiPicker
-  const handleEmojiPickerToggle = () => {
-    setEmojiPickerOpened(!emojiPickerOpened);
-    setModalWidth(emojiPickerOpened ? '600px' : '800px');
   };
 
   const openSidebar = (playlist: PlaylistIdentityType) => {
@@ -127,6 +113,7 @@ const PlaylistPage: React.FC = () => {
   const closeSidebar = () => {
     dispatch(actionResetCurrentPlaylist());
     setSortedMovies([]);
+    setLoading(false);
   };
 
   // To sort movies alphabetically in database
@@ -190,7 +177,7 @@ const PlaylistPage: React.FC = () => {
 
   // Plural or singular for the number of films in a playlist
   const getMoviesLabel = (count: number) => {
-    if (count === 0) {
+    if (count < 2) {
       return 'film';
     } else {
       return 'films';
@@ -218,6 +205,7 @@ const PlaylistPage: React.FC = () => {
         openEditModal={openEditModal}
         confirmRemovePlaylist={confirmRemovePlaylist}
         openSidebar={openSidebar}
+        loading={!hasFetchUserPlaylists}
       />
 
       <Modal
@@ -228,10 +216,6 @@ const PlaylistPage: React.FC = () => {
       >
         <form onSubmit={handleSave}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <div style={{ cursor: 'pointer' }} onClick={handleEmojiPickerToggle}>
-              {newEmoji}
-            </div>
-            {emojiPickerOpened && <EmojiPicker onEmojiClick={onEmojiClick} />}
             <TextInput
               label="Nom de la playlist"
               placeholder="Par exemple: Films d'actions"
@@ -248,7 +232,7 @@ const PlaylistPage: React.FC = () => {
         </form>
       </Modal>
 
-      {selectedPlaylist ? (
+      {
         <>
           <div className="sidebarPlaylist">
             <div
@@ -274,68 +258,70 @@ const PlaylistPage: React.FC = () => {
             </div>
             <div className="sidebar-content-wrapperPL">
               <div className="sidebar-content">
-                {Object.entries(groupMoviesByFirstLetter(sortedMovies)).map(([letter, movies]) => (
-                  <div key={letter} id={letter} className="letter-section">
-                    <h2>{letter}</h2>
-                    <div className="movie-row">
-                      {movies.map((movie, index) => (
-                        // attention en localhost, à modifier pour le serveur Simon. Movie en .id
-                        <a key={index} href={`http://localhost:5173/films/${movie.tmdb_id}`} className="movie-link">
-                          <div className="movie">
-                            <img src={movie.poster_path} alt={`Image de ${movie.title_fr}`} />
-                            <ActionIcon
-                              onClick={(e) => {
-                                e.preventDefault();
-                                setMovieToDelete(movie.title_fr);
-                              }}
-                              className="remove-button"
-                            >
-                              <IconTrash />
-                            </ActionIcon>
-                            {movieToDelete === movie.title_fr && (
-                              <div className="confirm-delete">
-                                <ActionIcon
-                                  onClick={(e) => {
-                                    e.preventDefault();
-                                    removeMovieFromPlaylist(movie);
-                                  }}
-                                  className="confirm-button"
-                                >
-                                  <IconCheck />
-                                </ActionIcon>
-                                <ActionIcon
-                                  onClick={(e) => {
-                                    e.preventDefault();
-                                    setMovieToDelete(null);
-                                  }}
-                                  className="cancel-button"
-                                >
-                                  <IconX />
-                                </ActionIcon>
+                {!loading ? (
+                  Object.entries(groupMoviesByFirstLetter(sortedMovies)).map(([letter, movies]) => (
+                    <div key={letter} id={letter} className="letter-section">
+                      <h2>{letter}</h2>
+                      <div className="movie-row">
+                        {movies.map((movie, index) => (
+                          // attention en localhost, à modifier pour le serveur Simon. Movie en .id
+                          <a key={index} href={`http://localhost:5173/films/${movie.tmdb_id}`} className="movie-link">
+                            <div className="movie">
+                              <img src={movie.poster_path} alt={`Image de ${movie.title_fr}`} />
+                              <ActionIcon
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  setMovieToDelete(movie.title_fr);
+                                }}
+                                className="remove-button"
+                              >
+                                <IconTrash />
+                              </ActionIcon>
+                              {movieToDelete === movie.title_fr && (
+                                <div className="confirm-delete">
+                                  <ActionIcon
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                      removeMovieFromPlaylist(movie);
+                                    }}
+                                    className="confirm-button"
+                                  >
+                                    <IconCheck />
+                                  </ActionIcon>
+                                  <ActionIcon
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                      setMovieToDelete(null);
+                                    }}
+                                    className="cancel-button"
+                                  >
+                                    <IconX />
+                                  </ActionIcon>
+                                </div>
+                              )}
+                              <div className="movie-infoPL">
+                                <Text size="md">
+                                  {movie.title_fr.length > maxLength
+                                    ? `${movie.title_fr.slice(0, maxLength)}...`
+                                    : movie.title_fr}
+                                </Text>
+                                <Text size="sm">{movie.release_date.slice(0, 4)}</Text>
                               </div>
-                            )}
-                            <div className="movie-infoPL">
-                              <Text size="md">
-                                {movie.title_fr.length > maxLength
-                                  ? `${movie.title_fr.slice(0, maxLength)}...`
-                                  : movie.title_fr}
-                              </Text>
-                              <Text size="sm">{movie.release_date.slice(0, 4)}</Text>
                             </div>
-                          </div>
-                        </a>
-                      ))}
+                          </a>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))
+                ) : (
+                  <Loader />
+                )}
               </div>
             </div>
           </div>
           <AlphabeticalList activeLetter={activeLetter} />
         </>
-      ) : (
-        <Loader />
-      )}
+      }
     </ModalsProvider>
   );
 };

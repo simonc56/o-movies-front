@@ -1,6 +1,7 @@
 import { Paper } from '@mantine/core';
 import PosterCarousel from '../PosterCarousel/PosterCarousel';
 
+import { Link } from 'react-router-dom';
 import './Homepage.scss';
 
 function Homepage() {
@@ -18,7 +19,7 @@ function Homepage() {
           <h3>Garfield le 17 juillet au cinéma, chat alors !</h3>
           <span>4 juin 2024</span>
         </div>
-        <a href="/films/748783">Garfield</a>, le célèbre chat d'intérieur, amateur de lasagnes et qui déteste les
+        <Link to="/films/748783">Garfield</Link>, le célèbre chat d'intérieur, amateur de lasagnes et qui déteste les
         lundis, est sur le point d'être embarqué dans une folle aventure.
       </Paper>
       <Paper shadow="xl" p="md" className="news">
@@ -26,7 +27,7 @@ function Homepage() {
           <h3>Avatar 3 : les premières images</h3>
           <span>28 mai 2024</span>
         </div>
-        Les premières images de "<a href="/films/83533">Avatar 3</a>" ont été dévoilées, révélant des paysages
+        Les premières images de "<Link to="/films/83533">Avatar 3</Link>" ont été dévoilées, révélant des paysages
         sous-marins époustouflants. La sortie est prévue pour décembre 2025.
       </Paper>
       <Paper shadow="xl" p="md" className="news">
@@ -34,7 +35,7 @@ function Homepage() {
           <h3>Festival de Cannes 2024</h3>
           <span>26 mai 2024</span>
         </div>
-        Le Festival de Cannes 2024 a couronné "<a href="/films/1064213">Anora</a>", un drame poignant du réalisateur
+        Le Festival de Cannes 2024 a couronné "<Link to="/films/1064213">Anora</Link>", un drame poignant du réalisateur
         Sean Baker, qui a remporté la Palme d'Or cette année.
       </Paper>
       <Paper shadow="xl" p="md" className="news">
@@ -42,8 +43,8 @@ function Homepage() {
           <h3>À couteaux tirés: 3ème volet</h3>
           <span>22 mai 2024</span>
         </div>
-        Le réalisateur Rian Johnson a annoncé le troisième volet de la saga de films d'enquêtes policières "À couteaux
-        tirés" qui sera intitulé "<a href="/films//812583">Wake Up, Dead Man</a>".
+        Le réalisateur Rian Johnson a annoncé le troisième volet de la saga de films d'enquêtes policières "
+        <Link to="/films/546554">À couteaux tirés</Link>" qui sera intitulé "Wake Up, Dead Man".
       </Paper>
       <Paper shadow="xl" p="md" className="news">
         <div className="header-news">
