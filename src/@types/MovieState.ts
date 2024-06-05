@@ -9,7 +9,7 @@ export type MovieState = {
 export type ParamsType = {
   page: number;
   sort_by: string;
-  with_genres: string;
+  with_genres?: string;
 };
 
 export type MoviesFilter = 'nowplaying' | 'popular' | 'upcoming' | 'toprated';

@@ -1,6 +1,7 @@
 import { Button, Card, Center, Group, Loader, Text, rem, useMantineTheme } from '@mantine/core';
 import { IconEye, IconMessageCircle } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ParamsType } from '../../@types/MovieState';
 import MovieType, { Genre } from '../../@types/MovieType';
 import { getGenres, getMoviesByParams } from '../../api';
@@ -18,48 +19,29 @@ export function MovieList() {
   const handleGenresSelect = (selectedGenres: number[]) => {
     setSelectedGenres(selectedGenres);
   };
+
   useEffect(() => {
-    async function fetchMoviesByParams() {
+    async function fetchData() {
       try {
+        const genreResponse = await getGenres();
+        const genresData = genreResponse.data.data;
+        setGenres(genresData);
         const params: ParamsType = {
           page: Math.floor(Math.random() * 10) + 1,
           sort_by: 'popularity.desc',
-          with_genres: selectedGenres.join(','), // Ajout de with_genres avec les genres sélectionnés
+          with_genres: selectedGenres.join(','),
         };
         const response = await getMoviesByParams(params);
         setMovies(response.data.data);
         setLoading(false);
       } catch (error) {
-        console.error('Erreur lors de la récupération des films aléatoires :', error);
+        console.error('Error fetching movies:', error);
         setError("Une erreur s'est produite lors du chargement des films.");
         setLoading(false);
       }
     }
-    fetchMoviesByParams();
+    fetchData();
   }, [selectedGenres]);
-
-  useEffect(() => {
-    async function fetchRandomMovies() {
-      try {
-        const genreResponse = await getGenres();
-        const genresData = genreResponse.data.data;
-        setGenres(genresData);
-        const randomParams: ParamsType = {
-          page: Math.floor(Math.random() * 10) + 1,
-          sort_by: 'popularity.desc',
-          with_genres: '10749',
-        };
-        const response = await getMoviesByParams(randomParams);
-        setMovies(response.data.data);
-        setLoading(false);
-      } catch (error) {
-        console.error('Erreur lors de la récupération des films aléatoires :', error);
-        setError("Une erreur s'est produite lors du chargement des films.");
-        setLoading(false);
-      }
-    }
-    fetchRandomMovies();
-  }, []);
 
   if (loading) {
     return (
@@ -91,9 +73,8 @@ export function MovieList() {
             shadow="lg"
             className={classes.card}
             radius="md"
-            component="a"
-            href={`/films/${movie.tmdb_id}`}
-            target="_blank"
+            component={Link}
+            to={`/films/${movie.tmdb_id}`}
           >
             <div className={classes.image} style={{ backgroundImage: `url(${movie.poster_path})` }} />
             <div className={classes.overlay} />
