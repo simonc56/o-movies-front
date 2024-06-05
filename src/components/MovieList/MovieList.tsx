@@ -58,14 +58,10 @@ export function MovieList() {
           shadow="lg"
           className={classes.card}
           radius="md"
-          component="a"
-          href={`/films/${movie.tmdb_id}`}
-          target="_blank"
+          component={Link}
+          to={`/films/${movie.tmdb_id}`}
         >
-          <div
-            className={classes.image}
-            style={{ backgroundImage: `url(${movie.poster_path})` }}
-          />
+          <div className={classes.image} style={{ backgroundImage: `url(${movie.poster_path})` }} />
           <div className={classes.overlay} />
 
           <div className={classes.content}>
