@@ -26,7 +26,6 @@ export function MovieList() {
           sort_by: 'popularity.desc',
           with_genres: selectedGenres.join(','), // Ajout de with_genres avec les genres sélectionnés
         };
-
         const response = await getMoviesByParams(params);
         setMovies(response.data.data);
         setLoading(false);
@@ -83,7 +82,7 @@ export function MovieList() {
 
   return (
     <div>
-      <ButtonCheckGenres genresList={genres} onGenresSelect={handleGenresSelect} />
+      <ButtonCheckGenres genresList={genres} onGenresSelect={handleGenresSelect} style={{ marginLeft: '1rem' }} />
       <div className={classes.cardContainer}>
         {movies.map((movie, index) => (
           <Card

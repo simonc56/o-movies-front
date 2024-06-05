@@ -43,6 +43,7 @@ function ButtonCheckGenres({
           variant="outline"
           color="bg"
           data-disabled={genresList.length === 0}
+          style={{ marginLeft: '1.5rem' }}
         >
           Genres
         </Button>
