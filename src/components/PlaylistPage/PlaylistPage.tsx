@@ -17,6 +17,7 @@ import {
 } from '../../features/playlistSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import AlphabeticalList from '../AlphabeticalListNav/AlphabeticalList';
+import Loader from '../Loader/Loader';
 import NavbarSearch from './NavbarSearch';
 import './PlaylistPage.scss';
 
@@ -247,7 +248,7 @@ const PlaylistPage: React.FC = () => {
         </form>
       </Modal>
 
-      {selectedPlaylist && (
+      {selectedPlaylist ? (
         <>
           <div className="sidebarPlaylist">
             <div
@@ -332,6 +333,8 @@ const PlaylistPage: React.FC = () => {
           </div>
           <AlphabeticalList activeLetter={activeLetter} />
         </>
+      ) : (
+        <Loader />
       )}
     </ModalsProvider>
   );
