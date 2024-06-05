@@ -1,34 +1,24 @@
+import { ActionIcon, Group, Text, TextInput, Tooltip, rem } from '@mantine/core';
+import { IconEdit, IconPlus, IconSearch, IconTrash } from '@tabler/icons-react';
 import React, { useState } from 'react';
-import { TextInput, ActionIcon, Tooltip, Text, Group, rem } from '@mantine/core';
-import { IconSearch, IconPlus, IconTrash, IconEdit } from '@tabler/icons-react';
+import { PlaylistIdentityType } from '../../@types/PlaylistState';
+import Loader from '../Loader/Loader';
 import classes from './NavbarSearch.module.css';
 
-//attention! this interface Movie is duplicated with moviedata.ts
-interface Movie {
-  id: string;
-  title: string;
-  year: number;
-  imageUrl: string;
-}
-
-
-interface Playlist {
-  emoji: string;
-  label: string;
-  movies?: Movie[];
-}
-
 interface NavbarSearchProps {
-  playlists: Playlist[];
+  playlists: PlaylistIdentityType[];
   openAddModal: () => void;
-  openEditModal: (label: string, emoji: string) => void;
-  confirmRemovePlaylist: (label: string) => void;
-  openSidebar: (playlist: Playlist) => void;
+  openEditModal: (playlist: PlaylistIdentityType) => void;
+  confirmRemovePlaylist: (playlist: PlaylistIdentityType) => void;
+  openSidebar: (playlist: PlaylistIdentityType) => void;
 }
 
 // Function to normalize strings by removing accents and converting to lowercase
 const normalizeString = (str: string) => {
-  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  return str
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase();
 };
 
 const NavbarSearch: React.FC<NavbarSearchProps> = ({
@@ -45,25 +35,25 @@ const NavbarSearch: React.FC<NavbarSearchProps> = ({
   };
 
   const filteredPlaylists = playlists.filter((playlist) =>
-    normalizeString(playlist.label).includes(normalizeString(searchTerm))
+    normalizeString(playlist.name).includes(normalizeString(searchTerm))
   );
 
-  const maxLength = 17;
+  const maxLength = 26;
 
   const playlistLinks = filteredPlaylists.map((playlist) => (
-    <div key={playlist.label} className={classes.collectionLink} onClick={() => openSidebar(playlist)}>
-      <span style={{ marginRight: rem(5), fontSize: rem(16) }}>{playlist.emoji}</span>
-      <span>
-        {playlist.label.length > maxLength
-          ? `${playlist.label.slice(0, maxLength)}...`
-          : playlist.label}
-      </span>
+    <div
+      key={playlist.name}
+      style={{ cursor: 'pointer' }}
+      className={classes.collectionLink}
+      onClick={() => openSidebar(playlist)}
+    >
+      <span>{playlist.name.length > maxLength ? `${playlist.name.slice(0, maxLength)}...` : playlist.name}</span>
       <div className={classes.collectionLinkIcons}>
         <ActionIcon
           className="icon"
           onClick={(e) => {
             e.stopPropagation();
-            openEditModal(playlist.label, playlist.emoji);
+            openEditModal(playlist);
           }}
           style={{ backgroundColor: 'lightblue', borderRadius: '50%' }}
         >
@@ -73,7 +63,7 @@ const NavbarSearch: React.FC<NavbarSearchProps> = ({
           className="icon"
           onClick={(e) => {
             e.stopPropagation();
-            confirmRemovePlaylist(playlist.label);
+            confirmRemovePlaylist(playlist);
           }}
           style={{ backgroundColor: 'lightcoral', borderRadius: '50%' }}
         >
@@ -104,7 +94,7 @@ const NavbarSearch: React.FC<NavbarSearchProps> = ({
           leftSection={<IconSearch style={{ width: rem(12), height: rem(12) }} stroke={1.5} />}
           mb="sm"
         />
-        <div className={classes.collectionsPlayList}>{playlistLinks}</div>
+        {playlistLinks.length > 0 ? <div className={classes.collectionsPlayList}>{playlistLinks}</div> : <Loader />}
       </div>
     </nav>
   );

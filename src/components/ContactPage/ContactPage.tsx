@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import { IconX, IconCheck } from '@tabler/icons-react';
+import { Button, Notification } from '@mantine/core';
+import { useNavigate } from 'react-router-dom';
 import './ContactPage.scss';
 
 function ContactPage() {
@@ -8,6 +11,9 @@ function ContactPage() {
     message: '',
   });
 
+  const [showNotification, setShowNotification] = useState(false);
+  const navigate = useNavigate();
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
@@ -15,10 +21,13 @@ function ContactPage() {
       [name]: value,
     }));
   };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // api ?!
 
+    setShowNotification(true);
+
+    // Réinitialiser le formulaire
     setFormData({
       name: '',
       email: '',
@@ -26,10 +35,15 @@ function ContactPage() {
     });
   };
 
+  const handleCloseNotification = () => {
+    setShowNotification(false);
+    navigate('/');
+  };
+
   return (
     <section className="contact-section">
       <div className="ContactPage">
-        <h1 className="contact-title">Contactez-nous</h1>        
+        <h1 className="contact-title">Contactez-nous</h1>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <input
@@ -39,7 +53,7 @@ function ContactPage() {
               name="name"
               placeholder="Votre nom"
               value={formData.name}
-              onChange={handleChange}              
+              onChange={handleChange}
               required
             />
           </div>
@@ -51,7 +65,7 @@ function ContactPage() {
               name="email"
               placeholder="Votre E-mail"
               value={formData.email}
-              onChange={handleChange}              
+              onChange={handleChange}
               required
             />
           </div>
@@ -62,19 +76,37 @@ function ContactPage() {
               name="message"
               placeholder="Quel est votre message ?  :)"
               value={formData.message}
-              onChange={handleChange}              
+              onChange={handleChange}
               required
             />
           </div>
           <div className="button-container-contact">
-          <button type="submit">
-            Envoyer
-          </button>
+            <Button type="submit" color="bg" autoContrast>
+              Envoyer
+            </Button>
           </div>
         </form>
-        <p className="info-contact">Nous vous répondrons par e-mail dans les meilleurs délais.</p>
+        {showNotification && (
+          <>
+            <div className="overlay" />
+            <div className="notification-container">
+              <Notification
+                color="indigo"
+                radius="xs"
+                title="Message envoyé"
+                icon={<IconCheck size={18} />}
+                withBorder
+                onClose={handleCloseNotification}
+                closeButtonProps={{ icon: <IconX size={18} /> }}
+              >
+                Nous vous répondrons par e-mail dans les meilleurs délais.
+              </Notification>
+            </div>
+          </>
+        )}
       </div>
     </section>
   );
 }
+
 export default ContactPage;

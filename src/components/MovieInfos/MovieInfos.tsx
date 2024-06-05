@@ -12,6 +12,7 @@ type MovieInfosProps = {
 
 function MovieInfos({ movie }: MovieInfosProps) {
   const logged = useAppSelector((state) => state.settings.user.logged);
+  const truncateOverview = movie.overview.length > 500 ? `${movie.overview.slice(0, 500)}...` : movie.overview;
 
   return (
     <section className="section-movie-infos">
@@ -34,7 +35,7 @@ function MovieInfos({ movie }: MovieInfosProps) {
           </span>
           <span>{runtimeToString(movie.runtime)}</span>
         </div>
-        <p>{movie.overview}</p>
+        <p>{truncateOverview}</p>
         <div className="categories">
           {movie.genres.map((genre: Genre) => (
             <span className="category" key={genre.id}>

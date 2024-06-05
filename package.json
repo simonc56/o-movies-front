@@ -10,7 +10,8 @@
     "lint": "tsc --noEmit && eslint src/**/*.{js,jsx,ts,tsx} --cache --max-warnings=0",
     "lint:fix": "eslint src/**/*.{js,jsx,ts,tsx} --fix"
   },
-  "dependencies": {
+
+  "dependencies": {    
     "@mantine/carousel": "^7.10.1",
     "@mantine/core": "^7.10.1",
     "@mantine/dates": "^7.10.1",
@@ -19,7 +20,7 @@
     "@mantine/modals": "^7.10.1",
     "@mantine/notifications": "^7.10.1",
     "@reduxjs/toolkit": "^2.2.5",
-    "@tabler/icons-react": "^3.4.0",
+    "@tabler/icons-react": "^3.5.0",
     "@vitejs/plugin-react": "^4.3.0",
     "axios": "^1.6.8",
     "dayjs": "^1.11.11",

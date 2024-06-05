@@ -37,7 +37,10 @@ function ConnectionPage() {
         loading: false,
       });
       dispatch(resetMessages());
-      navigate('/'); // Redirect to the home page after successful login
+      // redirect to homepage after successful login after 1 second
+      setTimeout(() => {
+        navigate('/');
+      }, 1000); // in ms (1000=1s)
     }
     if (errorMessage) {
       notifications.show({

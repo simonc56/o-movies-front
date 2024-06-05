@@ -1,8 +1,9 @@
-import MovieType from './MovieType';
+import MovieType, { MovieResultType } from './MovieType';
 
 export type MovieState = {
   currentMovie: MovieType | null;
   movieList: MovieType[];
+  movieResultList: MovieResultType[];
 };
 
 export type ParamsType = {
@@ -19,6 +20,10 @@ export type SuccessOneMovieResponse = {
 
 export type SuccessMoviesResponse = {
   data: MovieType[];
+};
+
+export type SuccessMoviesSearchResponse = {
+  data: MovieResultType[];
 };
 
 // here I create a generic type for 'success' API responses (no export)

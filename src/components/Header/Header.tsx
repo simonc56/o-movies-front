@@ -11,7 +11,7 @@ import UserMenu from '../UserMenu/UserMenu';
 import './Header.scss';
 
 const links = [
-  { link: '/actuellement', label: "A l'affiche" },
+  { link: '/actuellement', label: "À l'affiche" },
   { link: '/prochainement', label: 'Prochainement' },
   { link: '/films', label: 'Films' },
   // { link: '/playlists', label: 'Mes playlists' },
@@ -79,7 +79,7 @@ function Header() {
         <Divider my="md" />
         {drawerItems}
         <br />
-        <Searchbar />
+        <Searchbar onFound={closeDrawer} />
         <Divider my="xl" />
         {user.logged ? (
           <>

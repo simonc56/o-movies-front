@@ -1,48 +1,47 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { TextInput, Text, Group, Button, Modal, ActionIcon } from '@mantine/core';
+import { ActionIcon, Button, Group, Modal, Text, TextInput } from '@mantine/core';
+import { ModalsProvider, openConfirmModal } from '@mantine/modals';
 import { showNotification } from '@mantine/notifications';
-import { openConfirmModal, ModalsProvider } from '@mantine/modals';
-import { IconTrash, IconCheck, IconX } from '@tabler/icons-react';
+import { IconCheck, IconTrash, IconX } from '@tabler/icons-react';
 import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
-import NavbarSearch from './NavbarSearch';
+import React, { useEffect, useRef, useState } from 'react';
+import { MovieIdentityType } from '../../@types/MovieType';
+import { PlaylistIdentityType } from '../../@types/PlaylistState';
+import {
+  actionCreatePlaylist,
+  actionDeleteMediaFromPlaylist,
+  actionDeletePlaylist,
+  actionFetchPlaylist,
+  actionFetchUserPlaylists,
+  actionRenamePlaylist,
+  actionResetCurrentPlaylist,
+} from '../../features/playlistSlice';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import AlphabeticalList from '../AlphabeticalListNav/AlphabeticalList';
-import moviesData, { Movie } from './moviesData';
+import Loader from '../Loader/Loader';
+import NavbarSearch from './NavbarSearch';
 import './PlaylistPage.scss';
 
-interface Playlist {
-  emoji: string;
-  label: string;
-  movies?: Movie[];
-}
-
-// Example playlist
-const initialPlaylists: Playlist[] = [
-  { emoji: '👌', label: 'Déjà regardé', movies: moviesData },
-  { emoji: '🎥', label: 'À voir' },
-  { emoji: '💖', label: 'Coup de cœur' },
-  { emoji: '😂', label: 'Comédies' },
-  { emoji: '🎬', label: 'Classiques' },
-  { emoji: '🕵️‍♂️', label: 'Policiers' },
-  { emoji: '👽', label: 'Science-fiction' },
-  { emoji: '🧙‍♂️', label: 'Fantastiques' },
-  { emoji: '💼', label: 'Documentaires' },
-  { emoji: '👶', label: 'Animation' }
-];
-
 const PlaylistPage: React.FC = () => {
-  const [playlists, setPlaylists] = useState<Playlist[]>(initialPlaylists);
+  const dispatch = useAppDispatch();
+  const playlists = useAppSelector((state) => state.playlist.userPlaylists);
+  const hasFetchUserPlaylists = useAppSelector((state) => state.playlist.hasFetchUserPlaylists);
   const [opened, setOpened] = useState(false);
   const [newLabel, setNewLabel] = useState('');
+  const [playlistId, setPlaylistId] = useState<number | null>(null);
   const [newEmoji, setNewEmoji] = useState('🆕');
   const [editingLabel, setEditingLabel] = useState<null | string>(null);
   const [emojiPickerOpened, setEmojiPickerOpened] = useState(false);
   const [modalWidth, setModalWidth] = useState('600px');
-  const [selectedPlaylist, setSelectedPlaylist] = useState<null | Playlist>(null);
-  const [sortedMovies, setSortedMovies] = useState<Movie[]>([]);
+  const selectedPlaylist = useAppSelector((state) => state.playlist.currentPlaylist);
+  const [sortedMovies, setSortedMovies] = useState<MovieIdentityType[]>([]);
   const [activeLetter, setActiveLetter] = useState<string>('A');
   const [movieToDelete, setMovieToDelete] = useState<string | null>(null); // new state for movie deletion confirmation
 
   const observer = useRef<IntersectionObserver | null>(null);
+
+  useEffect(() => {
+    if (!hasFetchUserPlaylists) dispatch(actionFetchUserPlaylists());
+  }, [dispatch, hasFetchUserPlaylists]);
 
   // Function to normalize special character letters in the alphabeticalList (é à etc)
   const normalizeString = (str: string) => {
@@ -58,10 +57,10 @@ const PlaylistPage: React.FC = () => {
     setOpened(true);
   };
 
-  const openEditModal = (label: string, emoji: string) => {
-    setEditingLabel(label);
-    setNewLabel(label);
-    setNewEmoji(emoji);
+  const openEditModal = (playlist: PlaylistIdentityType) => {
+    setEditingLabel(playlist.name);
+    setNewLabel(playlist.name);
+    setPlaylistId(playlist.id);
     setOpened(true);
   };
 
@@ -75,38 +74,36 @@ const PlaylistPage: React.FC = () => {
     event.preventDefault();
 
     if (editingLabel) {
-      setPlaylists((prevPlaylists) =>
-        prevPlaylists.map((playlist) =>
-          playlist.label === editingLabel ? { emoji: newEmoji, label: newLabel, movies: playlist.movies } : playlist
-        )
-      );
+      // rename playlist
+      dispatch(actionRenamePlaylist({ id: playlistId || 0, name: newLabel }));
     } else {
-      const newPlaylist: Playlist = { emoji: newEmoji, label: newLabel };
-      setPlaylists((prevPlaylists) => [...prevPlaylists, newPlaylist]);
+      // create new playlist
+      dispatch(actionCreatePlaylist(newLabel));
     }
 
     handleClose();
   };
 
-  const confirmRemovePlaylist = (label: string) => {
+  const confirmRemovePlaylist = (playlist: PlaylistIdentityType) => {
     openConfirmModal({
       title: 'Confirmer la suppression',
       children: (
         <Text size="sm">
-          Êtes-vous sûr de vouloir supprimer la playlist <strong>{label}</strong> ? Cette action est irréversible.
+          Êtes-vous sûr de vouloir supprimer la playlist <strong>{playlist.name}</strong> ? Cette action est
+          irréversible.
         </Text>
       ),
       labels: { confirm: 'Supprimer', cancel: 'Annuler' },
       confirmProps: { color: 'red' },
-      onConfirm: () => removePlaylist(label),
+      onConfirm: () => removePlaylist(playlist),
     });
   };
 
-  const removePlaylist = (label: string) => {
-    setPlaylists((prevPlaylists) => prevPlaylists.filter((playlist) => playlist.label !== label));
+  const removePlaylist = (playlist: PlaylistIdentityType) => {
+    dispatch(actionDeletePlaylist(playlist.id));
     showNotification({
       title: 'Playlist supprimée',
-      message: `La playlist "${label}" a été supprimée.`,
+      message: `La playlist "${playlist.name}" a été supprimée.`,
       color: 'red',
     });
   };
@@ -123,25 +120,25 @@ const PlaylistPage: React.FC = () => {
     setModalWidth(emojiPickerOpened ? '600px' : '800px');
   };
 
-  const openSidebar = (playlist: Playlist) => {
-    setSelectedPlaylist(playlist);
+  const openSidebar = (playlist: PlaylistIdentityType) => {
+    dispatch(actionFetchPlaylist(playlist.id));
   };
 
   const closeSidebar = () => {
-    setSelectedPlaylist(null);
+    dispatch(actionResetCurrentPlaylist());
     setSortedMovies([]);
   };
 
   // To sort movies alphabetically in database
-  const sortMoviesAlphabetically = (movies: Movie[]) => {
-    return movies.slice().sort((a, b) => normalizeString(a.title).localeCompare(normalizeString(b.title)));
+  const sortMoviesAlphabetically = (movies: MovieIdentityType[]) => {
+    return movies.slice().sort((a, b) => normalizeString(a.title_fr).localeCompare(normalizeString(b.title_fr)));
   };
 
   // Function to group movies by first letter
-  const groupMoviesByFirstLetter = (movies: Movie[]) => {
-    const groupedMovies: { [key: string]: Movie[] } = {};
+  const groupMoviesByFirstLetter = (movies: MovieIdentityType[]) => {
+    const groupedMovies: { [key: string]: MovieIdentityType[] } = {};
     movies.forEach((movie) => {
-      const firstLetter = normalizeString(movie.title.charAt(0));
+      const firstLetter = normalizeString(movie.title_fr.charAt(0));
       if (!groupedMovies[firstLetter]) {
         groupedMovies[firstLetter] = [];
       }
@@ -151,8 +148,8 @@ const PlaylistPage: React.FC = () => {
   };
 
   useEffect(() => {
-    if (selectedPlaylist?.movies) {
-      const sorted = sortMoviesAlphabetically(selectedPlaylist.movies);
+    if (selectedPlaylist?.medias) {
+      const sorted = sortMoviesAlphabetically(selectedPlaylist.medias);
       setSortedMovies(sorted);
     } else {
       setSortedMovies([]);
@@ -201,20 +198,13 @@ const PlaylistPage: React.FC = () => {
   };
 
   // Function to remove a movie from the selected playlist
-  const removeMovieFromPlaylist = (movieTitle: string) => {
+  const removeMovieFromPlaylist = (movie: MovieIdentityType) => {
     if (selectedPlaylist) {
-      const updatedMovies = selectedPlaylist.movies?.filter((movie) => movie.title !== movieTitle);
-      const updatedPlaylist = { ...selectedPlaylist, movies: updatedMovies };
-      setPlaylists((prevPlaylists) =>
-        prevPlaylists.map((playlist) =>
-          playlist.label === selectedPlaylist.label ? updatedPlaylist : playlist
-        )
-      );
-      setSelectedPlaylist(updatedPlaylist);
+      dispatch(actionDeleteMediaFromPlaylist({ id: selectedPlaylist.playlist_id, tmdb_id: movie.tmdb_id }));
       showNotification({
         title: 'Film supprimé',
-        message: `Le film "${movieTitle}" a été supprimé de la playlist "${selectedPlaylist.label}".`,
-        color: 'red',
+        message: `Le film "${movie.title_fr}" a été supprimé de la playlist "${selectedPlaylist.name}".`,
+        color: 'green',
       });
       setMovieToDelete(null);
     }
@@ -258,24 +248,23 @@ const PlaylistPage: React.FC = () => {
         </form>
       </Modal>
 
-      {selectedPlaylist && (
+      {selectedPlaylist ? (
         <>
           <div className="sidebarPlaylist">
             <div
               className="sidebar-headerPlaylist"
-              style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+              style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingLeft: '0.5rem' }}
             >
-              <Text size="lg">
-                {selectedPlaylist.emoji} {selectedPlaylist.label}
-              </Text>
+              <Text size="lg">{selectedPlaylist.name}</Text>
               <div style={{ display: 'flex', alignItems: 'center' }}>
-                {selectedPlaylist.movies && selectedPlaylist.movies.length === 0 ? (
+                {selectedPlaylist.medias && selectedPlaylist.medias.length === 0 ? (
                   <Text size="sm" style={{ marginRight: '1rem' }}>
                     Vous n'avez aucun film dans cette playlist
                   </Text>
                 ) : (
                   <Text size="sm" style={{ marginRight: '1rem' }}>
-                    Vous avez {selectedPlaylist.movies ? selectedPlaylist.movies.length : 0} {getMoviesLabel(selectedPlaylist.movies ? selectedPlaylist.movies.length : 0)} dans cette playlist
+                    Vous avez {selectedPlaylist.medias ? selectedPlaylist.medias.length : 0}{' '}
+                    {getMoviesLabel(selectedPlaylist.medias ? selectedPlaylist.medias.length : 0)} dans cette playlist
                   </Text>
                 )}
                 <Button type="submit" color="bg" autoContrast onClick={closeSidebar}>
@@ -291,24 +280,24 @@ const PlaylistPage: React.FC = () => {
                     <div className="movie-row">
                       {movies.map((movie, index) => (
                         // attention en localhost, à modifier pour le serveur Simon. Movie en .id
-                        <a key={index} href={`http://localhost:5173/films/${movie.id}`} className="movie-link">
+                        <a key={index} href={`http://localhost:5173/films/${movie.tmdb_id}`} className="movie-link">
                           <div className="movie">
-                            <img src={movie.imageUrl} alt={`Image de ${movie.title}`} />
+                            <img src={movie.poster_path} alt={`Image de ${movie.title_fr}`} />
                             <ActionIcon
                               onClick={(e) => {
                                 e.preventDefault();
-                                setMovieToDelete(movie.title);
+                                setMovieToDelete(movie.title_fr);
                               }}
                               className="remove-button"
                             >
                               <IconTrash />
                             </ActionIcon>
-                            {movieToDelete === movie.title && (
+                            {movieToDelete === movie.title_fr && (
                               <div className="confirm-delete">
                                 <ActionIcon
                                   onClick={(e) => {
                                     e.preventDefault();
-                                    removeMovieFromPlaylist(movie.title);
+                                    removeMovieFromPlaylist(movie);
                                   }}
                                   className="confirm-button"
                                 >
@@ -327,9 +316,11 @@ const PlaylistPage: React.FC = () => {
                             )}
                             <div className="movie-infoPL">
                               <Text size="md">
-                                {movie.title.length > maxLength ? `${movie.title.slice(0, maxLength)}...` : movie.title}
+                                {movie.title_fr.length > maxLength
+                                  ? `${movie.title_fr.slice(0, maxLength)}...`
+                                  : movie.title_fr}
                               </Text>
-                              <Text size="sm">{movie.year}</Text>
+                              <Text size="sm">{movie.release_date.slice(0, 4)}</Text>
                             </div>
                           </div>
                         </a>
@@ -342,6 +333,8 @@ const PlaylistPage: React.FC = () => {
           </div>
           <AlphabeticalList activeLetter={activeLetter} />
         </>
+      ) : (
+        <Loader />
       )}
     </ModalsProvider>
   );
