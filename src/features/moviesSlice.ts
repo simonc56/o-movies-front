@@ -128,6 +128,9 @@ const moviesSlice = createSlice({
     actionResetCurrentMovie: (state) => {
       state.currentMovie = null;
     },
+    actionResetMovieList: (state) => {
+      state.movieList = [];
+    },
     resetMovieResultList: (state) => {
       state.movieResultList = [];
     },
@@ -239,4 +242,5 @@ const moviesSlice = createSlice({
 
 export default moviesSlice.reducer;
 
-export const { actionResetCurrentMovie, resetMovieResultList, addedInPlaylist } = moviesSlice.actions;
+export const { actionResetCurrentMovie, actionResetMovieList, resetMovieResultList, addedInPlaylist } =
+  moviesSlice.actions;

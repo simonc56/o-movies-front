@@ -1,14 +1,15 @@
+import { Badge, Button, Card, Image, Text } from '@mantine/core';
 import { useEffect, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { actionFetchMovies } from '../../features/moviesSlice';
-import { Card, Image, Text, Badge, Group, Button } from '@mantine/core';
-import { Link } from 'react-router-dom';
-import ButtonAddToFavorites from '../ButtonAddToPlaylist/ButtonAddToPlaylist';
+import { Link, useLocation } from 'react-router-dom';
+import { MoviesFilter } from '../../@types/MovieState';
 import MovieType from '../../@types/MovieType';
-import classes from './ArticleCard.module.css';
-import './UpcomingMoviesPage.scss';
 import { getMovieById } from '../../api';
+import { actionFetchMovies, actionResetMovieList } from '../../features/moviesSlice';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import ButtonAddToFavorites from '../ButtonAddToPlaylist/ButtonAddToPlaylist';
 import Loader from '../Loader/Loader';
+import classes from './ArticleCard.module.css';
+import './MoviesPage.scss';
 
 export function formatDate(dateString: string): string {
   const date = new Date(dateString);
@@ -24,8 +25,9 @@ const truncateTextWithSlice = (text: string, maxLength: number) => {
   return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
 };
 
-function UpcomingMoviesPage() {
+function MoviesPage({ title, filter }: { title: string; filter: MoviesFilter }) {
   const dispatch = useAppDispatch();
+  const location = useLocation();
   const movieList = useAppSelector((state) => state.movies.movieList as MovieType[]);
   const logged = useAppSelector((state) => state.settings.user.logged);
   const [detailedMovies, setDetailedMovies] = useState<MovieType[]>([]);
@@ -33,10 +35,13 @@ function UpcomingMoviesPage() {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    dispatch(actionFetchMovies('upcoming'));
-  }, [dispatch]);
+    setLoading(true);
+    dispatch(actionResetMovieList());
+    dispatch(actionFetchMovies(filter));
+  }, [dispatch, location, filter]);
 
   useEffect(() => {
+    setLoading(true);
     async function fetchDetails() {
       const detailedList = [];
       for (const movie of movieList) {
@@ -44,8 +49,7 @@ function UpcomingMoviesPage() {
           const response = await getMovieById(movie.tmdb_id.toString());
           detailedList.push({ ...movie, ...response.data.data });
           await sleep(0); //desactive for the moment. limit rate back up to 300
-        } catch (error) {         
-        }
+        } catch (error) {}
       }
       setDetailedMovies(detailedList);
       setLoading(false);
@@ -57,8 +61,7 @@ function UpcomingMoviesPage() {
 
   useEffect(() => {
     console.log(detailedMovies);
-    detailedMovies.forEach((movie, index) => {     
-    });
+    detailedMovies.forEach((movie, index) => {});
   }, [detailedMovies]);
 
   const sortedMovieList = detailedMovies.slice().sort((a, b) => {
@@ -75,7 +78,7 @@ function UpcomingMoviesPage() {
   return (
     <>
       <div className="header2">
-        <h1 className="pageTitle2">Prochaines sorties&nbsp;</h1>
+        <h1 className="pageTitle2">{title}&nbsp;</h1>
         <Button onClick={toggleSortOrder} className={classes.sortButton} color="bg" autoContrast>
           Trier par date de sortie ({sortOrder === 'asc' ? 'Croissant' : 'Décroissant'})
         </Button>
@@ -124,4 +127,4 @@ function UpcomingMoviesPage() {
   );
 }
 
-export default UpcomingMoviesPage;
+export default MoviesPage;
