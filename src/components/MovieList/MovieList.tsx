@@ -67,7 +67,7 @@ export function MovieList() {
   return (
     <div>
       <div className={classes.inputContainer}>
-        <InputPageMovies onPageChange={setPage} />
+        <InputPageMovies onPageChange={setPage} value={page} />
         <ButtonCheckGenres genresList={genres} onGenresSelect={handleGenresSelect} />
       </div>
       <div className={classes.cardContainer}>
