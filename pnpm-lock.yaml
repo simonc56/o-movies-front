@@ -1151,6 +1151,12 @@ packages:
   embla-carousel@7.1.0:
     resolution: {integrity: sha512-Bh8Pa8NWzgugLkf8sAGexQlBCNDFaej5BXiKgQdRJ1mUC9NWBrw9Z23YVPVGkguWoz5LMjZXXFVGCobl3UPt/Q==}
 
+  emoji-picker-react@4.9.4:
+    resolution: {integrity: sha512-u/3IsmMPr3l9Tcsuwpw4VgHb34W0BjC6iE06EXNHNOnNjBtW0BUN8upba8V3piUht00Sa+/L1+hs/xVmdWsswA==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: '>=16'
+
   emoji-regex@9.2.2:
     resolution: {integrity: sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg==}
 
@@ -1361,6 +1367,11 @@ packages:
   find-up@5.0.0:
     resolution: {integrity: sha512-78/PXT1wlLLDgTzDs7sjq9hzz0vXD+zn+7wypEe4fXQxCmdmqfGsEPQxmiCSQI3ajFV91bVSsvNtrJRiW6nGng==}
     engines: {node: '>=10'}
+
+ 
+  flairup@0.0.39:
+    resolution: {integrity: sha512-UVPkzZmZeBWBx1+Ovo++kYKk9Wi32Jxt+c7HsxnEY80ExwFV54w+NyquFziqMLS0BnGVE43yGD4OvIwaAm/WiQ==}
+
 
   flat-cache@3.2.0:
     resolution: {integrity: sha512-CYcENa+FtcUKLmhhqyctpclsq7QF38pKjZHsGNiSQF5r4FtoKDWabFDl3hzaEQMvT1LHEysw5twgLvpYYb4vbw==}
@@ -2833,6 +2844,7 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
 
   '@mantine/notifications@7.10.1(@mantine/core@7.10.1(@mantine/hooks@7.10.1(react@18.3.1))(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@mantine/hooks@7.10.1(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+
     dependencies:
       '@mantine/core': 7.10.1(@mantine/hooks@7.10.1(react@18.3.1))(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@mantine/hooks': 7.10.1(react@18.3.1)
@@ -2840,6 +2852,13 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       react-transition-group: 4.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
+  '@mantine/store@7.10.1(react@18.3.1)':
+    dependencies:
+      react: 18.3.1
+
+  '@mantine/notifications@7.10.1(@mantine/core@7.9.2(@mantine/hooks@7.9.2(react@18.3.1))(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@mantine/hooks@7.9.2(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+
 
   '@mantine/store@7.10.1(react@18.3.1)':
     dependencies:
@@ -3753,6 +3772,9 @@ snapshots:
     dependencies:
       locate-path: 6.0.0
       path-exists: 4.0.0
+
+
+  flairup@0.0.39: {}
 
   flat-cache@3.2.0:
     dependencies:
