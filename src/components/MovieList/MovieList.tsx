@@ -82,7 +82,7 @@ export function MovieList() {
 
   return (
     <div>
-      <ButtonCheckGenres genresList={genres} onGenresSelect={handleGenresSelect} style={{ marginLeft: '1rem' }} />
+      <ButtonCheckGenres genresList={genres} onGenresSelect={handleGenresSelect} />
       <div className={classes.cardContainer}>
         {movies.map((movie, index) => (
           <Card
