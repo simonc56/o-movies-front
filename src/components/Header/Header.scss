@@ -36,7 +36,8 @@
     font-size: var(--font-size-md);
     font-weight: 500;
     text-decoration: none;
-    &:hover {
+    &:hover,
+    &.active {
       color: var(--color-primary);
     }
   }
