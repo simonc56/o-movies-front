@@ -98,6 +98,7 @@ const PlaylistPage: React.FC = () => {
 
   const removePlaylist = (playlist: PlaylistIdentityType) => {
     dispatch(actionDeletePlaylist(playlist.id));
+    closeSidebar();
     showNotification({
       title: 'Playlist supprimée',
       message: `La playlist "${playlist.name}" a été supprimée.`,
