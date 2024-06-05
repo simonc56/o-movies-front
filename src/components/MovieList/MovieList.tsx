@@ -1,13 +1,11 @@
 import { Button, Card, Center, Group, Loader, Text, rem, useMantineTheme } from '@mantine/core';
 import { IconEye, IconMessageCircle } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ParamsType } from '../../@types/MovieState';
 import MovieType, { Genre } from '../../@types/MovieType';
 import { getGenres, getMoviesByParams } from '../../api';
 import ButtonCheckGenres from '../ButtonChoiceGenres/ButtonChoiceGenres';
-
-import { Link } from 'react-router-dom';
-
 import classes from '../MovieList/MovieList.module.scss';
 
 export function MovieList() {
@@ -21,10 +19,13 @@ export function MovieList() {
   const handleGenresSelect = (selectedGenres: number[]) => {
     setSelectedGenres(selectedGenres);
   };
-  
+
   useEffect(() => {
-    async function fetchMoviesByParams() {
+    async function fetchData() {
       try {
+        const genreResponse = await getGenres();
+        const genresData = genreResponse.data.data;
+        setGenres(genresData);
         const params: ParamsType = {
           page: Math.floor(Math.random() * 10) + 1,
           sort_by: 'popularity.desc',
@@ -34,12 +35,12 @@ export function MovieList() {
         setMovies(response.data.data);
         setLoading(false);
       } catch (error) {
-        console.error('Erreur lors de la récupération des films aléatoires :', error);
+        console.error('Error fetching movies:', error);
         setError("Une erreur s'est produite lors du chargement des films.");
         setLoading(false);
       }
     }
-    fetchMoviesByParams();
+    fetchData();
   }, [selectedGenres]);
 
   if (loading) {
@@ -61,7 +62,7 @@ export function MovieList() {
     );
   }
 
-return (
+  return (
     <div>
       <ButtonCheckGenres genresList={genres} onGenresSelect={handleGenresSelect} />
       <div className={classes.cardContainer}>
@@ -72,9 +73,8 @@ return (
             shadow="lg"
             className={classes.card}
             radius="md"
-            component="a"
-            href={`/films/${movie.tmdb_id}`}
-            target="_blank"
+            component={Link}
+            to={`/films/${movie.tmdb_id}`}
           >
             <div className={classes.image} style={{ backgroundImage: `url(${movie.poster_path})` }} />
             <div className={classes.overlay} />
@@ -95,7 +95,6 @@ return (
                   <Text size="sm" className={classes.author}>
                     {movie.director}
                   </Text>
-
                   <Group gap="lg">
                     <Center>
                       <IconEye style={{ width: rem(16), height: rem(16) }} stroke={1.5} color={theme.colors.dark[2]} />
