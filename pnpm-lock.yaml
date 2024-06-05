@@ -44,9 +44,6 @@ importers:
       dayjs:
         specifier: ^1.11.11
         version: 1.11.11
-      emoji-picker-react:
-        specifier: ^4.9.3
-        version: 4.9.4(react@18.3.1)
       postcss:
         specifier: ^8.4.38
         version: 8.4.38
@@ -622,19 +619,6 @@ packages:
       '@mantine/hooks': 7.10.1
       react: ^18.2.0
       react-dom: ^18.2.0
-
-  '@mantine/notifications@7.10.1':
-    resolution: {integrity: sha512-cx3JR3BJzEzH6t2EF1ysrWVY/rdJk0WbSBQo/qFamJd2sbU+8XAHriI8Cx6hNo7uRGCwd8VGAj7Cf3aWK2VC5A==}
-    peerDependencies:
-      '@mantine/core': 7.10.1
-      '@mantine/hooks': 7.10.1
-      react: ^18.2.0
-      react-dom: ^18.2.0
-
-  '@mantine/store@7.10.1':
-    resolution: {integrity: sha512-KrGBsSoMsfrYeLxPwf5rFv0s2Nl/4wf+AaF/U1SpQrMgPI8vYokPXx52Wp3jCmlo12NCZnCIG+/6YHAdTWH1qQ==}
-    peerDependencies:
-      react: ^18.2.0
 
   '@mantine/notifications@7.10.1':
     resolution: {integrity: sha512-cx3JR3BJzEzH6t2EF1ysrWVY/rdJk0WbSBQo/qFamJd2sbU+8XAHriI8Cx6hNo7uRGCwd8VGAj7Cf3aWK2VC5A==}
@@ -1384,8 +1368,10 @@ packages:
     resolution: {integrity: sha512-78/PXT1wlLLDgTzDs7sjq9hzz0vXD+zn+7wypEe4fXQxCmdmqfGsEPQxmiCSQI3ajFV91bVSsvNtrJRiW6nGng==}
     engines: {node: '>=10'}
 
+ 
   flairup@0.0.39:
     resolution: {integrity: sha512-UVPkzZmZeBWBx1+Ovo++kYKk9Wi32Jxt+c7HsxnEY80ExwFV54w+NyquFziqMLS0BnGVE43yGD4OvIwaAm/WiQ==}
+
 
   flat-cache@3.2.0:
     resolution: {integrity: sha512-CYcENa+FtcUKLmhhqyctpclsq7QF38pKjZHsGNiSQF5r4FtoKDWabFDl3hzaEQMvT1LHEysw5twgLvpYYb4vbw==}
@@ -2858,6 +2844,7 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
 
   '@mantine/notifications@7.10.1(@mantine/core@7.10.1(@mantine/hooks@7.10.1(react@18.3.1))(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@mantine/hooks@7.10.1(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+
     dependencies:
       '@mantine/core': 7.10.1(@mantine/hooks@7.10.1(react@18.3.1))(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@mantine/hooks': 7.10.1(react@18.3.1)
@@ -2871,13 +2858,7 @@ snapshots:
       react: 18.3.1
 
   '@mantine/notifications@7.10.1(@mantine/core@7.9.2(@mantine/hooks@7.9.2(react@18.3.1))(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@mantine/hooks@7.9.2(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
-    dependencies:
-      '@mantine/core': 7.9.2(@mantine/hooks@7.9.2(react@18.3.1))(@types/react@18.3.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@mantine/hooks': 7.9.2(react@18.3.1)
-      '@mantine/store': 7.10.1(react@18.3.1)
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      react-transition-group: 4.4.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+
 
   '@mantine/store@7.10.1(react@18.3.1)':
     dependencies:
@@ -3425,11 +3406,6 @@ snapshots:
 
   embla-carousel@7.1.0: {}
 
-  emoji-picker-react@4.9.4(react@18.3.1):
-    dependencies:
-      flairup: 0.0.39
-      react: 18.3.1
-
   emoji-regex@9.2.2: {}
 
   es-abstract@1.23.3:
@@ -3796,6 +3772,7 @@ snapshots:
     dependencies:
       locate-path: 6.0.0
       path-exists: 4.0.0
+
 
   flairup@0.0.39: {}
 

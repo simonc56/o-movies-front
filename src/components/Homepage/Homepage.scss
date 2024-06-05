@@ -13,4 +13,19 @@
       color: var(--color-bg);
     }
   }
+  & .news {
+    max-width: 40rem;
+    margin-inline: 1rem;
+    margin-top: 0.5rem;
+    & .header-news {
+      display: flex;
+      justify-content: space-between;
+      & h3 {
+        color: var(--color-bg);
+      }
+      & span {
+        color: var(--mantine-color-gray-5);
+      }
+    }
+  }
 }
