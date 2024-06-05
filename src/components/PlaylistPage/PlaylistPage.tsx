@@ -176,7 +176,7 @@ const PlaylistPage: React.FC = () => {
 
   // Plural or singular for the number of films in a playlist
   const getMoviesLabel = (count: number) => {
-    if (count === 0) {
+    if (count < 2) {
       return 'film';
     } else {
       return 'films';
