@@ -46,10 +46,15 @@ function ButtonAddToPlaylist({ tmdbId, inPlaylists }: { tmdbId: number; inPlayli
       position="bottom-end"
       width={220}
       withinPortal
-      disabled={!userPlaylists.length}
+      disabled={userPlaylists.length === 0}
     >
       <Menu.Target>
-        <Button rightSection={<IconChevronDown stroke={1.5} />} variant="outline" color="bg">
+        <Button
+          rightSection={<IconChevronDown stroke={1.5} />}
+          variant="outline"
+          color="bg"
+          data-disabled={userPlaylists.length === 0}
+        >
           Ajouter à une liste
         </Button>
       </Menu.Target>
