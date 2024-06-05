@@ -2,6 +2,7 @@ import { ActionIcon, Group, Text, TextInput, Tooltip, rem } from '@mantine/core'
 import { IconEdit, IconPlus, IconSearch, IconTrash } from '@tabler/icons-react';
 import React, { useState } from 'react';
 import { PlaylistIdentityType } from '../../@types/PlaylistState';
+import Loader from '../Loader/Loader';
 import classes from './NavbarSearch.module.css';
 
 interface NavbarSearchProps {
@@ -93,7 +94,7 @@ const NavbarSearch: React.FC<NavbarSearchProps> = ({
           leftSection={<IconSearch style={{ width: rem(12), height: rem(12) }} stroke={1.5} />}
           mb="sm"
         />
-        <div className={classes.collectionsPlayList}>{playlistLinks}</div>
+        {playlistLinks.length > 0 ? <div className={classes.collectionsPlayList}>{playlistLinks}</div> : <Loader />}
       </div>
     </nav>
   );
