@@ -2,8 +2,8 @@
   position: fixed;
   top: 4.6rem;
   right: 0;
-  width: 97.9rem;
-  height: calc(100vh - 4.6rem - 3rem);
+  width: 96.9rem;
+  height: calc(100vh - 5.6rem - 3rem);
   background-color: rgb(228, 236, 252);
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
   padding: 15px;
@@ -34,7 +34,7 @@
 .sidebar-content-wrapperPL {
   flex: 1;
   overflow-y: auto;
-  height: calc(100vh - 4.6rem - 3rem - 3rem);
+  height: calc(100vh - 6.9rem - 3rem - 3rem);
   padding-right: 10px;
 }
 
@@ -74,10 +74,7 @@
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-}
-
-.movie {
-  margin-right: 10px;
+  margin-bottom: 20px;
 }
 
 .movie img {
@@ -141,6 +138,11 @@
   align-items: center;
   margin: 1rem;
   border-radius: 8px;
+  overflow: hidden;
+  
+  img {
+    border-radius: 8px;
+  }
 
   .remove-button {
     position: absolute;
@@ -214,4 +216,134 @@
 .movie-link {
   text-decoration: none;
   color: black;
+}
+
+
+@media (max-width: 1560px) {
+  .sidebarPlaylist {
+    width: calc(100% - 20rem);
+    padding: 1.3rem;
+  }
+
+  .movie {
+    width: calc(100% / 4 - 10px);
+  }
+
+  .sidebar-headerTitle {
+    font-size: 1.2rem;
+  }
+
+  .movie-infoPL {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 1200px) {
+  .sidebarPlaylist {
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .movie {
+    width: calc(100% / 3 - 10px);
+  }
+}
+
+@media (max-width: 985px) {
+  .sidebarPlaylist {
+    padding: 0.8rem;
+  }
+
+  .movie {
+    width: calc(100% / 3 - 10px);
+  }
+
+  .movie-infoPL {
+    font-size: 1rem;
+  }
+
+  .sidebar-headerTitle {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 844px) {
+  .sidebarPlaylist {
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .movie {
+    width: calc(100% / 2 - 10px);
+  }
+
+  .sidebar-headerTitle {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 470px) {
+  .sidebarPlaylist {
+    padding: 0.5rem;
+  }
+
+  .movie {
+    width: calc(100% / 2 - 5px);
+  }
+
+  .movie-infoPL {
+    font-size: 0.9rem;
+  }
+
+  .sidebar-headerTitle {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .sidebarPlaylist {
+    padding: 0.5rem;
+  }
+
+  .movie {
+    width: 100%;
+    margin: 2px 0;
+  }
+
+  .movie img {
+    width: 90%;
+    height: auto;
+  }
+
+  .movie-infoPL {
+    font-size: 0.75rem;
+  }
+
+  .sidebar-headerTitle {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .sidebarPlaylist {
+    padding: 0.3rem;
+  }
+
+  .movie {
+    width: 100%;
+    margin: 1px 0;
+  }
+
+  .movie img {
+    width: 85%;
+    height: auto;
+  }
+
+  .movie-infoPL {
+    font-size: 0.65rem;
+  }
+
+  .sidebar-headerTitle {
+    font-size: 0.8rem;
+  }
 }
