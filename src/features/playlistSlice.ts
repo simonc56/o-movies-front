@@ -39,7 +39,7 @@ export const actionRenamePlaylist = createAsyncThunk<[string, number], { id: num
   }
 );
 export const actionDeletePlaylist = createAsyncThunk<number, number>('playlist/deletePlaylist', async (id) => {
-  const response = await api.deletePlaylist(id);
+  await api.deletePlaylist(id);
   return id;
 });
 export const actionFetchPlaylist = createAsyncThunk<SuccessPlaylistResponse, number>(
@@ -102,7 +102,7 @@ const playlistSlice = createSlice({
       })
       .addCase(actionDeletePlaylist.fulfilled, (state, action) => {
         const id = action.payload;
-        state.userPlaylists.filter((playlist) => playlist.id !== id);
+        state.userPlaylists = state.userPlaylists.filter((playlist) => playlist.id !== id);
       })
       .addCase(actionDeleteMediaFromPlaylist.fulfilled, (state, action) => {
         const id = action.payload;
