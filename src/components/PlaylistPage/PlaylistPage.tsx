@@ -252,7 +252,7 @@ const PlaylistPage: React.FC = () => {
           <div className="sidebarPlaylist">
             <div
               className="sidebar-headerPlaylist"
-              style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+              style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingLeft: '0.5rem' }}
             >
               <Text size="lg">{selectedPlaylist.name}</Text>
               <div style={{ display: 'flex', alignItems: 'center' }}>
