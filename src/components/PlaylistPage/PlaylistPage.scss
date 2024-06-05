@@ -75,6 +75,7 @@
   flex-wrap: wrap;
   width: 100%;
   margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .movie img {
@@ -138,6 +139,11 @@
   align-items: center;
   margin: 1rem;
   border-radius: 8px;
+  overflow: hidden;
+  
+  img {
+    border-radius: 8px;
+  }
   overflow: hidden;
   
   img {

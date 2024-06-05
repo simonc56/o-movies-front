@@ -46,6 +46,11 @@ export async function getMoviesByFilter(filter: MoviesFilter) {
   const response = await instanceAxios.get(`/movie/${filter}`);
   return response;
 }
+
+export async function getGenres() {
+  const response = await instanceAxios.get('/movie/genre');
+  return response;
+}
 //#endregion
 
 //#region ========== Rating/review ==========
