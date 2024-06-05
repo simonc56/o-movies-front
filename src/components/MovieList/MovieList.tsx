@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { Button, Card, Center, Group, Loader, Text, rem, useMantineTheme } from '@mantine/core';
 import { IconEye, IconMessageCircle } from '@tabler/icons-react';
-import { Card, Text, Group, Center, rem, useMantineTheme, Loader, Button } from '@mantine/core';
-import classes from '../MovieList/MovieList.module.scss'; 
-import { getMoviesByParams } from '../../api';  
-import MovieType, { Genre } from '../../@types/MovieType';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { ParamsType } from '../../@types/MovieState';
+import MovieType, { Genre } from '../../@types/MovieType';
+import { getMoviesByParams } from '../../api';
+import classes from '../MovieList/MovieList.module.scss';
 
 export function MovieList() {
   const theme = useMantineTheme();
