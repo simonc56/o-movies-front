@@ -10,12 +10,6 @@ import AvatarName from '../UserMenu/AvatarName';
 import UserMenu from '../UserMenu/UserMenu';
 import './Header.scss';
 
-const links = [
-  { link: '/actuellement', label: "À l'affiche" },
-  { link: '/prochainement', label: 'Prochainement' },
-  { link: '/films', label: 'Films' },
-  { link: '/playlist', label: 'Mes playlists' },
-];
 
 function Header() {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
@@ -23,11 +17,18 @@ function Header() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const items = links.map((link) => (
-    <NavLink key={link.label} to={link.link} className="link">
+const links = [
+  { link: '/actuellement', label: "A l'affiche" },
+  { link: '/prochainement', label: 'Prochainement' },
+  { link: '/films', label: 'Films' },
+  ...(user.logged ? [{ link: '/playlist', label: 'Mes playlists' }] : []),
+];
+
+const items = links.map((link) => (
+  <NavLink key={link.label} to={link.link} className="link">
     {link.label}
   </NavLink>
-  ));
+));
 
   const drawerItems = links.map((link) => (
     <NavLink

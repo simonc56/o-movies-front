@@ -11,18 +11,15 @@ import ContactPage from '../ContactPage/ContactPage';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Homepage from '../Homepage/Homepage';
+import MovieList from '../MovieList/MovieList';
 import MoviePage from '../MoviePage/MoviePage';
+import MoviesPage from '../MoviesPage/MoviesPage';
 import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import PlaylistPage from '../PlaylistPage/PlaylistPage';
 import UserProfilePage from '../ProfilUserPage/ProfilUserPage';
-import UnderConstruction from '../UnderConstructionPage/UnderConstructionPage';
-
 import SignupPage from '../SignupPage/SignupPage';
-import MovieList from '../MovieList/MovieList';
-
 
 import './App.scss';
-
 
 function App() {
   const logged = useAppSelector((state) => state.settings.user.logged);
@@ -40,10 +37,9 @@ function App() {
           <Route path="/réinitialisation-mot-de-passe" element={<ConfirmPasswordPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/changer-mot-de-passe" element={<ChangePasswordPage />} />
-          <Route path="/actuellement" element={<UnderConstruction />} /> 
-          <Route path="/prochainement" element={<UnderConstruction />} /> 
+          <Route path="/prochainement" element={<MoviesPage title="Prochaines sorties" filter="upcoming" />} />
+          <Route path="/actuellement" element={<MoviesPage title="À l'affiche" filter="nowplaying" />} />
           <Route path="/films" element={<MovieList />} />
-
           {logged && <Route path="/playlist" element={<PlaylistPage />} />}
           {logged && <Route path="/profil" element={<UserProfilePage />} />}
           {logged && <Route path="/changer-mot-de-passe" element={<ChangePasswordPage />} />}
