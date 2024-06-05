@@ -1,0 +1,67 @@
+.container1 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; 
+    gap: 0px; 
+    width: auto;  
+    overflow-y: auto;     
+    box-sizing: border-box;
+  }
+  
+  .buttonContainer1 {
+    margin-top: 10px;
+    display: flex;
+  }
+
+  .cardContainer1 {
+    flex: 1 1 calc(20% - 7px); 
+    display: flex;
+    justify-content: center;
+    margin: 0px; 
+    box-sizing: border-box;
+    margin-bottom: 1rem;
+    
+  }
+  
+  .card1 {
+    position: relative;
+    background-color: var(--mantine-color-body);
+    width: 90%;     
+    transition: transform 0.2s ease;
+    overflow-y: auto;
+  }
+  
+  .card1:hover {
+    transform: translateY(-5px); 
+  }
+  
+  .rating1 {
+    position: absolute;
+    top: var(--mantine-spacing-xs);
+    right: rem(12px);
+    pointer-events: none;
+  }
+  
+  .articleTitle1 {
+    display: block;
+    margin-top: var(--mantine-spacing-md);
+    margin-bottom: rem(5px);
+    font-size: 18px; 
+    font-weight: bold;
+  }
+  
+  .action1 {
+    background-color: var(--mantine-color-gray-0);
+    transition: background-color 0.2s ease;
+  }
+  
+  .action1:hover {
+    background-color: var(--mantine-color-gray-1);
+  }
+  
+  .footer1 {
+    margin-top: auto; /* Pushes the footer to the bottom */
+    margin-bottom: var(--mantine-spacing-xs); /* Add margin to the bottom */
+    display: flex;
+    justify-content: left;
+  }
