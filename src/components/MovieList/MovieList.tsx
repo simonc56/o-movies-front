@@ -13,24 +13,25 @@ export function MovieList() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    async function fetchMovies() {
+    async function fetchRandomMovies() {
       try {
-        const params: ParamsType = {
-          page: 1,
-          sort_by: 'popularity.desc',
-          with_genres: '10749'
+        // Générer des paramètres aléatoires pour récupérer une liste de films aléatoires
+        const randomParams: ParamsType = {
+          page: Math.floor(Math.random() * 10) + 1, // Exemple: choisir une page aléatoire entre 1 et 10
+          sort_by: 'popularity.desc', // Vous pouvez également modifier cette valeur si nécessaire
+          with_genres: '10749' // Vous pouvez également modifier cette valeur si nécessaire
         };
-        const response = await getMoviesByParams(params);
+        const response = await getMoviesByParams(randomParams);
         setMovies(response.data.data);
         setLoading(false);
       } catch (error) {
-        console.error('Erreur lors de la récupération des films:', error);
+        console.error('Erreur lors de la récupération des films aléatoires :', error);
         setError('Une erreur s\'est produite lors du chargement des films.');
         setLoading(false);
       }
     }
 
-    fetchMovies();
+    fetchRandomMovies();
   }, []);
 
   if (loading) {
