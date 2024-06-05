@@ -5,9 +5,6 @@ import { ParamsType } from '../../@types/MovieState';
 import MovieType, { Genre } from '../../@types/MovieType';
 import { getGenres, getMoviesByParams } from '../../api';
 import ButtonCheckGenres from '../ButtonChoiceGenres/ButtonChoiceGenres';
-
-import { Link } from 'react-router-dom';
-
 import classes from '../MovieList/MovieList.module.scss';
 
 export function MovieList() {
@@ -21,14 +18,13 @@ export function MovieList() {
   const handleGenresSelect = (selectedGenres: number[]) => {
     setSelectedGenres(selectedGenres);
   };
-  
   useEffect(() => {
     async function fetchMoviesByParams() {
       try {
         const params: ParamsType = {
           page: Math.floor(Math.random() * 10) + 1,
           sort_by: 'popularity.desc',
-          with_genres: selectedGenres.join(','),
+          with_genres: selectedGenres.join(','), // Ajout de with_genres avec les genres sélectionnés
         };
         const response = await getMoviesByParams(params);
         setMovies(response.data.data);
@@ -41,6 +37,29 @@ export function MovieList() {
     }
     fetchMoviesByParams();
   }, [selectedGenres]);
+
+  useEffect(() => {
+    async function fetchRandomMovies() {
+      try {
+        const genreResponse = await getGenres();
+        const genresData = genreResponse.data.data;
+        setGenres(genresData);
+        const randomParams: ParamsType = {
+          page: Math.floor(Math.random() * 10) + 1,
+          sort_by: 'popularity.desc',
+          with_genres: '10749',
+        };
+        const response = await getMoviesByParams(randomParams);
+        setMovies(response.data.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Erreur lors de la récupération des films aléatoires :', error);
+        setError("Une erreur s'est produite lors du chargement des films.");
+        setLoading(false);
+      }
+    }
+    fetchRandomMovies();
+  }, []);
 
   if (loading) {
     return (
@@ -61,7 +80,7 @@ export function MovieList() {
     );
   }
 
-return (
+  return (
     <div>
       <ButtonCheckGenres genresList={genres} onGenresSelect={handleGenresSelect} />
       <div className={classes.cardContainer}>
@@ -95,7 +114,6 @@ return (
                   <Text size="sm" className={classes.author}>
                     {movie.director}
                   </Text>
-
                   <Group gap="lg">
                     <Center>
                       <IconEye style={{ width: rem(16), height: rem(16) }} stroke={1.5} color={theme.colors.dark[2]} />
