@@ -1,4 +1,4 @@
-import { Button, Menu, Text } from '@mantine/core';
+import { Button, Menu } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { IconCheck, IconChevronDown } from '@tabler/icons-react';
 import { useEffect } from 'react';
@@ -58,11 +58,11 @@ function ButtonAddToPlaylist({ tmdbId, inPlaylists }: { tmdbId: number; inPlayli
           <Menu.Item
             key={playlist.id}
             leftSection={inPlaylists.includes(playlist.id) ? <IconCheck stroke={1.5} /> : <PlaceholderIcon />}
-            rightSection={
-              <Text size="sm" c="dimmed">
-                0
-              </Text>
-            }
+            // rightSection={
+            //   <Text size="sm" c="dimmed">
+            //     0
+            //   </Text>
+            // }
             onClick={() => addToPlaylist(playlist.id)}
           >
             {playlist.name}
