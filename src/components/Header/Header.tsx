@@ -79,7 +79,7 @@ function Header() {
         <Divider my="md" />
         {drawerItems}
         <br />
-        <Searchbar />
+        <Searchbar onFound={closeDrawer} />
         <Divider my="xl" />
         {user.logged ? (
           <>
