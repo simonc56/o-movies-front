@@ -8,6 +8,17 @@
   padding: 1rem;
 }
 
+.inputContainer {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  margin-left: 1.5rem;
+  margin-top: 1rem;
+}
+
 .card {
   flex: 1 1 15rem;
   margin: 0.5rem;
@@ -16,7 +27,9 @@
   background-color: var(--mantine-color-dark-6);
   border-radius: 8px;
   overflow: hidden;
-  transition: transform 300ms ease, box-shadow 300ms ease;
+  transition:
+    transform 300ms ease,
+    box-shadow 300ms ease;
 }
 
 .card:hover {
@@ -56,7 +69,8 @@
   font-size: 1.25rem;
 }
 
-.year, .genres {
+.year,
+.genres {
   color: var(--mantine-color-gray-4);
   margin-bottom: 5px;
   font-size: 0.875rem;
