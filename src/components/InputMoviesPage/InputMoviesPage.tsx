@@ -15,6 +15,7 @@ function InputPageMovies({ onPageChange, value }: { onPageChange: (page: number)
       value={value}
       onChange={handleChange}
       color="bg"
+      style={{ width: '100px' }}
     />
   );
 }
