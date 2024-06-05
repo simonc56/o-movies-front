@@ -6,6 +6,7 @@ import { ParamsType } from '../../@types/MovieState';
 import MovieType, { Genre } from '../../@types/MovieType';
 import { getGenres, getMoviesByParams } from '../../api';
 import ButtonCheckGenres from '../ButtonChoiceGenres/ButtonChoiceGenres';
+import InputPageMovies from '../InputMoviesPage/InputMoviesPage';
 import classes from '../MovieList/MovieList.module.scss';
 
 export function MovieList() {
@@ -15,6 +16,7 @@ export function MovieList() {
   const [error, setError] = useState<string | null>(null);
   const [genres, setGenres] = useState<Genre[]>([]);
   const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
+  const [page, setPage] = useState<number>(1);
 
   const handleGenresSelect = (selectedGenres: number[]) => {
     setSelectedGenres(selectedGenres);
@@ -27,7 +29,7 @@ export function MovieList() {
         const genresData = genreResponse.data.data;
         setGenres(genresData);
         const params: ParamsType = {
-          page: Math.floor(Math.random() * 10) + 1,
+          page: page,
           sort_by: 'popularity.desc',
           with_genres: selectedGenres.join(','),
         };
@@ -41,7 +43,7 @@ export function MovieList() {
       }
     }
     fetchData();
-  }, [selectedGenres]);
+  }, [selectedGenres, page]);
 
   if (loading) {
     return (
@@ -64,7 +66,10 @@ export function MovieList() {
 
   return (
     <div>
-      <ButtonCheckGenres genresList={genres} onGenresSelect={handleGenresSelect} />
+      <div className={classes.inputContainer}>
+        <InputPageMovies onPageChange={setPage} />
+        <ButtonCheckGenres genresList={genres} onGenresSelect={handleGenresSelect} />
+      </div>
       <div className={classes.cardContainer}>
         {movies.map((movie, index) => (
           <Card
