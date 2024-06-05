@@ -33,7 +33,7 @@ const PlaylistPage: React.FC = () => {
   const selectedPlaylist = useAppSelector((state) => state.playlist.currentPlaylist);
   const [sortedMovies, setSortedMovies] = useState<MovieIdentityType[]>([]);
   const [activeLetter, setActiveLetter] = useState<string>('A');
-  const [movieToDelete, setMovieToDelete] = useState<string | null>(null); // nouvel état pour la confirmation de suppression de film
+  const [movieToDelete, setMovieToDelete] = useState<string | null>(null); 
 
   const observer = useRef<IntersectionObserver | null>(null);
 
@@ -41,7 +41,7 @@ const PlaylistPage: React.FC = () => {
     if (!hasFetchUserPlaylists) dispatch(actionFetchUserPlaylists()).then(() => setLoading(false));
   }, [dispatch, hasFetchUserPlaylists]);
 
-  // Fonction pour normaliser les lettres à caractères spéciaux dans la liste alphabétique (é à etc)
+ 
   const normalizeString = (str: string) => {
     return str
       .normalize('NFD')
@@ -71,10 +71,10 @@ const PlaylistPage: React.FC = () => {
     event.preventDefault();
 
     if (editingLabel) {
-      // renommer la playlist
+      
       dispatch(actionRenamePlaylist({ id: playlistId || 0, name: newLabel }));
     } else {
-      // créer une nouvelle playlist
+    
       dispatch(actionCreatePlaylist(newLabel));
     }
 
@@ -121,12 +121,12 @@ const PlaylistPage: React.FC = () => {
     console.log('Barre latérale fermée');
   };
 
-  // Pour trier les films par ordre alphabétique dans la base de données
+
   const sortMoviesAlphabetically = (movies: MovieIdentityType[]) => {
     return movies.slice().sort((a, b) => normalizeString(a.title_fr).localeCompare(normalizeString(b.title_fr)));
   };
 
-  // Fonction pour regrouper les films par première lettre
+
   const groupMoviesByFirstLetter = (movies: MovieIdentityType[]) => {
     const groupedMovies: { [key: string]: MovieIdentityType[] } = {};
     movies.forEach((movie) => {
@@ -148,7 +148,7 @@ const PlaylistPage: React.FC = () => {
     }
   }, [selectedPlaylist]);
 
-  // Effet pour observer les sections de lettres et mettre à jour la lettre active
+ 
   useEffect(() => {
     const sections = document.querySelectorAll('.letter-section');
 
@@ -177,10 +177,10 @@ const PlaylistPage: React.FC = () => {
     };
   }, [sortedMovies]);
 
-  // Limite des caractères à 33 pour ajouter des points de suspension pour les titres de films
+  
   const maxLength = 33;
 
-  // Pluriel ou singulier pour le nombre de films dans une playlist
+
   const getMoviesLabel = (count: number) => {
     if (count < 2) {
       return 'film';
@@ -189,7 +189,7 @@ const PlaylistPage: React.FC = () => {
     }
   };
 
-  // Fonction pour supprimer un film de la playlist sélectionnée
+  
   const removeMovieFromPlaylist = (movie: MovieIdentityType) => {
     if (selectedPlaylist) {
       dispatch(actionDeleteMediaFromPlaylist({ id: selectedPlaylist.playlist_id, tmdb_id: movie.tmdb_id }));
@@ -267,7 +267,7 @@ const PlaylistPage: React.FC = () => {
                   <h2>{letter}</h2>
                   <div className="movie-row">
                     {movies.map((movie, index) => (
-                      // attention en localhost, à modifier pour le serveur Simon. Movie en .id
+                   
                       <a key={index} href={`http://localhost:5173/films/${movie.tmdb_id}`} className="movie-link">
                         <div className="movie">
                           <img src={movie.poster_path} alt={`Image de ${movie.title_fr}`} />
