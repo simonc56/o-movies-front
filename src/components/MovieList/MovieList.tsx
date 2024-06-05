@@ -12,20 +12,43 @@ export function MovieList() {
   const [movies, setMovies] = useState<MovieType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [genres, setGenres] = useState([]);
+  const [genres, setGenres] = useState<Genre[]>([]);
+  const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
+
+  const handleGenresSelect = (selectedGenres: number[]) => {
+    setSelectedGenres(selectedGenres);
+  };
+  useEffect(() => {
+    async function fetchMoviesByParams() {
+      try {
+        const params: ParamsType = {
+          page: Math.floor(Math.random() * 10) + 1,
+          sort_by: 'popularity.desc',
+          with_genres: selectedGenres.join(','), // Ajout de with_genres avec les genres sélectionnés
+        };
+
+        const response = await getMoviesByParams(params);
+        setMovies(response.data.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Erreur lors de la récupération des films aléatoires :', error);
+        setError("Une erreur s'est produite lors du chargement des films.");
+        setLoading(false);
+      }
+    }
+    fetchMoviesByParams();
+  }, [selectedGenres]);
 
   useEffect(() => {
     async function fetchRandomMovies() {
       try {
         const genreResponse = await getGenres();
         const genresData = genreResponse.data.data;
-        console.log('Genres récupérés :', genresData);
         setGenres(genresData);
-        // Générer des paramètres aléatoires pour récupérer une liste de films aléatoires
         const randomParams: ParamsType = {
-          page: Math.floor(Math.random() * 10) + 1, // Exemple: choisir une page aléatoire entre 1 et 10
-          sort_by: 'popularity.desc', // Vous pouvez également modifier cette valeur si nécessaire
-          with_genres: '10749', // Vous pouvez également modifier cette valeur si nécessaire
+          page: Math.floor(Math.random() * 10) + 1,
+          sort_by: 'popularity.desc',
+          with_genres: '10749',
         };
         const response = await getMoviesByParams(randomParams);
         setMovies(response.data.data);
@@ -60,8 +83,7 @@ export function MovieList() {
 
   return (
     <div>
-      <ButtonCheckGenres genresList={genres} />
-      console.log(ButtonCheckGenres);
+      <ButtonCheckGenres genresList={genres} onGenresSelect={handleGenresSelect} />
       <div className={classes.cardContainer}>
         {movies.map((movie, index) => (
           <Card

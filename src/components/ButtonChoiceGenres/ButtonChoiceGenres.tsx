@@ -4,10 +4,14 @@ import { useEffect, useState } from 'react';
 import { Genre } from '../../@types/MovieType';
 import { useAppDispatch } from '../../store/hooks';
 
-function ButtonCheckGenres({ genresList }: { genresList: Genre[] }) {
+function ButtonCheckGenres({
+  genresList,
+  onGenresSelect,
+}: {
+  genresList: Genre[];
+  onGenresSelect: (selectedGenres: number[]) => void;
+}) {
   const dispatch = useAppDispatch();
-
-  useEffect(() => {}, [dispatch]);
 
   const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
 
@@ -20,6 +24,10 @@ function ButtonCheckGenres({ genresList }: { genresList: Genre[] }) {
       }
     });
   };
+
+  useEffect(() => {
+    onGenresSelect(selectedGenres);
+  }, [selectedGenres, onGenresSelect]);
 
   return (
     <Menu
@@ -48,7 +56,7 @@ function ButtonCheckGenres({ genresList }: { genresList: Genre[] }) {
               label={genre.name}
               checked={selectedGenres.includes(genre.id)}
               onChange={() => handleCheckboxChange(genre.id)}
-            />{' '}
+            />
           </Menu.Item>
         ))}
       </Menu.Dropdown>
