@@ -165,7 +165,7 @@ const PlaylistPage: React.FC = () => {
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.9 }
     );
 
     sections.forEach((section) => {

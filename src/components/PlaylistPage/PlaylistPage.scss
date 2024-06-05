@@ -12,12 +12,10 @@
   flex-direction: column;  
   gap: 1rem;
   display:none; 
-}
- 
+} 
 
 .sidebarPlaylist.visible {
-  display: flex;
-  overflow-y: auto;
+  display: flex;  
   display: block;
 }
 
@@ -28,17 +26,31 @@
   margin-bottom: 1rem;
   background-color: var(--color-bg);
   color: var(--color-primary);
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .sidebar-content-wrapperPL {
   flex: 1;
-  overflow-y: auto; 
+  overflow-y: auto;   
+  height: calc(100vh - 4.6rem - 3rem - 3rem); 
+  padding-right: 10px; 
 }
 
 .sidebar-content {
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;   
+  gap: 5px;    
+}
+
+.letter-section {
+  width: 100%;
+}
+
+.letter-section h2 {
+  width: 100%;
+  margin-bottom: 10px;
 }
 
 .sidebar-content .movie {
@@ -61,7 +73,7 @@
 .movie-row {
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 20px;  
+  width: 100%;
 }
 
 .movie {
@@ -107,7 +119,7 @@
 
 .confirm-delete {
   position: absolute;
-  top: 50px; /* Adjust this value as needed */
+  top: 50px; 
   right: 10px;
   display: flex;
   flex-direction: column;
