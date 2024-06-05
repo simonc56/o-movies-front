@@ -2,8 +2,8 @@
   position: fixed;
   top: 4.6rem;
   right: 0;
-  width: 97.9rem;
-  height: calc(100vh - 4.6rem - 3rem);
+  width: 96.9rem;
+  height: calc(100vh - 5.6rem - 3rem);
   background-color: rgb(228, 236, 252);
   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
   padding: 15px;
@@ -34,7 +34,7 @@
 .sidebar-content-wrapperPL {
   flex: 1;
   overflow-y: auto;
-  height: calc(100vh - 4.6rem - 3rem - 3rem);
+  height: calc(100vh - 6.9rem - 3rem - 3rem);
   padding-right: 10px;
 }
 
@@ -74,6 +74,7 @@
   display: flex;
   flex-wrap: wrap;
   width: 100%;
+  margin-bottom: 20px;
   margin-bottom: 20px;
 }
 
@@ -138,6 +139,11 @@
   align-items: center;
   margin: 1rem;
   border-radius: 8px;
+  overflow: hidden;
+  
+  img {
+    border-radius: 8px;
+  }
   overflow: hidden;
   
   img {
@@ -347,4 +353,3 @@
     font-size: 0.8rem;
   }
 }
-
