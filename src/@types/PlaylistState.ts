@@ -1,5 +1,7 @@
+import { MovieIdentityType } from './MovieType';
+
 export type PlaylistState = {
-  currentPlaylist: string[];
+  currentPlaylist: Playlist;
   userPlaylists: PlaylistIdentityType[];
   hasFetchUserPlaylists: boolean;
 };
@@ -19,8 +21,16 @@ export type PlaylistIdentityType = {
   user_id: number;
 };
 
+export type Playlist = {
+  playlist_id: number;
+  name: string;
+  medias: MovieIdentityType[];
+};
+
 export type SuccessNewPlaylistResponse = SuccessResponse<{ playlist_id: number }>;
 
 export type SuccessEmptyResponse = SuccessResponse<boolean>;
+
+export type SuccessPlaylistResponse = SuccessResponse<Playlist>;
 
 export type SuccessPlaylistsResponse = SuccessResponse<PlaylistIdentityType[]>;

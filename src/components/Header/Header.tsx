@@ -80,7 +80,7 @@ const items = links.map((link) => (
         <Divider my="md" />
         {drawerItems}
         <br />
-        <Searchbar />
+        <Searchbar onFound={closeDrawer} />
         <Divider my="xl" />
         {user.logged ? (
           <>
