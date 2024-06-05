@@ -3,15 +3,19 @@ import { actionGetProfil, selectUser } from '../../features/settingsSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 
 import { useEffect } from 'react';
+import { actionFetchUserPlaylists } from '../../features/playlistSlice';
 import { isoDateToFrench } from '../../utils/utils';
 import './ProfilUserPage.scss';
 
 function UserProfilePage() {
   const user = useAppSelector(selectUser);
+  const hasFetchUserPlaylists = useAppSelector((state) => state.playlist.hasFetchUserPlaylists);
+  const playlists = useAppSelector((state) => state.playlist.userPlaylists);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(actionGetProfil());
+    if (!hasFetchUserPlaylists) dispatch(actionFetchUserPlaylists());
   }, [dispatch]);
 
   // fake information for tested if no logged
@@ -54,6 +58,12 @@ function UserProfilePage() {
             </p>
             <p className="profileDetail">
               <span className="bold-text">Nombre de notes émises:</span> {displayUser.ratingCount}
+            </p>
+            <p className="profileDetail">
+              <span className="bold-text">Nombre de playlists:</span>{' '}
+              <Link to="/playlist">
+                {playlists.length ? `${playlists.length} playlist${playlists.length > 1 ? 's' : ''}` : 'Aucune'}
+              </Link>
             </p>
           </div>
         ) : (
