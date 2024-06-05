@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { IconEye, IconMessageCircle } from '@tabler/icons-react';
-import { Card, Text, Group, Center, rem, useMantineTheme } from '@mantine/core';
+import { Card, Text, Group, Center, rem, useMantineTheme, Loader, Button } from '@mantine/core';
 import classes from '../MovieList/MovieList.module.scss'; 
 import { getMoviesByParams } from '../../api';  
-import MovieType from '../../@types/MovieType'
+import MovieType, { Genre } from '../../@types/MovieType';
 import { ParamsType } from '../../@types/MovieState';
 
 export function MovieList() {
@@ -21,7 +21,6 @@ export function MovieList() {
           with_genres: '10749'
         };
         const response = await getMoviesByParams(params);
-        console.log(response.data)
         setMovies(response.data.data);
         setLoading(false);
       } catch (error) {
@@ -35,11 +34,18 @@ export function MovieList() {
   }, []);
 
   if (loading) {
-    return <div>Chargement en cours...</div>;
+    return <Center><Loader /></Center>;
   }
 
   if (error) {
-    return <div>Erreur: {error}</div>;
+    return (
+      <Center>
+        <div>
+          <Text color="red">{error}</Text>
+          <Button onClick={() => window.location.reload()}>Réessayer</Button>
+        </div>
+      </Center>
+    );
   }
 
   return (
@@ -63,8 +69,14 @@ export function MovieList() {
 
           <div className={classes.content}>
             <div>
-              <Text size="lg" className={classes.title} fw={500}>
-                {movie.original_title}
+              <Text size="lg" className={classes.title} fw={500} c="white">
+                {movie.title_fr}
+              </Text>
+              <Text size="sm" className={classes.year} c="white">
+                {new Date(movie.release_date).getFullYear() || ""}
+              </Text>
+              <Text size="sm" className={classes.genres} c="white">
+                {movie.genres.map((genre: Genre) => genre.name).join(', ')}
               </Text>
 
               <Group justify="space-between" gap="xs">

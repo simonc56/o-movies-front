@@ -1,22 +1,27 @@
 .cardContainer {
-  display: flex; 
-  flex-wrap: wrap; 
-  justify-content: center; 
-  gap: 0.5rem; 
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
   max-height: 80vh;
   overflow-y: auto;
+  padding: 1rem;
 }
 
 .card {
-  flex: 1 1 15rem; 
-  margin: 0.5rem; 
+  flex: 1 1 15rem;
+  margin: 0.5rem;
   position: relative;
   height: 280px;
-  background-color: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6));
+  background-color: var(--mantine-color-dark-6);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 300ms ease, box-shadow 300ms ease;
 }
 
-.card:hover .image {
+.card:hover {
   transform: scale(1.03);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .image {
@@ -41,12 +46,20 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  padding: 1rem;
   z-index: 1;
 }
 
 .title {
   color: var(--mantine-color-white);
   margin-bottom: 5px;
+  font-size: 1.25rem;
+}
+
+.year, .genres {
+  color: var(--mantine-color-gray-4);
+  margin-bottom: 5px;
+  font-size: 0.875rem;
 }
 
 .bodyText {
@@ -56,4 +69,14 @@
 
 .author {
   color: var(--mantine-color-dark-2);
+}
+
+@media (max-width: 768px) {
+  .card {
+    flex: 1 1 100%;
+  }
+}
+
+.card:focus {
+  outline: 2px solid var(--mantine-color-blue-6);
 }
