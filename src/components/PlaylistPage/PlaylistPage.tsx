@@ -3,6 +3,7 @@ import { ModalsProvider, openConfirmModal } from '@mantine/modals';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck, IconTrash, IconX } from '@tabler/icons-react';
 import React, { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { MovieIdentityType } from '../../@types/MovieType';
 import { PlaylistIdentityType } from '../../@types/PlaylistState';
 import {
@@ -33,7 +34,7 @@ const PlaylistPage: React.FC = () => {
   const selectedPlaylist = useAppSelector((state) => state.playlist.currentPlaylist);
   const [sortedMovies, setSortedMovies] = useState<MovieIdentityType[]>([]);
   const [activeLetter, setActiveLetter] = useState<string>('A');
-  const [movieToDelete, setMovieToDelete] = useState<string | null>(null); // new state for movie deletion confirmation
+  const [movieToDelete, setMovieToDelete] = useState<string | null>(null); 
 
   const observer = useRef<IntersectionObserver | null>(null);
 
@@ -41,7 +42,7 @@ const PlaylistPage: React.FC = () => {
     if (!hasFetchUserPlaylists) dispatch(actionFetchUserPlaylists()).then(() => setLoading(false));
   }, [dispatch, hasFetchUserPlaylists]);
 
-  // Function to normalize special character letters in the alphabeticalList (é à etc)
+ 
   const normalizeString = (str: string) => {
     return str
       .normalize('NFD')
@@ -71,10 +72,10 @@ const PlaylistPage: React.FC = () => {
     event.preventDefault();
 
     if (editingLabel) {
-      // rename playlist
+      
       dispatch(actionRenamePlaylist({ id: playlistId || 0, name: newLabel }));
     } else {
-      // create new playlist
+    
       dispatch(actionCreatePlaylist(newLabel));
     }
 
@@ -108,20 +109,25 @@ const PlaylistPage: React.FC = () => {
 
   const openSidebar = (playlist: PlaylistIdentityType) => {
     dispatch(actionFetchPlaylist(playlist.id));
+    document.querySelector('.sidebarPlaylist')?.classList.add('visible');
+    console.log('Barre latérale ouverte pour la playlist:', playlist.name);
   };
 
   const closeSidebar = () => {
+    console.log('Fermeture de la barre latérale...');
     dispatch(actionResetCurrentPlaylist());
     setSortedMovies([]);
     setLoading(false);
+    document.querySelector('.sidebarPlaylist')?.classList.remove('visible');
+    console.log('Barre latérale fermée');
   };
 
-  // To sort movies alphabetically in database
+
   const sortMoviesAlphabetically = (movies: MovieIdentityType[]) => {
     return movies.slice().sort((a, b) => normalizeString(a.title_fr).localeCompare(normalizeString(b.title_fr)));
   };
 
-  // Function to group movies by first letter
+
   const groupMoviesByFirstLetter = (movies: MovieIdentityType[]) => {
     const groupedMovies: { [key: string]: MovieIdentityType[] } = {};
     movies.forEach((movie) => {
@@ -143,7 +149,7 @@ const PlaylistPage: React.FC = () => {
     }
   }, [selectedPlaylist]);
 
-  // Effect to observe letter sections and update the active letter
+ 
   useEffect(() => {
     const sections = document.querySelectorAll('.letter-section');
 
@@ -160,7 +166,7 @@ const PlaylistPage: React.FC = () => {
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.9 }
     );
 
     sections.forEach((section) => {
@@ -172,10 +178,10 @@ const PlaylistPage: React.FC = () => {
     };
   }, [sortedMovies]);
 
-  // Block characters at 33 to add punctuation for the title movies
+  
   const maxLength = 33;
 
-  // Plural or singular for the number of films in a playlist
+
   const getMoviesLabel = (count: number) => {
     if (count < 2) {
       return 'film';
@@ -184,7 +190,7 @@ const PlaylistPage: React.FC = () => {
     }
   };
 
-  // Function to remove a movie from the selected playlist
+  
   const removeMovieFromPlaylist = (movie: MovieIdentityType) => {
     if (selectedPlaylist) {
       dispatch(actionDeleteMediaFromPlaylist({ id: selectedPlaylist.playlist_id, tmdb_id: movie.tmdb_id }));
@@ -232,96 +238,91 @@ const PlaylistPage: React.FC = () => {
         </form>
       </Modal>
 
-      {
-        <>
-          <div className="sidebarPlaylist">
-            <div
-              className="sidebar-headerPlaylist"
-              style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingLeft: '0.5rem' }}
-            >
-              <Text size="lg">{selectedPlaylist.name}</Text>
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                {selectedPlaylist.medias && selectedPlaylist.medias.length === 0 ? (
-                  <Text size="sm" style={{ marginRight: '1rem' }}>
-                    Vous n'avez aucun film dans cette playlist
-                  </Text>
-                ) : (
-                  <Text size="sm" style={{ marginRight: '1rem' }}>
-                    Vous avez {selectedPlaylist.medias ? selectedPlaylist.medias.length : 0}{' '}
-                    {getMoviesLabel(selectedPlaylist.medias ? selectedPlaylist.medias.length : 0)} dans cette playlist
-                  </Text>
-                )}
-                <Button type="submit" color="bg" autoContrast onClick={closeSidebar}>
-                  Fermer &#10060;
-                </Button>
-              </div>
-            </div>
-            <div className="sidebar-content-wrapperPL">
-              <div className="sidebar-content">
-                {!loading ? (
-                  Object.entries(groupMoviesByFirstLetter(sortedMovies)).map(([letter, movies]) => (
-                    <div key={letter} id={letter} className="letter-section">
-                      <h2>{letter}</h2>
-                      <div className="movie-row">
-                        {movies.map((movie, index) => (
-                          // attention en localhost, à modifier pour le serveur Simon. Movie en .id
-                          <a key={index} href={`http://localhost:5173/films/${movie.tmdb_id}`} className="movie-link">
-                            <div className="movie">
-                              <img src={movie.poster_path} alt={`Image de ${movie.title_fr}`} />
+      <div className="sidebarPlaylist">
+        <div
+          className="sidebar-headerPlaylist"
+          style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingLeft: '0.5rem' }}
+        >
+          <Text size="lg">{selectedPlaylist?.name}</Text>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            {selectedPlaylist?.medias && selectedPlaylist.medias.length === 0 ? (
+              <Text size="sm" style={{ marginRight: '1rem' }}>
+                Vous n'avez aucun film dans cette playlist
+              </Text>
+            ) : (
+              <Text size="sm" style={{ marginRight: '1rem' }}>
+                Vous avez {selectedPlaylist?.medias ? selectedPlaylist.medias.length : 0}{' '}
+                {getMoviesLabel(selectedPlaylist?.medias ? selectedPlaylist.medias.length : 0)} dans cette playlist
+              </Text>
+            )}
+            <Button type="submit" color="bg" autoContrast onClick={closeSidebar}>
+              Fermer &#10060;
+            </Button>
+          </div>
+        </div>
+        <div className="sidebar-content-wrapperPL">
+          <div className="sidebar-content">
+            {!loading ? (
+              Object.entries(groupMoviesByFirstLetter(sortedMovies)).map(([letter, movies]) => (
+                <div key={letter} id={letter} className="letter-section">
+                  <h2>{letter}</h2>
+                  <div className="movie-row">
+                    {movies.map((movie, index) => (
+                      <Link key={index} to={`/films/${movie.tmdb_id}`} className="movie-link">
+                        <div className="movie">
+                          <img src={movie.poster_path} alt={`Image de ${movie.title_fr}`} />
+                          <ActionIcon
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setMovieToDelete(movie.title_fr);
+                            }}
+                            className="remove-button"
+                          >
+                            <IconTrash />
+                          </ActionIcon>
+                          {movieToDelete === movie.title_fr && (
+                            <div className="confirm-delete">
                               <ActionIcon
                                 onClick={(e) => {
                                   e.preventDefault();
-                                  setMovieToDelete(movie.title_fr);
+                                  removeMovieFromPlaylist(movie);
                                 }}
-                                className="remove-button"
+                                className="confirm-button"
                               >
-                                <IconTrash />
+                                <IconCheck />
                               </ActionIcon>
-                              {movieToDelete === movie.title_fr && (
-                                <div className="confirm-delete">
-                                  <ActionIcon
-                                    onClick={(e) => {
-                                      e.preventDefault();
-                                      removeMovieFromPlaylist(movie);
-                                    }}
-                                    className="confirm-button"
-                                  >
-                                    <IconCheck />
-                                  </ActionIcon>
-                                  <ActionIcon
-                                    onClick={(e) => {
-                                      e.preventDefault();
-                                      setMovieToDelete(null);
-                                    }}
-                                    className="cancel-button"
-                                  >
-                                    <IconX />
-                                  </ActionIcon>
-                                </div>
-                              )}
-                              <div className="movie-infoPL">
-                                <Text size="md">
-                                  {movie.title_fr.length > maxLength
-                                    ? `${movie.title_fr.slice(0, maxLength)}...`
-                                    : movie.title_fr}
-                                </Text>
-                                <Text size="sm">{movie.release_date.slice(0, 4)}</Text>
-                              </div>
+                              <ActionIcon
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  setMovieToDelete(null);
+                                }}
+                                className="cancel-button"
+                              >
+                                <IconX />
+                              </ActionIcon>
                             </div>
-                          </a>
-                        ))}
-                      </div>
-                    </div>
-                  ))
-                ) : (
-                  <Loader />
-                )}
-              </div>
-            </div>
+                          )}
+                          <div className="movie-infoPL">
+                            <Text size="md">
+                              {movie.title_fr.length > maxLength
+                                ? `${movie.title_fr.slice(0, maxLength)}...`
+                                : movie.title_fr}
+                            </Text>
+                            <Text size="sm">{movie.release_date.slice(0, 4)}</Text>
+                          </div>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ))
+            ) : (
+              <Loader />
+            )}
           </div>
-          <AlphabeticalList activeLetter={activeLetter} />
-        </>
-      }
+          {selectedPlaylist && <AlphabeticalList activeLetter={activeLetter} />}
+        </div>
+      </div>
     </ModalsProvider>
   );
 };

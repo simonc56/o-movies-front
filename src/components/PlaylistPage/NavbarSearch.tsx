@@ -14,7 +14,7 @@ interface NavbarSearchProps {
   loading: boolean;
 }
 
-// Function to normalize strings by removing accents and converting to lowercase
+// Fonction pour normaliser les chaînes en supprimant les accents et en convertissant en minuscules
 const normalizeString = (str: string) => {
   return str
     .normalize('NFD')
@@ -40,7 +40,11 @@ const NavbarSearch: React.FC<NavbarSearchProps> = ({
     normalizeString(playlist.name).includes(normalizeString(searchTerm))
   );
 
-  const maxLength = 26;
+  const maxLength = 25;
+
+  const truncateName = (name: string) => {
+    return name.length > maxLength ? `${name.slice(0, maxLength)}...` : name;
+  };
 
   const playlistLinks = filteredPlaylists.map((playlist) => (
     <div
@@ -49,7 +53,7 @@ const NavbarSearch: React.FC<NavbarSearchProps> = ({
       className={classes.collectionLink}
       onClick={() => openSidebar(playlist)}
     >
-      <span>{playlist.name.length > maxLength ? `${playlist.name.slice(0, maxLength)}...` : playlist.name}</span>
+      <span>{truncateName(playlist.name)}</span>
       <div className={classes.collectionLinkIcons}>
         <ActionIcon
           className="icon"

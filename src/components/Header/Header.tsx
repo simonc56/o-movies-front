@@ -10,12 +10,6 @@ import AvatarName from '../UserMenu/AvatarName';
 import UserMenu from '../UserMenu/UserMenu';
 import './Header.scss';
 
-const links = [
-  { link: '/actuellement', label: "À l'affiche" },
-  { link: '/prochainement', label: 'Prochainement' },
-  { link: '/films', label: 'Films' },
-  // { link: '/playlists', label: 'Mes playlists' },
-];
 
 function Header() {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
@@ -23,11 +17,18 @@ function Header() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const items = links.map((link) => (
-    <NavLink key={link.label} to={link.link} className="link" onClick={(event) => event.preventDefault()}>
-      {link.label}
-    </NavLink>
-  ));
+const links = [
+  { link: '/actuellement', label: "A l'affiche" },
+  { link: '/prochainement', label: 'Prochainement' },
+  { link: '/films', label: 'Films' },
+  ...(user.logged ? [{ link: '/playlist', label: 'Mes playlists' }] : []),
+];
+
+const items = links.map((link) => (
+  <NavLink key={link.label} to={link.link} className="link">
+    {link.label}
+  </NavLink>
+));
 
   const drawerItems = links.map((link) => (
     <NavLink
@@ -55,7 +56,7 @@ function Header() {
           <Link to="/" className="title">
             <img src={logo} alt="logo o'movies" />
             <h1>O'movies</h1>
-          </Link>
+          </Link>         
           <Group gap={0} visibleFrom="md">
             {items}
           </Group>
