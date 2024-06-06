@@ -7,6 +7,7 @@ import MovieType, { Genre } from '../../@types/MovieType';
 import { getGenres, getMoviesByParams } from '../../api';
 import ButtonCheckGenres from '../ButtonChoiceGenres/ButtonChoiceGenres';
 import InputPageMovies from '../InputMoviesPage/InputMoviesPage';
+import InputSortByPageMovies from '../InputSortByMoviesPage/InputSorByMoviesPage';
 import classes from '../MovieList/MovieList.module.scss';
 
 export function MovieList() {
@@ -17,6 +18,7 @@ export function MovieList() {
   const [genres, setGenres] = useState<Genre[]>([]);
   const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
   const [page, setPage] = useState<number>(1);
+  const [sortBy, setSortBy] = useState<string>('popularity.desc');
 
   const handleGenresSelect = (selectedGenres: number[]) => {
     setSelectedGenres(selectedGenres);
@@ -30,7 +32,7 @@ export function MovieList() {
         setGenres(genresData);
         const params: ParamsType = {
           page: page,
-          sort_by: 'popularity.desc',
+          sort_by: sortBy,
           with_genres: selectedGenres.join(','),
         };
         const response = await getMoviesByParams(params);
@@ -43,7 +45,7 @@ export function MovieList() {
       }
     }
     fetchData();
-  }, [selectedGenres, page]);
+  }, [selectedGenres, page, sortBy]);
 
   if (loading) {
     return (
@@ -69,6 +71,7 @@ export function MovieList() {
       <div className={classes.inputContainer}>
         <InputPageMovies onPageChange={setPage} value={page} />
         <ButtonCheckGenres genresList={genres} onGenresSelect={handleGenresSelect} />
+        <InputSortByPageMovies onPageChange={setSortBy} value={sortBy} />
       </div>
       <div className={classes.cardContainer}>
         {movies.map((movie, index) => (
@@ -83,7 +86,6 @@ export function MovieList() {
           >
             <div className={classes.image} style={{ backgroundImage: `url(${movie.poster_path})` }} />
             <div className={classes.overlay} />
-
             <div className={classes.content}>
               <div>
                 <Text size="lg" className={classes.title} fw={500} c="white">
@@ -93,9 +95,8 @@ export function MovieList() {
                   {new Date(movie.release_date).getFullYear() || ''}
                 </Text>
                 <Text size="sm" className={classes.genres} c="white">
-                  {movie.genres.map((genre: Genre) => genre.name).join(', ')}
+                  {movie.genres ? movie.genres?.map((genre: Genre) => genre.name).join(', ') : ''}
                 </Text>
-
                 <Group justify="space-between" gap="xs">
                   <Text size="sm" className={classes.author}>
                     {movie.director}
