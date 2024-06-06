@@ -86,7 +86,6 @@ export function MovieList() {
           >
             <div className={classes.image} style={{ backgroundImage: `url(${movie.poster_path})` }} />
             <div className={classes.overlay} />
-
             <div className={classes.content}>
               <div>
                 <Text size="lg" className={classes.title} fw={500} c="white">
@@ -96,9 +95,8 @@ export function MovieList() {
                   {new Date(movie.release_date).getFullYear() || ''}
                 </Text>
                 <Text size="sm" className={classes.genres} c="white">
-                  {movie.genres.map((genre: Genre) => genre.name).join(', ')}
+                  {movie.genres ? movie.genres?.map((genre: Genre) => genre.name).join(', ') : ''}
                 </Text>
-
                 <Group justify="space-between" gap="xs">
                   <Text size="sm" className={classes.author}>
                     {movie.director}
