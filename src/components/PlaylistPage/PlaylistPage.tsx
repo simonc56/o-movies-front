@@ -3,6 +3,7 @@ import { ModalsProvider, openConfirmModal } from '@mantine/modals';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck, IconTrash, IconX } from '@tabler/icons-react';
 import React, { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { MovieIdentityType } from '../../@types/MovieType';
 import { PlaylistIdentityType } from '../../@types/PlaylistState';
 import {
@@ -267,8 +268,7 @@ const PlaylistPage: React.FC = () => {
                   <h2>{letter}</h2>
                   <div className="movie-row">
                     {movies.map((movie, index) => (
-                   
-                      <a key={index} href={`http://localhost:5173/films/${movie.tmdb_id}`} className="movie-link">
+                      <Link key={index} to={`/films/${movie.tmdb_id}`} className="movie-link">
                         <div className="movie">
                           <img src={movie.poster_path} alt={`Image de ${movie.title_fr}`} />
                           <ActionIcon
@@ -311,7 +311,7 @@ const PlaylistPage: React.FC = () => {
                             <Text size="sm">{movie.release_date.slice(0, 4)}</Text>
                           </div>
                         </div>
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </div>
