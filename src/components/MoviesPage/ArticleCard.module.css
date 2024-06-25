@@ -12,12 +12,14 @@
     margin-top: 10px;
     display: flex;
   }
-
+  
   .cardContainer1 {
     flex: 1 1 calc(20% - 7px); 
     display: flex;
     justify-content: center;
     margin: 0px; 
+    min-width: 16rem;
+    max-width: 18rem;
     box-sizing: border-box;
     margin-bottom: 1rem;
     
