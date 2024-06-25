@@ -41,7 +41,6 @@ function MoviesPage({ title, filter }: { title: string; filter: MoviesFilter }) 
   }, [dispatch, location, filter]);
 
   useEffect(() => {
-    setLoading(true);
     async function fetchDetails() {
       const detailedList = [];
       for (const movie of movieList) {
@@ -49,20 +48,17 @@ function MoviesPage({ title, filter }: { title: string; filter: MoviesFilter }) 
           const response = await getMovieById(movie.tmdb_id.toString());
           detailedList.push({ ...movie, ...response.data.data });
           await sleep(0); //desactive for the moment. limit rate back up to 300
+          setDetailedMovies([...detailedList]);
         } catch (error) {}
       }
-      setDetailedMovies(detailedList);
       setLoading(false);
     }
     if (movieList.length > 0) {
       fetchDetails();
+      setLoading(false);
     }
   }, [movieList]);
 
-  useEffect(() => {
-    console.log(detailedMovies);
-    detailedMovies.forEach((movie, index) => {});
-  }, [detailedMovies]);
 
   const sortedMovieList = detailedMovies.slice().sort((a, b) => {
     if (sortOrder === 'asc') {
