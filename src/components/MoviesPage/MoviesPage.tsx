@@ -42,23 +42,28 @@ function MoviesPage({ title, filter }: { title: string; filter: MoviesFilter }) 
 
   useEffect(() => {
     async function fetchDetails() {
-      const detailedList = [];
+      const detailedList: MovieType[] = [];
+      const promisesList = [];
       for (const movie of movieList) {
         try {
-          const response = await getMovieById(movie.tmdb_id.toString());
-          detailedList.push({ ...movie, ...response.data.data });
+          const newPromise = getMovieById(movie.tmdb_id.toString()).then((response) => {
+            detailedList.push({ ...movie, ...response.data.data });
+            setDetailedMovies([...detailedList]);
+          });
+          promisesList.push(newPromise);
           await sleep(0); //desactive for the moment. limit rate back up to 300
-          setDetailedMovies([...detailedList]);
-        } catch (error) {}
+        } catch (error) {
+          console.error(error);
+        }
       }
-      setLoading(false);
+      setDetailedMovies(detailedList);
+      Promise.all(promisesList).then(() => setLoading(false));
     }
     if (movieList.length > 0) {
       fetchDetails();
-      setLoading(false);
+      //setLoading(false);
     }
   }, [movieList]);
-
 
   const sortedMovieList = detailedMovies.slice().sort((a, b) => {
     if (sortOrder === 'asc') {
