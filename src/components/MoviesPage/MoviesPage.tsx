@@ -42,27 +42,28 @@ function MoviesPage({ title, filter }: { title: string; filter: MoviesFilter }) 
 
   useEffect(() => {
     async function fetchDetails() {
-      const detailedList: MovieType[] = [];
-      const promisesList = [];
-      for (const movie of movieList) {
-        try {
-          const newPromise = getMovieById(movie.tmdb_id.toString()).then((response) => {
-            detailedList.push({ ...movie, ...response.data.data });
-            setDetailedMovies([...detailedList]);
-          });
-          promisesList.push(newPromise);
-          await sleep(0); //desactive for the moment. limit rate back up to 300
-        } catch (error) {
-          console.error(error);
-        }
+      if (movieList.length === 0) {
+        setLoading(false);
+        return;
       }
-      setDetailedMovies(detailedList);
-      Promise.all(promisesList).then(() => setLoading(false));
+      setLoading(true);
+      const promisesList = movieList.map((movie) =>
+        getMovieById(movie.tmdb_id.toString())
+          .then((response) => ({ ...movie, ...response.data.data }))
+          .catch((error) => {
+            console.error(`Error fetching details for movie ${movie.tmdb_id}:`, error);
+          })
+      );
+      try {
+        const results = await Promise.all(promisesList);
+        setDetailedMovies(results);
+      } catch (error) {
+        console.error('Error fetching movie details:', error);
+      } finally {
+        setLoading(false);
+      }
     }
-    if (movieList.length > 0) {
-      fetchDetails();
-      //setLoading(false);
-    }
+    fetchDetails();
   }, [movieList]);
 
   const sortedMovieList = detailedMovies.slice().sort((a, b) => {
