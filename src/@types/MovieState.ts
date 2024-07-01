@@ -36,7 +36,7 @@ type SuccessResponse<T> = {
 type RatingResponse = {
   rating_id?: number; // only returned with a POST request
   media_id: number;
-  movie_average_rating: number; // recalculated each time a rating is added/updated
+  media_average_rating: number; // recalculated each time a rating is added/updated
 };
 
 type ReviewResponse = {

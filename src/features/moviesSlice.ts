@@ -211,9 +211,9 @@ const moviesSlice = createSlice({
       .addCase(actionPostRating.fulfilled, (state, action) => {
         const [response, rating] = action.payload;
         if (response.status === 'success') {
-          const { rating_id, movie_average_rating } = response.data;
+          const { rating_id, media_average_rating } = response.data;
           if (state.currentMovie && rating_id) {
-            state.currentMovie.average_rating = movie_average_rating;
+            state.currentMovie.average_rating = media_average_rating;
             if (state.currentMovie.user_data) {
               state.currentMovie.user_data.rating = { rating_id, value: rating };
             } else {
@@ -230,9 +230,9 @@ const moviesSlice = createSlice({
       .addCase(actionUpdateRating.fulfilled, (state, action) => {
         const [response, rating] = action.payload;
         if (response.status === 'success') {
-          const { movie_average_rating } = response.data;
+          const { media_average_rating } = response.data;
           if (state.currentMovie) {
-            state.currentMovie.average_rating = movie_average_rating;
+            state.currentMovie.average_rating = media_average_rating;
             state.currentMovie.user_data.rating!.value = rating;
           }
         }
