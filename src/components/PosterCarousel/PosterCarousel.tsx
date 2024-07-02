@@ -21,7 +21,11 @@ function PosterCarousel() {
       {movieList.map((movie) => (
         <Carousel.Slide key={movie.tmdb_id}>
           <Link to={`/films/${movie.tmdb_id}`}>
-            <img src={movie.poster_path ? movie.poster_path : no_poster} alt={`poster du film ${movie.title_fr}`} />
+            <img
+              src={movie.poster_path ? movie.poster_path : no_poster}
+              alt={`poster du film ${movie.title_fr}`}
+              title={movie.title_fr}
+            />
           </Link>
         </Carousel.Slide>
       ))}
