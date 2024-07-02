@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { MoviesFilter } from '../../@types/MovieState';
 import MovieType from '../../@types/MovieType';
 import { getMovieById } from '../../api';
+import no_poster from '../../assets/no-poster.webp';
 import { actionFetchMovies, actionResetMovieList } from '../../features/moviesSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import ButtonAddToFavorites from '../ButtonAddToPlaylist/ButtonAddToPlaylist';
@@ -96,7 +97,7 @@ function MoviesPage({ title, filter }: { title: string; filter: MoviesFilter }) 
               <Card withBorder radius="md" className={classes.card1}>
                 <Card.Section>
                   <Link to={`/films/${movie.tmdb_id}`}>
-                    <Image src={movie.poster_path} height={380} />
+                    <Image src={movie.poster_path ? movie.poster_path : no_poster} height={380} />
                   </Link>
                 </Card.Section>
 

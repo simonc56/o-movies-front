@@ -1,5 +1,6 @@
 import { FaStar } from 'react-icons/fa';
 import MovieType, { Genre } from '../../@types/MovieType';
+import no_poster from '../../assets/no-poster.webp';
 import { runtimeToString } from '../../utils/utils';
 import ButtonAddToPlaylist from '../ButtonAddToPlaylist/ButtonAddToPlaylist';
 
@@ -17,7 +18,7 @@ function MovieInfos({ movie }: MovieInfosProps) {
   return (
     <section className="section-movie-infos">
       <div className="poster-panel">
-        <img src={movie.poster_path} alt="poster du film" />
+        <img src={movie.poster_path ? movie.poster_path : no_poster} alt="poster du film" />
         {logged && (
           <ButtonAddToPlaylist
             tmdbId={movie.tmdb_id}

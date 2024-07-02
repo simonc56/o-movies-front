@@ -1,6 +1,7 @@
 import { Carousel } from '@mantine/carousel';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import no_poster from '../../assets/no-poster.webp';
 import { actionFetchMovies } from '../../features/moviesSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import Loader from '../Loader/Loader';
@@ -20,7 +21,7 @@ function PosterCarousel() {
       {movieList.map((movie) => (
         <Carousel.Slide key={movie.tmdb_id}>
           <Link to={`/films/${movie.tmdb_id}`}>
-            <img src={movie.poster_path} alt={`poster du film ${movie.title_fr}`} />
+            <img src={movie.poster_path ? movie.poster_path : no_poster} alt={`poster du film ${movie.title_fr}`} />
           </Link>
         </Carousel.Slide>
       ))}

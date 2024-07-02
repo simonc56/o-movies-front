@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { ParamsType } from '../../@types/MovieState';
 import MovieType, { Genre } from '../../@types/MovieType';
 import { getGenres, getMoviesByParams } from '../../api';
+import no_poster from '../../assets/no-poster.webp';
 import ButtonCheckGenres from '../ButtonChoiceGenres/ButtonChoiceGenres';
 import InputPageMovies from '../InputMoviesPage/InputMoviesPage';
 import InputSortByPageMovies from '../InputSortByMoviesPage/InputSorByMoviesPage';
@@ -84,7 +85,10 @@ export function MovieList() {
             component={Link}
             to={`/films/${movie.tmdb_id}`}
           >
-            <div className={classes.image} style={{ backgroundImage: `url(${movie.poster_path})` }} />
+            <div
+              className={classes.image}
+              style={{ backgroundImage: `url(${movie.poster_path ? movie.poster_path : no_poster})` }}
+            />
             <div className={classes.overlay} />
             <div className={classes.content}>
               <div>
