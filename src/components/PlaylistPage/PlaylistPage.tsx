@@ -272,7 +272,7 @@ const PlaylistPage: React.FC = () => {
                       <Link key={index} to={`/films/${movie.tmdb_id}`} className="movie-link">
                         <div className="movie">
                           <img
-                            src={movie.poster_path ? movie.poster_path : no_poster}
+                            src={movie.poster_path.slice(-4) != 'null' ? movie.poster_path : no_poster}
                             alt={`Image de ${movie.title_fr}`}
                           />
                           <ActionIcon
