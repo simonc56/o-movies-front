@@ -4,9 +4,12 @@ import { Link } from 'react-router-dom';
 import no_poster from '../../assets/no-poster.webp';
 import { actionFetchMovies } from '../../features/moviesSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import Loader from '../Loader/Loader';
 
 import './PosterCarousel.scss';
+import PosterImage from './PosterImage';
+
+// Empty list of movies to display while fetching the movieList
+const emptyList = Array.from({ length: 10 }, (_, i) => ({ title_fr: '', poster_path: no_poster, tmdb_id: i + 1 }));
 
 function PosterCarousel() {
   const movieList = useAppSelector((state) => state.movies.movieList);
@@ -16,22 +19,19 @@ function PosterCarousel() {
     // Fetch a list of recent movies
     dispatch(actionFetchMovies('upcoming'));
   }, [dispatch]);
-  return movieList.length > 0 ? (
+
+  const displayedList = movieList.length > 0 ? movieList : emptyList;
+
+  return (
     <Carousel slideSize={230} slideGap="10" height={350} loop controlSize={38} className="poster-carousel">
-      {movieList.map((movie) => (
+      {displayedList.map((movie) => (
         <Carousel.Slide key={movie.tmdb_id}>
-          <Link to={`/films/${movie.tmdb_id}`}>
-            <img
-              src={movie.poster_path ? movie.poster_path : no_poster}
-              alt={`poster du film ${movie.title_fr}`}
-              title={movie.title_fr}
-            />
+          <Link to={movie.title_fr.length ? `/films/${movie.tmdb_id}` : ''}>
+            <PosterImage title_fr={movie.title_fr} poster_path={movie.poster_path} />
           </Link>
         </Carousel.Slide>
       ))}
     </Carousel>
-  ) : (
-    <Loader />
   );
 }
 
