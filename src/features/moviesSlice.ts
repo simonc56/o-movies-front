@@ -137,8 +137,8 @@ const moviesSlice = createSlice({
     addedInPlaylist: (state, action: PayloadAction<number>) => {
       if (state.currentMovie?.user_data) {
         state.currentMovie.user_data.in_playlists.push(action.payload);
-      } else {
-        state.currentMovie!.user_data = {
+      } else if (state.currentMovie) {
+        state.currentMovie.user_data = {
           userId: 0,
           rating: null,
           review: null,
