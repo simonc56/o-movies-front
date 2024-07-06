@@ -44,7 +44,7 @@ function MoviesPage({ title, filter }: { title: string; filter: MoviesFilter }) 
   useEffect(() => {
     async function fetchDetails() {
       if (movieList.length === 0) {
-        setLoading(false);
+        // setLoading(false);
         return;
       }
       setLoading(true);
@@ -80,51 +80,54 @@ function MoviesPage({ title, filter }: { title: string; filter: MoviesFilter }) 
 
   return (
     <>
-      <div className="header2">
-        <h1 className="pageTitle2">{title}&nbsp;</h1>
-        <Button onClick={toggleSortOrder} className={classes.sortButton} color="bg" autoContrast>
-          Trier par date de sortie ({sortOrder === 'asc' ? 'Croissant' : 'Décroissant'})
-        </Button>
-      </div>
       {loading ? (
         <div className={classes.loaderContainer}>
           <Loader />
         </div>
       ) : (
-        <div className={classes.container1}>
-          {sortedMovieList.map((movie, index) => (
-            <div key={index} className={classes.cardContainer1}>
-              <Card withBorder radius="md" className={classes.card1}>
-                <Card.Section>
-                  <Link to={`/films/${movie.tmdb_id}`}>
-                    <Image src={movie.poster_path ? movie.poster_path : no_poster} height={380} />
-                  </Link>
-                </Card.Section>
+        <>
+          <div className="header2">
+            <h1 className="pageTitle2">{title}&nbsp;</h1>
+            <Button onClick={toggleSortOrder} className={classes.sortButton} color="bg" autoContrast>
+              Trier par date de sortie ({sortOrder === 'asc' ? 'Croissant' : 'Décroissant'})
+            </Button>
+          </div>
 
-                <Badge className={classes.rating1} variant="gradient" gradient={{ from: 'blue', to: 'black' }}>
-                  Sortie le &nbsp;{formatDate(movie.release_date)}
-                </Badge>
+          <div className={classes.container1}>
+            {sortedMovieList.map((movie, index) => (
+              <div key={index} className={classes.cardContainer1}>
+                <Card withBorder radius="md" className={classes.card1}>
+                  <Card.Section>
+                    <Link to={`/films/${movie.tmdb_id}`}>
+                      <Image src={movie.poster_path ? movie.poster_path : no_poster} height={380} />
+                    </Link>
+                  </Card.Section>
 
-                <Text className={classes.articleTitle1} fw={500} component={Link} to={`/films/${movie.tmdb_id}`}>
-                  {movie.title_fr}
-                </Text>
+                  <Badge className={classes.rating1} variant="gradient" gradient={{ from: 'blue', to: 'black' }}>
+                    Sortie le &nbsp;{formatDate(movie.release_date)}
+                  </Badge>
 
-                <Text fz="sm" c="dimmed">
-                  {truncateTextWithSlice(movie.overview || 'Synopsis non disponible', 350)}{' '}
-                </Text>
+                  <Text className={classes.articleTitle1} fw={500} component={Link} to={`/films/${movie.tmdb_id}`}>
+                    {movie.title_fr}
+                  </Text>
 
-                <div className={classes.footer1}>
-                  {logged && (
-                    <ButtonAddToFavorites
-                      tmdbId={movie.tmdb_id}
-                      inPlaylists={movie.user_data ? movie.user_data.in_playlists : []}
-                    />
-                  )}
-                </div>
-              </Card>
-            </div>
-          ))}
-        </div>
+                  <Text fz="sm" c="dimmed">
+                    {truncateTextWithSlice(movie.overview || 'Synopsis non disponible', 350)}{' '}
+                  </Text>
+
+                  <div className={classes.footer1}>
+                    {logged && (
+                      <ButtonAddToFavorites
+                        tmdbId={movie.tmdb_id}
+                        inPlaylists={movie.user_data ? movie.user_data.in_playlists : []}
+                      />
+                    )}
+                  </div>
+                </Card>
+              </div>
+            ))}
+          </div>
+        </>
       )}
     </>
   );
