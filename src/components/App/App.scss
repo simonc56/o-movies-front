@@ -8,3 +8,11 @@
 .mantine-Notifications-notification {
   top: 4.5rem !important;
 }
+
+.mantine-Notifications-root {
+  pointer-events: none;
+}
+
+.mantine-Notification-closeButton {
+  pointer-events: auto;
+}

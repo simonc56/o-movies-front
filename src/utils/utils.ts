@@ -1,5 +1,5 @@
 /**
- *
+ * Transform runtime in minutes to runtime in hours and minutes
  * @param runtime integer - runtime of media in minutes
  * @returns string (format : 2h30)
  */
@@ -11,7 +11,7 @@ export function runtimeToString(runtime: number) {
 }
 
 /**
- *
+ * Transform budget in $ to budget in millions $
  * @param budget integer - budget in $
  * @returns string - budget in millions $ (format : 100m$)
  */
@@ -20,7 +20,7 @@ export function budgetToMillions(budget: number) {
 }
 
 /**
- *
+ * Transform iso date to french readable date
  * @param isoDate format : "2021-08-04"
  * @returns string (format : 4 août 2021)
  */

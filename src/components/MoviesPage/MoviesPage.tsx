@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { MoviesFilter } from '../../@types/MovieState';
 import MovieType from '../../@types/MovieType';
 import { getMovieById } from '../../api';
+import no_poster from '../../assets/no-poster.webp';
 import { actionFetchMovies, actionResetMovieList } from '../../features/moviesSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import ButtonAddToFavorites from '../ButtonAddToPlaylist/ButtonAddToPlaylist';
@@ -41,28 +42,30 @@ function MoviesPage({ title, filter }: { title: string; filter: MoviesFilter }) 
   }, [dispatch, location, filter]);
 
   useEffect(() => {
-    setLoading(true);
     async function fetchDetails() {
-      const detailedList = [];
-      for (const movie of movieList) {
-        try {
-          const response = await getMovieById(movie.tmdb_id.toString());
-          detailedList.push({ ...movie, ...response.data.data });
-          await sleep(0); //desactive for the moment. limit rate back up to 300
-        } catch (error) {}
+      if (movieList.length === 0) {
+        // setLoading(false);
+        return;
       }
-      setDetailedMovies(detailedList);
-      setLoading(false);
+      setLoading(true);
+      const promisesList = movieList.map((movie) =>
+        getMovieById(movie.tmdb_id.toString())
+          .then((response) => ({ ...movie, ...response.data.data }))
+          .catch((error) => {
+            console.error(`Error fetching details for movie ${movie.tmdb_id}:`, error);
+          })
+      );
+      try {
+        const results = await Promise.all(promisesList);
+        setDetailedMovies(results);
+      } catch (error) {
+        console.error('Error fetching movie details:', error);
+      } finally {
+        setLoading(false);
+      }
     }
-    if (movieList.length > 0) {
-      fetchDetails();
-    }
+    fetchDetails();
   }, [movieList]);
-
-  useEffect(() => {
-    console.log(detailedMovies);
-    detailedMovies.forEach((movie, index) => {});
-  }, [detailedMovies]);
 
   const sortedMovieList = detailedMovies.slice().sort((a, b) => {
     if (sortOrder === 'asc') {
@@ -77,51 +80,54 @@ function MoviesPage({ title, filter }: { title: string; filter: MoviesFilter }) 
 
   return (
     <>
-      <div className="header2">
-        <h1 className="pageTitle2">{title}&nbsp;</h1>
-        <Button onClick={toggleSortOrder} className={classes.sortButton} color="bg" autoContrast>
-          Trier par date de sortie ({sortOrder === 'asc' ? 'Croissant' : 'Décroissant'})
-        </Button>
-      </div>
       {loading ? (
         <div className={classes.loaderContainer}>
           <Loader />
         </div>
       ) : (
-        <div className={classes.container1}>
-          {sortedMovieList.map((movie, index) => (
-            <div key={index} className={classes.cardContainer1}>
-              <Card withBorder radius="md" className={classes.card1}>
-                <Card.Section>
-                  <Link to={`/films/${movie.tmdb_id}`}>
-                    <Image src={movie.poster_path} height={380} />
-                  </Link>
-                </Card.Section>
+        <>
+          <div className="header2">
+            <h1 className="pageTitle2">{title}&nbsp;</h1>
+            <Button onClick={toggleSortOrder} className={classes.sortButton} color="bg" autoContrast>
+              Trier par date de sortie ({sortOrder === 'asc' ? 'Croissant' : 'Décroissant'})
+            </Button>
+          </div>
 
-                <Badge className={classes.rating1} variant="gradient" gradient={{ from: 'blue', to: 'black' }}>
-                  Sortie le &nbsp;{formatDate(movie.release_date)}
-                </Badge>
+          <div className={classes.container1}>
+            {sortedMovieList.map((movie, index) => (
+              <div key={index} className={classes.cardContainer1}>
+                <Card withBorder radius="md" className={classes.card1}>
+                  <Card.Section>
+                    <Link to={`/films/${movie.tmdb_id}`}>
+                      <Image src={movie.poster_path ? movie.poster_path : no_poster} height={380} />
+                    </Link>
+                  </Card.Section>
 
-                <Text className={classes.articleTitle1} fw={500} component={Link} to={`/films/${movie.tmdb_id}`}>
-                  {movie.title_fr}
-                </Text>
+                  <Badge className={classes.rating1} variant="gradient" gradient={{ from: 'blue', to: 'black' }}>
+                    Sortie le &nbsp;{formatDate(movie.release_date)}
+                  </Badge>
 
-                <Text fz="sm" c="dimmed">
-                  {truncateTextWithSlice(movie.overview || 'Synopsis non disponible', 350)}{' '}
-                </Text>
+                  <Text className={classes.articleTitle1} fw={500} component={Link} to={`/films/${movie.tmdb_id}`}>
+                    {movie.title_fr}
+                  </Text>
 
-                <div className={classes.footer1}>
-                  {logged && (
-                    <ButtonAddToFavorites
-                      tmdbId={movie.tmdb_id}
-                      inPlaylists={movie.user_data ? movie.user_data.in_playlists : []}
-                    />
-                  )}
-                </div>
-              </Card>
-            </div>
-          ))}
-        </div>
+                  <Text fz="sm" c="dimmed">
+                    {truncateTextWithSlice(movie.overview || 'Synopsis non disponible', 350)}{' '}
+                  </Text>
+
+                  <div className={classes.footer1}>
+                    {logged && (
+                      <ButtonAddToFavorites
+                        tmdbId={movie.tmdb_id}
+                        inPlaylists={movie.user_data ? movie.user_data.in_playlists : []}
+                      />
+                    )}
+                  </div>
+                </Card>
+              </div>
+            ))}
+          </div>
+        </>
       )}
     </>
   );

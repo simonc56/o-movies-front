@@ -6,6 +6,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MovieIdentityType } from '../../@types/MovieType';
 import { PlaylistIdentityType } from '../../@types/PlaylistState';
+import no_poster from '../../assets/no-poster.webp';
 import {
   actionCreatePlaylist,
   actionDeleteMediaFromPlaylist,
@@ -270,7 +271,10 @@ const PlaylistPage: React.FC = () => {
                     {movies.map((movie, index) => (
                       <Link key={index} to={`/films/${movie.tmdb_id}`} className="movie-link">
                         <div className="movie">
-                          <img src={movie.poster_path} alt={`Image de ${movie.title_fr}`} />
+                          <img
+                            src={movie.poster_path.slice(-4) != 'null' ? movie.poster_path : no_poster}
+                            alt={`Image de ${movie.title_fr}`}
+                          />
                           <ActionIcon
                             onClick={(e) => {
                               e.preventDefault();

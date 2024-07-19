@@ -10,25 +10,24 @@ import AvatarName from '../UserMenu/AvatarName';
 import UserMenu from '../UserMenu/UserMenu';
 import './Header.scss';
 
-
 function Header() {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
   const user = useAppSelector((state) => state.settings.user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-const links = [
-  { link: '/actuellement', label: "A l'affiche" },
-  { link: '/prochainement', label: 'Prochainement' },
-  { link: '/films', label: 'Films' },
-  ...(user.logged ? [{ link: '/playlist', label: 'Mes playlists' }] : []),
-];
+  const links = [
+    { link: '/actuellement', label: "A l'affiche" },
+    { link: '/prochainement', label: 'Prochainement' },
+    { link: '/films', label: 'Films' },
+    ...(user.logged ? [{ link: '/playlist', label: 'Mes playlists' }] : []),
+  ];
 
-const items = links.map((link) => (
-  <NavLink key={link.label} to={link.link} className="link">
-    {link.label}
-  </NavLink>
-));
+  const items = links.map((link) => (
+    <NavLink key={link.label} to={link.link} className="link">
+      {link.label}
+    </NavLink>
+  ));
 
   const drawerItems = links.map((link) => (
     <NavLink
@@ -56,15 +55,15 @@ const items = links.map((link) => (
           <Link to="/" className="title">
             <img src={logo} alt="logo o'movies" />
             <h1>O'movies</h1>
-          </Link>         
+          </Link>
           <Group gap={0} visibleFrom="md">
             {items}
           </Group>
-          <Group gap={0} visibleFrom="md">
+          <Group gap={0} visibleFrom="lg">
             <Searchbar />
             {user.logged ? <UserMenu /> : <LoginSignup />}
           </Group>
-          <Burger opened={drawerOpened} onClick={toggleDrawer} size="md" hiddenFrom="md" color="primary" />
+          <Burger opened={drawerOpened} onClick={toggleDrawer} size="md" hiddenFrom="lg" color="primary" />
         </Group>
       </header>
 
@@ -74,7 +73,7 @@ const items = links.map((link) => (
         size="80%"
         padding="md"
         title="Menu"
-        hiddenFrom="md"
+        hiddenFrom="lg"
         zIndex={1000000}
       >
         <Divider my="md" />
