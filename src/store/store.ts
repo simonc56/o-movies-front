@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 
+import { axiosInterceptor } from '../api';
 import moviesReducer from '../features/moviesSlice';
 import playlistReducer from '../features/playlistSlice';
 import settingsReducer from '../features/settingsSlice';
@@ -7,6 +8,8 @@ import settingsReducer from '../features/settingsSlice';
 const store = configureStore({
   reducer: { settings: settingsReducer, movies: moviesReducer, playlist: playlistReducer },
 });
+
+axiosInterceptor(store);
 
 export default store;
 

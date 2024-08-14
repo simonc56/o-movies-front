@@ -18,6 +18,11 @@ export type SuccessLoginResponse = {
   birthdate: string;
   token: string;
 };
+
+export type SuccessRefreshResponse = {
+  token: string;
+};
+
 export type SuccessProfilResponse = {
   id: number;
   firstname: string;

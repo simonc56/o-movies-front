@@ -38,6 +38,11 @@ const settingsSlice = createSlice({
       api.removeTokenJWTToAxiosInstance();
       removeStoreUser();
     },
+    updateToken: (state, action: PayloadAction<string>) => {
+      state.user.token = action.payload;
+      state.user.logged = true;
+      setStoreUser(state.user);
+    },
     editFirstname: (state, action: PayloadAction<string>) => {
       state.user.firstname = action.payload;
     },
@@ -108,5 +113,13 @@ export const selectUser = (state: RootState) => state.settings.user;
 
 export default settingsSlice.reducer;
 
-export const { logout, resetMessages, editEmail, editPassword, editFirstname, editLastName, editBirthdate } =
-  settingsSlice.actions;
+export const {
+  logout,
+  updateToken,
+  resetMessages,
+  editEmail,
+  editPassword,
+  editFirstname,
+  editLastName,
+  editBirthdate,
+} = settingsSlice.actions;
