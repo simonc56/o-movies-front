@@ -31,7 +31,7 @@ module.exports = {
   plugins: ['react', '@typescript-eslint'],
   rules: {
     '@typescript-eslint/naming-convention': [
-      'warning',
+      1,
       {
         selector: 'variable',
         format: ['camelCase', 'snake_case'],
