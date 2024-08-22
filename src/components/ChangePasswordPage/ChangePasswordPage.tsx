@@ -1,7 +1,7 @@
+import { Button, Center, Group, PasswordInput, Progress } from '@mantine/core';
+import { IconCheck, IconX } from '@tabler/icons-react';
 import axios from 'axios';
 import { useState } from 'react';
-import { PasswordInput, Group, Center, Progress, Button} from '@mantine/core';
-import { IconCheck, IconX } from '@tabler/icons-react';
 import { useNavigate } from 'react-router-dom';
 import './ChangePasswordPage.scss';
 
@@ -71,7 +71,7 @@ function ChangePasswordPage() {
   // form submission
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    
+
     // Check if passwords match
     if (form.newPassword === form.confirmPassword) {
       setPasswordsMatch(true);
@@ -82,6 +82,7 @@ function ChangePasswordPage() {
         const { currentPassword, newPassword } = form;
         // Change password with API
         const response = await axios.post('/api/change-password', { currentPassword, newPassword });
+        // eslint-disable-next-line no-console
         console.log(response.data);
         setSuccessMessagePsw('Mot de passe changé avec succès !');
         resetForm();
@@ -94,7 +95,7 @@ function ChangePasswordPage() {
         if (axios.isAxiosError(error)) {
           setApiError(`Erreur: ${error.response?.data.error || 'Changement de mot de passe échoué'}`);
         } else {
-          setApiError("Erreur lors du changement de mot de passe. Veuillez réessayer.");
+          setApiError('Erreur lors du changement de mot de passe. Veuillez réessayer.');
         }
       }
     } else {
@@ -105,7 +106,11 @@ function ChangePasswordPage() {
   // calculate password strength
   const strength = getStrength(form.newPassword);
   const checks = requirements.map((requirement) => (
-    <PasswordRequirement key={requirement.label} label={requirement.label} meets={requirement.re.test(form.newPassword)} />
+    <PasswordRequirement
+      key={requirement.label}
+      label={requirement.label}
+      meets={requirement.re.test(form.newPassword)}
+    />
   ));
 
   // bars for password strength meter
@@ -194,6 +199,6 @@ function ChangePasswordPage() {
       </section>
     </div>
   );
-};
+}
 
 export default ChangePasswordPage;

@@ -2,7 +2,6 @@ import { Button, Checkbox, Menu } from '@mantine/core';
 import { IconChevronDown } from '@tabler/icons-react';
 import { useEffect, useState } from 'react';
 import { Genre } from '../../@types/MovieType';
-import { useAppDispatch } from '../../store/hooks';
 
 function ButtonCheckGenres({
   genresList,
@@ -11,17 +10,14 @@ function ButtonCheckGenres({
   genresList: Genre[];
   onGenresSelect: (selectedGenres: number[]) => void;
 }) {
-  const dispatch = useAppDispatch();
-
   const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
 
   const handleCheckboxChange = (genreId: number) => {
     setSelectedGenres((prevSelectedGenres) => {
       if (prevSelectedGenres.includes(genreId)) {
         return prevSelectedGenres.filter((id) => id !== genreId);
-      } else {
-        return [...prevSelectedGenres, genreId];
       }
+      return [...prevSelectedGenres, genreId];
     });
   };
 

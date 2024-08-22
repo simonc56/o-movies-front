@@ -8,7 +8,7 @@ function UnderConstructionPage() {
       <div>
         <h2 className="constructionTitle">Page en construction</h2>
         <p className="constructionText">
-          Chers compagnons O'clock, nous travaillons dur pour préparer quelque chose d'incroyable. <br />
+          Nous travaillons dur pour préparer quelque chose d'incroyable. <br />
           Revenez bientôt pour plus de mises à jour !
         </p>
       </div>
