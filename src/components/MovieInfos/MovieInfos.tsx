@@ -1,10 +1,9 @@
 import { FaStar } from 'react-icons/fa';
 import MovieType, { Genre } from '../../@types/MovieType';
 import no_poster from '../../assets/no-poster.webp';
+import { useAppSelector } from '../../store/hooks';
 import { runtimeToString } from '../../utils/utils';
 import ButtonAddToPlaylist from '../ButtonAddToPlaylist/ButtonAddToPlaylist';
-
-import { useAppSelector } from '../../store/hooks';
 import './MovieInfos.scss';
 
 type MovieInfosProps = {
@@ -12,19 +11,14 @@ type MovieInfosProps = {
 };
 
 function MovieInfos({ movie }: MovieInfosProps) {
-  const logged = useAppSelector((state) => state.settings.user.logged);
+  const user = useAppSelector((state) => state.settings.user);
   const truncateOverview = movie.overview.length > 500 ? `${movie.overview.slice(0, 500)}...` : movie.overview;
 
   return (
     <section className="section-movie-infos">
       <div className="poster-panel">
         <img src={movie.poster_path ? movie.poster_path : no_poster} alt="poster du film" />
-        {logged && (
-          <ButtonAddToPlaylist
-            tmdbId={movie.tmdb_id}
-            inPlaylists={movie.user_data ? movie.user_data.in_playlists : []}
-          />
-        )}
+        {user.logged && <ButtonAddToPlaylist tmdbId={movie.tmdb_id} />}
       </div>
       <div className="data-panel">
         <h2>{movie.title_fr}</h2>
