@@ -1,5 +1,4 @@
 import { SettingsState, UserType } from '../@types/SettingsState';
-import * as api from '../api';
 
 /**
  * Store the current logged user in localStorage
@@ -39,13 +38,10 @@ export const getInitialSettingsState = (): SettingsState => {
       logged: false,
       token: '',
     },
-    successMessage: null,
-    errorMessage: null,
   };
   const user = getStoreUser();
   if (user) {
     defaultSettingsState.user = user;
-    api.addTokenJWTToAxiosInstance(user.token);
   }
   return defaultSettingsState;
 };
