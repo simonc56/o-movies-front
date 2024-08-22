@@ -1,12 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
-
-import { axiosInterceptor } from '../api';
-import moviesReducer from '../features/moviesSlice';
-import playlistReducer from '../features/playlistSlice';
+import { axiosInterceptor } from '../apiHandler/api';
+import apiSlice from '../apiHandler/apiSlice';
 import settingsReducer from '../features/settingsSlice';
 
 const store = configureStore({
-  reducer: { settings: settingsReducer, movies: moviesReducer, playlist: playlistReducer },
+  reducer: {
+    settings: settingsReducer,
+    [apiSlice.reducerPath]: apiSlice.reducer,
+  },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(apiSlice.middleware),
+  devTools: true,
 });
 
 axiosInterceptor(store);
