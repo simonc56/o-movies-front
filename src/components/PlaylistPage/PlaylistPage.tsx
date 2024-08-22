@@ -8,48 +8,42 @@ import { MovieIdentityType } from '../../@types/MovieType';
 import { PlaylistIdentityType } from '../../@types/PlaylistState';
 import no_poster from '../../assets/no-poster.webp';
 import {
-  actionCreatePlaylist,
-  actionDeleteMediaFromPlaylist,
-  actionDeletePlaylist,
-  actionFetchPlaylist,
-  actionFetchUserPlaylists,
-  actionRenamePlaylist,
-  actionResetCurrentPlaylist,
-} from '../../features/playlistSlice';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
+  useCreatePlaylistMutation,
+  useDeleteMediaFromPlaylistMutation,
+  useDeletePlaylistMutation,
+  useGetPlaylistQuery,
+  useGetUserPlaylistsQuery,
+  useRenamePlaylistMutation,
+} from '../../features/playlistApiSlice';
 import AlphabeticalList from '../AlphabeticalListNav/AlphabeticalList';
 import Loader from '../Loader/Loader';
 import NavbarSearch from './NavbarSearch';
 import './PlaylistPage.scss';
 
-const PlaylistPage: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const playlists = useAppSelector((state) => state.playlist.userPlaylists);
-  const hasFetchUserPlaylists = useAppSelector((state) => state.playlist.hasFetchUserPlaylists);
+function PlaylistPage() {
+  const [playlistId, setPlaylistId] = useState<number>(0);
+  const [skip, setSkip] = useState(true);
+  const { data: playlists, isLoading: playlistsAreLoading } = useGetUserPlaylistsQuery();
+  const [createPlaylist] = useCreatePlaylistMutation();
+  const [renamePlaylist] = useRenamePlaylistMutation();
+  const [deletePlaylist] = useDeletePlaylistMutation();
+  const [deleteMediaFromPlaylist] = useDeleteMediaFromPlaylistMutation();
+  const { data: selectedPlaylist } = useGetPlaylistQuery(playlistId, { skip });
   const [opened, setOpened] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [newLabel, setNewLabel] = useState('');
-  const [playlistId, setPlaylistId] = useState<number | null>(null);
   const [editingLabel, setEditingLabel] = useState<null | string>(null);
   const [modalWidth, setModalWidth] = useState('600px');
-  const selectedPlaylist = useAppSelector((state) => state.playlist.currentPlaylist);
   const [sortedMovies, setSortedMovies] = useState<MovieIdentityType[]>([]);
   const [activeLetter, setActiveLetter] = useState<string>('A');
-  const [movieToDelete, setMovieToDelete] = useState<string | null>(null); 
+  const [movieToDelete, setMovieToDelete] = useState<string | null>(null);
 
   const observer = useRef<IntersectionObserver | null>(null);
 
-  useEffect(() => {
-    if (!hasFetchUserPlaylists) dispatch(actionFetchUserPlaylists()).then(() => setLoading(false));
-  }, [dispatch, hasFetchUserPlaylists]);
-
- 
-  const normalizeString = (str: string) => {
-    return str
+  const normalizeString = (str: string) =>
+    str
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
       .toUpperCase();
-  };
 
   const openAddModal = () => {
     setNewLabel('');
@@ -73,14 +67,34 @@ const PlaylistPage: React.FC = () => {
     event.preventDefault();
 
     if (editingLabel) {
-      
-      dispatch(actionRenamePlaylist({ id: playlistId || 0, name: newLabel }));
+      renamePlaylist({ id: playlistId || 0, name: newLabel });
     } else {
-    
-      dispatch(actionCreatePlaylist(newLabel));
+      createPlaylist(newLabel);
     }
 
     handleClose();
+  };
+
+  const openSidebar = (playlist: PlaylistIdentityType) => {
+    setPlaylistId(playlist.id);
+    setSkip(false);
+    // refetchPlaylist();
+    document.querySelector('.sidebarPlaylist')?.classList.add('visible');
+  };
+
+  const closeSidebar = () => {
+    setSortedMovies([]);
+    document.querySelector('.sidebarPlaylist')?.classList.remove('visible');
+  };
+
+  const removePlaylist = (playlist: PlaylistIdentityType) => {
+    deletePlaylist(playlist.id);
+    closeSidebar();
+    showNotification({
+      title: 'Playlist supprimée',
+      message: `La playlist "${playlist.name}" a été supprimée.`,
+      color: 'red',
+    });
   };
 
   const confirmRemovePlaylist = (playlist: PlaylistIdentityType) => {
@@ -98,34 +112,6 @@ const PlaylistPage: React.FC = () => {
     });
   };
 
-  const removePlaylist = (playlist: PlaylistIdentityType) => {
-    dispatch(actionDeletePlaylist(playlist.id));
-    closeSidebar();
-    showNotification({
-      title: 'Playlist supprimée',
-      message: `La playlist "${playlist.name}" a été supprimée.`,
-      color: 'red',
-    });
-  };
-
-  const openSidebar = (playlist: PlaylistIdentityType) => {
-    dispatch(actionFetchPlaylist(playlist.id));
-    document.querySelector('.sidebarPlaylist')?.classList.add('visible');
-  };
-
-  const closeSidebar = () => {
-    dispatch(actionResetCurrentPlaylist());
-    setSortedMovies([]);
-    setLoading(false);
-    document.querySelector('.sidebarPlaylist')?.classList.remove('visible');
-  };
-
-
-  const sortMoviesAlphabetically = (movies: MovieIdentityType[]) => {
-    return movies.slice().sort((a, b) => normalizeString(a.title_fr).localeCompare(normalizeString(b.title_fr)));
-  };
-
-
   const groupMoviesByFirstLetter = (movies: MovieIdentityType[]) => {
     const groupedMovies: { [key: string]: MovieIdentityType[] } = {};
     movies.forEach((movie) => {
@@ -139,6 +125,9 @@ const PlaylistPage: React.FC = () => {
   };
 
   useEffect(() => {
+    const sortMoviesAlphabetically = (movies: MovieIdentityType[]) =>
+      movies.slice().sort((a, b) => normalizeString(a.title_fr).localeCompare(normalizeString(b.title_fr)));
+
     if (selectedPlaylist?.medias) {
       const sorted = sortMoviesAlphabetically(selectedPlaylist.medias);
       setSortedMovies(sorted);
@@ -147,7 +136,6 @@ const PlaylistPage: React.FC = () => {
     }
   }, [selectedPlaylist]);
 
- 
   useEffect(() => {
     const sections = document.querySelectorAll('.letter-section');
 
@@ -176,22 +164,18 @@ const PlaylistPage: React.FC = () => {
     };
   }, [sortedMovies]);
 
-  
   const maxLength = 33;
-
 
   const getMoviesLabel = (count: number) => {
     if (count < 2) {
       return 'film';
-    } else {
-      return 'films';
     }
+    return 'films';
   };
 
-  
   const removeMovieFromPlaylist = (movie: MovieIdentityType) => {
     if (selectedPlaylist) {
-      dispatch(actionDeleteMediaFromPlaylist({ id: selectedPlaylist.playlist_id, tmdb_id: movie.tmdb_id }));
+      deleteMediaFromPlaylist({ id: selectedPlaylist.playlist_id, tmdb_id: movie.tmdb_id });
       showNotification({
         title: 'Film supprimé',
         message: `Le film "${movie.title_fr}" a été supprimé de la playlist "${selectedPlaylist.name}".`,
@@ -204,12 +188,12 @@ const PlaylistPage: React.FC = () => {
   return (
     <ModalsProvider>
       <NavbarSearch
-        playlists={playlists}
+        playlists={playlists || []}
         openAddModal={openAddModal}
         openEditModal={openEditModal}
         confirmRemovePlaylist={confirmRemovePlaylist}
         openSidebar={openSidebar}
-        loading={!hasFetchUserPlaylists}
+        loading={playlistsAreLoading}
       />
 
       <Modal
@@ -260,17 +244,17 @@ const PlaylistPage: React.FC = () => {
         </div>
         <div className="sidebar-content-wrapperPL">
           <div className="sidebar-content">
-            {!loading ? (
+            {!playlistsAreLoading ? (
               Object.entries(groupMoviesByFirstLetter(sortedMovies)).map(([letter, movies]) => (
                 <div key={letter} id={letter} className="letter-section">
                   <h2>{letter}</h2>
                   <div className="movie-row">
-                    {movies.map((movie, index) => (
-                      <Link key={index} to={`/films/${movie.tmdb_id}`} className="movie-link">
+                    {movies.map((movie) => (
+                      <Link key={movie.tmdb_id} to={`/films/${movie.tmdb_id}`} className="movie-link">
                         <div className="movie">
                           <img
-                            src={movie.poster_path.slice(-4) != 'null' ? movie.poster_path : no_poster}
-                            alt={`Image de ${movie.title_fr}`}
+                            src={movie.poster_path.slice(-4) !== 'null' ? movie.poster_path : no_poster}
+                            alt={movie.title_fr}
                           />
                           <ActionIcon
                             onClick={(e) => {
@@ -326,6 +310,6 @@ const PlaylistPage: React.FC = () => {
       </div>
     </ModalsProvider>
   );
-};
+}
 
 export default PlaylistPage;
