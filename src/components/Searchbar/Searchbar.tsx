@@ -1,23 +1,45 @@
 import { Autocomplete, Loader } from '@mantine/core';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IoIosSearch } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
-import { actionSearchMovies, resetMovieResultList } from '../../features/moviesSlice';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { MovieResultType } from '../../@types/MovieType';
+import { useSearchMoviesQuery } from '../../features/moviesApiSlice';
 import { isoDateToYear } from '../../utils/utils';
 import './Searchbar.scss';
 
+const useDebounce = (value: string, delay: number) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+};
+
 function Searchbar({ onFound }: { onFound?: () => void }) {
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [myTimeout, setMyTimeout] = useState<number>();
-  const results = useAppSelector((state) => state.movies.movieResultList).slice(0, 7);
+  const debouncedSearchTerm = useDebounce(inputValue, 300);
+  const {
+    data: results,
+    isSuccess,
+    isFetching,
+  } = useSearchMoviesQuery(debouncedSearchTerm, { skip: debouncedSearchTerm.length < 3 });
   // i add year in title to avoid duplicates
-  const resultsWithYear = results.map((result) => {
-    return { ...result, title_fr: `${result.title_fr} (${isoDateToYear(result.release_date)})` };
-  });
+  let resultsWithYear: MovieResultType[] = [];
+  if (isSuccess) {
+    resultsWithYear = results.map((result) => ({
+      ...result,
+      title_fr: `${result.title_fr} (${isoDateToYear(result.release_date)})`,
+    }));
+  }
   // dictionary of "title_fr: tmdb_id" to have tmdb_id when user click a result
   const moviesIds = resultsWithYear.reduce(
     (acc, result) => {
@@ -30,27 +52,14 @@ function Searchbar({ onFound }: { onFound?: () => void }) {
   const moviesTitle = [...new Set(resultsWithYear.map((result) => result.title_fr))];
 
   const handleChange = (value: string) => {
-    if (value === '') {
-      dispatch(resetMovieResultList());
-    }
     if (moviesTitle.includes(value)) {
       // if input value correspond to one of the list, it means the user clicked a result
       setInputValue('');
-      dispatch(resetMovieResultList());
       // action when user click a result, used to close drawer in mobile mode
       if (onFound) onFound();
       return navigate(`/films/${moviesIds[value]}`);
     }
-    setInputValue(value);
-    clearTimeout(myTimeout);
-    if (value.length < 2) return;
-    // 300ms debounce
-    setLoading(true);
-    setMyTimeout(
-      setTimeout(() => {
-        dispatch(actionSearchMovies(value)).then(() => setLoading(false));
-      }, 300)
-    );
+    return setInputValue(value);
   };
 
   return (
@@ -63,7 +72,7 @@ function Searchbar({ onFound }: { onFound?: () => void }) {
         comboboxProps={{ zIndex: 1000001 }}
         value={inputValue}
         onChange={handleChange}
-        rightSection={loading && <Loader size={20} color="gray.6" />}
+        rightSection={isFetching && <Loader size={20} color="gray.6" />}
         onSubmit={(event) => event.preventDefault()}
         dropdownOpened={inputValue.length > 1}
         data={moviesTitle.length ? moviesTitle : ['Pas de résultats.']}
