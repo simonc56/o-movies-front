@@ -1,4 +1,5 @@
 import { Rating } from '@mantine/core';
+import { Link } from 'react-router-dom';
 import MovieType from '../../@types/MovieType';
 import { useAppSelector } from '../../store/hooks';
 import { cleanRating } from '../../utils/utils';
@@ -34,7 +35,12 @@ function MovieExtraInfos({ movie }: MovieExtraInfosProps) {
           <NewReview tmdbId={movie.tmdb_id} />
         </>
       ) : (
-        <p>Connectez-vous pour pouvoir noter et commenter ce film.</p>
+        <p>
+          <Link to="/connexion" style={{ textDecoration: 'None' }}>
+            Connectez-vous
+          </Link>{' '}
+          pour pouvoir noter et commenter ce film.
+        </p>
       )}
     </section>
   );
