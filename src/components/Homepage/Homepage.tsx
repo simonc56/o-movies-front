@@ -1,7 +1,6 @@
 import { Paper } from '@mantine/core';
-import PosterCarousel from '../PosterCarousel/PosterCarousel';
-
 import { Link } from 'react-router-dom';
+import PosterCarousel from '../PosterCarousel/PosterCarousel';
 import './Homepage.scss';
 
 function Homepage() {

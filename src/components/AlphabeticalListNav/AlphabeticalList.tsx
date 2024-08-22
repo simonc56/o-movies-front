@@ -1,15 +1,16 @@
-import React from 'react';
 import './AlphabeticalList.scss';
 
 interface AlphabeticalListProps {
   activeLetter: string;
 }
 
-const normalizeString = (str: string) => {
-  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase();
-};
+const normalizeString = (str: string) =>
+  str
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toUpperCase();
 
-const AlphabeticalList: React.FC<AlphabeticalListProps> = ({ activeLetter }) => {
+export default function AlphabeticalList({ activeLetter }: AlphabeticalListProps) {
   const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 
   return (
@@ -25,6 +26,4 @@ const AlphabeticalList: React.FC<AlphabeticalListProps> = ({ activeLetter }) => 
       ))}
     </div>
   );
-};
-
-export default AlphabeticalList;
+}

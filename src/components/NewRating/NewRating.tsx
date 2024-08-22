@@ -1,16 +1,19 @@
 import { Button, Rating } from '@mantine/core';
 import { useState } from 'react';
-import { actionPostRating, actionUpdateRating } from '../../features/moviesSlice';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-
+import {
+  useGetUserdataMovieByIdQuery,
+  usePatchRatingMutation,
+  usePostRatingMutation,
+} from '../../features/moviesApiSlice';
 import './NewRating.scss';
 
-function NewRating() {
+function NewRating({ tmdbId }: { tmdbId: number }) {
   const [newRating, setNewRating] = useState(0);
-  const tmdbId = useAppSelector((state) => state.movies.currentMovie?.tmdb_id) || 0;
-  const alreadyRated = useAppSelector((state) => state.movies.currentMovie?.user_data?.rating) || undefined;
+  const { data: userData } = useGetUserdataMovieByIdQuery(tmdbId);
+  const alreadyRated = userData?.rating || undefined;
   const [ratingIsUpdated, setRatingIsUpdated] = useState(false);
-  const dispatch = useAppDispatch();
+  const [updateRating] = usePatchRatingMutation();
+  const [postRating] = usePostRatingMutation();
 
   const handleChange = (rating: number) => {
     setNewRating(rating);
@@ -31,12 +34,12 @@ function NewRating() {
       setNewRating(alreadyRated.value);
     } else if (alreadyRated) {
       // call to api to update user's review
-      dispatch(actionUpdateRating({ rating: newRating, id: alreadyRated.rating_id }));
+      updateRating({ rating: newRating, id: alreadyRated.rating_id, tmdbId });
       setNewRating(0);
       setRatingIsUpdated(false);
     } else {
       // call to api to post a new review
-      dispatch(actionPostRating({ rating: newRating, tmdbId }));
+      postRating({ rating: newRating, tmdbId });
       setNewRating(0);
     }
   };

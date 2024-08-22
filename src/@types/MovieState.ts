@@ -1,11 +1,5 @@
 import MovieType, { MovieResultType } from './MovieType';
 
-export type MovieState = {
-  currentMovie: MovieType | null;
-  movieList: MovieType[];
-  movieResultList: MovieResultType[];
-};
-
 export type ParamsType = {
   page: number;
   sort_by: string;
@@ -33,14 +27,15 @@ type SuccessResponse<T> = {
   data: T;
 };
 
-type RatingResponse = {
-  rating_id?: number; // only returned with a POST request
+export type RatingResponse = {
+  rating_id: number; // only returned with a POST request
+  rating: number;
   media_id: number;
   media_average_rating: number; // recalculated each time a rating is added/updated
 };
 
-type ReviewResponse = {
-  review_id?: number; // only returned with a POST request
+export type ReviewResponse = {
+  review_id: number; // only returned with a POST request
   content: string;
 };
 
