@@ -111,16 +111,13 @@ const PlaylistPage: React.FC = () => {
   const openSidebar = (playlist: PlaylistIdentityType) => {
     dispatch(actionFetchPlaylist(playlist.id));
     document.querySelector('.sidebarPlaylist')?.classList.add('visible');
-    console.log('Barre latérale ouverte pour la playlist:', playlist.name);
   };
 
   const closeSidebar = () => {
-    console.log('Fermeture de la barre latérale...');
     dispatch(actionResetCurrentPlaylist());
     setSortedMovies([]);
     setLoading(false);
     document.querySelector('.sidebarPlaylist')?.classList.remove('visible');
-    console.log('Barre latérale fermée');
   };
 
 
