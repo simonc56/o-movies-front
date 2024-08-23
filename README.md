@@ -1,12 +1,12 @@
-# filmovies-front
+# O'Movies - front
 
 ![React][react-badge] ![Redux][redux-badge] ![Mantine][mantine-badge]
 
-Site web pour cinéphiles _(partie front-end)_
+Site web, conçu en un mois, pour les passionnés de cinéma. Il permet de consulter les informations sur les films existants et à paraître, faire des recherches, commenter, noter et faire des listes personnalisées de films.
 
-Ce site, conçu en un mois, permet de consulter les informations sur les films existants et à paraître, faire des recherches, commenter, noter et faire des listes personnalisées de films.
+![image](https://raw.github.com/simonc56/o-movies-front/main/screenshot.png)
 
-![image](https://raw.github.com/simonc56/filmovies-front/main/screenshot.png)
+La partie back-end est disponible ici : https://github.com/simonc56/o-movies-back
 
 Source de données : [TMDB](https://www.themoviedb.org/)
 
