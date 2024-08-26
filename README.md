@@ -1,6 +1,6 @@
 # O'Movies - front
 
-![React][react-badge] ![Redux][redux-badge] ![Mantine][mantine-badge]
+[![React][react-badge]](https://react.dev/) [![Redux][redux-badge]](https://redux-toolkit.js.org/) [![Mantine][mantine-badge]](https://mantine.dev/)
 
 Site web, conçu en un mois, pour les passionnés de cinéma. Il permet de consulter les informations sur les films existants et à paraître, faire des recherches, commenter, noter et faire des listes personnalisées de films.
 
@@ -11,8 +11,8 @@ La partie back-end est disponible ici : https://github.com/simonc56/o-movies-bac
 Source de données : [TMDB](https://www.themoviedb.org/)
 
 [react-badge]: https://img.shields.io/badge/React-18-20232A?logo=react&logoColor=61DAFB
-[redux-badge]: https://img.shields.io/badge/Redux/toolkit-2.2-blue
-[mantine-badge]: https://img.shields.io/badge/Mantine-7.11-yellow
+[redux-badge]: https://img.shields.io/badge/Redux_Toolkit-593d88?logo=redux&logoColor=white
+[mantine-badge]: https://img.shields.io/badge/Mantine-7.11-blue
 
 ## Fonctionnalités
 
