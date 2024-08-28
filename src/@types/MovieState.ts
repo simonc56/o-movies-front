@@ -32,6 +32,7 @@ export type RatingResponse = {
   rating: number;
   media_id: number;
   media_average_rating: number; // recalculated each time a rating is added/updated
+  value: number;
 };
 
 export type ReviewResponse = {
