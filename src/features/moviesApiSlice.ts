@@ -74,7 +74,7 @@ export const moviesApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: ['MovieUs
         // Update the userdata cache with the new rating
         dispatch(
           moviesApiSlice.util.updateQueryData('getUserdataMovieById', tmdbId, (draft) => {
-            draft.rating = { value: data.rating || 0, rating_id: data.rating_id };
+            draft.rating = { value: data.value || 0, rating_id: data.rating_id };
           })
         );
         // Update the average rating of the movie
