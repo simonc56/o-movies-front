@@ -1,11 +1,5 @@
 import { MovieIdentityType } from './MovieType';
 
-export type PlaylistState = {
-  currentPlaylist: Playlist;
-  userPlaylists: PlaylistIdentityType[];
-  hasFetchUserPlaylists: boolean;
-};
-
 // here I create a generic type for 'success' API responses (no export)
 // you have to specify the type of T when you want to reuse SuccessResponse<T>
 type SuccessResponse<T> = {

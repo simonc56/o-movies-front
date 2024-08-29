@@ -39,11 +39,14 @@ importers:
         specifier: ^4.3.1
         version: 4.3.1(vite@4.5.3(sass@1.77.6))
       axios:
-        specifier: ^1.7.2
-        version: 1.7.2
+        specifier: ^1.7.4
+        version: 1.7.4
       dayjs:
         specifier: ^1.11.11
         version: 1.11.11
+      jwt-decode:
+        specifier: ^4.0.0
+        version: 4.0.0
       postcss:
         specifier: ^8.4.39
         version: 8.4.39
@@ -236,6 +239,10 @@ packages:
 
   '@babel/runtime@7.24.7':
     resolution: {integrity: sha512-UwgBRMjJP+xv857DCngvqXI3Iq6J4v0wXmwc6sapg+zyhbwmQX67LUEFrkK5tbyJ30jGuG3ZvWpBiB9LCy1kWw==}
+    engines: {node: '>=6.9.0'}
+
+  '@babel/runtime@7.25.0':
+    resolution: {integrity: sha512-7dRy4DwXwtzBrPbZflqxnvfxLF8kdZXPkhymtDeFoFqE6ldzjQFgYTtYIFARcLEYDrqfBfYcZt1WqFxRoyC9Rw==}
     engines: {node: '>=6.9.0'}
 
   '@babel/template@7.24.7':
@@ -1027,8 +1034,8 @@ packages:
     resolution: {integrity: sha512-QbUdXJVTpvUTHU7871ppZkdOLBeGUKBQWHkHrvN2V9IQWGMt61zf3B45BtzjxEJzYuj0JBjBZP/hmYS/R9pmAw==}
     engines: {node: '>=4'}
 
-  axios@1.7.2:
-    resolution: {integrity: sha512-2A8QhOMrbomlDuiLeK9XibIBzuHeRcqqNOHp0Cyp5EoJ1IFDh+XZH3A6BkXtv0K4gFGCI0Y4BM7B1wOEi0Rmgw==}
+  axios@1.7.4:
+    resolution: {integrity: sha512-DukmaFRnY6AzAALSH4J2M3k6PkaC+MfaAGdEERRWcC9q3/TWQwLpHR8ZRLKTdQ3aBDL64EdluRDjJqKw+BPZEw==}
 
   axobject-query@2.2.0:
     resolution: {integrity: sha512-Td525n+iPOOyUQIeBfcASuG6uJsDOITl7Mds5gFyerkWiX7qhUTdYUBlSgNMyVqtSJqwpt1kXGLdUt6SykLMRA==}
@@ -1796,6 +1803,10 @@ packages:
   jsx-ast-utils@3.3.5:
     resolution: {integrity: sha512-ZZow9HBI5O6EPgSJLUb8n2NKgmVWTwCvHGwFuJlMjvLFqlGG6pjirPhtdsseaLZjSibD8eegzmYpUZwoIlj2cQ==}
     engines: {node: '>=4.0'}
+
+  jwt-decode@4.0.0:
+    resolution: {integrity: sha512-+KJGIyHgkGuIq3IEBNftfhW/LfWhXUIY6OmyVWjliu5KH1y0fw7VQ8YndE2O4qZdMSd9SqbnC8GOcZEy0Om7sA==}
+    engines: {node: '>=18'}
 
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
@@ -2807,6 +2818,10 @@ snapshots:
     dependencies:
       regenerator-runtime: 0.14.1
 
+  '@babel/runtime@7.25.0':
+    dependencies:
+      regenerator-runtime: 0.14.1
+
   '@babel/template@7.24.7':
     dependencies:
       '@babel/code-frame': 7.24.7
@@ -3195,7 +3210,7 @@ snapshots:
   '@testing-library/dom@10.1.0':
     dependencies:
       '@babel/code-frame': 7.24.7
-      '@babel/runtime': 7.24.7
+      '@babel/runtime': 7.25.0
       '@types/aria-query': 5.0.4
       aria-query: 5.3.0
       chalk: 4.1.2
@@ -3504,7 +3519,7 @@ snapshots:
 
   axe-core@4.9.1: {}
 
-  axios@1.7.2:
+  axios@1.7.4:
     dependencies:
       follow-redirects: 1.15.6
       form-data: 4.0.0
@@ -4421,6 +4436,8 @@ snapshots:
       array.prototype.flat: 1.3.2
       object.assign: 4.1.5
       object.values: 1.2.0
+
+  jwt-decode@4.0.0: {}
 
   keyv@4.5.4:
     dependencies:

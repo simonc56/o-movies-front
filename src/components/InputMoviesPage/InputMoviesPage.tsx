@@ -1,9 +1,9 @@
 import { NumberInput } from '@mantine/core';
 
 function InputPageMovies({ onPageChange, value }: { onPageChange: (page: number) => void; value: number }) {
-  const handleChange = (value: string | number) => {
-    if (typeof value === 'number') {
-      onPageChange(value);
+  const handleChange = (inputValue: string | number) => {
+    if (typeof inputValue === 'number') {
+      onPageChange(inputValue);
     }
   };
   return (

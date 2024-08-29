@@ -7,8 +7,7 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/fr';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { register } from '../../api';
-import { useAppDispatch } from '../../store/hooks';
+import { register } from '../../apiHandler/api';
 import './SignupPage.scss';
 
 // to use French locale for birthdate calendars
@@ -66,9 +65,7 @@ function SignupPage() {
 
   const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [apiError, setApiError] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -107,7 +104,6 @@ function SignupPage() {
     if (form.password === form.confirmPassword) {
       setPasswordsMatch(true);
       setApiError('');
-      setSuccessMessage('');
 
       try {
         const { firstName, lastName, email, password, birthday } = form;
@@ -120,7 +116,7 @@ function SignupPage() {
           password,
         };
         // register user with api
-        const response = await register(credentials);
+        await register(credentials);
         notifications.show({
           id: 'signup-success',
           withCloseButton: true,

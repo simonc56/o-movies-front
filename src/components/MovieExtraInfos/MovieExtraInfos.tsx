@@ -1,12 +1,12 @@
 import { Rating } from '@mantine/core';
+import { Link } from 'react-router-dom';
 import MovieType from '../../@types/MovieType';
 import { useAppSelector } from '../../store/hooks';
+import { cleanRating } from '../../utils/utils';
 import MovieCast from '../MovieCast/MovieCast';
 import MovieReviews from '../MovieReviews/MovieReviews';
 import NewRating from '../NewRating/NewRating';
 import NewReview from '../NewReview/NewReview';
-
-import { cleanRating } from '../../utils/utils';
 import './MovieExtraInfos.scss';
 
 type MovieExtraInfosProps = {
@@ -14,7 +14,7 @@ type MovieExtraInfosProps = {
 };
 
 function MovieExtraInfos({ movie }: MovieExtraInfosProps) {
-  const isLogged = useAppSelector((state) => state.settings.user.logged);
+  const user = useAppSelector((state) => state.settings.user);
 
   return (
     <section className="section-extra-infos">
@@ -29,13 +29,18 @@ function MovieExtraInfos({ movie }: MovieExtraInfosProps) {
         </div>
       )}
       <MovieReviews reviews={movie.reviews} />
-      {isLogged ? (
+      {user.logged ? (
         <>
-          <NewRating />
-          <NewReview />
+          <NewRating tmdbId={movie.tmdb_id} />
+          <NewReview tmdbId={movie.tmdb_id} />
         </>
       ) : (
-        <p>Connectez-vous pour pouvoir noter et commenter ce film.</p>
+        <p>
+          <Link to="/connexion" style={{ textDecoration: 'None' }}>
+            Connectez-vous
+          </Link>{' '}
+          pour pouvoir noter et commenter ce film.
+        </p>
       )}
     </section>
   );

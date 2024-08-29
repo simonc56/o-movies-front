@@ -3,46 +3,49 @@ import { notifications } from '@mantine/notifications';
 import { IconCheck, IconInfoCircle, IconX } from '@tabler/icons-react';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { actionLogin, editEmail, editPassword, resetMessages } from '../../features/settingsSlice';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { useLoginMutation } from '../../features/settingsApiSlice';
+import { login } from '../../features/settingsSlice';
+import { useAppDispatch } from '../../store/hooks';
 import './ConnectionPage.scss';
 
-interface LoginResponse {
-  message: string;
-}
-
 function ConnectionPage() {
-  const dispatch = useAppDispatch();
-  const emailValue = useAppSelector((state) => state.settings.user.email);
-  const firstname = useAppSelector((state) => state.settings.user.firstname);
-  const passwordValue = useAppSelector((state) => state.settings.user.password);
-  const successMessage = useAppSelector((state) => state.settings.successMessage);
-  const errorMessage = useAppSelector((state) => state.settings.errorMessage);
+  const [doLogin, { data: loginData, error: loginError, isSuccess: loginIsSuccess, isError: loginIsError }] =
+    useLoginMutation();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [stayConnected, setStayConnected] = useState(false);
   const [loading, setLoading] = useState(false);
+  const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (successMessage) {
+    if (loginIsSuccess && loginData) {
       setLoading(false);
+      dispatch(login(loginData));
       notifications.show({
         id: 'login-success',
         withCloseButton: true,
         autoClose: 5000,
         title: 'Vous êtes connecté',
-        message: `Bienvenue ${firstname}, vous êtes chez vous !`,
+        message: `Bienvenue ${loginData.firstname}, vous êtes chez vous !`,
         color: 'green',
         icon: <IconCheck />,
         loading: false,
       });
-      dispatch(resetMessages());
       // redirect to homepage after successful login after 1 second
       setTimeout(() => {
         navigate('/');
       }, 1000); // in ms (1000=1s)
     }
-    if (errorMessage) {
+    if (loginIsError) {
+      let errorMessage;
+      const { data } = loginError as { data: string };
+      if (data === 'Network Error') {
+        errorMessage = 'Veuillez vérifier votre connexion Internet.';
+      } else {
+        errorMessage = "Veuillez vérifier vos informations d'identification.";
+      }
       notifications.show({
         id: 'login-error',
         withCloseButton: true,
@@ -53,17 +56,16 @@ function ConnectionPage() {
         icon: <IconX />,
         loading: false,
       });
-      dispatch(resetMessages());
       setLoading(false);
     }
-  }, [successMessage, errorMessage, navigate]);
+  }, [loginIsSuccess, loginIsError, navigate, loginData, loginError, dispatch]);
 
   const emailChange = (event: ChangeEvent<HTMLInputElement>) => {
-    dispatch(editEmail(event.target.value));
+    setEmail(event.target.value);
   };
 
   const passwordChange = (event: ChangeEvent<HTMLInputElement>) => {
-    dispatch(editPassword(event.target.value));
+    setPassword(event.target.value);
   };
 
   const stayConnectedChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -74,7 +76,7 @@ function ConnectionPage() {
   const onSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setLoading(true);
-    dispatch(actionLogin());
+    doLogin({ email, password, stayConnected });
   };
 
   // Tooltip for additional information
@@ -103,7 +105,7 @@ function ConnectionPage() {
             label="Email"
             placeholder="exemple@domaine.com"
             type="email"
-            value={emailValue}
+            value={email}
             onChange={emailChange}
             rightSection={rightSection}
             required
@@ -114,7 +116,7 @@ function ConnectionPage() {
             label="Mot de passe"
             required
             placeholder="Mot de passe"
-            value={passwordValue}
+            value={password}
             onChange={passwordChange}
             className="connection-input"
             mt="md"

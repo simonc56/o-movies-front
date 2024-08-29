@@ -1,16 +1,19 @@
 import { Button, Textarea } from '@mantine/core';
 import { useState } from 'react';
-import { actionPostReview, actionUpdateReview } from '../../features/moviesSlice';
-import { useAppDispatch, useAppSelector } from '../../store/hooks';
-
+import {
+  useGetUserdataMovieByIdQuery,
+  usePatchReviewMutation,
+  usePostReviewMutation,
+} from '../../features/moviesApiSlice';
 import './NewReview.scss';
 
-function NewReview() {
+function NewReview({ tmdbId }: { tmdbId: number }) {
   const [newReview, setNewReview] = useState('');
-  const tmdbId = useAppSelector((state) => state.movies.currentMovie?.tmdb_id) || 0;
-  const alreadyReviewed = useAppSelector((state) => state.movies.currentMovie?.user_data?.review) || undefined;
+  const { data: userData } = useGetUserdataMovieByIdQuery(tmdbId);
+  const alreadyReviewed = userData?.review || undefined;
   const [reviewIsUpdated, setReviewIsUpdated] = useState(false);
-  const dispatch = useAppDispatch();
+  const [updateReview] = usePatchReviewMutation();
+  const [postReview] = usePostReviewMutation();
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewReview(event.target.value);
@@ -31,12 +34,12 @@ function NewReview() {
       setNewReview(alreadyReviewed.content);
     } else if (alreadyReviewed) {
       // call to api to update user's review
-      dispatch(actionUpdateReview({ review: newReview, id: alreadyReviewed.review_id }));
+      updateReview({ review: newReview, id: alreadyReviewed.review_id, tmdbId });
       setNewReview('');
       setReviewIsUpdated(false);
     } else {
       // call to api to post a new review
-      dispatch(actionPostReview({ review: newReview, tmdbId }));
+      postReview({ review: newReview, tmdbId });
       setNewReview('');
     }
   };

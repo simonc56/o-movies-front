@@ -1,54 +1,43 @@
 import { Button, Card, Center, Group, Loader, Text, rem, useMantineTheme } from '@mantine/core';
 import { IconEye, IconMessageCircle } from '@tabler/icons-react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ParamsType } from '../../@types/MovieState';
-import MovieType, { Genre } from '../../@types/MovieType';
-import { getGenres, getMoviesByParams } from '../../api';
+import { Genre } from '../../@types/MovieType';
 import no_poster from '../../assets/no-poster.webp';
+import { useGetGenresQuery, useGetMoviesByParamsQuery } from '../../features/moviesApiSlice';
 import ButtonCheckGenres from '../ButtonChoiceGenres/ButtonChoiceGenres';
 import InputPageMovies from '../InputMoviesPage/InputMoviesPage';
 import InputSortByPageMovies from '../InputSortByMoviesPage/InputSorByMoviesPage';
-import classes from '../MovieList/MovieList.module.scss';
+import classes from './MovieList.module.scss';
 
-export function MovieList() {
+export default function MovieList() {
   const theme = useMantineTheme();
-  const [movies, setMovies] = useState<MovieType[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-  const [genres, setGenres] = useState<Genre[]>([]);
-  const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
   const [page, setPage] = useState<number>(1);
+  const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
   const [sortBy, setSortBy] = useState<string>('popularity.desc');
+  const params: ParamsType = {
+    page,
+    sort_by: sortBy,
+    with_genres: selectedGenres.join(','),
+  };
+  const {
+    data: genres,
+    isLoading: genresAreLoading,
+    isSuccess: genresSuccess,
+    isError: genresError,
+  } = useGetGenresQuery();
+  const {
+    data: movies,
+    isLoading: moviesAreLoading,
+    isError: moviesError,
+  } = useGetMoviesByParamsQuery(params, { skip: !genresSuccess });
 
-  const handleGenresSelect = (selectedGenres: number[]) => {
-    setSelectedGenres(selectedGenres);
+  const handleGenresSelect = (genresList: number[]) => {
+    setSelectedGenres(genresList);
   };
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const genreResponse = await getGenres();
-        const genresData = genreResponse.data.data;
-        setGenres(genresData);
-        const params: ParamsType = {
-          page: page,
-          sort_by: sortBy,
-          with_genres: selectedGenres.join(','),
-        };
-        const response = await getMoviesByParams(params);
-        setMovies(response.data.data);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching movies:', error);
-        setError("Une erreur s'est produite lors du chargement des films.");
-        setLoading(false);
-      }
-    }
-    fetchData();
-  }, [selectedGenres, page, sortBy]);
-
-  if (loading) {
+  if (genresAreLoading || moviesAreLoading || !genres || !movies) {
     return (
       <Center>
         <Loader />
@@ -56,11 +45,11 @@ export function MovieList() {
     );
   }
 
-  if (error) {
+  if (genresError || moviesError) {
     return (
       <Center>
         <div>
-          <Text color="red">{error}</Text>
+          <Text c="red">Une erreur s'est produite lors du chargement des films.</Text>
           <Button onClick={() => window.location.reload()}>Réessayer</Button>
         </div>
       </Center>
@@ -75,9 +64,9 @@ export function MovieList() {
         <InputSortByPageMovies onPageChange={setSortBy} value={sortBy} />
       </div>
       <div className={classes.cardContainer}>
-        {movies.map((movie, index) => (
+        {movies.map((movie) => (
           <Card
-            key={index}
+            key={movie.tmdb_id}
             p="lg"
             shadow="lg"
             className={classes.card}
@@ -132,5 +121,3 @@ export function MovieList() {
     </div>
   );
 }
-
-export default MovieList;

@@ -1,6 +1,7 @@
 export type LoginCredentials = {
   email: string;
   password: string;
+  stayConnected?: boolean;
 };
 
 export type SignupCredentials = {
@@ -15,9 +16,14 @@ export type SuccessLoginResponse = {
   firstname: string;
   lastname: string;
   email: string;
-  birthdate: string;
+  birthdate?: string;
   token: string;
 };
+
+export type SuccessRefreshResponse = {
+  token: string;
+};
+
 export type SuccessProfilResponse = {
   id: number;
   firstname: string;

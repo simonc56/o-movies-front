@@ -15,21 +15,20 @@ interface NavbarSearchProps {
 }
 
 // Fonction pour normaliser les chaînes en supprimant les accents et en convertissant en minuscules
-const normalizeString = (str: string) => {
-  return str
+const normalizeString = (str: string) =>
+  str
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase();
-};
 
-const NavbarSearch: React.FC<NavbarSearchProps> = ({
+function NavbarSearch({
   playlists,
   openAddModal,
   openEditModal,
   confirmRemovePlaylist,
   openSidebar,
   loading,
-}) => {
+}: NavbarSearchProps) {
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,9 +41,7 @@ const NavbarSearch: React.FC<NavbarSearchProps> = ({
 
   const maxLength = 25;
 
-  const truncateName = (name: string) => {
-    return name.length > maxLength ? `${name.slice(0, maxLength)}...` : name;
-  };
+  const truncateName = (name: string) => (name.length > maxLength ? `${name.slice(0, maxLength)}...` : name);
 
   const playlistLinks = filteredPlaylists.map((playlist) => (
     <div
@@ -52,6 +49,9 @@ const NavbarSearch: React.FC<NavbarSearchProps> = ({
       style={{ cursor: 'pointer' }}
       className={classes.collectionLink}
       onClick={() => openSidebar(playlist)}
+      onKeyDown={() => openSidebar(playlist)}
+      tabIndex={0}
+      role="button"
     >
       <span>{truncateName(playlist.name)}</span>
       <div className={classes.collectionLinkIcons}>
@@ -104,6 +104,6 @@ const NavbarSearch: React.FC<NavbarSearchProps> = ({
       </div>
     </nav>
   );
-};
+}
 
 export default NavbarSearch;
