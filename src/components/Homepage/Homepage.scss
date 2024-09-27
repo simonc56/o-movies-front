@@ -6,25 +6,91 @@
   justify-content: start;
   flex-grow: 1;
   background-color: var(--mantine-color-gray-1);
-  & .intro {
-    max-width: 40rem;
-    margin-inline: 1rem;
-    & h3 {
-      color: var(--color-bg);
+  h2 {
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
+  .hero {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: calc(100% - 2rem);
+    gap: 1rem;
+    margin: 0 1rem;
+    max-width: 60rem;
+    .hero__left {
+      max-width: 40rem;
+      .intro {
+        width: 100%;
+        height: 100%;
+        & h3 {
+          color: var(--color-bg);
+        }
+      }
+    }
+    .hero__right {
+      flex-grow: 1;
+      flex-shrink: 1;
+      flex-basis: auto;
+      max-width: 40rem;
+      .socials {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        .socials__icons {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          svg {
+            display: inline;
+            margin-inline: 1.1rem;
+            transform: scale(1.6);
+          }
+        }
+      }
+      .newsletter__button {
+        margin: 1rem 0.8rem 0;
+      }
     }
   }
-  & .news {
-    max-width: 40rem;
-    margin-inline: 1rem;
-    margin-top: 0.5rem;
-    & .header-news {
-      display: flex;
-      justify-content: space-between;
-      & h3 {
-        color: var(--color-bg);
+
+  .main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin: 0 1rem 1rem;
+    max-width: 60rem;
+    .news {
+      max-width: 40rem;
+      & .header-news {
+        display: flex;
+        justify-content: space-between;
+        & h3 {
+          color: var(--color-bg);
+        }
+        & span {
+          color: var(--mantine-color-gray-5);
+        }
       }
-      & span {
-        color: var(--mantine-color-gray-5);
+    }
+    aside {
+      max-width: 40rem;
+      flex-grow: 1;
+      flex-shrink: 1;
+      flex-basis: 10rem;
+    }
+  }
+}
+
+@media screen and (max-width: 864px) {
+  .homepage {
+    .main {
+      aside {
+        order: -1;
+        .review__content {
+          font-size: medium;
+        }
       }
     }
   }

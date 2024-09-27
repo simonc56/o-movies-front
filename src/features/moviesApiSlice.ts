@@ -1,5 +1,12 @@
 import { BaseQueryFn, EndpointBuilder } from '@reduxjs/toolkit/query';
-import { MoviesFilter, ParamsType, RatingResponse, ReviewResponse } from '../@types/MovieState';
+import {
+  LastRatingResponse,
+  LastReviewResponse,
+  MoviesFilter,
+  ParamsType,
+  RatingResponse,
+  ReviewResponse,
+} from '../@types/MovieState';
 import MovieType, { Genre, MovieResultType, MovieUserData } from '../@types/MovieType';
 import apiSlice from '../apiHandler/apiSlice';
 
@@ -154,6 +161,16 @@ export const moviesApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: ['MovieUs
         method: 'DELETE',
       }),
     }),
+    getLastReviews: builder.query<LastReviewResponse[], void>({
+      query: () => ({
+        url: `/review/last`,
+      }),
+    }),
+    getLastRatings: builder.query<LastRatingResponse[], void>({
+      query: () => ({
+        url: `/rating/last`,
+      }),
+    }),
   }),
 });
 
@@ -172,4 +189,6 @@ export const {
   usePatchRatingMutation,
   useDeleteReviewMutation,
   useDeleteRatingMutation,
+  useGetLastReviewsQuery,
+  useGetLastRatingsQuery,
 } = moviesApiSlice;

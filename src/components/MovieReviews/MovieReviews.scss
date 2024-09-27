@@ -1,8 +1,8 @@
 .reviews {
   margin-top: 1rem;
   margin-bottom: 1rem;
-  & .review {
-    & svg {
+  .review {
+    svg {
       display: inline;
       position: relative;
       top: 0.2rem;
@@ -11,7 +11,7 @@
     }
     margin-bottom: 1rem;
   }
-  & h3 {
+  h3 {
     font-size: 1.2rem;
     margin-bottom: 1rem;
   }

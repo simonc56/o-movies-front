@@ -25,8 +25,14 @@ export function budgetToMillions(budget: number) {
  * @returns string (format : 4 août 2021)
  */
 export function isoDateToFrench(isoDate: string) {
-  const date = new Date(isoDate);
-  return `${date.getDate()} ${date.toLocaleDateString('fr-FR', { month: 'long' })} ${date.getFullYear()}`;
+  let cleanDate = isoDate;
+  let time = '';
+  if (isoDate.includes('T')) {
+    [cleanDate, time] = isoDate.split('T');
+    time = ` à ${time.slice(0, 5)}`;
+  }
+  const date = new Date(cleanDate);
+  return `${date.getDate()} ${date.toLocaleDateString('fr-FR', { month: 'long' })} ${date.getFullYear()}${time}`;
 }
 
 /**

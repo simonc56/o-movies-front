@@ -1,0 +1,18 @@
+aside h3 {
+  margin: 0.5rem;
+  text-align: center;
+}
+
+.last-reviews {
+  width: 100%;
+  font-size: smaller;
+  svg {
+    display: inline;
+    vertical-align: middle;
+    margin-right: 0.4rem;
+  }
+  .review:not(:last-child) {
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--mantine-color-gray-2);
+  }
+}
