@@ -52,6 +52,7 @@ export type Review = {
   review_id: number;
   content: string;
   user_firstname?: string;
+  created_at?: string;
 };
 
 export type Actor = {

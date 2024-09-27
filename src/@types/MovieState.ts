@@ -40,6 +40,36 @@ export type ReviewResponse = {
   content: string;
 };
 
+export type LastReviewResponse = {
+  id: number;
+  content: string;
+  created_at: string;
+  media: {
+    id: number;
+    tmdb_id: number;
+    title_fr: string;
+  };
+  user: {
+    id: number;
+    firstname: string;
+  };
+};
+
+export type LastRatingResponse = {
+  id: number;
+  value: number;
+  created_at: string;
+  media: {
+    id: number;
+    tmdb_id: number;
+    title_fr: string;
+  };
+  user: {
+    id: number;
+    firstname: string;
+  };
+};
+
 export type FailResponse = {
   data: {
     status: 'fail';
