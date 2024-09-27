@@ -5,6 +5,8 @@ import {
   usePatchReviewMutation,
   usePostReviewMutation,
 } from '../../features/moviesApiSlice';
+import { useAppSelector } from '../../store/hooks';
+import type { RootState } from '../../store/store';
 import './NewReview.scss';
 
 function NewReview({ tmdbId }: { tmdbId: number }) {
@@ -14,6 +16,7 @@ function NewReview({ tmdbId }: { tmdbId: number }) {
   const [reviewIsUpdated, setReviewIsUpdated] = useState(false);
   const [updateReview] = usePatchReviewMutation();
   const [postReview] = usePostReviewMutation();
+  const { firstname } = useAppSelector((state: RootState) => state.settings.user);
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewReview(event.target.value);
@@ -39,7 +42,7 @@ function NewReview({ tmdbId }: { tmdbId: number }) {
       setReviewIsUpdated(false);
     } else {
       // call to api to post a new review
-      postReview({ review: newReview, tmdbId });
+      postReview({ review: newReview, tmdbId, firstname });
       setNewReview('');
     }
   };

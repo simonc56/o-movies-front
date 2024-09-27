@@ -17,10 +17,7 @@ function MovieReviews({ reviews }: MovieReviewsProps) {
             <FaCommentAlt />
             {review.content}
           </div>
-          <ReviewMetadata
-            firstname={review.user_firstname || 'Anonyme'}
-            created_at={review.created_at || '1997-04-10'}
-          />
+          <ReviewMetadata firstname={review.user_firstname || ''} created_at={review.created_at || ''} />
         </div>
       ))}
       {reviews.length === 0 && <p>Aucun commentaire pour le moment.</p>}

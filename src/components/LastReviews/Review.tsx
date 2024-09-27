@@ -15,9 +15,9 @@ type ReviewProps = {
 export function ReviewMetadata({ firstname, created_at }: { firstname: string; created_at: string }) {
   return (
     <div className="review__metadata">
-      <span className="review__author">{firstname}</span>
-      {', '}
-      <span className="review__date">le {isoDateToFrench(created_at)}</span>
+      {firstname && <span className="review__author">{firstname}</span>}
+      {firstname && created_at && ', '}
+      {created_at && <span className="review__date">le {isoDateToFrench(created_at)}</span>}
     </div>
   );
 }

@@ -48,24 +48,36 @@ export const moviesApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: ['MovieUs
       }),
       transformResponse: (response: MovieResultType[]) => response.slice(0, 7),
     }),
-    postReview: builder.mutation<ReviewResponse, { review: string; tmdbId: number }>({
+    postReview: builder.mutation<ReviewResponse, { review: string; tmdbId: number; firstname: string }>({
       query: ({ review, tmdbId }) => ({
         url: `/review`,
         method: 'POST',
         data: { content: review, tmdb_id: tmdbId },
       }),
-      onQueryStarted: async ({ tmdbId }, { dispatch, queryFulfilled }) => {
+      onQueryStarted: async ({ tmdbId, firstname }, { dispatch, queryFulfilled }) => {
         const { data } = await queryFulfilled;
         // Update the userdata cache with the new review
         dispatch(
           moviesApiSlice.util.updateQueryData('getUserdataMovieById', tmdbId, (draft) => {
-            draft.review = { content: data.content, review_id: data.review_id };
+            draft.review = {
+              content: data.content,
+              review_id: data.review_id,
+            };
           })
         );
         // Add the review to the movie cache
         dispatch(
           moviesApiSlice.util.updateQueryData('getMovieById', tmdbId.toString(), (draft) => {
-            draft.reviews = [...draft.reviews, { content: data.content, review_id: data.review_id }];
+            const currentDate = new Date().toISOString();
+            draft.reviews = [
+              ...draft.reviews,
+              {
+                content: data.content,
+                review_id: data.review_id,
+                created_at: currentDate,
+                user_firstname: firstname,
+              },
+            ];
           })
         );
       },
