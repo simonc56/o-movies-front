@@ -69,6 +69,8 @@
         justify-content: space-between;
         & h3 {
           color: var(--color-bg);
+          // limit the title width for the date
+          max-width: 75%;
         }
         & span {
           color: var(--mantine-color-gray-5);
