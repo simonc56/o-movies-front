@@ -1,5 +1,6 @@
 export type SettingsState = {
   user: UserType;
+  news: NewsType;
 };
 
 export type UserType = {
@@ -13,4 +14,18 @@ export type UserType = {
   created_at?: string;
   count_review?: number;
   count_rating?: number;
+};
+
+export type NewsType = {
+  rssFeedUrl: string;
+  quantity: number;
+  forbiddenWords: string[];
+  allNews: News[];
+};
+
+export type News = {
+  title: string;
+  pubDate: string;
+  description: string;
+  guid: string;
 };
