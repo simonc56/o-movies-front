@@ -38,8 +38,8 @@ export default function NewsFeed() {
         console.error(`Error while fetching RSS news from ${rssFeedUrl} : check if rss provider is still available`);
       }
     }
-    fetchNews();
-  }, []);
+    if (allNews.length === 0) fetchNews();
+  }, [allNews]);
 
   // function to remove square brackets tags like '[review]'
   function removeSquareBracketsTags(text: string) {
