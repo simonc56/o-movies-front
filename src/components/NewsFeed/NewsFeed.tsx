@@ -46,13 +46,17 @@ export default function NewsFeed() {
     return text.replace(/\[.*?\]/g, '');
   }
 
-  return allNews.map((news: News) => (
-    <Paper key={news.guid} shadow="xl" p="md" className="news">
-      <div className="header-news">
-        <h3>{removeSquareBracketsTags(news.title)}</h3>
-        <span>{isoDateToFrench(news.pubDate.split('T')[0])}</span>
-      </div>
-      {news.description}
-    </Paper>
-  ));
+  return (
+    <>
+      {allNews.map((news: News) => (
+        <Paper key={news.guid} shadow="xl" p="md" className="news">
+          <div className="header-news">
+            <h3>{removeSquareBracketsTags(news.title)}</h3>
+            <span>{isoDateToFrench(news.pubDate.split('T')[0])}</span>
+          </div>
+          {news.description}
+        </Paper>
+      ))}
+    </>
+  );
 }
