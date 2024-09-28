@@ -44,8 +44,8 @@ function Homepage() {
               <h3>Gladiator 2 : le retour de Maximus</h3>
               <span>14 septembre 2024</span>
             </div>
-            Ridley Scott commence la promotion officielle de "<Link to="/films/98">Gladiator 2</Link>" avec un deuxième
-            trailer qui a été dévoilé cette semaine. Le film sortira en salle le 13 novembre 2024.
+            Ridley Scott commence la promotion officielle de "<Link to="/films/558449">Gladiator 2</Link>" avec un
+            deuxième trailer qui a été dévoilé cette semaine. Le film sortira en salle le 13 novembre 2024.
           </Paper>
           <Paper shadow="xl" p="md" className="news">
             <div className="header-news">
