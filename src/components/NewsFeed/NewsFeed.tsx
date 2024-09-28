@@ -26,12 +26,17 @@ export default function NewsFeed() {
     }
 
     async function fetchNews() {
-      const response = await axios.get(rssFeedUrl);
-      const parser = new Parser({ explicitArray: false, mergeAttrs: true });
-      parser.parseString(response.data, (err, result) => {
-        const allowedNews = result.rss.channel.item.filter(filterNews);
-        setAllNews(allowedNews.slice(0, quantityOfNews));
-      });
+      try {
+        const response = await axios.get(rssFeedUrl);
+        const parser = new Parser({ explicitArray: false, mergeAttrs: true });
+        parser.parseString(response.data, (err, result) => {
+          const allowedNews = result.rss.channel.item.filter(filterNews);
+          setAllNews(allowedNews.slice(0, quantityOfNews));
+        });
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error(`Error while fetching RSS news from ${rssFeedUrl} : check if rss provider is still available`);
+      }
     }
     fetchNews();
   }, []);
