@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Parser } from 'xml2js';
 import { isoDateToFrench } from '../../utils/utils';
 
-const rssFeedUrl = 'http://www.premiere.fr/rss/actu-cinema';
+const rssFeedUrl = 'https://www.premiere.fr/rss/actu-cinema';
 const quantityOfNews = 3;
 
 type News = {
