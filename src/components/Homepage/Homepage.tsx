@@ -3,6 +3,7 @@ import { BsInstagram, BsTwitterX, BsYoutube } from 'react-icons/bs';
 import { ImFacebook2 } from 'react-icons/im';
 import { Link } from 'react-router-dom';
 import LastReviews from '../LastReviews/LastReviews';
+import NewsFeed from '../NewsFeed/NewsFeed';
 import PosterCarousel from '../PosterCarousel/PosterCarousel';
 import './Homepage.scss';
 
@@ -37,13 +38,14 @@ function Homepage() {
       <main className="main">
         <section className="news">
           <h2>Actualités</h2>
+          <NewsFeed />
           <Paper shadow="xl" p="md" className="news">
             <div className="header-news">
               <h3>Gladiator 2 : le retour de Maximus</h3>
               <span>14 septembre 2024</span>
             </div>
-            Ridley Scott a confirmé le retour de Russell Crowe dans "<Link to="/films/98">Gladiator 2</Link>". Le film
-            retracera la suite des aventures de Maximus, le gladiateur. La sortie est prévue pour 2025.
+            Ridley Scott commence la promotion officielle de "<Link to="/films/98">Gladiator 2</Link>" avec un deuxième
+            trailer qui a été dévoilé cette semaine. Le film sortira en salle le 13 novembre 2024.
           </Paper>
           <Paper shadow="xl" p="md" className="news">
             <div className="header-news">
