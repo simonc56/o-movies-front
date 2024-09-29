@@ -64,6 +64,9 @@
     max-width: 60rem;
     .news {
       max-width: 40rem;
+      a {
+        color: var(--mantine-color-gray-9);
+      }
       & .header-news {
         display: flex;
         justify-content: space-between;
