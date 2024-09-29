@@ -14,9 +14,11 @@ export default function NewsFeed() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    // remove news when title contains forbidden word
+    // remove news when title or description contain forbidden word
     function filterNews(news: News) {
-      return !forbiddenWords.some((word) => news.title.toLowerCase().includes(word));
+      return !forbiddenWords.some(
+        (word) => news.title.toLowerCase().includes(word) || news.description.toLowerCase().includes(word)
+      );
     }
 
     async function fetchNews() {
