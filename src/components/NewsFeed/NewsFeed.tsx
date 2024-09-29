@@ -1,7 +1,7 @@
 import { Paper } from '@mantine/core';
 import axios from 'axios';
+import { XMLParser } from 'fast-xml-parser';
 import { useEffect } from 'react';
-import { Parser } from 'xml2js';
 import { News } from '../../@types/SettingsState';
 import { saveNews } from '../../features/settingsSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
@@ -24,11 +24,9 @@ export default function NewsFeed() {
     async function fetchNews() {
       try {
         const response = await axios.get(rssFeedUrl);
-        const parser = new Parser({ explicitArray: false, mergeAttrs: true });
-        parser.parseString(response.data, (err, result) => {
-          const allowedNews = result.rss.channel.item.filter(filterNews);
-          dispatch(saveNews(allowedNews));
-        });
+        const result = new XMLParser().parse(response.data);
+        const allowedNews = result.rss.channel.item.filter(filterNews);
+        dispatch(saveNews(allowedNews));
       } catch (error) {
         // eslint-disable-next-line no-console
         console.error(`Error while fetching RSS news from ${rssFeedUrl} : check if rss provider is still available`);
