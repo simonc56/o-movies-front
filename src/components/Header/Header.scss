@@ -2,7 +2,7 @@
   height: 4.6rem;
   padding-inline: 1rem;
   background-color: var(--color-bg);
-  border-bottom: rem(1px) solid light-dark(var(--color-bg), var(--color-bg));
+  border-bottom: 0.0625rem solid light-dark(var(--color-bg), var(--color-bg));
   & .title {
     margin-right: 1rem;
     font-size: var(--font-size-md);

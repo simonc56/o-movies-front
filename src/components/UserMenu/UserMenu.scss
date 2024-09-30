@@ -5,7 +5,7 @@
     color: var(--color-primary) !important;
   }
   & .avatar {
-    border: rem(2px) solid var(--mantine-color-body);
+    border: 0.125rem solid var(--mantine-color-body);
   }
   & svg.tabler-icon-chevron-down {
     color: var(--color-links);
