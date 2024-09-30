@@ -37,7 +37,7 @@ importers:
         version: 3.7.0(react@18.3.1)
       '@vitejs/plugin-react':
         specifier: ^4.3.1
-        version: 4.3.1(vite@4.5.3(sass@1.77.6))
+        version: 4.3.1(vite@4.5.5(sass@1.77.6))
       axios:
         specifier: ^1.7.4
         version: 1.7.4
@@ -69,8 +69,8 @@ importers:
         specifier: ^5.0.1
         version: 5.0.1
       vite:
-        specifier: ^4.5.3
-        version: 4.5.3(sass@1.77.6)
+        specifier: ^4.5.5
+        version: 4.5.5(sass@1.77.6)
     devDependencies:
       '@testing-library/jest-dom':
         specifier: ^6.4.6
@@ -2527,8 +2527,8 @@ packages:
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
 
-  vite@4.5.3:
-    resolution: {integrity: sha512-kQL23kMeX92v3ph7IauVkXkikdDRsYMGTVl5KY2E9OY4ONLvkHf04MDTbnfo6NKxZiDLWzVpP5oTa8hQD8U3dg==}
+  vite@4.5.5:
+    resolution: {integrity: sha512-ifW3Lb2sMdX+WU91s3R0FyQlAyLxOzCSCP37ujw0+r5POeHPwe6udWVIElKQq8gk3t7b8rkmvqC6IHBpCff4GQ==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
@@ -3375,14 +3375,14 @@ snapshots:
 
   '@ungap/structured-clone@1.2.0': {}
 
-  '@vitejs/plugin-react@4.3.1(vite@4.5.3(sass@1.77.6))':
+  '@vitejs/plugin-react@4.3.1(vite@4.5.5(sass@1.77.6))':
     dependencies:
       '@babel/core': 7.24.7
       '@babel/plugin-transform-react-jsx-self': 7.24.7(@babel/core@7.24.7)
       '@babel/plugin-transform-react-jsx-source': 7.24.7(@babel/core@7.24.7)
       '@types/babel__core': 7.20.5
       react-refresh: 0.14.2
-      vite: 4.5.3(sass@1.77.6)
+      vite: 4.5.5(sass@1.77.6)
     transitivePeerDependencies:
       - supports-color
 
@@ -5163,7 +5163,7 @@ snapshots:
       - supports-color
       - terser
 
-  vite@4.5.3(sass@1.77.6):
+  vite@4.5.5(sass@1.77.6):
     dependencies:
       esbuild: 0.18.20
       postcss: 8.4.39
