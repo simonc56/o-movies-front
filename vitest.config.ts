@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
@@ -9,5 +8,13 @@ export default defineConfig({
     // fournira plus d'options à notre _expect_,
     // voire simulera un serveur pour nos requêtes HTTP…
     setupFiles: './src/tests/setup.ts',
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@import "/src/styles/_mantine";`,
+        api: 'modern-compiler',
+      },
+    },
   },
 });
