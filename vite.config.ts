@@ -29,7 +29,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@import "./src/styles/_mantine";`,
+        additionalData: `@import "/src/styles/_mantine";`,
         api: 'modern-compiler',
       },
     },
