@@ -26,6 +26,7 @@
     "@vitejs/plugin-react": "^4.3.1",
     "axios": "^1.7.4",
     "dayjs": "^1.11.11",
+    "embla-carousel-react": "7",
     "events": "^3.3.0",
     "fast-xml-parser": "^4.5.0",
     "jwt-decode": "^4.0.0",
