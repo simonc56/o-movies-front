@@ -22,10 +22,21 @@ export default function NewsFeed() {
       );
     }
 
+    // trick function to decode HTML entities
+    // used twice because 'Première' RSS uses double html escape such as : d&amp;#039;Eric
+    function decodeHTMLEntities(str: string) {
+      const textarea = document.createElement('textarea');
+      textarea.innerHTML = str;
+      return textarea.value;
+    }
+
     async function fetchNews() {
       try {
         const response = await axios.get(rssFeedUrl);
-        const result = new XMLParser().parse(response.data);
+        const result = new XMLParser({
+          processEntities: false, // do not decode entities, i do it myself with decodeHTMLEntities
+          tagValueProcessor: (_, tagValue) => decodeHTMLEntities(decodeHTMLEntities(tagValue)),
+        }).parse(response.data);
         const allowedNews = result.rss.channel.item.filter(filterNews);
         dispatch(saveNews(allowedNews));
       } catch (error) {
