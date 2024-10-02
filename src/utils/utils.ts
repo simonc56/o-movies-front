@@ -32,7 +32,7 @@ export function isoDateToFrench(isoDate: string) {
     time = ` à ${time.slice(0, 5)}`;
   }
   const date = new Date(cleanDate);
-  return `${date.getDate()} ${date.toLocaleDateString('fr-FR', { month: 'long' })} ${date.getFullYear()}${time}`;
+  return `${date.getDate()} ${date.toLocaleDateString('fr-FR', { month: 'short' })} ${date.getFullYear()}${time}`;
 }
 
 /**

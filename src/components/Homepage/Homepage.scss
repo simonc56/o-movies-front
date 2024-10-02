@@ -64,6 +64,8 @@
     max-width: 60rem;
     .news {
       max-width: 40rem;
+      // margin-bottom: 1px;
+      border-bottom: 1px solid var(--mantine-color-gray-1);
       a {
         color: var(--mantine-color-gray-9);
       }
@@ -73,9 +75,12 @@
         & h3 {
           color: var(--color-bg);
           // limit the title width for the date
-          max-width: 75%;
+          max-width: 85%;
+          line-height: 1.6rem;
+          margin-bottom: 0.5rem;
         }
         & span {
+          padding-top: 0.12rem;
           color: var(--mantine-color-gray-5);
         }
       }
