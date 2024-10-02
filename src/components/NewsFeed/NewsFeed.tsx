@@ -6,6 +6,7 @@ import { News } from '../../@types/SettingsState';
 import { saveNews } from '../../features/settingsSlice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { isoDateToFrench } from '../../utils/utils';
+import staticNews from './staticNews';
 
 export default function NewsFeed() {
   const allNews: News[] = useAppSelector((state) => state.settings.news.allNews);
@@ -42,7 +43,7 @@ export default function NewsFeed() {
 
   return (
     <>
-      {allNews.map((news: News) => (
+      {Array.prototype.concat(allNews, staticNews).map((news: News) => (
         <Paper key={news.guid} shadow="xl" p="md" className="news">
           <div className="header-news">
             <h3>{removeSquareBracketsTags(news.title)}</h3>
