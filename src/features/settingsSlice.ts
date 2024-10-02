@@ -12,7 +12,6 @@ const settingsSlice = createSlice({
       state.user.firstname = '';
       state.user.lastname = '';
       state.user.email = '';
-      state.user.password = '';
       state.user.birthdate = '';
       state.user.logged = false;
       state.user.token = '';

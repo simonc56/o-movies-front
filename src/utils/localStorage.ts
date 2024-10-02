@@ -33,7 +33,6 @@ export const getInitialSettingsState = (): SettingsState => {
       firstname: '',
       lastname: '',
       email: '',
-      password: '',
       birthdate: '',
       logged: false,
       token: '',
