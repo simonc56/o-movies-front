@@ -2,7 +2,13 @@ import { FaStar } from 'react-icons/fa';
 import MovieType, { Genre } from '../../@types/MovieType';
 import no_poster from '../../assets/no-poster.webp';
 import { useAppSelector } from '../../store/hooks';
-import { runtimeToString } from '../../utils/utils';
+import {
+  budgetToMillions,
+  isoCountriesToFrench,
+  isoDateToFrench,
+  isoLanguageToFrench,
+  runtimeToString,
+} from '../../utils/utils';
 import ButtonAddToPlaylist from '../ButtonAddToPlaylist/ButtonAddToPlaylist';
 import './MovieInfos.scss';
 
@@ -41,7 +47,7 @@ function MovieInfos({ movie }: MovieInfosProps) {
         <div className="detail-infos">
           <div className="detail-infos--item">
             <div className="detail-infos--name">Date de sortie</div>
-            <span className="detail-infos--value">{movie.frenchDate}</span>
+            <span className="detail-infos--value">{isoDateToFrench(movie.release_date, true)}</span>
           </div>
           {movie.crew.length && (
             <div className="detail-infos--item">
@@ -51,15 +57,15 @@ function MovieInfos({ movie }: MovieInfosProps) {
           )}
           <div className="detail-infos--item">
             <span className="detail-infos--name">Pays d'origine</span>
-            <span className="detail-infos--value">{movie.country}</span>
+            <span className="detail-infos--value">{isoCountriesToFrench(movie.country)}</span>
           </div>
           <div className="detail-infos--item">
             <span className="detail-infos--name">Langue d'origine</span>
-            <span className="detail-infos--value">{movie.original_language}</span>
+            <span className="detail-infos--value">{isoLanguageToFrench(movie.original_language)}</span>
           </div>
           <div className="detail-infos--item">
             <span className="detail-infos--name">Budget</span>
-            <span className="detail-infos--value">{movie.budgetInMillions}</span>
+            <span className="detail-infos--value">{budgetToMillions(movie.budget)}</span>
           </div>
         </div>
       </div>
