@@ -53,17 +53,17 @@ export function isoDateToYear(isoDate: string) {
 
 /**
  * Transform iso language to french language
- * @param isoLanguage string
- * @returns string
+ * @param isoLanguage string : iso language code (ex : 'en')
+ * @returns string : french language (ex : 'Anglais')
  */
 export function isoLanguageToFrench(isoLanguage: string): string | undefined {
   return languages_fr[isoLanguage as LanguageKey] || isoLanguage;
 }
 
 /**
- * Transform iso country to french country
- * @param isoCountry string
- * @returns string
+ * Transform iso country array to comma-separated french countries
+ * @param isoCountry string[] : array of iso country codes (ex : ['US', 'FR'])
+ * @returns string : comma-separated french countries (ex : 'États-Unis, France')
  */
 export function isoCountriesToFrench(isoCountries: string[]): string {
   return isoCountries.map((countryCode) => countries_fr[countryCode as CountryKey] || countryCode).join(', ');
