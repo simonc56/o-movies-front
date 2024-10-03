@@ -59,7 +59,7 @@ function MovieInfos({ movie }: MovieInfosProps) {
           </div>
           <div className="detail-infos--item">
             <span className="detail-infos--name">Budget</span>
-            <span className="detail-infos--value">{movie.budgetInMillions}</span>
+            <span className="detail-infos--value">{budgetToMillions(movie.budget)}</span>
           </div>
         </div>
       </div>

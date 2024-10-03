@@ -16,7 +16,10 @@ export function runtimeToString(runtime: number) {
  * @returns string - budget in millions $ (format : 100m$)
  */
 export function budgetToMillions(budget: number) {
-  return `${budget / 1000000}m$`;
+  if (budget === 0) {
+    return 'Inconnu';
+  }
+  return `${budget / 1000000} millions $`;
 }
 
 /**
