@@ -1,3 +1,6 @@
+import countries_fr, { CountryKey } from '../enums/countries';
+import languages_fr, { LanguageKey } from '../enums/languages';
+
 /**
  * Transform runtime in minutes to runtime in hours and minutes
  * @param runtime integer - runtime of media in minutes
@@ -46,6 +49,24 @@ export function isoDateToFrench(isoDate: string, long = false) {
 export function isoDateToYear(isoDate: string) {
   const date = new Date(isoDate);
   return date.getFullYear();
+}
+
+/**
+ * Transform iso language to french language
+ * @param isoLanguage string
+ * @returns string
+ */
+export function isoLanguageToFrench(isoLanguage: string): string | undefined {
+  return languages_fr[isoLanguage as LanguageKey] || isoLanguage;
+}
+
+/**
+ * Transform iso country to french country
+ * @param isoCountry string
+ * @returns string
+ */
+export function isoCountriesToFrench(isoCountries: string[]): string {
+  return isoCountries.map((countryCode) => countries_fr[countryCode as CountryKey] || countryCode).join(', ');
 }
 
 /**

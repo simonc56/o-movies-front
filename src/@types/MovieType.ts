@@ -11,7 +11,7 @@ type MovieType = {
   overview: string;
   release_date: string;
   director: string;
-  country: string;
+  country: string[];
   original_language: string;
   status: string;
   budget: number;
