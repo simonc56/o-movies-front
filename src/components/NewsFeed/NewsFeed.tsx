@@ -27,7 +27,7 @@ export default function NewsFeed() {
     function decodeHTMLEntities(str: string) {
       const textarea = document.createElement('textarea');
       textarea.innerHTML = str;
-      return textarea.value;
+      return textarea.value.replace(/<[^>]*>/g, '');
     }
 
     async function fetchNews() {
