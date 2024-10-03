@@ -27,7 +27,7 @@ export function budgetToMillions(budget: number) {
  * @param isoDate format : "2021-08-04"
  * @returns string (format : 4 août 2021)
  */
-export function isoDateToFrench(isoDate: string) {
+export function isoDateToFrench(isoDate: string, long = false) {
   let cleanDate = isoDate;
   let time = '';
   if (isoDate.includes('T')) {
@@ -35,7 +35,7 @@ export function isoDateToFrench(isoDate: string) {
     time = ` à ${time.slice(0, 5)}`;
   }
   const date = new Date(cleanDate);
-  return `${date.getDate()} ${date.toLocaleDateString('fr-FR', { month: 'short' })} ${date.getFullYear()}${time}`;
+  return `${date.getDate()} ${date.toLocaleDateString('fr-FR', { month: long ? 'long' : 'short' })} ${date.getFullYear()}${time}`;
 }
 
 /**
