@@ -1,7 +1,11 @@
+// ISO 639-1
+// https://developer.themoviedb.org/reference/configuration-languages
+
 enum languages_fr {
   ar = 'Arabe',
   bg = 'Bulgare',
   bn = 'Bengali',
+  cn = 'Cantonais',
   cs = 'Tchèque',
   da = 'Danois',
   de = 'Allemand',
@@ -21,9 +25,11 @@ enum languages_fr {
   it = 'Italien',
   ja = 'Japonais',
   jv = 'Javanais',
+  kn = 'Kannada',
   ko = 'Coréen',
   lt = 'Lituanien',
   lv = 'Letton',
+  mn = 'Mongol',
   mr = 'Marathi',
   ms = 'Malais',
   nl = 'Néerlandais',
@@ -41,11 +47,13 @@ enum languages_fr {
   sw = 'Swahili',
   ta = 'Tamoul',
   th = 'Thaï',
+  tl = 'Tagalog',
   tr = 'Turc',
   uk = 'Ukrainien',
   ur = 'Ourdou',
   vi = 'Vietnamien',
   zh = 'Chinois',
+  xx = 'Pas de langage',
 }
 
 export type LanguageKey = keyof typeof languages_fr;

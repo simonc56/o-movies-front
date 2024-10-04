@@ -1,3 +1,6 @@
+// ISO 3166-1
+// https://developer.themoviedb.org/reference/configuration-countries
+
 enum countries_fr {
   AD = 'Andorre',
   AL = 'Albanie',
@@ -16,6 +19,7 @@ enum countries_fr {
   CZ = 'République tchèque',
   DE = 'Allemagne',
   DK = 'Danemark',
+  DO = 'République dominicaine',
   DZ = 'Algérie',
   EE = 'Estonie',
   EG = 'Égypte',
@@ -25,6 +29,7 @@ enum countries_fr {
   GB = 'Royaume-Uni',
   GE = 'Géorgie',
   GR = 'Grèce',
+  HK = 'Hong Kong',
   HR = 'Croatie',
   HU = 'Hongrie',
   ID = 'Indonésie',
@@ -42,11 +47,13 @@ enum countries_fr {
   MA = 'Maroc',
   ME = 'Monténégro',
   MK = 'Macédoine du Nord',
+  MN = 'Mongolie',
   MT = 'Malte',
   MX = 'Mexique',
   NG = 'Nigéria',
   NL = 'Pays-Bas',
   NO = 'Norvège',
+  PE = 'Pérou',
   PH = 'Philippines',
   PK = 'Pakistan',
   PL = 'Pologne',
@@ -58,8 +65,11 @@ enum countries_fr {
   SE = 'Suède',
   SI = 'Slovénie',
   SK = 'Slovaquie',
+  TH = 'Thaïlande',
   TR = 'Turquie',
+  TW = 'Taïwan',
   US = 'États-Unis',
+  VE = 'Venezuela',
   ZA = 'Afrique du Sud',
 }
 
