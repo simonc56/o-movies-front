@@ -11,13 +11,13 @@ function UserProfilePage() {
   // fake information for tested if no logged
   const fakeUser = {
     id: 0,
-    firstname: 'Alice',
-    lastname: 'Wonderland',
-    email: 'alice.wonderland@lapinblanc.com',
-    birthdate: '2024-05-14',
+    firstname: '',
+    lastname: '',
+    email: 'user@omovies.com',
+    birthdate: '2004-05-14',
     created_at: '2024-05-14',
-    count_review: 42,
-    count_rating: 103,
+    count_review: 0,
+    count_rating: 0,
   };
 
   const displayUser = profilIsLoading || !profil ? fakeUser : profil;

@@ -8,8 +8,6 @@ import ConfirmEmailPage from '../ConfirmEmailPage/ConfirmEmailPage';
 import ConfirmPasswordPage from '../ConfirmPasswordPage/ConfirmPasswordPage';
 import ConnectionPage from '../ConnectionPage/ConnectionPage';
 import ContactPage from '../ContactPage/ContactPage';
-import Footer from '../Footer/Footer';
-import Header from '../Header/Header';
 import Homepage from '../Homepage/Homepage';
 import MovieList from '../MovieList/MovieList';
 import MoviePage from '../MoviePage/MoviePage';
@@ -18,6 +16,8 @@ import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import PlaylistPage from '../PlaylistPage/PlaylistPage';
 import UserProfilePage from '../ProfilUserPage/ProfilUserPage';
 import SignupPage from '../SignupPage/SignupPage';
+import Footer from './Footer/Footer';
+import Header from './Header/Header';
 
 import './App.scss';
 

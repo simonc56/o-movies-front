@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
-import Loader from '../Loader/Loader';
-import MovieExtraInfos from '../MovieExtraInfos/MovieExtraInfos';
-import MovieInfos from '../MovieInfos/MovieInfos';
+import Loader from '../ui/Loader/Loader';
+import MovieExtraInfos from './MovieExtraInfos/MovieExtraInfos';
+import MovieInfos from './MovieInfos/MovieInfos';
 
 import { useGetMovieByIdQuery } from '../../features/moviesApiSlice';
 import './MoviePage.scss';

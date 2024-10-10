@@ -1,10 +1,10 @@
 import { Button, Paper } from '@mantine/core';
 import { BsInstagram, BsTwitterX, BsYoutube } from 'react-icons/bs';
 import { ImFacebook2 } from 'react-icons/im';
-import LastReviews from '../LastReviews/LastReviews';
-import NewsFeed from '../NewsFeed/NewsFeed';
-import PosterCarousel from '../PosterCarousel/PosterCarousel';
 import './Homepage.scss';
+import LastReviews from './LastReviews/LastReviews';
+import NewsFeed from './NewsFeed/NewsFeed';
+import PosterCarousel from './PosterCarousel/PosterCarousel';
 
 function Homepage() {
   return (

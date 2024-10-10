@@ -7,8 +7,8 @@ import { getMovieById } from '../../apiHandler/api';
 import no_poster from '../../assets/no-poster.webp';
 import { useGetMoviesByFilterQuery } from '../../features/moviesApiSlice';
 import { useAppSelector } from '../../store/hooks';
-import ButtonAddToPlaylist from '../ButtonAddToPlaylist/ButtonAddToPlaylist';
-import Loader from '../Loader/Loader';
+import ButtonAddToPlaylist from '../ui/ButtonAddToPlaylist/ButtonAddToPlaylist';
+import Loader from '../ui/Loader/Loader';
 import classes from './ArticleCard.module.css';
 import './MoviesPage.scss';
 
