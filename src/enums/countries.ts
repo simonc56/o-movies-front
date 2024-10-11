@@ -50,6 +50,7 @@ enum countries_fr {
   MN = 'Mongolie',
   MT = 'Malte',
   MX = 'Mexique',
+  MY = 'Malaisie',
   NG = 'Nigéria',
   NL = 'Pays-Bas',
   NO = 'Norvège',
