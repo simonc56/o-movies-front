@@ -49,7 +49,7 @@ function MovieInfos({ movie }: MovieInfosProps) {
             <div className="detail-infos--name">Date de sortie</div>
             <span className="detail-infos--value">{isoDateToFrench(movie.release_date, true)}</span>
           </div>
-          {movie.crew.length && (
+          {!!movie.crew.length && (
             <div className="detail-infos--item">
               <span className="detail-infos--name">Réalisateur</span>
               <span className="detail-infos--value">{movie.crew[0].name}</span>
