@@ -1,0 +1,18 @@
+.reviews {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  .review {
+    svg {
+      display: inline;
+      position: relative;
+      top: 0.2rem;
+      margin-right: 0.5rem;
+      color: var(--color-primary);
+    }
+    margin-bottom: 1rem;
+  }
+  h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+}

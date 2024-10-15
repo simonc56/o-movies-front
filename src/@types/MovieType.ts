@@ -11,7 +11,7 @@ type MovieType = {
   overview: string;
   release_date: string;
   director: string;
-  country: string;
+  country: string[];
   original_language: string;
   status: string;
   budget: number;
@@ -52,6 +52,7 @@ export type Review = {
   review_id: number;
   content: string;
   user_firstname?: string;
+  created_at?: string;
 };
 
 export type Actor = {

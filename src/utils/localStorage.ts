@@ -33,10 +33,16 @@ export const getInitialSettingsState = (): SettingsState => {
       firstname: '',
       lastname: '',
       email: '',
-      password: '',
       birthdate: '',
       logged: false,
       token: '',
+    },
+    news: {
+      rssFeedUrl: 'https://www.premiere.fr/rss/actu-cinema',
+      quantity: 3, // number of rss news to display
+      // forbidden words in news title
+      forbiddenWords: ['bande-annonce', 'trailer', 'teaser', 'première', 'voici'],
+      allNews: [], // all news fetched from rss feed url
     },
   };
   const user = getStoreUser();

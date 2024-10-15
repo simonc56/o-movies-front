@@ -1,0 +1,24 @@
+.review {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  .review__content svg {
+    display: inline;
+    color: var(--color-primary);
+  }
+  .review__title {
+    display: block;
+    text-decoration: none;
+    font-size: medium;
+    font-weight: bold;
+    color: var(--color-bg);
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  margin-bottom: 0.5rem;
+  .review__metadata {
+    color: var(--mantine-color-gray-5);
+    font-size: smaller;
+  }
+}

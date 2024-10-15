@@ -1,0 +1,41 @@
+.poster-carousel {
+  margin-top: 1rem;
+  & .mantine-Carousel-control {
+    background-color: rgba(255, 255, 255, 0.7);
+    & svg {
+      zoom: 1.5;
+    }
+  }
+  & .poster-container {
+    position: relative;
+    height: 330px;
+  }
+
+  & .poster-placeholder {
+    border-radius: 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    &.hidden {
+      display: none;
+    }
+  }
+
+  & .poster-image {
+    border-radius: 5px;
+    object-fit: cover;
+    opacity: 0;
+    // transition: opacity 0.3s ease-in-out;
+
+    &.loaded {
+      opacity: 1;
+    }
+  }
+}
+
+.loader {
+  height: 365px;
+}

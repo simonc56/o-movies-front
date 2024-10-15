@@ -1,7 +1,15 @@
 import { BaseQueryFn, EndpointBuilder } from '@reduxjs/toolkit/query';
-import { MoviesFilter, ParamsType, RatingResponse, ReviewResponse } from '../@types/MovieState';
+import {
+  LastRatingResponse,
+  LastReviewResponse,
+  MoviesFilter,
+  ParamsType,
+  RatingResponse,
+  ReviewResponse,
+} from '../@types/MovieState';
 import MovieType, { Genre, MovieResultType, MovieUserData } from '../@types/MovieType';
 import apiSlice from '../apiHandler/apiSlice';
+import { isoDateToYear } from '../utils/utils';
 
 export const moviesApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: ['MovieUserdata'] }).injectEndpoints({
   endpoints: (builder: EndpointBuilder<BaseQueryFn, string, string>) => ({
@@ -9,6 +17,7 @@ export const moviesApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: ['MovieUs
       query: (id) => ({
         url: `/movie/${id}`,
       }),
+      transformResponse: (response: MovieType) => ({ ...response, year: isoDateToYear(response.release_date) }),
     }),
     getUserdataMovieById: builder.query<MovieUserData, string | number>({
       query: (id) => ({
@@ -41,24 +50,36 @@ export const moviesApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: ['MovieUs
       }),
       transformResponse: (response: MovieResultType[]) => response.slice(0, 7),
     }),
-    postReview: builder.mutation<ReviewResponse, { review: string; tmdbId: number }>({
+    postReview: builder.mutation<ReviewResponse, { review: string; tmdbId: number; firstname: string }>({
       query: ({ review, tmdbId }) => ({
         url: `/review`,
         method: 'POST',
         data: { content: review, tmdb_id: tmdbId },
       }),
-      onQueryStarted: async ({ tmdbId }, { dispatch, queryFulfilled }) => {
+      onQueryStarted: async ({ tmdbId, firstname }, { dispatch, queryFulfilled }) => {
         const { data } = await queryFulfilled;
         // Update the userdata cache with the new review
         dispatch(
           moviesApiSlice.util.updateQueryData('getUserdataMovieById', tmdbId, (draft) => {
-            draft.review = { content: data.content, review_id: data.review_id };
+            draft.review = {
+              content: data.content,
+              review_id: data.review_id,
+            };
           })
         );
         // Add the review to the movie cache
         dispatch(
           moviesApiSlice.util.updateQueryData('getMovieById', tmdbId.toString(), (draft) => {
-            draft.reviews = [...draft.reviews, { content: data.content, review_id: data.review_id }];
+            const currentDate = new Date().toISOString();
+            draft.reviews = [
+              ...draft.reviews,
+              {
+                content: data.content,
+                review_id: data.review_id,
+                created_at: currentDate,
+                user_firstname: firstname,
+              },
+            ];
           })
         );
       },
@@ -154,6 +175,16 @@ export const moviesApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: ['MovieUs
         method: 'DELETE',
       }),
     }),
+    getLastReviews: builder.query<LastReviewResponse[], void>({
+      query: () => ({
+        url: `/review/last`,
+      }),
+    }),
+    getLastRatings: builder.query<LastRatingResponse[], void>({
+      query: () => ({
+        url: `/rating/last`,
+      }),
+    }),
   }),
 });
 
@@ -172,4 +203,6 @@ export const {
   usePatchRatingMutation,
   useDeleteReviewMutation,
   useDeleteRatingMutation,
+  useGetLastReviewsQuery,
+  useGetLastRatingsQuery,
 } = moviesApiSlice;

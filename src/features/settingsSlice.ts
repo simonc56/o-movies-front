@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { SuccessLoginResponse } from '../@types/Credentials';
+import { News } from '../@types/SettingsState';
 import type { RootState } from '../store/store';
 import { getInitialSettingsState, removeStoreUser, setStoreUser } from '../utils/localStorage';
 
@@ -11,7 +12,6 @@ const settingsSlice = createSlice({
       state.user.firstname = '';
       state.user.lastname = '';
       state.user.email = '';
-      state.user.password = '';
       state.user.birthdate = '';
       state.user.logged = false;
       state.user.token = '';
@@ -30,6 +30,10 @@ const settingsSlice = createSlice({
       state.user.token = action.payload;
       setStoreUser(state.user);
     },
+    // get news from rss feed
+    saveNews: (state, action: PayloadAction<News[]>) => {
+      state.news.allNews = action.payload.slice(0, state.news.quantity);
+    },
   },
 });
 
@@ -37,4 +41,4 @@ export const selectUser = (state: RootState) => state.settings.user;
 
 export default settingsSlice.reducer;
 
-export const { logout, login, updateToken } = settingsSlice.actions;
+export const { logout, login, updateToken, saveNews } = settingsSlice.actions;

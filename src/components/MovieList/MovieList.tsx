@@ -6,9 +6,9 @@ import { ParamsType } from '../../@types/MovieState';
 import { Genre } from '../../@types/MovieType';
 import no_poster from '../../assets/no-poster.webp';
 import { useGetGenresQuery, useGetMoviesByParamsQuery } from '../../features/moviesApiSlice';
-import ButtonCheckGenres from '../ButtonChoiceGenres/ButtonChoiceGenres';
-import InputPageMovies from '../InputMoviesPage/InputMoviesPage';
-import InputSortByPageMovies from '../InputSortByMoviesPage/InputSorByMoviesPage';
+import ButtonCheckGenres from './ButtonChoiceGenres/ButtonChoiceGenres';
+import InputPageMovies from './InputMoviesPage/InputMoviesPage';
+import InputSortByPageMovies from './InputSortByMoviesPage/InputSorByMoviesPage';
 import classes from './MovieList.module.scss';
 
 export default function MovieList() {

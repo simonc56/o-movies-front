@@ -1,3 +1,6 @@
+import countries_fr, { CountryKey } from '../enums/countries';
+import languages_fr, { LanguageKey } from '../enums/languages';
+
 /**
  * Transform runtime in minutes to runtime in hours and minutes
  * @param runtime integer - runtime of media in minutes
@@ -16,7 +19,10 @@ export function runtimeToString(runtime: number) {
  * @returns string - budget in millions $ (format : 100m$)
  */
 export function budgetToMillions(budget: number) {
-  return `${budget / 1000000}m$`;
+  if (budget === 0) {
+    return 'Inconnu';
+  }
+  return `${budget / 1000000} millions $`;
 }
 
 /**
@@ -24,9 +30,15 @@ export function budgetToMillions(budget: number) {
  * @param isoDate format : "2021-08-04"
  * @returns string (format : 4 août 2021)
  */
-export function isoDateToFrench(isoDate: string) {
-  const date = new Date(isoDate);
-  return `${date.getDate()} ${date.toLocaleDateString('fr-FR', { month: 'long' })} ${date.getFullYear()}`;
+export function isoDateToFrench(isoDate: string, long = false) {
+  let cleanDate = isoDate;
+  let time = '';
+  if (isoDate.includes('T')) {
+    [cleanDate, time] = isoDate.split('T');
+    time = ` à ${time.slice(0, 5)}`;
+  }
+  const date = new Date(cleanDate);
+  return `${date.getDate()} ${date.toLocaleDateString('fr-FR', { month: long ? 'long' : 'short' })} ${date.getFullYear()}${time}`;
 }
 
 /**
@@ -37,6 +49,24 @@ export function isoDateToFrench(isoDate: string) {
 export function isoDateToYear(isoDate: string) {
   const date = new Date(isoDate);
   return date.getFullYear();
+}
+
+/**
+ * Transform iso language to french language
+ * @param isoLanguage string : iso language code (ex : 'en')
+ * @returns string : french language (ex : 'Anglais')
+ */
+export function isoLanguageToFrench(isoLanguage: string): string | undefined {
+  return languages_fr[isoLanguage as LanguageKey] || isoLanguage;
+}
+
+/**
+ * Transform iso country array to comma-separated french countries
+ * @param isoCountry string[] : array of iso country codes (ex : ['US', 'FR'])
+ * @returns string : comma-separated french countries (ex : 'États-Unis, France')
+ */
+export function isoCountriesToFrench(isoCountries: string[]): string {
+  return isoCountries.map((countryCode) => countries_fr[countryCode as CountryKey] || countryCode).join(', ');
 }
 
 /**

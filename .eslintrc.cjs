@@ -27,6 +27,12 @@ module.exports = {
       files: ['src/**/features/*.ts'],
       rules: { 'no-param-reassign': ['error', { props: false }] },
     },
+    {
+      'files': ['vite.config.ts', 'vitest.config.ts'],
+      'rules': {
+        'import/no-extraneous-dependencies': ['error', { 'devDependencies': true }],
+      },
+    },
   ],
   plugins: ['react', '@typescript-eslint'],
   rules: {

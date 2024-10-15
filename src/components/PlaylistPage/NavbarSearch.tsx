@@ -2,7 +2,7 @@ import { ActionIcon, Group, Text, TextInput, Tooltip, rem } from '@mantine/core'
 import { IconEdit, IconPlus, IconSearch, IconTrash } from '@tabler/icons-react';
 import React, { useState } from 'react';
 import { PlaylistIdentityType } from '../../@types/PlaylistState';
-import Loader from '../Loader/Loader';
+import Loader from '../ui/Loader/Loader';
 import classes from './NavbarSearch.module.css';
 
 interface NavbarSearchProps {

@@ -30,10 +30,6 @@ $mantine-breakpoint-xl: '88em';
   --line-height-xl: 1.6;
 }
 
-@function rem($value) {
-  @return #{math.div(math.div($value, $value * 0 + 1), 16)}rem;
-}
-
 @mixin light {
   [data-mantine-color-scheme='light'] & {
     @content;

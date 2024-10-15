@@ -15,8 +15,8 @@ import {
   useGetUserPlaylistsQuery,
   useRenamePlaylistMutation,
 } from '../../features/playlistApiSlice';
-import AlphabeticalList from '../AlphabeticalListNav/AlphabeticalList';
-import Loader from '../Loader/Loader';
+import Loader from '../ui/Loader/Loader';
+import AlphabeticalList from './AlphabeticalListNav/AlphabeticalList';
 import NavbarSearch from './NavbarSearch';
 import './PlaylistPage.scss';
 
