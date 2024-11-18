@@ -1,12 +1,22 @@
 import { Button, Paper } from '@mantine/core';
+import { useEffect } from 'react';
 import { BsInstagram, BsTwitterX, BsYoutube } from 'react-icons/bs';
 import { ImFacebook2 } from 'react-icons/im';
+import { moviesApiSlice } from '../../features/moviesApiSlice';
 import './Homepage.scss';
 import LastReviews from './LastReviews/LastReviews';
 import NewsFeed from './NewsFeed/NewsFeed';
 import PosterCarousel from './PosterCarousel/PosterCarousel';
 
 function Homepage() {
+  const prefetchMovies = moviesApiSlice.usePrefetch('getMoviesByFilter');
+  const prefetchMovieList = moviesApiSlice.usePrefetch('getMoviesByParams');
+
+  useEffect(() => {
+    prefetchMovies('nowplaying');
+    prefetchMovieList({ page: 1, sort_by: 'popularity.desc' });
+  }, [prefetchMovies, prefetchMovieList]);
+
   return (
     <div className="homepage">
       <div className="hero">
