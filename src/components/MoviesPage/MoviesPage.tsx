@@ -1,11 +1,9 @@
 import { Badge, Button, Card, Image, Text } from '@mantine/core';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MoviesFilter } from '../../@types/MovieState';
-import MovieType from '../../@types/MovieType';
-import { getMovieById } from '../../apiHandler/api';
 import no_poster from '../../assets/no-poster.webp';
-import { useGetMoviesByFilterQuery } from '../../features/moviesApiSlice';
+import { useGetMoviesByFilterQuery, useGetMoviesDetailsQuery } from '../../features/moviesApiSlice';
 import { useAppSelector } from '../../store/hooks';
 import ButtonAddToPlaylist from '../ui/ButtonAddToPlaylist/ButtonAddToPlaylist';
 import Loader from '../ui/Loader/Loader';
@@ -26,50 +24,25 @@ const truncateTextWithSlice = (text: string, maxLength: number) =>
 function MoviesPage({ title, filter }: { title: string; filter: MoviesFilter }) {
   const { data: movieList } = useGetMoviesByFilterQuery(filter);
   const logged = useAppSelector((state) => state.settings.user.logged);
-  const [detailedMovies, setDetailedMovies] = useState<MovieType[]>([]);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
-  const [loading, setLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    async function fetchDetails() {
-      if (!movieList || movieList.length === 0) {
-        return;
-      }
-      setLoading(true);
-      // impossible to use RTK Query here
-      const promisesList = movieList.map((movie) =>
-        getMovieById(movie.tmdb_id.toString())
-          .then((response) => ({ ...movie, ...response.data.data }))
-          .catch((error) => {
-            // eslint-disable-next-line no-console
-            console.error(`Error fetching details for movie ${movie.tmdb_id}:`, error);
-          })
-      );
-      try {
-        const results = await Promise.all(promisesList);
-        setDetailedMovies(results);
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error('Error fetching movie details:', error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchDetails();
-  }, [movieList]);
-
-  const sortedMovieList = detailedMovies.slice().sort((a, b) => {
-    if (sortOrder === 'asc') {
-      return new Date(a.release_date).getTime() - new Date(b.release_date).getTime();
-    }
-    return new Date(b.release_date).getTime() - new Date(a.release_date).getTime();
+  const { data: detailedMovies, isLoading } = useGetMoviesDetailsQuery(movieList || [], {
+    skip: !movieList || movieList.length === 0,
   });
+
+  const sortedMovieList = detailedMovies?.length
+    ? detailedMovies.slice().sort((a, b) => {
+        if (sortOrder === 'asc') {
+          return new Date(a.release_date).getTime() - new Date(b.release_date).getTime();
+        }
+        return new Date(b.release_date).getTime() - new Date(a.release_date).getTime();
+      })
+    : [];
 
   const toggleSortOrder = () => {
     setSortOrder((prevSortOrder) => (prevSortOrder === 'asc' ? 'desc' : 'asc'));
   };
 
-  return loading ? (
+  return isLoading ? (
     <div className={classes.loaderContainer}>
       <Loader />
     </div>

@@ -37,6 +37,24 @@ export const moviesApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: ['MovieUs
       query: (filter: MoviesFilter) => ({
         url: `/movie/${filter}`,
       }),
+      async onQueryStarted(_params, { dispatch, queryFulfilled }) {
+        // Prefetch all movies of the list
+        const { data: movies } = await queryFulfilled;
+        movies.forEach((movie: MovieType) => {
+          dispatch(moviesApiSlice.endpoints.getMovieById.initiate(movie.tmdb_id.toString()));
+        });
+      },
+    }),
+    getMoviesDetails: builder.query<MovieType[], MovieType[]>({
+      // Fetch all movies of the list
+      async queryFn(movieList: MovieType[], { dispatch }): Promise<{ data: MovieType[] }> {
+        const detailPromises = movieList.map((movie) =>
+          dispatch(moviesApiSlice.endpoints.getMovieById.initiate(movie.tmdb_id.toString()))
+        );
+        const results = await Promise.all(detailPromises);
+        const data = results.map((result) => result.data).filter((movie): movie is MovieType => !!movie);
+        return { data };
+      },
     }),
     getGenres: builder.query<Genre[], void>({
       query: () => ({
@@ -195,6 +213,7 @@ export const {
   useGetUserdataMovieByIdQuery,
   useGetMoviesByParamsQuery,
   useGetMoviesByFilterQuery,
+  useGetMoviesDetailsQuery,
   useGetGenresQuery,
   useSearchMoviesQuery,
   usePostReviewMutation,
