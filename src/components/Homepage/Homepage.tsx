@@ -14,7 +14,7 @@ function Homepage() {
 
   useEffect(() => {
     prefetchMovies('nowplaying');
-    prefetchMovieList({ page: 1, sort_by: 'popularity.desc' });
+    prefetchMovieList({ page: 1, sort_by: 'popularity.desc', with_genres: '' });
   }, [prefetchMovies, prefetchMovieList]);
 
   return (
