@@ -21,7 +21,7 @@
     "@mantine/hooks": "^7.14.2",
     "@mantine/modals": "^7.14.2",
     "@mantine/notifications": "^7.14.2",
-    "@reduxjs/toolkit": "^2.2.6",
+    "@reduxjs/toolkit": "^2.4.0",
     "@tabler/icons-react": "^3.23.0",
     "axios": "^1.7.4",
     "dayjs": "^1.11.11",
