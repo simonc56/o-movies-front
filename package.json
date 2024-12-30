@@ -14,7 +14,7 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
-    "@mantine/carousel": "^7.14.2",
+    "@mantine/carousel": "^7.15.2",
     "@mantine/core": "^7.14.2",
     "@mantine/dates": "^7.14.2",
     "@mantine/form": "^7.14.2",
