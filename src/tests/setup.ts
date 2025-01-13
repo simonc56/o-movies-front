@@ -1,5 +1,4 @@
 /* eslint-disable class-methods-use-this */
-/* eslint-disable import/no-extraneous-dependencies */
 import * as matchers from '@testing-library/jest-dom/matchers';
 import '@testing-library/jest-dom/vitest';
 import { expect } from 'vitest';

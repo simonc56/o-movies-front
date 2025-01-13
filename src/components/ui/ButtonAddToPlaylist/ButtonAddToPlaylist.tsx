@@ -32,7 +32,7 @@ function ButtonAddToPlaylist({ tmdbId }: { tmdbId: number }) {
           icon: <IconCheck />,
           loading: false,
         });
-      } catch (error) {
+      } catch {
         notifications.show({
           id: 'login-error',
           withCloseButton: true,
