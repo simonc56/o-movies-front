@@ -15,6 +15,11 @@ module.exports = {
     project: './tsconfig.json',
     tsconfigRootDir: __dirname,
   },
+  settings: {
+    react: {
+      version: '18',
+    },
+  },
   overrides: [
     {
       files: ['src/**/features/*.ts'],
