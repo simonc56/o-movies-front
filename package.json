@@ -55,7 +55,7 @@
     "eslint-plugin-react-hooks": "5.1.0",
     "jsdom": "^25.0.1",
     "prettier": "^3.3.2",
-    "sass-embedded": "^1.79.4",
+    "sass-embedded": "^1.83.1",
     "typescript": "^5.5.4",
     "vitest": "^2.1.5"
   }
