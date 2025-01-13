@@ -28,7 +28,7 @@ export const playlistApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: ['Playl
         );
         try {
           await queryFulfilled;
-        } catch (error) {
+        } catch {
           patchPlaylistResult.undo();
         }
       },
@@ -72,7 +72,7 @@ export const playlistApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: ['Playl
         );
         try {
           await queryFulfilled;
-        } catch (error) {
+        } catch {
           patchUserdataResult.undo();
         }
       },
