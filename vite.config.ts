@@ -4,6 +4,11 @@ import { defineConfig } from 'vite';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  resolve: {
+    alias: {
+      '@tabler/icons-react': '@tabler/icons-react/dist/esm/icons/index.mjs',
+    },
+  },
   build: {
     sourcemap: true,
     rollupOptions: {
@@ -29,7 +34,7 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@import "/src/styles/_mantine";`,
+        additionalData: `@use "/src/styles/_mantine";`,
         api: 'modern-compiler',
       },
     },

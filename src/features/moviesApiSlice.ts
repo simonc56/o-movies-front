@@ -147,7 +147,7 @@ export const moviesApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: ['MovieUs
         );
         try {
           await queryFulfilled;
-        } catch (error) {
+        } catch {
           // If the patch request fails, undo the changes
           patchUserdataResult.undo();
           patchMovieResult.undo();
@@ -175,7 +175,7 @@ export const moviesApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: ['MovieUs
               draft.average_rating = data.media_average_rating;
             })
           );
-        } catch (error) {
+        } catch {
           // If the patch request fails, undo the changes
           patchUserdataResult.undo();
         }
