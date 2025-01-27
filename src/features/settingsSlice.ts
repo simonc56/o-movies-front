@@ -37,8 +37,6 @@ const settingsSlice = createSlice({
   },
 });
 
-export const selectUser = (state: RootState) => state.settings.user;
-
 export default settingsSlice.reducer;
 
 export const { logout, login, updateToken, saveNews } = settingsSlice.actions;
