@@ -1,4 +1,16 @@
-import { Anchor, Button, Center, Checkbox, Group, PasswordInput, Text, TextInput, Tooltip, rem } from '@mantine/core';
+import {
+  Anchor,
+  Button,
+  Center,
+  Checkbox,
+  Group,
+  PasswordInput,
+  Text,
+  TextInput,
+  Tooltip,
+  rem,
+  MantineColor
+} from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { IconCheck, IconInfoCircle, IconX } from '@tabler/icons-react';
 import { ChangeEvent, useEffect, useState } from 'react';
@@ -29,7 +41,7 @@ function ConnectionPage() {
         autoClose: 5000,
         title: 'Vous êtes connecté',
         message: `Bienvenue ${loginData.firstname}, vous êtes chez vous !`,
-        color: 'green',
+        color: 'green' as MantineColor,
         icon: <IconCheck />,
         loading: false,
       });
@@ -52,7 +64,7 @@ function ConnectionPage() {
         autoClose: 5000,
         title: 'Impossible de se connecter',
         message: errorMessage,
-        color: 'red',
+        color: 'red' as MantineColor,
         icon: <IconX />,
         loading: false,
       });

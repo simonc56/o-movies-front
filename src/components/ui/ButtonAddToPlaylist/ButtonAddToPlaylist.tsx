@@ -1,4 +1,4 @@
-import { Button, Menu } from '@mantine/core';
+import {Button, MantineColor, Menu} from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { IconCheck, IconChevronDown, IconX } from '@tabler/icons-react';
 import { useGetUserdataMovieByIdQuery } from '../../../features/moviesApiSlice';
@@ -28,7 +28,7 @@ function ButtonAddToPlaylist({ tmdbId }: { tmdbId: number }) {
           autoClose: 5000,
           // title: 'Vous êtes connecté',
           message: `Film ajouté à la liste ${listName} !`,
-          color: 'green',
+          color: 'green' as MantineColor,
           icon: <IconCheck />,
           loading: false,
         });
@@ -39,7 +39,7 @@ function ButtonAddToPlaylist({ tmdbId }: { tmdbId: number }) {
           autoClose: 5000,
           // title: 'Erreur',
           message: `Erreur lors de l'ajout du film à la liste`,
-          color: 'red',
+          color: 'red' as MantineColor,
           icon: <IconX />,
           loading: false,
         });
