@@ -1,10 +1,10 @@
-import { EnhancedStore } from '@reduxjs/toolkit';
-import axios, { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
-import { jwtDecode } from 'jwt-decode';
-import { SignupCredentials, SuccessRefreshResponse } from '../@types/Credentials';
-import { logout, updateToken } from '../features/settingsSlice';
+import {EnhancedStore} from '@reduxjs/toolkit';
+import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig} from 'axios';
+import {jwtDecode} from 'jwt-decode';
+import {SignupCredentials, SuccessRefreshResponse} from '../@types/Credentials';
+import {logout, updateToken} from '../features/settingsSlice';
 
-export const instanceAxios = axios.create({
+export const instanceAxios: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
 });
 
@@ -13,15 +13,14 @@ export const instanceAxios = axios.create({
 // #region ==========     User      ==========
 
 export async function register(credentials: SignupCredentials) {
-  const response = await instanceAxios.post('/auth/register', credentials);
-  return response;
+  return await instanceAxios.post('/auth/register', credentials);
 }
 export async function refreshToken(currentToken: string): Promise<AxiosResponse> {
-  const response = await instanceAxios.post('/auth/refresh-token', null, {
-    withCredentials: true,
-    headers: { Authorization: `Bearer ${currentToken}` },
-  });
-  return response;
+    const config: AxiosRequestConfig = {
+        withCredentials: true,
+        headers: {Authorization: `Bearer ${currentToken}`},
+    }
+  return await instanceAxios.post('/auth/refresh-token', null, config);
 }
 // #endregion
 
@@ -29,8 +28,7 @@ export async function refreshToken(currentToken: string): Promise<AxiosResponse>
 
 // not as a RTK Query because called in a loop in MoviesPage.tsx (hook in a loop is forbidden)
 export async function getMovieById(id: string) {
-  const response = await instanceAxios.get(`/movie/${id}`);
-  return response;
+  return await instanceAxios.get(`/movie/${id}`);
 }
 // #endregion
 

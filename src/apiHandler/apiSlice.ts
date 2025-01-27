@@ -1,29 +1,30 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { AxiosError, AxiosRequestConfig } from 'axios';
-import { instanceAxios } from './api';
+import {instanceAxios} from './api';
 
-const shouldAddCredentials = (method: string | undefined, url: string) => {
+export interface CustomAxiosRequestConfig extends AxiosRequestConfig {
+  withCredentials?: boolean;
+}
+
+const shouldAddCredentials = (method: string | undefined, url: string | undefined) => {
   const credentialsMethods = ['post', 'put', 'patch', 'delete'];
   if (method && credentialsMethods.includes(method.toLowerCase())) return true;
-  if (url.endsWith('userdata') || url.endsWith('profil') || url.includes('playlist')) return true;
-  return false;
-};
-
-type BaseQueryParams = {
-  url: string;
-  method?: AxiosRequestConfig['method'];
-  data?: AxiosRequestConfig['data'];
-  params?: AxiosRequestConfig['params'];
+  return !!(url && (url.endsWith('userdata') || url.endsWith('profil') || url.includes('playlist')));
 };
 
 const apiSlice = createApi({
-  baseQuery: async ({ url, method, data, params }: BaseQueryParams) => {
+  baseQuery: async (args: AxiosRequestConfig) => {
     try {
-      let withCredentials = false;
-      // cas de figure où on a besoin de withCredentials
-      if (shouldAddCredentials(method, url)) withCredentials = true;
-      const response = await instanceAxios({ url, method, data, params, withCredentials });
-      return response.data;
+      const { url, method, data, params } = args;
+      const requestConfig: CustomAxiosRequestConfig = {
+        url,
+        method,
+        data,
+        params,
+        withCredentials: shouldAddCredentials(method, url)
+      };
+      const response = await instanceAxios(requestConfig);
+      return {data: response.data};
     } catch (axiosError) {
       const err = axiosError as AxiosError;
       return {
