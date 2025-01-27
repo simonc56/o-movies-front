@@ -1,11 +1,11 @@
-import { Button, Center, Group, PasswordInput, Progress, TextInput } from '@mantine/core';
+import {Button, Center, Group, MantineColor, PasswordInput, Progress, TextInput} from '@mantine/core';
 import { DateInput } from '@mantine/dates';
 import { notifications } from '@mantine/notifications';
 import { IconCheck, IconX } from '@tabler/icons-react';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import 'dayjs/locale/fr';
-import { useState } from 'react';
+import {ChangeEvent, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { register } from '../../apiHandler/api';
 import './SignupPage.scss';
@@ -13,9 +13,9 @@ import './SignupPage.scss';
 // to use French locale for birthdate calendars
 dayjs.locale('fr');
 
-function PasswordRequirement({ meets, label }: { meets: boolean; label: string }) {
+export function PasswordRequirement({ meets, label, key }: { meets: boolean; label: string, key: string }) {
   return (
-    <div style={{ color: meets ? 'teal' : 'red', marginTop: 5, fontSize: '0.875rem' }}>
+    <div style={{ color: meets ? 'teal' : 'red', marginTop: 5, fontSize: '0.875rem' }} key={key}>
       <Center inline>
         {meets ? <IconCheck size="0.9rem" stroke={1.5} /> : <IconX size="0.9rem" stroke={1.5} />}
         <span style={{ marginLeft: 7 }}>{label}</span>
@@ -24,7 +24,7 @@ function PasswordRequirement({ meets, label }: { meets: boolean; label: string }
   );
 }
 
-const requirements = [
+export const requirements = [
   { re: /.{8,}/, label: 'Avoir au moins 8 caractères' },
   { re: /[0-9]/, label: 'Inclure au moins un chiffre' },
   { re: /[a-z]/, label: 'Inclure au moins une lettre minuscule' },
@@ -32,7 +32,7 @@ const requirements = [
   { re: /[$&+,:;=?@#|'<>.^*()%!-]/, label: 'Inclure au moins un symbole spécial' },
 ];
 
-function getStrength(password: string) {
+export function getStrength(password: string) {
   let multiplier = password.length > 8 ? 0 : 1;
 
   requirements.forEach((requirement) => {
@@ -67,7 +67,7 @@ function SignupPage() {
   const [apiError, setApiError] = useState('');
   const navigate = useNavigate();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setForm((prevForm) => ({ ...prevForm, [name]: value }));
   };
@@ -77,7 +77,7 @@ function SignupPage() {
   };
 
   // block number for name and last name
-  const validateLetters = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const validateLetters = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     const lettersOnly = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]*$/;
 
@@ -97,7 +97,7 @@ function SignupPage() {
     });
   };
   // form submission
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     // Check if passwords match
@@ -123,7 +123,7 @@ function SignupPage() {
           autoClose: 5000,
           title: 'Inscription réussie',
           message: 'Vous pouvez maintenant vous connecter.',
-          color: 'green',
+          color: 'green' as MantineColor,
           icon: <IconCheck />,
           loading: false,
         });
@@ -149,7 +149,7 @@ function SignupPage() {
           autoClose: 5000,
           title: 'Inscription échouée',
           message: apiError,
-          color: 'red',
+          color: 'red' as MantineColor,
           icon: <IconX />,
           loading: false,
         });

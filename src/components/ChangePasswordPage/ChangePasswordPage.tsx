@@ -1,40 +1,9 @@
-import { Button, Center, Group, PasswordInput, Progress } from '@mantine/core';
-import { IconCheck, IconX } from '@tabler/icons-react';
+import { Button, Group, PasswordInput, Progress } from '@mantine/core';
 import axios from 'axios';
-import { useState } from 'react';
+import {ChangeEvent, FormEvent, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
+import {getStrength, PasswordRequirement, requirements} from "../SignupPage/SignupPage";
 import './ChangePasswordPage.scss';
-
-function PasswordRequirement({ meets, label }: { meets: boolean; label: string }) {
-  return (
-    <div style={{ color: meets ? 'teal' : 'red', marginTop: 5, fontSize: '0.875rem' }}>
-      <Center inline>
-        {meets ? <IconCheck size="0.9rem" stroke={1.5} /> : <IconX size="0.9rem" stroke={1.5} />}
-        <span style={{ marginLeft: 7 }}>{label}</span>
-      </Center>
-    </div>
-  );
-}
-
-const requirements = [
-  { re: /.{8,}/, label: 'Avoir au moins 8 caractères' },
-  { re: /[0-9]/, label: 'Inclure au moins un chiffre' },
-  { re: /[a-z]/, label: 'Inclure au moins une lettre minuscule' },
-  { re: /[A-Z]/, label: 'Inclure au moins une lettre majuscule' },
-  { re: /[$&+,:;=?@#|'<>.^*()%!-]/, label: 'Inclure au moins un symbole spécial' },
-];
-
-function getStrength(password: string) {
-  let multiplier = password.length > 8 ? 0 : 1;
-
-  requirements.forEach((requirement) => {
-    if (!requirement.re.test(password)) {
-      multiplier += 1;
-    }
-  });
-
-  return Math.max(100 - (100 / (requirements.length + 1)) * multiplier, 0);
-}
 
 interface FormState {
   currentPassword: string;
@@ -54,7 +23,7 @@ function ChangePasswordPage() {
   const [successMessage, setSuccessMessagePsw] = useState('');
   const navigate = useNavigate();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setForm((prevForm) => ({ ...prevForm, [name]: value }));
   };
@@ -69,7 +38,7 @@ function ChangePasswordPage() {
   };
 
   // form submission
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     // Check if passwords match
