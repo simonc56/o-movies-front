@@ -1,7 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { SuccessLoginResponse } from '../@types/Credentials';
 import { News } from '../@types/SettingsState';
-import type { RootState } from '../store/store';
 import { getInitialSettingsState, removeStoreUser, setStoreUser } from '../utils/localStorage';
 
 const settingsSlice = createSlice({
