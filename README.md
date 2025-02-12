@@ -39,14 +39,6 @@ Installer les dépendances (avec npm, yarn ou pnpm) :
 pnpm install
 ```
 
-Copier le `.env.exemple` en `.env` et modifier la variable d'environnement pour communiquer avec la [partie back-end](https://github.com/simonc56/filmovies-back) du site.
-
-```
-VITE_API_BASE_URL=http://localhost:3000/api
-```
-
-⚠️ Il faut garder le chemin `/api` dans cette url.
-
 Puis build :
 
 ```

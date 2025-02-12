@@ -5,7 +5,7 @@ import {SignupCredentials, SuccessRefreshResponse} from '../@types/Credentials';
 import {logout, updateToken} from '../features/settingsSlice';
 
 export const instanceAxios: AxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
+  baseURL: '/api',
 });
 
 // here are API requests that I could not put in a RTK Query
