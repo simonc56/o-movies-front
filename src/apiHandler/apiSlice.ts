@@ -24,7 +24,7 @@ const apiSlice = createApi({
         withCredentials: shouldAddCredentials(method, url)
       };
       const response = await instanceAxios(requestConfig);
-      return {data: response.data};
+      return {data: response.data.data};
     } catch (axiosError) {
       const err = axiosError as AxiosError;
       return {
