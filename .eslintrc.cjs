@@ -15,6 +15,7 @@ module.exports = {
     project: './tsconfig.json',
     tsconfigRootDir: __dirname,
   },
+  ignorePatterns: ['*.html'],
   settings: {
     react: {
       version: '18',
