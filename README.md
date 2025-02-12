@@ -12,7 +12,7 @@ Source de données : [TMDB](https://www.themoviedb.org/)
 
 [react-badge]: https://img.shields.io/badge/React-18-20232A?logo=react&logoColor=61DAFB
 [redux-badge]: https://img.shields.io/badge/Redux_Toolkit-593d88?logo=redux&logoColor=white
-[mantine-badge]: https://img.shields.io/badge/Mantine-7.11-blue
+[mantine-badge]: https://img.shields.io/badge/Mantine-7.15-blue
 
 ## Fonctionnalités
 
