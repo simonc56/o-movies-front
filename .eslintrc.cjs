@@ -32,7 +32,7 @@ module.exports = {
       },
     },
   ],
-  plugins: ['react', '@typescript-eslint'],
+  plugins: ['react', '@typescript-eslint', 'import'],
   rules: {
     '@typescript-eslint/naming-convention': [
       1,
