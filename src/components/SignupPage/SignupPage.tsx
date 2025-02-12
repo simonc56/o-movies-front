@@ -5,7 +5,7 @@ import { IconCheck, IconX } from '@tabler/icons-react';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import 'dayjs/locale/fr';
-import {ChangeEvent, useState} from 'react';
+import {ChangeEvent, FormEvent, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { register } from '../../apiHandler/api';
 import './SignupPage.scss';
