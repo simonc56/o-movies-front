@@ -1,11 +1,13 @@
-import { Button, Paper } from '@mantine/core';
+import { Paper } from '@mantine/core';
 import { useEffect } from 'react';
 import { BsInstagram, BsTwitterX, BsYoutube } from 'react-icons/bs';
 import { ImFacebook2 } from 'react-icons/im';
+import { Link } from 'react-router-dom';
 import { moviesApiSlice } from '../../features/moviesApiSlice';
 import './Homepage.scss';
 import LastReviews from './LastReviews/LastReviews';
 import NewsFeed from './NewsFeed/NewsFeed';
+import NewsletterSubscribeButton from './NewsletterSubscribeButton/NewsletterSubscribeButton';
 import PosterCarousel from './PosterCarousel/PosterCarousel';
 
 function Homepage() {
@@ -30,14 +32,28 @@ function Homepage() {
         <aside className="hero__right">
           <Paper shadow="xl" p="md" className="socials">
             <div className="socials__icons">
-              <ImFacebook2 />
-              <BsTwitterX />
-              <BsInstagram />
-              <BsYoutube />
+              <Link
+                to="https://www.facebook.com/OMovies-Cine/?locale=fr_FR"
+                target="_blank"
+                style={{ color: 'inherit' }}
+              >
+                <ImFacebook2 />
+              </Link>
+              <Link to="https://www.x.com/omovies-cinema" target="_blank" style={{ color: 'inherit' }}>
+                <BsTwitterX />
+              </Link>
+              <Link to="https://www.instagram.com/omovies-cinema" target="_blank" style={{ color: 'inherit' }}>
+                <BsInstagram />
+              </Link>
+              <Link
+                to="https://www.youtube.com/channel/UCOvZ2QvJ5ZJ3Zg4YXv6Zj2w"
+                target="_blank"
+                style={{ color: 'inherit' }}
+              >
+                <BsYoutube />
+              </Link>
             </div>
-            <Button variant="outline" color="bg" size="md" className="newsletter__button">
-              Newsletter
-            </Button>
+            <NewsletterSubscribeButton />
           </Paper>
         </aside>
       </div>
