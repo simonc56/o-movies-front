@@ -1,4 +1,4 @@
-import { Button, Paper } from '@mantine/core';
+import { Paper } from '@mantine/core';
 import { useEffect } from 'react';
 import { BsInstagram, BsTwitterX, BsYoutube } from 'react-icons/bs';
 import { ImFacebook2 } from 'react-icons/im';
@@ -6,6 +6,7 @@ import { moviesApiSlice } from '../../features/moviesApiSlice';
 import './Homepage.scss';
 import LastReviews from './LastReviews/LastReviews';
 import NewsFeed from './NewsFeed/NewsFeed';
+import NewsletterSubscribeButton from './NewsletterSubscribeButton/NewsletterSubscribeButton';
 import PosterCarousel from './PosterCarousel/PosterCarousel';
 
 function Homepage() {
@@ -35,9 +36,7 @@ function Homepage() {
               <BsInstagram />
               <BsYoutube />
             </div>
-            <Button variant="outline" color="bg" size="md" className="newsletter__button">
-              Newsletter
-            </Button>
+            <NewsletterSubscribeButton />
           </Paper>
         </aside>
       </div>
