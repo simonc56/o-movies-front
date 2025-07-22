@@ -58,7 +58,7 @@ export default function NewsFeed() {
         <Paper key={news.guid} shadow="xl" p="md" className="news">
           <div className="header-news">
             <h3>{removeSquareBracketsTags(news.title)}</h3>
-            <span>{isoDateToFrench(news.pubDate.split('T')[0])}</span>
+            <span>{isoDateToFrench(news.pubDate)}</span>
           </div>
           {news.description}
         </Paper>

@@ -38,7 +38,7 @@ export const getInitialSettingsState = (): SettingsState => {
       token: '',
     },
     news: {
-      rssFeedUrl: 'https://www.premiere.fr/rss/actu-cinema',
+      rssFeedUrl: 'https://www.melty.fr/cinema/feed',
       quantity: 3, // number of rss news to display
       // forbidden words in news title
       forbiddenWords: ['bande-annonce', 'trailer', 'teaser', 'première', 'voici'],
