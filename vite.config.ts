@@ -7,11 +7,6 @@ export default ({ mode }: { mode: string }) => {
   const apiUrl = env.VITE_API_BASE_URL || 'http://localhost:3000';
   return defineConfig({
     plugins: [react()],
-    resolve: {
-      alias: {
-        '@tabler/icons-react': '@tabler/icons-react/dist/esm/icons/index.mjs',
-      },
-    },
     build: {
       sourcemap: true,
       rollupOptions: {
