@@ -1,8 +1,8 @@
-import {EnhancedStore} from '@reduxjs/toolkit';
-import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig} from 'axios';
-import {jwtDecode} from 'jwt-decode';
-import {SignupCredentials, SuccessRefreshResponse} from '../@types/Credentials';
-import {logout, updateToken} from '../features/settingsSlice';
+import { EnhancedStore } from '@reduxjs/toolkit';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import { jwtDecode } from 'jwt-decode';
+import { SignupCredentials, SuccessRefreshResponse } from '../@types/Credentials';
+import { logout, updateToken } from '../features/settingsSlice';
 
 export const instanceAxios: AxiosInstance = axios.create({
   baseURL: '/api',
@@ -16,10 +16,10 @@ export async function register(credentials: SignupCredentials) {
   return await instanceAxios.post('/auth/register', credentials);
 }
 export async function refreshToken(currentToken: string): Promise<AxiosResponse> {
-    const config: AxiosRequestConfig = {
-        withCredentials: true,
-        headers: {Authorization: `Bearer ${currentToken}`},
-    }
+  const config: AxiosRequestConfig = {
+    withCredentials: true,
+    headers: { Authorization: `Bearer ${currentToken}` },
+  };
   return await instanceAxios.post('/auth/refresh-token', null, config);
 }
 // #endregion
