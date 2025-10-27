@@ -40,7 +40,6 @@ export default function NewsFeed() {
         const allowedNews = result.rss.channel.item.filter(filterNews);
         dispatch(saveNews(allowedNews));
       } catch {
-        // eslint-disable-next-line no-console
         console.error(`Error while fetching RSS news from ${rssFeedUrl} : check if rss provider is still available`);
       }
     }
