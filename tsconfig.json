@@ -9,7 +9,7 @@
     "skipLibCheck": true,
 
     /* Node mode */
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "isolatedModules": true,
     "moduleDetection": "force",
     "noEmit": true,

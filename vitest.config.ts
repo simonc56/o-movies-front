@@ -13,7 +13,6 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         additionalData: `@use "/src/styles/_mantine";`,
-        api: 'modern-compiler',
       },
     },
   },
