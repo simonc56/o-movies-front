@@ -2,7 +2,7 @@ import { ActionIcon, Button, Group, Modal, Text, TextInput } from '@mantine/core
 import { ModalsProvider, openConfirmModal } from '@mantine/modals';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck, IconTrash, IconX } from '@tabler/icons-react';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MovieIdentityType } from '../../@types/MovieType';
 import { PlaylistIdentityType } from '../../@types/PlaylistState';
@@ -33,17 +33,19 @@ function PlaylistPage() {
   const [newLabel, setNewLabel] = useState('');
   const [editingLabel, setEditingLabel] = useState<null | string>(null);
   const [modalWidth, setModalWidth] = useState('600px');
-  const [sortedMovies, setSortedMovies] = useState<MovieIdentityType[]>([]);
   const [activeLetter, setActiveLetter] = useState<string>('A');
   const [movieToDelete, setMovieToDelete] = useState<string | null>(null);
 
   const observer = useRef<IntersectionObserver | null>(null);
 
-  const normalizeString = (str: string) =>
-    str
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .toUpperCase();
+  const normalizeString = useCallback(
+    (str: string) =>
+      str
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toUpperCase(),
+    []
+  );
 
   const openAddModal = () => {
     setNewLabel('');
@@ -83,7 +85,6 @@ function PlaylistPage() {
   };
 
   const closeSidebar = () => {
-    setSortedMovies([]);
     document.querySelector('.sidebarPlaylist')?.classList.remove('visible');
   };
 
@@ -112,29 +113,29 @@ function PlaylistPage() {
     });
   };
 
-  const groupMoviesByFirstLetter = (movies: MovieIdentityType[]) => {
-    const groupedMovies: { [key: string]: MovieIdentityType[] } = {};
-    movies.forEach((movie) => {
-      const firstLetter = normalizeString(movie.title_fr.charAt(0));
-      if (!groupedMovies[firstLetter]) {
-        groupedMovies[firstLetter] = [];
-      }
-      groupedMovies[firstLetter].push(movie);
-    });
-    return groupedMovies;
-  };
+  const groupMoviesByFirstLetter = useCallback(
+    (movies: MovieIdentityType[]) => {
+      const groupedMovies: { [key: string]: MovieIdentityType[] } = {};
+      movies.forEach((movie) => {
+        const firstLetter = normalizeString(movie.title_fr.charAt(0));
+        if (!groupedMovies[firstLetter]) {
+          groupedMovies[firstLetter] = [];
+        }
+        groupedMovies[firstLetter].push(movie);
+      });
+      return groupedMovies;
+    },
+    [normalizeString]
+  );
 
-  useEffect(() => {
-    const sortMoviesAlphabetically = (movies: MovieIdentityType[]) =>
-      movies.slice().sort((a, b) => normalizeString(a.title_fr).localeCompare(normalizeString(b.title_fr)));
-
-    if (selectedPlaylist?.medias) {
-      const sorted = sortMoviesAlphabetically(selectedPlaylist.medias);
-      setSortedMovies(sorted);
-    } else {
-      setSortedMovies([]);
+  const sortedMovies = useMemo(() => {
+    if (!selectedPlaylist?.medias) {
+      return [];
     }
-  }, [selectedPlaylist]);
+    return selectedPlaylist.medias
+      .slice()
+      .sort((a, b) => normalizeString(a.title_fr).localeCompare(normalizeString(b.title_fr)));
+  }, [selectedPlaylist, normalizeString]);
 
   useEffect(() => {
     const sections = document.querySelectorAll('.letter-section');

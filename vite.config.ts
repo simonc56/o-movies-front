@@ -33,7 +33,6 @@ export default ({ mode }: { mode: string }) => {
       preprocessorOptions: {
         scss: {
           additionalData: `@use "/src/styles/_mantine";`,
-          api: 'modern-compiler',
         },
       },
     },

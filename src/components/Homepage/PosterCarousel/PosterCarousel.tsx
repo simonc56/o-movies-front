@@ -14,7 +14,14 @@ function PosterCarousel() {
   const displayedList = movieList && movieList.length > 0 ? movieList : emptyList;
 
   return (
-    <Carousel slideSize={230} slideGap="10" height={350} loop controlSize={38} className="poster-carousel">
+    <Carousel
+      slideSize={230}
+      slideGap="10"
+      height={350}
+      controlSize={38}
+      emblaOptions={{ loop: true }}
+      className="poster-carousel"
+    >
       {displayedList.map((movie) => (
         <Carousel.Slide key={movie.tmdb_id}>
           <Link to={movie.title_fr.length ? `/films/${movie.tmdb_id}` : ''}>
