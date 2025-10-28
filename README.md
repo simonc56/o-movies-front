@@ -10,7 +10,7 @@ La partie back-end est disponible ici : https://github.com/simonc56/o-movies-bac
 
 Source de données : [TMDB](https://www.themoviedb.org/)
 
-[react-badge]: https://img.shields.io/badge/React-18-20232A?logo=react&logoColor=61DAFB
+[react-badge]: https://img.shields.io/badge/React-20232A?logo=react&logoColor=61DAFB
 [redux-badge]: https://img.shields.io/badge/Redux_Toolkit-593d88?logo=redux&logoColor=white
 [mantine-badge]: https://img.shields.io/badge/Mantine-8.3-blue
 
