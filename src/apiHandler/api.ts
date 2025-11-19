@@ -55,7 +55,6 @@ export function axiosInterceptor(store: EnhancedStore) {
                 return newToken;
               })
               .catch((error) => {
-                // eslint-disable-next-line no-console
                 console.log('Token refresh failed', error?.message);
                 store.dispatch(logout());
                 throw new Error('Token refresh failed, user is logged out');

@@ -1,11 +1,11 @@
-import {Button, Center, Group, MantineColor, PasswordInput, Progress, TextInput} from '@mantine/core';
+import { Button, Center, Group, MantineColor, PasswordInput, Progress, TextInput } from '@mantine/core';
 import { DateInput } from '@mantine/dates';
 import { notifications } from '@mantine/notifications';
 import { IconCheck, IconX } from '@tabler/icons-react';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import 'dayjs/locale/fr';
-import {ChangeEvent, FormEvent, useState} from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { register } from '../../apiHandler/api';
 import './SignupPage.scss';
@@ -13,7 +13,7 @@ import './SignupPage.scss';
 // to use French locale for birthdate calendars
 dayjs.locale('fr');
 
-export function PasswordRequirement({ meets, label, key }: { meets: boolean; label: string, key: string }) {
+export function PasswordRequirement({ meets, label, key }: { meets: boolean; label: string; key: string }) {
   return (
     <div style={{ color: meets ? 'teal' : 'red', marginTop: 5, fontSize: '0.875rem' }} key={key}>
       <Center inline>
@@ -72,8 +72,8 @@ function SignupPage() {
     setForm((prevForm) => ({ ...prevForm, [name]: value }));
   };
 
-  const handleDateChange = (date: Date | null) => {
-    setForm((prevForm) => ({ ...prevForm, birthday: date }));
+  const handleDateChange = (date: string | null) => {
+    setForm((prevForm) => ({ ...prevForm, birthday: date ? new Date(date) : null }));
   };
 
   // block number for name and last name
