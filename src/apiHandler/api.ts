@@ -15,7 +15,7 @@ export const instanceAxios: AxiosInstance = axios.create({
 export async function register(credentials: SignupCredentials) {
   return await instanceAxios.post('/auth/register', credentials);
 }
-export async function refreshToken(currentToken: string): Promise<AxiosResponse> {
+export async function refreshToken(currentToken: string): Promise<AxiosResponse<{ data: SuccessRefreshResponse }>> {
   const config: AxiosRequestConfig = {
     withCredentials: true,
     headers: { Authorization: `Bearer ${currentToken}` },
@@ -34,7 +34,7 @@ export async function getMovieById(id: string) {
 
 export function axiosInterceptor(store: EnhancedStore) {
   let isRefreshing = false;
-  let refreshPromise: Promise<string | AxiosResponse> | null = null;
+  let refreshPromise: Promise<string | void>;
 
   const isRefreshRequest = (config: InternalAxiosRequestConfig) => config.url?.slice(-14) === '/refresh-token';
   // axios interceptor before any request to refresh token before it expires
@@ -50,7 +50,7 @@ export function axiosInterceptor(store: EnhancedStore) {
             isRefreshing = true;
             refreshPromise = refreshToken(token)
               .then((response) => {
-                const { token: newToken } = response.data.data as SuccessRefreshResponse;
+                const { token: newToken } = response.data.data;
                 store.dispatch(updateToken(newToken)); // update token in settings state
                 return newToken;
               })
@@ -61,7 +61,6 @@ export function axiosInterceptor(store: EnhancedStore) {
               })
               .finally(() => {
                 isRefreshing = false;
-                refreshPromise = null;
               });
           }
           // kind of stop point here, wait for the new token before sending the request

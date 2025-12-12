@@ -6,7 +6,7 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 import 'dayjs/locale/fr';
 import { ChangeEvent, FormEvent, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { register } from '../../apiHandler/api';
 import './SignupPage.scss';
 

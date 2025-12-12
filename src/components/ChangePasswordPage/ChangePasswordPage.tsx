@@ -1,7 +1,7 @@
 import { Button, Group, PasswordInput, Progress } from '@mantine/core';
 import axios from 'axios';
 import { ChangeEvent, FormEvent, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { getStrength, PasswordRequirement, requirements } from '../SignupPage/SignupPage';
 import './ChangePasswordPage.scss';
 

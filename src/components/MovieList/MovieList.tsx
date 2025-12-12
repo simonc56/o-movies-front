@@ -1,7 +1,7 @@
 import { Button, Card, Center, Group, Loader, Text, rem, useMantineTheme } from '@mantine/core';
 import { IconEye, IconMessageCircle } from '@tabler/icons-react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { ParamsType } from '../../@types/MovieState';
 import { Genre } from '../../@types/MovieType';
 import no_poster from '../../assets/no-poster.webp';

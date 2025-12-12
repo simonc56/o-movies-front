@@ -1,5 +1,5 @@
 import { Carousel } from '@mantine/carousel';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import no_poster from '../../../assets/no-poster.webp';
 import { useGetMoviesByFilterQuery } from '../../../features/moviesApiSlice';
 import './PosterCarousel.scss';

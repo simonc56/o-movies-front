@@ -1,6 +1,6 @@
 import { FaCommentAlt } from 'react-icons/fa';
 import { MdMovie } from 'react-icons/md';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { isoDateToFrench } from '../../../utils/utils';
 import './Review.scss';
 

@@ -2,7 +2,7 @@ import { Paper } from '@mantine/core';
 import { useEffect } from 'react';
 import { BsInstagram, BsTwitterX, BsYoutube } from 'react-icons/bs';
 import { ImFacebook2 } from 'react-icons/im';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { moviesApiSlice } from '../../features/moviesApiSlice';
 import './Homepage.scss';
 import LastReviews from './LastReviews/LastReviews';
