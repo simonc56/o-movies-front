@@ -3,8 +3,9 @@
     "target": "ESNext",
     "useDefineForClassFields": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "types": ["@reduxjs/toolkit", "axios"],
+    "types": ["react", "@reduxjs/toolkit", "axios"],
     "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "module": "ESNext",
     "skipLibCheck": true,
 
