@@ -3,7 +3,7 @@ import { ModalsProvider, openConfirmModal } from '@mantine/modals';
 import { showNotification } from '@mantine/notifications';
 import { IconCheck, IconTrash, IconX } from '@tabler/icons-react';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { MovieIdentityType } from '../../@types/MovieType';
 import { PlaylistIdentityType } from '../../@types/PlaylistState';
 import no_poster from '../../assets/no-poster.webp';

@@ -1,6 +1,6 @@
 import { Badge, Button, Card, Image, Text } from '@mantine/core';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { MoviesFilter } from '../../@types/MovieState';
 import no_poster from '../../assets/no-poster.webp';
 import { useGetMoviesByFilterQuery, useGetMoviesDetailsQuery } from '../../features/moviesApiSlice';

@@ -14,7 +14,7 @@ import {
 import { notifications } from '@mantine/notifications';
 import { IconCheck, IconInfoCircle, IconX } from '@tabler/icons-react';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router';
 import { useLoginMutation } from '../../features/settingsApiSlice';
 import { login } from '../../features/settingsSlice';
 import { useAppDispatch } from '../../store/hooks';

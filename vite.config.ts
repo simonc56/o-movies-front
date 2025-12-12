@@ -21,7 +21,7 @@ export default ({ mode }: { mode: string }) => {
               '@mantine/modals',
               '@mantine/notifications',
             ],
-            'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+            'react-vendor': ['react', 'react-dom', 'react-router'],
             'redux-vendor': ['@reduxjs/toolkit', 'react-redux', 'redux'],
             'icons': ['@tabler/icons-react', 'react-icons'],
             'utils': ['axios', 'dayjs'],

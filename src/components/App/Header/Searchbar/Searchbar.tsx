@@ -1,7 +1,7 @@
 import { Autocomplete, Loader } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import { IoIosSearch } from 'react-icons/io';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { MovieResultType } from '../../../../@types/MovieType';
 import { useSearchMoviesQuery } from '../../../../features/moviesApiSlice';
 import { isoDateToYear } from '../../../../utils/utils';
