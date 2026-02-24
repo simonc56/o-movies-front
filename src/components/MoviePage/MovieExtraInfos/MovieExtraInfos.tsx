@@ -1,5 +1,5 @@
 import { Rating } from '@mantine/core';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import MovieType from '../../../@types/MovieType';
 import { useAppSelector } from '../../../store/hooks';
 import { cleanRating } from '../../../utils/utils';

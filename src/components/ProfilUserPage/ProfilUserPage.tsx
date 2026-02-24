@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { useGetUserPlaylistsQuery } from '../../features/playlistApiSlice';
 import { useGetProfileQuery } from '../../features/settingsApiSlice';
 import { isoDateToFrench } from '../../utils/utils';

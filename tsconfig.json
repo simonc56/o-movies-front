@@ -3,12 +3,14 @@
     "target": "ESNext",
     "useDefineForClassFields": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "types": ["react", "@reduxjs/toolkit", "axios"],
     "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "module": "ESNext",
     "skipLibCheck": true,
 
     /* Node mode */
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "isolatedModules": true,
     "moduleDetection": "force",
     "noEmit": true,
@@ -24,6 +26,7 @@
     "vite.config.ts",
     "vitest.config.ts",
     ".eslintrc.cjs",
-    "src"
+    "src/**/*ts",
+    "src/**/*.tsx"
   ],
 }

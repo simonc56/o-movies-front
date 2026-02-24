@@ -27,15 +27,15 @@ export function budgetToMillions(budget: number) {
 
 /**
  * Transform iso date to french readable date
- * @param isoDate format : "2021-08-04"
+ * @param isoDate format : "2021-08-04T12:00:00Z"
  * @returns string (format : 4 août 2021)
  */
 export function isoDateToFrench(isoDate: string, long = false) {
   let cleanDate = isoDate;
   let time = '';
-  if (isoDate.includes('T')) {
-    [cleanDate, time] = isoDate.split('T');
-    time = ` à ${time.slice(0, 5)}`;
+  if (isoDate.length > 10 && isoDate[10] === 'T') {
+    cleanDate = isoDate.slice(0, 10);
+    time = ` à ${isoDate.slice(11, 16)}`;
   }
   const date = new Date(cleanDate);
   return `${date.getDate()} ${date.toLocaleDateString('fr-FR', { month: long ? 'long' : 'short' })} ${date.getFullYear()}${time}`;

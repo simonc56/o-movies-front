@@ -4,17 +4,17 @@ import {
   Center,
   Checkbox,
   Group,
+  MantineColor,
   PasswordInput,
   Text,
   TextInput,
   Tooltip,
   rem,
-  MantineColor
 } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { IconCheck, IconInfoCircle, IconX } from '@tabler/icons-react';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router';
 import { useLoginMutation } from '../../features/settingsApiSlice';
 import { login } from '../../features/settingsSlice';
 import { useAppDispatch } from '../../store/hooks';
@@ -33,7 +33,6 @@ function ConnectionPage() {
 
   useEffect(() => {
     if (loginIsSuccess && loginData) {
-      setLoading(false);
       dispatch(login(loginData));
       notifications.show({
         id: 'login-success',
@@ -68,7 +67,6 @@ function ConnectionPage() {
         icon: <IconX />,
         loading: false,
       });
-      setLoading(false);
     }
   }, [loginIsSuccess, loginIsError, navigate, loginData, loginError, dispatch]);
 
@@ -88,7 +86,8 @@ function ConnectionPage() {
   const onSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setLoading(true);
-    doLogin({ email, password, stayConnected });
+    await doLogin({ email, password, stayConnected });
+    setLoading(false);
   };
 
   // Tooltip for additional information

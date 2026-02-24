@@ -11,7 +11,7 @@ import MovieType, { Genre, MovieResultType, MovieUserData } from '../@types/Movi
 import apiSlice from '../apiHandler/apiSlice';
 import { isoDateToYear } from '../utils/utils';
 
-export const moviesApiSlice = apiSlice.enhanceEndpoints({ addTagTypes: ['MovieUserdata'] }).injectEndpoints({
+export const moviesApiSlice = apiSlice.enhanceEndpoints<string>({ addTagTypes: ['MovieUserdata'] }).injectEndpoints({
   endpoints: (builder: EndpointBuilder<BaseQueryFn, string, string>) => ({
     getMovieById: builder.query<MovieType, string | number>({
       query: (id) => ({

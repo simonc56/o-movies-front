@@ -1,6 +1,6 @@
 import { MantineProvider } from '@mantine/core';
 import { Notifications } from '@mantine/notifications';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router';
 import { useAppSelector } from '../../store/hooks';
 import theme from '../../styles/theme';
 import ChangePasswordPage from '../ChangePasswordPage/ChangePasswordPage';

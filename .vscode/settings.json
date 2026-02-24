@@ -13,7 +13,6 @@
   "source.fixAll": "explicit",
   "source.organizeImports": "explicit"
   },
-  "eslint.useFlatConfig": false,
   "files.exclude": {
     "USE_GITIGNORE": true
   },
@@ -37,8 +36,5 @@
     "markdown": "html",
     "ejs": "html"
   },
-  "workbench.iconTheme": "material-icon-theme",
-  "cSpell.words": [
-    "airbnb"
-  ]
+  "workbench.iconTheme": "material-icon-theme"
 }
