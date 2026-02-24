@@ -1,8 +1,8 @@
 import { Button, Group, PasswordInput, Progress } from '@mantine/core';
 import axios from 'axios';
-import {ChangeEvent, FormEvent, useState} from 'react';
-import { useNavigate } from 'react-router-dom';
-import {getStrength, PasswordRequirement, requirements} from "../SignupPage/SignupPage";
+import { ChangeEvent, FormEvent, useState } from 'react';
+import { useNavigate } from 'react-router';
+import { getStrength, PasswordRequirement, requirements } from '../SignupPage/SignupPage';
 import './ChangePasswordPage.scss';
 
 interface FormState {
@@ -51,7 +51,6 @@ function ChangePasswordPage() {
         const { currentPassword, newPassword } = form;
         // Change password with API
         const response = await axios.post('/api/change-password', { currentPassword, newPassword });
-        // eslint-disable-next-line no-console
         console.log(response.data);
         setSuccessMessagePsw('Mot de passe changé avec succès !');
         resetForm();

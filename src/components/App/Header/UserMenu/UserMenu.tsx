@@ -1,6 +1,6 @@
 import { Menu, UnstyledButton } from '@mantine/core';
 import { IconLogout, IconUser } from '@tabler/icons-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router';
 import { logout } from '../../../../features/settingsSlice';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 import AvatarName from './AvatarName';

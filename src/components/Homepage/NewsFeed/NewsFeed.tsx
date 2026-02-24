@@ -40,7 +40,6 @@ export default function NewsFeed() {
         const allowedNews = result.rss.channel.item.filter(filterNews);
         dispatch(saveNews(allowedNews));
       } catch {
-        // eslint-disable-next-line no-console
         console.error(`Error while fetching RSS news from ${rssFeedUrl} : check if rss provider is still available`);
       }
     }
@@ -58,7 +57,7 @@ export default function NewsFeed() {
         <Paper key={news.guid} shadow="xl" p="md" className="news">
           <div className="header-news">
             <h3>{removeSquareBracketsTags(news.title)}</h3>
-            <span>{isoDateToFrench(news.pubDate.split('T')[0])}</span>
+            <span>{isoDateToFrench(news.pubDate)}</span>
           </div>
           {news.description}
         </Paper>

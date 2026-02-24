@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import Loader from '../ui/Loader/Loader';
 import MovieExtraInfos from './MovieExtraInfos/MovieExtraInfos';
 import MovieInfos from './MovieInfos/MovieInfos';

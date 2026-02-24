@@ -28,7 +28,6 @@ function NewReview({ tmdbId }: { tmdbId: number }) {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!tmdbId) {
-      // eslint-disable-next-line no-console
       console.error('No tmdbId provided, impossible to post review');
       return;
     }

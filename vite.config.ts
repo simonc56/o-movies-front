@@ -7,11 +7,6 @@ export default ({ mode }: { mode: string }) => {
   const apiUrl = env.VITE_API_BASE_URL || 'http://localhost:3000';
   return defineConfig({
     plugins: [react()],
-    resolve: {
-      alias: {
-        '@tabler/icons-react': '@tabler/icons-react/dist/esm/icons/index.mjs',
-      },
-    },
     build: {
       sourcemap: true,
       rollupOptions: {
@@ -26,7 +21,7 @@ export default ({ mode }: { mode: string }) => {
               '@mantine/modals',
               '@mantine/notifications',
             ],
-            'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+            'react-vendor': ['react', 'react-dom', 'react-router'],
             'redux-vendor': ['@reduxjs/toolkit', 'react-redux', 'redux'],
             'icons': ['@tabler/icons-react', 'react-icons'],
             'utils': ['axios', 'dayjs'],
@@ -38,7 +33,6 @@ export default ({ mode }: { mode: string }) => {
       preprocessorOptions: {
         scss: {
           additionalData: `@use "/src/styles/_mantine";`,
-          api: 'modern-compiler',
         },
       },
     },

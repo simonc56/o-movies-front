@@ -1,6 +1,6 @@
 import { Box, Burger, Button, Divider, Drawer, Group } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router';
 import logo from '../../../assets/logo-pop-corn.webp';
 import { logout } from '../../../features/settingsSlice';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
