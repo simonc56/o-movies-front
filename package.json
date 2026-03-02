@@ -25,7 +25,7 @@
     "@mantine/modals": "^8.3.5",
     "@mantine/notifications": "^8.3.5",
     "@reduxjs/toolkit": "2.9.2",
-    "@tabler/icons-react": "^3.35.0",
+    "@tabler/icons-react": "^3.38.0",
     "axios": "^1.12.2",
     "dayjs": "^1.11.18",
     "embla-carousel": "^8.6.0",
