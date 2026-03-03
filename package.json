@@ -31,7 +31,7 @@
     "embla-carousel": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
     "events": "^3.3.0",
-    "fast-xml-parser": "^5.3.6",
+    "fast-xml-parser": "^5.3.8",
     "jwt-decode": "^4.0.0",
     "postcss": "^8.5.6",
     "react": "^19.2.0",
