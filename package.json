@@ -60,7 +60,7 @@
     "eslint-plugin-import": "2.32.0",
     "eslint-plugin-react": "7.37.2",
     "eslint-plugin-react-hooks": "7.0.1",
-    "globals": "^16.4.0",
+    "globals": "^17.4.0",
     "jsdom": "^27.0.1",
     "prettier": "^3.6.2",
     "sass-embedded": "^1.93.2",
