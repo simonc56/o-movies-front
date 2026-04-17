@@ -1,6 +1,7 @@
 import { createTheme } from '@mantine/core';
 
 export default createTheme({
+  defaultRadius: 'sm',
   primaryColor: 'primary',
   // ci-dessous le theme de couleurs utilisé par mantine
   // les variables css utilisent les mêmes couleurs redéclarées dans _mantine.scss

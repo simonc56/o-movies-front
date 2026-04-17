@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { IconX, IconCheck } from '@tabler/icons-react';
 import { Button, Notification } from '@mantine/core';
+import { IconCheck } from '@tabler/icons-react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import './ContactPage.scss';
 
@@ -97,7 +97,7 @@ function ContactPage() {
                 icon={<IconCheck size={18} />}
                 withBorder
                 onClose={handleCloseNotification}
-                closeButtonProps={{ icon: <IconX size={18} /> }}
+                closeButtonProps={{ 'aria-label': 'Fermer la notification' }}
               >
                 Nous vous répondrons par e-mail dans les meilleurs délais.
               </Notification>

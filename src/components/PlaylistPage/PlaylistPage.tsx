@@ -1,6 +1,6 @@
 import { ActionIcon, Button, Group, Modal, Text, TextInput } from '@mantine/core';
 import { ModalsProvider, openConfirmModal } from '@mantine/modals';
-import { showNotification } from '@mantine/notifications';
+import { notifications } from '@mantine/notifications';
 import { IconCheck, IconTrash, IconX } from '@tabler/icons-react';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router';
@@ -91,7 +91,7 @@ function PlaylistPage() {
   const removePlaylist = (playlist: PlaylistIdentityType) => {
     deletePlaylist(playlist.id);
     closeSidebar();
-    showNotification({
+    notifications.show({
       title: 'Playlist supprimée',
       message: `La playlist "${playlist.name}" a été supprimée.`,
       color: 'red',
@@ -177,7 +177,7 @@ function PlaylistPage() {
   const removeMovieFromPlaylist = (movie: MovieIdentityType) => {
     if (selectedPlaylist) {
       deleteMediaFromPlaylist({ id: selectedPlaylist.playlist_id, tmdb_id: movie.tmdb_id });
-      showNotification({
+      notifications.show({
         title: 'Film supprimé',
         message: `Le film "${movie.title_fr}" a été supprimé de la playlist "${selectedPlaylist.name}".`,
         color: 'green',

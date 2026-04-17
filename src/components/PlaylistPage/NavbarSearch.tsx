@@ -83,7 +83,7 @@ function NavbarSearch({
     <nav className={classes.navbarPlaylist}>
       <div className={classes.sectionPlaylist}>
         <Group className={classes.collectionsHeaderPlaylist} justify="space-between">
-          <Text size="lg" fw={700} color="var(--color-bg)" style={{ fontSize: rem(24) }}>
+          <Text size="lg" fw={700} c="var(--color-bg)" style={{ fontSize: rem(24) }}>
             Mes Playlists
           </Text>
           <Tooltip label="Créer une playlist" withArrow position="right">
