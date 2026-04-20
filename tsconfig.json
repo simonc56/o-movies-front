@@ -25,7 +25,7 @@
   "include": [
     "vite.config.ts",
     "vitest.config.ts",
-    ".eslintrc.cjs",
+    "eslint.config.js",
     "src/**/*ts",
     "src/**/*.tsx"
   ],

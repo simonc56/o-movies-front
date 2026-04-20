@@ -1,34 +1,27 @@
-const { defineConfig, globalIgnores } = require('eslint/config');
+import { defineConfig, globalIgnores } from 'eslint/config';
 
-const globals = require('globals');
-const tsParser = require('@typescript-eslint/parser');
-const react = require('eslint-plugin-react');
-const reactHooks = require('eslint-plugin-react-hooks');
-const typescriptEslint = require('@typescript-eslint/eslint-plugin');
-const _import = require('eslint-plugin-import');
+import typescriptEslint from '@typescript-eslint/eslint-plugin';
+import eslintConfigPrettier from 'eslint-config-prettier';
+import _import from 'eslint-plugin-import';
+import react from 'eslint-plugin-react';
+import reactHooks from 'eslint-plugin-react-hooks';
+import globals from 'globals';
 
-const { fixupPluginRules } = require('@eslint/compat');
+import { fixupPluginRules } from '@eslint/compat';
 
-const js = require('@eslint/js');
+import js from '@eslint/js';
 
-const { FlatCompat } = require('@eslint/eslintrc');
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all,
-});
-
-module.exports = defineConfig([
+export default defineConfig([
+  js.configs.recommended,
+  ...typescriptEslint.configs['flat/recommended'],
+  react.configs.flat.recommended,
+  reactHooks.configs.flat['recommended-latest'],
+  eslintConfigPrettier,
   {
     languageOptions: {
       globals: {
         ...globals.browser,
       },
-
-      parser: tsParser,
-      ecmaVersion: 'latest',
-      sourceType: 'module',
 
       parserOptions: {
         ecmaFeatures: {
@@ -36,17 +29,9 @@ module.exports = defineConfig([
         },
 
         project: './tsconfig.json',
-        tsconfigRootDir: __dirname,
+        tsconfigRootDir: import.meta.dirname,
       },
     },
-    extends: [
-      compat.extends(
-        'plugin:react/recommended',
-        'plugin:@typescript-eslint/recommended',
-        'plugin:react-hooks/recommended',
-        'prettier'
-      ),
-    ],
 
     settings: {
       react: {
@@ -55,9 +40,6 @@ module.exports = defineConfig([
     },
 
     plugins: {
-      react,
-      'react-hooks': reactHooks,
-      '@typescript-eslint': typescriptEslint,
       import: fixupPluginRules(_import),
     },
 
@@ -71,13 +53,6 @@ module.exports = defineConfig([
       ],
 
       'react/react-in-jsx-scope': 0,
-
-      'react/jsx-filename-extension': [
-        2,
-        {
-          extensions: ['.js', '.jsx', '.ts', '.tsx'],
-        },
-      ],
 
       'react/jsx-props-no-spreading': 0,
       'linebreak-style': 0,
@@ -112,11 +87,11 @@ module.exports = defineConfig([
   {
     files: ['**/vite.config.ts', '**/vitest.config.ts'],
 
-    'rules': {
+    rules: {
       'import/no-extraneous-dependencies': [
         'error',
         {
-          'devDependencies': true,
+          devDependencies: true,
         },
       ],
     },
