@@ -7,6 +7,10 @@
   & .avatar {
     border: 0.125rem solid var(--mantine-color-body);
   }
+  & span.mantine-Avatar-placeholder {
+    color: var(--color-links) !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+  }
   & svg.tabler-icon-chevron-down {
     color: var(--color-links);
   }
