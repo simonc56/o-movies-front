@@ -27,7 +27,7 @@
     "@mantine/notifications": "^9.3.2",
     "@reduxjs/toolkit": "2.11.2",
     "@tabler/icons-react": "^3.44.0",
-    "axios": "^1.18.0",
+    "axios": "^1.20.0",
     "dayjs": "^1.11.21",
     "embla-carousel": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
