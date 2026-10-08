@@ -56,6 +56,11 @@ function NewReview({ tmdbId }: { tmdbId: number }) {
         onChange={handleChange}
         maxLength={1000}
         disabled={alreadyReviewed && !newReview}
+        styles={{
+          label: {
+            fontWeight: 500,
+          },
+        }}
       />
       <Button
         type="submit"
