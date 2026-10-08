@@ -8,7 +8,7 @@
   background: linear-gradient(90deg, #ffffff, rgb(112, 122, 216));
   margin-top: 2rem;
   margin-bottom: 3rem;
-  border-radius: 0.3rem;  
+  border-radius: 0.3rem;
 }
 
 .header2 {
@@ -21,27 +21,25 @@
 }
 
 .sortButton {
-    margin-left: auto;     
+  margin-left: auto;
+}
+
+.loaderContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+@media (max-width: 500px) {
+  .pageTitle2 {
+    font-size: 1.5rem;
+    width: auto;
+    text-align: center;
+    padding-left: 0;
+    background: linear-gradient(90deg, #ffffff, rgb(112, 122, 216));
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: 0.3rem;
   }
-
-  .loaderContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-
-
-
-  @media (max-width: 500px) {
-    .pageTitle2 {
-      font-size: 1.5rem; 
-      width: auto;
-      text-align: center;
-      padding-left: 0; 
-      background: linear-gradient(90deg, #ffffff, rgb(112, 122, 216)); 
-      margin-top: 1rem; 
-      margin-bottom: 1.5rem; 
-      border-radius: 0.3rem;      
-    }
-  }
+}

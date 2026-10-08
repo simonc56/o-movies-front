@@ -41,7 +41,7 @@
 }
 
 .message-contact {
-  resize: none; 
+  resize: none;
   max-height: 250px;
   min-height: 200px;
 }
@@ -59,13 +59,13 @@
   margin-top: 2rem;
 }
 
-.button-container-contact button { 
-  padding: 10px;  
+.button-container-contact button {
+  padding: 10px;
   border: none;
   border-radius: 0.8rem;
   cursor: pointer;
   width: 10rem;
-  }
+}
 
 .button-container-contact {
   display: flex;
@@ -80,7 +80,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 1000;  
+  z-index: 1000;
 }
 
 .overlay {
@@ -92,7 +92,6 @@
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
 }
-
 
 @media (max-width: 844px) {
   .contact-section {

@@ -2,12 +2,12 @@
   margin: auto;
   display: flex;
   background-color: var(--mantine-color-gray-3);
-  justify-content: center;  
+  justify-content: center;
   border-radius: 1rem;
   box-shadow: 0 0 5px rgb(192, 192, 192);
   padding: 2rem;
-  width: 80vh;  
-  flex-direction: column;    
+  width: 80vh;
+  flex-direction: column;
 }
 
 .form-title {
@@ -31,8 +31,8 @@
 }
 
 .input-container {
-  margin-bottom: 1rem;   
-  width: 100%;  
+  margin-bottom: 1rem;
+  width: 100%;
 }
 
 .strength-meter {

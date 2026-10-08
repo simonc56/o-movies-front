@@ -1,4 +1,4 @@
-import {Button, MantineColor, Menu} from '@mantine/core';
+import { Button, MantineColor, Menu } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { IconCheck, IconChevronDown, IconX } from '@tabler/icons-react';
 import { useGetUserdataMovieByIdQuery } from '../../../features/moviesApiSlice';
