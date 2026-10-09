@@ -45,6 +45,7 @@
   }
   
   .articleTitle1 {
+    color: var(--mantine-color-dark);
     display: block;
     margin-top: var(--mantine-spacing-md);
     margin-bottom: rem(5px);

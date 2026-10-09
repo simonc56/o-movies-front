@@ -10,11 +10,47 @@ export default createTheme({
     // 10 nuances pour chaque couleur
     // n°7 : couleur principale
     // n°8 : couleur utilisée quand hover button
-    'white': ['', '', '', '', '', '', '#fff', '', '', ''],
-    'primary': ['', '', '', '', '', '', '#fbda8d', '#ffe697', '#fbda8d', '#ffe697'],
-    'bg': ['', '', '', '', '', '', '#293159', '#373967', '#293159', '#373967'],
-    'links': ['', '', '', '', '', '', '#e5e6ff', '', '', ''],
-    // exemple avec ocean blue
+
+    // Mantine expects 10 valid shades per color token.
+    // The app only uses a few custom tokens, so we define every shade to
+    // avoid broken CSS variables in Mantine 9.
+    'white': ['#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff'],
+    'primary': [
+      '#fff7db',
+      '#ffefc0',
+      '#ffe8a5',
+      '#ffe18b',
+      '#fed970',
+      '#fcd456',
+      '#fbda8d',
+      '#f7cf6d',
+      '#f0c24f',
+      '#e8b63a',
+    ],
+    'bg': [
+      '#3a416f',
+      '#353c68',
+      '#303761',
+      '#2b325a',
+      '#293159',
+      '#272d52',
+      '#293159',
+      '#232946',
+      '#1f233b',
+      '#1a1d31',
+    ],
+    'links': [
+      '#f4f5ff',
+      '#edf0ff',
+      '#e8ebff',
+      '#e5e6ff',
+      '#dfe2ff',
+      '#d7dbff',
+      '#e5e6ff',
+      '#ccd1ff',
+      '#bcc3ff',
+      '#acb4ff',
+    ],
     'ocean-blue': [
       '#7AD1DD',
       '#5FCCDB',

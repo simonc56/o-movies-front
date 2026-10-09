@@ -71,7 +71,7 @@ export default defineConfig([
       'react/require-default-props': 0,
     },
   },
-  globalIgnores(['**/*.html']),
+  globalIgnores(['**/*.html', 'postcss.config.cjs']),
   {
     files: ['src/**/features/*.ts'],
 
