@@ -66,6 +66,7 @@ enum countries_fr {
   SE = 'Suède',
   SI = 'Slovénie',
   SK = 'Slovaquie',
+  SU = 'URSS',
   TH = 'Thaïlande',
   TR = 'Turquie',
   TW = 'Taïwan',
